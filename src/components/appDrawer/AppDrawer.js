@@ -87,11 +87,11 @@ export default function AppDrawer(props) {
                 </ListItem>
 
                 <ListSubheader disableSticky={true}>Beziehungen</ListSubheader>
-                <AppDrawerItem to="/relationships/documents" icon={<DocumentsRelationIcon/>} label="Dokumentationen" disabled={false}>
+                <AppDrawerItem to="/relationships/documents" icon={<DocumentsRelationIcon/>} label="Dokumentationen" disabled={true}>
                     Verlinkung eines Konzepts zu einer weiterführenden Dokumentation
                 </AppDrawerItem>
 
-                <AppDrawerItem to="/relationships/collects" icon={<CollectsIcon/>} label="Sammlungen">
+                <AppDrawerItem to="/relationships/collects" icon={<CollectsIcon/>} label="Sammlungen" disabled={true}>
                     Beziehungen beliebiger Objekte zu einer Sammlung
                 </AppDrawerItem>
 

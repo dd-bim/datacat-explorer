@@ -45,7 +45,7 @@ export default function RelGroupsView() {
             { loading && <LinearProgress /> }
             <Grid item xs={12} sm={6}>
                 <SearchField value={searchTerm} onChange={handleSearchTermChange} />
-                <SubjectSelect />
+                {/*<SubjectSelect />*/}
             </Grid>
             <Grid item xs={12}>
                 {error && <ErrorAlert/>}

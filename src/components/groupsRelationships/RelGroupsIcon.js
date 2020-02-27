@@ -5,7 +5,7 @@ import {makeStyles} from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => {
     return {
         filterUp: {
-            rotate: '180deg',
+            transform: 'rotate(0.5turn)'
         }
     };
 });
