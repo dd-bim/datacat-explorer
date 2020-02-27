@@ -1,0 +1,15 @@
+#GET http://localhost:8080/subjects
+
+# Vermessung
+POST http://localhost:8080/subjects
+
+{
+    "versionId": "1.0",
+    "versionDate": "2019-12-16",
+    "names": [
+        {
+            "language": "de",
+            "name": "Vermessung"
+        }
+    ]
+}
