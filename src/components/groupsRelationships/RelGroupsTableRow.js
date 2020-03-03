@@ -10,9 +10,9 @@ import RelGroupsChip from './RelGroupsChip';
 import {useHistory} from 'react-router-dom';
 
 export const REL_GROUPS_TABLE_VIEW_DELETE_MUTATION = gql`
-    mutation GroupsRelationshipTableViewDelete($uniqueId: ID!) {
-        deleteGroupsRelationship(uniqueId: $uniqueId) {
-            uniqueId
+    mutation GroupsRelationshipTableViewDelete($id: ID!) {
+        deleteGroupsRelationship(id: $id) {
+            id
         }
     }
 `;
@@ -23,7 +23,7 @@ export default function RelGroupsTableRow(props) {
     const {groupsRelationship} = props;
     const history = useHistory();
     const {
-        uniqueId,
+        id,
         names,
         descriptions,
         versionId,
@@ -42,13 +42,13 @@ export default function RelGroupsTableRow(props) {
     const label = relatingObject.names.reduce(textReducer, '');
 
     const handleDelete = () => {
-        deleteGroupsRelationship({variables: {uniqueId}});
+        deleteGroupsRelationship({variables: {id}});
     };
 
     return (
         <TableRow>
             <TableCell>
-                <RelGroupsChip label={label} onClick={() => history.push(`/relationships/groups/${uniqueId}`)} />
+                <RelGroupsChip label={label} onClick={() => history.push(`/relationships/groups/${id}`)} />
                 <DescriptionButton descriptions={descriptions}/>
             </TableCell>
             <TableCell>{toLocaleDateTimeString(created)}</TableCell>
@@ -66,19 +66,19 @@ RelGroupsTableRow.fragments = {
     root: gql`
         fragment RelGroupsTableRowRoot on XtdRelGroups {
             __typename
-            uniqueId
+            id
             created
             lastModified
             versionId
             versionDate
-            names { uniqueId name }
+            names { id name }
             descriptions {
-                uniqueId
+                id
                 description
             }
             relatingObject {
-                uniqueId
-                names { uniqueId name }
+                id
+                names { id name }
             }
             relatedObjects {
                 page { totalElements }

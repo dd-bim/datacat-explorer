@@ -4,7 +4,7 @@ import {FormContext, useForm} from 'react-hook-form';
 import {makeStyles} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import UniqueIdField from '../UniqueIdField';
+import IdField from '../IdField';
 import NamesField from '../NamesField';
 import {useMutation} from '@apollo/client';
 import {addDoc} from './queries';
@@ -43,8 +43,8 @@ export default function DocumentForm(props) {
             <form className={classes.root} onSubmit={handleSubmit(handleAddDocument)} noValidate autoComplete="off">
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
-                        <UniqueIdField
-                            name="uniqueId"
+                        <IdField
+                            name="id"
                             label="Unique ID"
                             {...inputOptions}
                         />
@@ -66,9 +66,9 @@ export default function DocumentForm(props) {
 
 DocumentForm.propTypes = {
     defaultValues: PropTypes.shape({
-        uniqueId: PropTypes.string,
+        id: PropTypes.string,
         names: PropTypes.arrayOf(PropTypes.shape({
-            uniqueId: PropTypes.string,
+            id: PropTypes.string,
             languageCode: PropTypes.string,
             name: PropTypes.string,
         })),
@@ -78,9 +78,9 @@ DocumentForm.propTypes = {
 
 DocumentForm.defaultProps = {
     defaultValues: {
-        uniqueId: '',
+        id: '',
         names: [{
-            uniqueId: '',
+            id: '',
             languageCode: 'de',
             name: '',
         }],

@@ -91,7 +91,7 @@ export default function RelCollectsList(props) {
             data={data}
             detailPanel={rowData => (
                 <div className={classes.root}>
-                    {rowData.relatedThings.map(x => <ItemChip key={x.uniqueId} label={x.names[0].name}/>)}
+                    {rowData.relatedThings.map(x => <ItemChip key={x.id} label={x.names[0].name}/>)}
                 </div>
             )}
             options={options}/>

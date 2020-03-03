@@ -25,7 +25,7 @@ export default function XtdList(props) {
     const {items, searchTerm, onChange} = props;
 
     const listItems = items.map(item => (
-        <ListItem key={item.uniqueId}>
+        <ListItem key={item.id}>
             <ListItemIcon><SubjectIcon/></ListItemIcon>
             <ListItemText primary={item.label} />
         </ListItem>
@@ -58,7 +58,7 @@ export default function XtdList(props) {
 XtdList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string.isRequired,
-        uniqueId: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
     }))
 };
@@ -67,7 +67,7 @@ XtdList.fragments = {
     root: gql`
         fragment XtdList on XtdRoot {
             type: __typename
-            uniqueId
+            id
             label
         }
     `,

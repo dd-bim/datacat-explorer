@@ -11,7 +11,7 @@ import Layout from './Layout';
 
 const client = new ApolloClient({
     cache: new InMemoryCache({
-        dataIdFromObject: object => object.uniqueId || null
+        dataIdFromObject: object => object.id || null
     }),
     link: new HttpLink({
         uri: process.env.REACT_APP_API

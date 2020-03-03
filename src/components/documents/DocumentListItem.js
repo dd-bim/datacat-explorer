@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 export default function DocumentListItem(props) {
     const {
         __typename,
-        uniqueId,
+        id,
         names,
         created,
         lastModified,
@@ -17,7 +17,7 @@ export default function DocumentListItem(props) {
     } = props;
 
     return (
-        <TableRow key={uniqueId}>
+        <TableRow key={id}>
             <TableCell>
                 <XtdChip type={__typename} names={names} />
             </TableCell>

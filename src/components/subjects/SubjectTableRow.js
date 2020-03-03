@@ -10,9 +10,9 @@ import SubjectChip from './SubjectChip';
 import RelGroupsSelectButton from '../groupsRelationships/RelGroupsSelectButton';
 
 export const SUBJECT_TABLE_VIEW_DELETE_MUTATION = gql`
-    mutation SubjectTableViewDelete($uniqueId: ID!) {
-        deleteSubject(uniqueId: $uniqueId) {
-            uniqueId
+    mutation SubjectTableViewDelete($id: ID!) {
+        deleteSubject(id: $id) {
+            id
         }
     }
 `;
@@ -22,7 +22,7 @@ const textReducer = (acc, cur) => acc ? acc + ', ' + cur.name : cur.name;
 export default function SubjectTableRow(props) {
     const {subject} = props;
     const {
-        uniqueId,
+        id,
         names,
         descriptions,
         versionId,
@@ -35,7 +35,7 @@ export default function SubjectTableRow(props) {
     const [deleteSubject] = useMutation(SUBJECT_TABLE_VIEW_DELETE_MUTATION, {refetchQueries: ['SubjectsView']});
 
     const handleDelete = () => {
-        deleteSubject({variables: {uniqueId}});
+        deleteSubject({variables: {id}});
     };
 
     return (
@@ -48,7 +48,7 @@ export default function SubjectTableRow(props) {
             <TableCell>{toLocaleDateTimeString(lastModified)}</TableCell>
             <TableCell>{versionString}</TableCell>
             <TableCell>
-                <RelGroupsSelectButton uniqueId={uniqueId} totalElements={groups.page.totalElements} />
+                <RelGroupsSelectButton id={id} totalElements={groups.page.totalElements} />
                 <DeleteButton onDelete={handleDelete} />
             </TableCell>
         </TableRow>
@@ -59,17 +59,17 @@ SubjectTableRow.fragments = {
     root: gql`
         fragment SubjectTableRowRoot on XtdSubject {
             __typename
-            uniqueId
+            id
             created
             lastModified
             versionId
             versionDate
             names {
-                uniqueId
+                id
                 name
             }
             descriptions {
-                uniqueId
+                id
                 description
             }
             groups {

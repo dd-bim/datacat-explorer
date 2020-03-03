@@ -36,7 +36,7 @@ export default function OldLayout(props) {
         const {label, objectType, subpath} = obj;
         const path = '/objects/';
         const createPath = path + subpath + '/new';
-        const updatePath = path + subpath + '/:uniqueId';
+        const updatePath = path + subpath + '/:id';
         const listPath = path + subpath;
 
         objectRoutes.push(
@@ -73,7 +73,7 @@ export default function OldLayout(props) {
         const {label, collectionType, subpath} = collection;
         const path = '/collections/';
         const createPath = path + subpath + '/new';
-        const updatePath = path + subpath + '/:uniqueId';
+        const updatePath = path + subpath + '/:id';
         const listPath = path + subpath;
 
         collectionRoutes.push(

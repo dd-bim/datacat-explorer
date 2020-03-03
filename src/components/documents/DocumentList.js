@@ -46,10 +46,10 @@ export default function DocumentList() {
             },
         } = documents;
         const tableRows = nodes.map(row => {
-            const uniqueId = row.uniqueId;
-            const handleDelete = () => deleteDocument({variables: {uniqueId}});
+            const id = row.id;
+            const handleDelete = () => deleteDocument({variables: {id}});
             return (
-                <DocumentListItem key={uniqueId} onDelete={handleDelete} {...row} />
+                <DocumentListItem key={id} onDelete={handleDelete} {...row} />
             );
         });
 

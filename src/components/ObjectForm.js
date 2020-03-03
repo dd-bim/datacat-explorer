@@ -52,8 +52,8 @@ const validate = (values) => {
     return new Promise(resolve => {
         const errors = {};
 
-        if (values.uniqueIdOverride && !values.uniqueId) {
-            errors.uniqueId = 'Required if manual override is selected';
+        if (values.idOverride && !values.id) {
+            errors.id = 'Required if manual override is selected';
         }
 
         if (!values.versionDate) {
@@ -99,11 +99,11 @@ export default function ObjectForm(props) {
                         <Grid container item xs={12} spacing={1}>
                             <Grid item xs={10}>
                                 <TextField
-                                    name={'uniqueId'}
+                                    name={'id'}
                                     label={'Unique Id'}
                                     variant={'filled'}
-                                    required={values.uniqueIdOverride}
-                                    disabled={!values.uniqueIdOverride}
+                                    required={values.idOverride}
+                                    disabled={!values.idOverride}
                                     fullWidth
                                     InputProps={{
                                         startAdornment: (
@@ -119,7 +119,7 @@ export default function ObjectForm(props) {
                                 <FormControlLabel
                                     label={<Edit/>}
                                     control={
-                                        <Switch name={'uniqueIdOverride'}/>
+                                        <Switch name={'idOverride'}/>
                                     }
                                 />
                             </Grid>

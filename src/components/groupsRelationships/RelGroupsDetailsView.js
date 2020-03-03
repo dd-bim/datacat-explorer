@@ -11,30 +11,30 @@ import gql from 'graphql-tag';
 import SubjectChip from '../subjects/SubjectChip';
 
 const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
-    query RelGroupsDetailView($uniqueId: ID!, $searchTerm: String, $pageNumber: Int) {
-        groupsRelationship(uniqueId: $uniqueId) {
+    query RelGroupsDetailView($id: ID!, $searchTerm: String, $pageNumber: Int) {
+        groupsRelationship(id: $id) {
             created
             lastModified
             versionId
             versionDate
-            uniqueId
+            id
             names {
-                uniqueId
+                id
                 name
             }
             descriptions {
-                uniqueId
+                id
                 description
             }
             relatingObject {
-                uniqueId
+                id
                 label
                 created
                 lastModified
                 versionId
                 versionDate
                 descriptions {
-                    uniqueId
+                    id
                     description
                 }
             }
@@ -44,7 +44,7 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
             }) {
                 nodes {
                     type: __typename
-                    uniqueId
+                    id
                     label
                 }
                 page {
@@ -58,12 +58,12 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
 `;
 
 export default function RelGroupsDetailsView() {
-    const {params: {uniqueId}} = useRouteMatch();
+    const {params: {id}} = useRouteMatch();
     const [searchTerm, setSearchTerm] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
     const {loading, error, data} = useQuery(
         REL_GROUPS_DETAILS_VIEW_QUERY,
-        {variables: {uniqueId, searchTerm, pageNumber}});
+        {variables: {id, searchTerm, pageNumber}});
 
     if (error) return <ErrorAlert/>;
     if (loading) return <CircularProgress/>;
@@ -83,8 +83,8 @@ export default function RelGroupsDetailsView() {
                 <Grid item xs={12}>
                     <Typography variant="h4">Eigene Eigenschaften</Typography>
                     <Typography variant="body1">
-                        Unique ID: {uniqueId}<br/>
-                        Name: <RelGroupsChip label={`${uniqueId.substr(0, 6)}..<${relatingObject.label}>`}/><br/>
+                        Unique ID: {id}<br/>
+                        Name: <RelGroupsChip label={`${id.substr(0, 6)}..<${relatingObject.label}>`}/><br/>
                         Created: {created}<br/>
                         Last modified: {lastModified}<br/>
                         Version: {versionId} / {versionDate}
@@ -93,7 +93,7 @@ export default function RelGroupsDetailsView() {
                 <Grid item xs={12}>
                     <Typography variant="h4">Gruppierendes Objekt</Typography>
                     <Typography variant="body1">
-                        Unique ID: {relatingObject.uniqueId}<br/>
+                        Unique ID: {relatingObject.id}<br/>
                         Name: <SubjectChip label={relatingObject.label} /><br/>
                         Created: {relatingObject.created}<br/>
                         Last modified: {relatingObject.lastModified}<br/>

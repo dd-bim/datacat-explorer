@@ -2,11 +2,11 @@ import gql from 'graphql-tag';
 
 const docProps = gql`
     fragment DocumentProps on XtdExternalDocument {
-        uniqueId
+        id
         created
         lastModified
         names {
-            uniqueId
+            id
             name
         }
     }
@@ -33,9 +33,9 @@ export const getDocs = gql`
 `;
 
 export const addDoc = gql`
-    mutation addDoc($uniqueId: ID!, $names: [XtdNameInput!]!) {
+    mutation addDoc($id: ID!, $names: [XtdNameInput!]!) {
         addDocument(newDocument: {
-            uniqueId: $uniqueId
+            id: $id
             names: $names
         }) {
             ...DocumentProps
@@ -45,8 +45,8 @@ export const addDoc = gql`
 `;
 
 export const deleteDoc = gql`
-    mutation deleteDocument($uniqueId: ID!) {
-        deleteDocument(uniqueId: $uniqueId) {
+    mutation deleteDocument($id: ID!) {
+        deleteDocument(id: $id) {
             ...DocumentProps
         }
     }

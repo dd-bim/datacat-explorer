@@ -49,13 +49,13 @@ export default function EntityList(props) {
     const {loading, error, data} = useQuery(fetchQuery, {
         variables: Object.assign({
             match,
-            groupUniqueId: selectedGroup ? selectedGroup.uniqueId : '',
+            groupId: selectedGroup ? selectedGroup.id : '',
             pageNumber,
             pageSize,
         }, queryVariables),
     });
     const [executeDelete, { data: deleteData }] = useMutation(deleteMutation, {
-        update(cache, { data: { uniqueId } }) {
+        update(cache, { data: { id } }) {
             console.log(cache.data);
             // const { entity } = cache.readQuery({ query: GET_TODOS });
             // cache.writeQuery({
@@ -100,7 +100,7 @@ export default function EntityList(props) {
                 handleChangePage={setPageNumber}
                 handleChangeRowsPerPage={handleChangeRowsPerPage}
                 onSelectRow={handleSelectedGroupChange}
-                onDeleteRow={id => executeDelete({variables: {uniqueId: id}})}
+                onDeleteRow={id => executeDelete({variables: {id: id}})}
             />
         );
     }

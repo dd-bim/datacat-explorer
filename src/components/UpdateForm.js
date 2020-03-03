@@ -6,12 +6,12 @@ import {removeTypename} from '../utils';
 
 export default function(props) {
     const {fetchQuery, updateMutation, dataKey, after} = props;
-    const { uniqueId } = useParams();
+    const { id } = useParams();
     const [submitted, setSubmitted] = useState(false);
     const [updateRes, executeUpdate] = useMutation(updateMutation);
     const [existingObject] = useQuery({
         query: fetchQuery,
-        variables: {uniqueId}
+        variables: {id}
     });
 
     const handleOnSubmit = obj => {

@@ -33,7 +33,7 @@ export default function TermTableRow(props) {
         row
     } = props;
     const {
-        uniqueId,
+        id,
         versionId,
         versionDate,
         createdAt,
@@ -51,7 +51,7 @@ export default function TermTableRow(props) {
     };
 
     return (
-        <TableRow key={uniqueId}>
+        <TableRow key={id}>
             <TableCell>
                 <XtdChip {...row} />
             </TableCell>
@@ -77,7 +77,7 @@ export default function TermTableRow(props) {
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <List component="ul" dense={true}>
                                         {associatedBy.map(x => (
-                                            <li key={x.uniqueId}>
+                                            <li key={x.id}>
                                                 <XtdChip onClick={() => onSelectRow(x.relatingObject)} {...x.relatingObject} />
                                             </li>
                                         ))}
@@ -87,10 +87,10 @@ export default function TermTableRow(props) {
                         </Grow>
                     )}
                 </Popper>
-                <IconButton component={Link} to={`${toEdit}/${uniqueId}`}>
+                <IconButton component={Link} to={`${toEdit}/${id}`}>
                     <Edit/>
                 </IconButton>
-                <IconButton onClick={() => onDeleteRow(uniqueId)}>
+                <IconButton onClick={() => onDeleteRow(id)}>
                     <DeleteForever/>
                 </IconButton>
             </TableCell>

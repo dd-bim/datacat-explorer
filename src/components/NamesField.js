@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import UniqueIdField from './UniqueIdField';
+import IdField from './IdField';
 import TextField from '@material-ui/core/TextField';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import IconButton from '@material-ui/core/IconButton';
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const defaultValues = () => ({
-    uniqueId: '',
+    id: '',
     languageCode: 'de',
     name: '',
 });
@@ -41,7 +41,7 @@ export default function NamesField(props) {
 
     const items = fields.map((item, index) => {
         const nameErrors = errors.names ? errors.names[index] : false;
-        const uniqueIdName = `${name}[${index}].uniqueId`;
+        const idName = `${name}[${index}].id`;
         const valueName = `${name}[${index}].name`;
 
         return (
@@ -53,7 +53,7 @@ export default function NamesField(props) {
 
                     <Grid key={item.id} container spacing={1}>
                         <Grid item xs={5}>
-                            <UniqueIdField name={uniqueIdName} label="Unique ID" {...inputOptions}/>
+                            <IdField name={idName} label="Unique ID" {...inputOptions}/>
                         </Grid>
                         <Grid item xs={5}>
                             <TextField

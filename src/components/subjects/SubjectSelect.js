@@ -9,7 +9,7 @@ const SUBJECT_SELECT_QUERY = gql`
     query SubjectSelect($term: String) {
         subjects(options: { term: $term}) {
             nodes {
-                uniqueId
+                id
                 names {
                     name
                 }
@@ -45,7 +45,7 @@ export default function SubjectSelect(props) {
             onClose={() => {
                 setOpen(false);
             }}
-            getOptionSelected={(option, value) => option.uniqueId === value.uniqueId}
+            getOptionSelected={(option, value) => option.id === value.id}
             getOptionLabel={option => option.names[0].name}
             options={options}
             loading={loading}

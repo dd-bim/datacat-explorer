@@ -31,7 +31,7 @@ export default function SubjectTable(props) {
             onChangeRowsPerPage={onChangeRowsPerPage}
         >
             {subjects.map((subject) => (
-                <SubjectTableRow key={subject.uniqueId} subject={subject} />
+                <SubjectTableRow key={subject.id} subject={subject} />
             ))}
         </Table>
     );
@@ -49,7 +49,7 @@ SubjectTable.fragments = {
     subjects: gql`
         fragment SubjectTableXtdSubjectConnection on XtdSubjectConnection {
             nodes {
-                uniqueId
+                id
                 ...SubjectTableRowRoot
             }
             page {

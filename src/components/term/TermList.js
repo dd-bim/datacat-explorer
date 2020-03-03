@@ -23,7 +23,7 @@ export default function TermList(props) {
     } = props;
     const tableRows = rows.map(row => (
         <TermTableRow
-            key={row.uniqueId}
+            key={row.id}
             toEdit={toEdit}
             onSelectRow={onSelectRow}
             onDeleteRow={onDeleteRow}

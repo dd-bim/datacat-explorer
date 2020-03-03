@@ -15,7 +15,7 @@ export const REL_GROUPS_SELECT_BUTTON_QUERY = gql`
             pageNumber: $pageNumber
         }) {
             nodes {
-                uniqueId
+                id
                 relatingObject {
                     names {
                         name
@@ -27,10 +27,10 @@ export const REL_GROUPS_SELECT_BUTTON_QUERY = gql`
 `;
 
 export default function RelGroupsSelectButton(props) {
-    const {uniqueId, totalElements, onSelect, ...otherProps} = props;
+    const {id, totalElements, onSelect, ...otherProps} = props;
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);
-    const variables = {relatingObject: uniqueId};
+    const variables = {relatingObject: id};
     const [loadRelGroups, { data }] = useLazyQuery(REL_GROUPS_SELECT_BUTTON_QUERY, {variables});
     const history = useHistory();
 
@@ -39,9 +39,9 @@ export default function RelGroupsSelectButton(props) {
             setOptions([]);
         } else {
             const newOptions = data.groupsRelationships.nodes.map(relationship => {
-                const {uniqueId, relatingObject} = relationship;
+                const {id, relatingObject} = relationship;
                 return {
-                    uniqueId: uniqueId,
+                    id: id,
                     label: relatingObject.names[0].name,
                 }
             });
@@ -59,7 +59,7 @@ export default function RelGroupsSelectButton(props) {
     };
 
     const handleSelect = (option) => {
-        history.push(`/relationships/groups/${option.uniqueId}`);
+        history.push(`/relationships/groups/${option.id}`);
     };
 
     return (

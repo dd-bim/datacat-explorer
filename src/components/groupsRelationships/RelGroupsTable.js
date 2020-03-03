@@ -31,7 +31,7 @@ export default function RelGroupsTable(props) {
             onChangeRowsPerPage={onChangeRowsPerPage}
         >
             {nodes.map((relationship) => (
-                <RelGroupsTableRow key={relationship.uniqueId} groupsRelationship={relationship} />
+                <RelGroupsTableRow key={relationship.id} groupsRelationship={relationship} />
             ))}
         </Table>
     );
@@ -50,7 +50,7 @@ RelGroupsTable.fragments = {
     groupRelationships: gql`
         fragment RelGroupsTableXtdRelGroupsConnection on XtdRelGroupsConnection {
             nodes {
-                uniqueId
+                id
                 ...RelGroupsTableRowRoot
             }
             page {

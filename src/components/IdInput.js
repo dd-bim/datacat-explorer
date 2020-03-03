@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 export default function (props) {
     const {
-        uniqueId,
+        id,
         disabled,
         onChange,
     } = props;
@@ -37,7 +37,7 @@ export default function (props) {
                             </InputAdornment>
                         ),
                     }}
-                    value={uniqueId}
+                    value={id}
                     helperText={'Universally unique ID generated at creation time.'}
                     onChange={e => onChange(e.target.value)}
                 />

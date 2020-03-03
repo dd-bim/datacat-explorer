@@ -4,7 +4,7 @@ export const fetchObjects = gql`
     query FetchTerms($match: String, $pageNumber: Int, $pageSize: Int) { 
         objects(options: {label: xtdObject, match: $match, pageNumber: $pageNumber, pageSize: $pageSize}) {
             nodes {
-                uniqueId
+                id
                 versionId
                 versionDate
                 createdAt

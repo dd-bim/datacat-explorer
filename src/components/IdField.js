@@ -6,35 +6,35 @@ import React, {useState} from 'react';
 import {useFormContext} from 'react-hook-form';
 import get from 'lodash.get';
 
-export default function UniqueIdField(props) {
+export default function IdField(props) {
     const {name, ...otherProps} = props;
     const {register, errors, setValue} = useFormContext();
     const error = get(errors, name);
-    const [overrideUniqueId, setOverrideUniqueId] = useState(false);
+    const [overrideId, setOverrideId] = useState(false);
 
-    const handleUniqueIdOverrideClick = () => {
-        if (overrideUniqueId) {
+    const handleIdOverrideClick = () => {
+        if (overrideId) {
             setValue(name, '', true);
         }
-        setOverrideUniqueId(!overrideUniqueId);
+        setOverrideId(!overrideId);
     };
 
     return (
         <TextField
             name={name}
             {...otherProps}
-            inputRef={register({required: overrideUniqueId})}
-            disabled={!overrideUniqueId}
-            error={!!(overrideUniqueId && error)}
-            helperText={overrideUniqueId && error ? 'This field is required if auto-generation is deselected.' : 'Auto-generated after saving.'}
+            inputRef={register({required: overrideId})}
+            disabled={!overrideId}
+            error={!!(overrideId && error)}
+            helperText={overrideId && error ? 'This field is required if auto-generation is deselected.' : 'Auto-generated after saving.'}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
                         <IconButton
                             aria-label="toggle unique id override"
-                            onClick={handleUniqueIdOverrideClick}
+                            onClick={handleIdOverrideClick}
                         >
-                            {overrideUniqueId ? <LockOpenIcon/> : <LockIcon/>}
+                            {overrideId ? <LockOpenIcon/> : <LockIcon/>}
                         </IconButton>
                     </InputAdornment>
                 ),

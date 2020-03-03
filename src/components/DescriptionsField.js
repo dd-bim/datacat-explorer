@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import get from 'lodash.get';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import UniqueIdField from './UniqueIdField';
+import IdField from './IdField';
 import TextField from '@material-ui/core/TextField';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import IconButton from '@material-ui/core/IconButton';
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const defaultValues = () => ({
-    uniqueId: '',
+    id: '',
     languageCode: 'de',
     description: '',
 });
@@ -67,7 +67,7 @@ export default function DescriptionsField(props) {
     } else {
         items = fields.map((item, index) => {
             const error = fieldErrors ? fieldErrors[index] : false;
-            const uniqueIdFieldName = `${name}[${index}].uniqueId`;
+            const idFieldName = `${name}[${index}].id`;
             const descriptionFieldName = `${name}[${index}].description`;
             return (
                 <Grid key={item.id} item xs={12}>
@@ -78,7 +78,7 @@ export default function DescriptionsField(props) {
 
                         <Grid container spacing={1}>
                             <Grid item xs={5}>
-                                <UniqueIdField name={uniqueIdFieldName} label="Unique ID" {...inputOptions}/>
+                                <IdField name={idFieldName} label="Unique ID" {...inputOptions}/>
                             </Grid>
                             <Grid item xs={5}>
                                 <TextField

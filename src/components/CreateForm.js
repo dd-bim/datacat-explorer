@@ -9,8 +9,8 @@ export default function (props) {
     const [executeCreate, { data }] = useMutation(createMutation);
     const initialValues = {
         label,
-        uniqueId: '',
-        uniqueIdOverride: false,
+        id: '',
+        idOverride: false,
         versionId: '',
         versionDate: new Date(),
         names: [{language: 'de', value: ''}],

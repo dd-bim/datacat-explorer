@@ -36,7 +36,7 @@ export default function DocumentRoutes() {
                         <RelGroupsView/>
                     </Grid>
                 </Route>
-                <Route path={`${path}/:uniqueId`}>
+                <Route path={`${path}/:id`}>
                     <RelGroupsDetailsView />
                 </Route>
                 {/*<Route path={`${path}/new`}>*/}

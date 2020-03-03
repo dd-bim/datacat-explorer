@@ -15,7 +15,7 @@ export default function RelGroupsSelectDialog(props) {
             <DialogTitle id="simple-dialog-title">Select groups relationship</DialogTitle>
             <List>
                 {options.map(option => (
-                    <ListItem button onClick={() => onSelect(option)} key={option.uniqueId}>
+                    <ListItem button onClick={() => onSelect(option)} key={option.id}>
                         <ListItemAvatar>
                             <Avatar>
                                 <RelGroupsIcon />
