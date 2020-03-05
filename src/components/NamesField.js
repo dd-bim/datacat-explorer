@@ -37,21 +37,21 @@ export default function NamesField(props) {
     const {name, inputOptions} = props;
     const classes = useStyles();
     const {register, errors} = useFormContext();
-    const {fields, remove, move, insert} = useFieldArray({name});
+    const {fields, remove, move, insert} = useFieldArray({keyName: 'fieldId', name});
 
-    const items = fields.map((item, index) => {
+    const items = fields.map((field, index) => {
         const nameErrors = errors.names ? errors.names[index] : false;
         const idName = `${name}[${index}].id`;
-        const valueName = `${name}[${index}].name`;
+        const valueName = `${name}[${index}].value`;
 
         return (
-            <Grid key={item.id} item xs={12}>
+            <Grid key={field.fieldId} item xs={12}>
                 <PropertyBox color="primary.main">
                     <Typography variant="overline" display="block" gutterBottom>
                         {`Name (${index + 1}/${fields.length})`}
                     </Typography>
 
-                    <Grid key={item.id} container spacing={1}>
+                    <Grid container spacing={1}>
                         <Grid item xs={5}>
                             <IdField name={idName} label="Unique ID" {...inputOptions}/>
                         </Grid>

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import {makeStyles} from "@material-ui/core";
-import ListSubheader from "@material-ui/core/ListSubheader";
+import {makeStyles} from '@material-ui/core';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import AppDrawerItem from './AppDrawerItem';
 import DocumentIcon from '../documents/DocumentIcon';
 import SubjectIcon from '../subjects/SubjectIcon';
@@ -21,10 +21,6 @@ import {Link as RouterLink} from 'react-router-dom';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import Collapse from '@material-ui/core/Collapse';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
-import {ExpandLess, ExpandMore} from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -100,20 +96,12 @@ export default function AppDrawer(props) {
                         <AssociatesRelationIcon/>
                     </ListItemIcon>
                     <ListItemText primary="Assoziationen" secondary="Beziehungen beliebiger Sammlungen zu einem Objekt" />
-                    <ListItemSecondaryAction>
-                        <IconButton onClick={() => setAssociatesOpen(!associatesOpen)}>
-                            {associatesOpen ? <ExpandLess /> : <ExpandMore />}
-                        </IconButton>
-                    </ListItemSecondaryAction>
                 </ListItem>
 
-                <Collapse in={associatesOpen} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <AppDrawerItem to="/relationships/groups" icon={<RelGroupsIcon/>} label="Gruppierungen">
-                            Gruppierungen einer Menge von Objekten in einem Objekt
-                        </AppDrawerItem>
-                    </List>
-                </Collapse>
+                <AppDrawerItem to="/relationships/groups" icon={<RelGroupsIcon/>} label="Gruppierungen">
+                    Gruppierungen einer Menge von Objekten in einem Objekt
+                </AppDrawerItem>
+
 
                 {/*<AppDrawerItem to="/relationships/collects" icon={} label="Sammlungen">*/}
                 {/*    Beziehungen beliebiger Objekte zu einer Sammlung*/}

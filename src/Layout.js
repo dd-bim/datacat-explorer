@@ -3,7 +3,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import {Menu} from '@material-ui/icons';
 import {Typography} from '@material-ui/core';
 import AppDrawer from './components/appDrawer/AppDrawer';
@@ -27,7 +26,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'space-between',
     },
     logo: {
-        'margin-right': theme.spacing(1),
+        'max-width': '150px'
     },
     menuButton: {
         'margin-right': theme.spacing(2),

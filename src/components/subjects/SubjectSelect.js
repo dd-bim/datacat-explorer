@@ -1,70 +1,90 @@
-import React, {useEffect, useState} from 'react';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import {useQuery} from '@apollo/client';
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import SearchField from '../SearchField';
+import React, {useState} from 'react';
 import gql from 'graphql-tag';
+import {useQuery} from '@apollo/client';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import {ListItemText} from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Chip from '@material-ui/core/Chip';
+import {makeStyles} from '@material-ui/core/styles';
 
-const SUBJECT_SELECT_QUERY = gql`
-    query SubjectSelect($term: String) {
-        subjects(options: { term: $term}) {
-            nodes {
-                id
-                names {
-                    name
-                }
-            }
+const useStyles = makeStyles(theme => ({
+    selectedItems: {
+        'margin': theme.spacing(.5),
+    }
+}));
+
+const SUBJECT_FIELD_QUERY = gql`
+    query SubjectField($searchTerm: String) {
+        subjects(options: { term: $searchTerm }) {
+            nodes { id label }
         }
     }
 `;
 
 export default function SubjectSelect(props) {
+    const classes = useStyles();
+    const {title, multiple, selected, onSelect, onUnselect} = props;
     const [searchTerm, setSearchTerm] = useState('');
-    const [open, setOpen] = useState(false);
-    const [options, setOptions] = useState([]);
-    const {loading, error, data} = useQuery(SUBJECT_SELECT_QUERY, {variables: { term: searchTerm }});
+    const {loading, error, data} = useQuery(SUBJECT_FIELD_QUERY, {variables: {searchTerm}});
 
-    useEffect(() => {
-        if (data) {
-            setOptions(data.subjects.nodes);
-        }
-    }, [data]);
-
-    const handleInputChange = (input, value, reason) => {
-        if (reason === 'input') setSearchTerm(value);
+    const handleSearchTermChange = e => {
+        setSearchTerm(e.target.value);
     };
 
+    let listItems = [];
+    if (!loading && !error) {
+        listItems = data.subjects.nodes.map(item => {
+            const {id, label} = item;
+            return (
+                <ListItem button
+                    key={id}
+                    onClick={() => onSelect(item)}
+                    selected={multiple ? selected.find(x => x.id === id) : selected && selected.id === id}
+                >
+                    <ListItemText primary={label} />
+                </ListItem>
+            );
+        });
+    }
+
+    let labels = [];
+    if (multiple) {
+        labels = selected.map(item => (
+            <Chip
+                key={item.id}
+                className={classes.selectedItems}
+                label={item.label}
+                onDelete={onUnselect && (() => onUnselect(item))}
+            />
+        ));
+    } else if (selected) {
+        labels.push(<Chip
+            label={selected.label}
+            onDelete={onUnselect && (() => onUnselect(selected))}
+        />);
+    }
+
     return (
-        <Autocomplete
-            filterOptions={() => {}}
-            onInputChange={handleInputChange}
-            open={open}
-            onOpen={() => {
-                setOpen(true);
-            }}
-            onClose={() => {
-                setOpen(false);
-            }}
-            getOptionSelected={(option, value) => option.id === value.id}
-            getOptionLabel={option => option.names[0].name}
-            options={options}
-            loading={loading}
-            renderInput={params => (
-                <TextField
-                    {...params}
-                    label="Subject"
-                    variant="standard"
-                    InputProps={{
-                        ...params.InputProps,
-                        endAdornment: (
-                            <React.Fragment>
-                                {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                                {params.InputProps.endAdornment}
-                            </React.Fragment>
-                        ),
-                    }}
+        <Card>
+            <CardHeader title={title} />
+            <CardActions>
+                <SearchField
+                    value={searchTerm}
+                    loading={loading}
+                    onChange={handleSearchTermChange}
                 />
-            )}
-        />
-    );
+            </CardActions>
+            <CardContent>
+                <div>{labels}</div>
+                <List>
+                    {listItems}
+                </List>
+            </CardContent>
+        </Card>
+    )
 }

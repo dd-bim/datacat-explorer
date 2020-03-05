@@ -11,8 +11,8 @@ import gql from 'graphql-tag';
 import SubjectChip from '../subjects/SubjectChip';
 
 const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
-    query RelGroupsDetailView($id: ID!, $searchTerm: String, $pageNumber: Int) {
-        groupsRelationship(id: $id) {
+    query RelGroupsDetailView($id: ID!, $pageNumber: Int) {
+        groupsRelation(id: $id) {
             created
             lastModified
             versionId
@@ -20,11 +20,11 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
             id
             names {
                 id
-                name
+                value
             }
             descriptions {
                 id
-                description
+                value
             }
             relatingObject {
                 id
@@ -35,11 +35,10 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
                 versionDate
                 descriptions {
                     id
-                    description
+                    value
                 }
             }
             relatedObjects(options: {
-                term: $searchTerm
                 pageNumber: $pageNumber
             }) {
                 nodes {
@@ -59,23 +58,18 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
 
 export default function RelGroupsDetailsView() {
     const {params: {id}} = useRouteMatch();
-    const [searchTerm, setSearchTerm] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
     const {loading, error, data} = useQuery(
         REL_GROUPS_DETAILS_VIEW_QUERY,
-        {variables: {id, searchTerm, pageNumber}});
+        {variables: {id, pageNumber}});
 
     if (error) return <ErrorAlert/>;
     if (loading) return <CircularProgress/>;
 
-    const relatedObjectsListSearchChange = e => {
-        setSearchTerm(e.target.value);
-    };
-
     const {
         created, lastModified, versionId, versionDate,
         relatingObject, relatedObjects,
-    } = data.groupsRelationship;
+    } = data.groupsRelation;
 
     return (
         <Grid container spacing={1}>
@@ -103,7 +97,7 @@ export default function RelGroupsDetailsView() {
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="h4">Gruppierte Objekte ({relatedObjects.nodes.length} / {relatedObjects.page.totalElements})</Typography>
-                <XtdList items={relatedObjects.nodes} value={searchTerm} onChange={relatedObjectsListSearchChange}/>
+                <XtdList items={relatedObjects.nodes} />
             </Grid>
         </Grid>
     );

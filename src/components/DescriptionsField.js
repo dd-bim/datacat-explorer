@@ -34,12 +34,10 @@ const defaultValues = () => ({
 export default function DescriptionsField(props) {
     const {name, inputOptions} = props;
     const classes = useStyles();
-    const {register, errors, watch} = useFormContext();
-    const {fields, remove, move, insert, append} = useFieldArray({name});
-
+    const {register, errors} = useFormContext();
+    const {fields, remove, move, insert, append} = useFieldArray({keyName: 'fieldId', name});
     const fieldErrors = get(errors, name);
 
-    console.log(watch('descriptions'));
 
     let items;
     if (!fields.length) {
@@ -68,9 +66,9 @@ export default function DescriptionsField(props) {
         items = fields.map((item, index) => {
             const error = fieldErrors ? fieldErrors[index] : false;
             const idFieldName = `${name}[${index}].id`;
-            const descriptionFieldName = `${name}[${index}].description`;
+            const descriptionFieldName = `${name}[${index}].value`;
             return (
-                <Grid key={item.id} item xs={12}>
+                <Grid key={item.fieldId} item xs={12}>
                     <PropertyBox>
                         <Typography variant="overline" display="block" gutterBottom>
                             {`Description (${index + 1}/${fields.length})`}

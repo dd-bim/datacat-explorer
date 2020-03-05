@@ -6,7 +6,7 @@ import AddButton from '../AddButton';
 import {makeStyles} from '@material-ui/core/styles';
 import RelGroupsView from './RelGroupsView';
 import RelGroupsDetailsView from './RelGroupsDetailsView';
-// import RelGroupsForm from './RelGroupsForm';
+import RelGroupsForm from './RelGroupsForm';
 
 const useStyles = makeStyles(theme => ({
     actions: {
@@ -36,14 +36,14 @@ export default function DocumentRoutes() {
                         <RelGroupsView/>
                     </Grid>
                 </Route>
+                <Route path={`${path}/new`}>
+                    <Grid item xs={12}>
+                        <RelGroupsForm onSubmit={handleOnSubmit} />
+                    </Grid>
+                </Route>
                 <Route path={`${path}/:id`}>
                     <RelGroupsDetailsView />
                 </Route>
-                {/*<Route path={`${path}/new`}>*/}
-                {/*    <Grid item xs={12}>*/}
-                {/*        <RelGroupsForm onSubmit={handleOnSubmit} />*/}
-                {/*    </Grid>*/}
-                {/*</Route>*/}
             </Switch>
         </Grid>
     )

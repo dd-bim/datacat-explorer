@@ -11,20 +11,18 @@ import {useHistory} from 'react-router-dom';
 
 export const REL_GROUPS_TABLE_VIEW_DELETE_MUTATION = gql`
     mutation GroupsRelationshipTableViewDelete($id: ID!) {
-        deleteGroupsRelationship(id: $id) {
+        deleteGroupsRelation(id: $id) {
             id
         }
     }
 `;
-
-const textReducer = (acc, cur) => acc ? acc + ', ' + cur.name : cur.name;
 
 export default function RelGroupsTableRow(props) {
     const {groupsRelationship} = props;
     const history = useHistory();
     const {
         id,
-        names,
+        label,
         descriptions,
         versionId,
         versionDate,
@@ -39,8 +37,6 @@ export default function RelGroupsTableRow(props) {
         {refetchQueries: ['RelGroupsView']}
     );
 
-    const label = relatingObject.names.reduce(textReducer, '');
-
     const handleDelete = () => {
         deleteGroupsRelationship({variables: {id}});
     };
@@ -48,7 +44,7 @@ export default function RelGroupsTableRow(props) {
     return (
         <TableRow>
             <TableCell>
-                <RelGroupsChip label={label} onClick={() => history.push(`/relationships/groups/${id}`)} />
+                <RelGroupsChip label={label ? label : `${id.substring(0, 6)}...<${relatingObject.label}>`} onClick={() => history.push(`/relationships/groups/${id}`)} />
                 <DescriptionButton descriptions={descriptions}/>
             </TableCell>
             <TableCell>{toLocaleDateTimeString(created)}</TableCell>
@@ -71,15 +67,9 @@ RelGroupsTableRow.fragments = {
             lastModified
             versionId
             versionDate
-            names { id name }
-            descriptions {
-                id
-                description
-            }
-            relatingObject {
-                id
-                names { id name }
-            }
+            label
+            descriptions { id value }
+            relatingObject { id label }
             relatedObjects {
                 page { totalElements }
             }

@@ -7,7 +7,8 @@ import DeleteButton from '../DeleteButton';
 import {useMutation} from '@apollo/client';
 import gql from 'graphql-tag';
 import SubjectChip from './SubjectChip';
-import RelGroupsSelectButton from '../groupsRelationships/RelGroupsSelectButton';
+import GroupsSelectButton from '../groupsRelationships/GroupsSelectButton';
+import GroupedBySelectButton from '../groupsRelationships/GroupedBySelectButton';
 
 export const SUBJECT_TABLE_VIEW_DELETE_MUTATION = gql`
     mutation SubjectTableViewDelete($id: ID!) {
@@ -17,19 +18,18 @@ export const SUBJECT_TABLE_VIEW_DELETE_MUTATION = gql`
     }
 `;
 
-const textReducer = (acc, cur) => acc ? acc + ', ' + cur.name : cur.name;
-
 export default function SubjectTableRow(props) {
     const {subject} = props;
     const {
         id,
-        names,
+        label,
         descriptions,
         versionId,
         versionDate,
         created,
         lastModified,
-        groups
+        groups,
+        groupedBy
     } = subject;
     const versionString = [versionId, toLocaleDateTimeString(versionDate, 'll')].join(' | ');
     const [deleteSubject] = useMutation(SUBJECT_TABLE_VIEW_DELETE_MUTATION, {refetchQueries: ['SubjectsView']});
@@ -41,14 +41,15 @@ export default function SubjectTableRow(props) {
     return (
         <TableRow>
             <TableCell>
-                <SubjectChip label={names.reduce(textReducer, '')} />
+                <SubjectChip label={label} />
                 <DescriptionButton descriptions={descriptions}/>
             </TableCell>
             <TableCell>{toLocaleDateTimeString(created)}</TableCell>
             <TableCell>{toLocaleDateTimeString(lastModified)}</TableCell>
             <TableCell>{versionString}</TableCell>
             <TableCell>
-                <RelGroupsSelectButton id={id} totalElements={groups.page.totalElements} />
+                <GroupsSelectButton id={id} totalElements={groups.page.totalElements} />
+                <GroupedBySelectButton id={id} totalElements={groupedBy.page.totalElements} />
                 <DeleteButton onDelete={handleDelete} />
             </TableCell>
         </TableRow>
@@ -64,16 +65,17 @@ SubjectTableRow.fragments = {
             lastModified
             versionId
             versionDate
-            names {
-                id
-                name
-            }
-            descriptions {
-                id
-                description
-            }
+            label
+            descriptions { id value }
             groups {
-                page { totalElements }
+                page {
+                    totalElements
+                }
+            }
+            groupedBy {
+                page {
+                    totalElements
+                }
             }
         }
     `,

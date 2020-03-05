@@ -6,11 +6,10 @@ import ErrorAlert from '../ErrorAlert';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import RelGroupsTable from './RelGroupsTable';
 import gql from 'graphql-tag';
-import SubjectSelect from '../subjects/SubjectSelect';
 
 export const REL_GROUPS_VIEW_QUERY = gql`
     query RelGroupsView($term: String, $pageSize: Int, $pageNumber: Int) {
-        groupsRelationships(options: {
+        groupsRelations(options: {
             term: $term
             pageSize: $pageSize
             pageNumber: $pageNumber
@@ -51,8 +50,8 @@ export default function RelGroupsView() {
                 {error && <ErrorAlert/>}
                 {!error && !loading && (
                     <RelGroupsTable
-                        nodes={data.groupsRelationships.nodes}
-                        page={data.groupsRelationships.page}
+                        nodes={data.groupsRelations.nodes}
+                        page={data.groupsRelations.page}
                         pageNumber={pageNumber}
                         pageSize={pageSize}
                         onChangeRowsPerPage={handleChangeRowsPerPage}

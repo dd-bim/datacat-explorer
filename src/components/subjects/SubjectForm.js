@@ -16,10 +16,10 @@ export const SUBJECT_FORM_ADD_MUTATION = gql`
         $id: ID!
         $versionId: String
         $versionDate: String
-        $names: [XtdNameInput!]!
-        $descriptions: [XtdDescriptionInput!]
+        $names: [TextInput!]!
+        $descriptions: [TextInput!]
     ) {
-        addSubject(newSubject: {
+        createSubject(subject: {
             id: $id
             versionId: $versionId
             versionDate: $versionDate

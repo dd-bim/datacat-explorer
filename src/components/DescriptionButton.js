@@ -25,10 +25,10 @@ export default function (props) {
     const [open, setOpen] = useState(false);
     const buttonRef = React.useRef(null);
 
-    const listItems = descriptions.reduce((acc, {description}, index) => {
+    const listItems = descriptions.reduce((acc, {value}, index) => {
             acc.push(
                 <ListItem key={index} component="li">
-                    <ListItemText primary={description}/>
+                    <ListItemText primary={value}/>
                 </ListItem>
             );
 

@@ -104,7 +104,6 @@ export default function ObjectForm(props) {
                                     variant={'filled'}
                                     required={values.idOverride}
                                     disabled={!values.idOverride}
-                                    fullWidth
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">

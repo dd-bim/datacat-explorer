@@ -54,9 +54,9 @@ Table.propTypes = {
 Table.fragments = {
     page: gql`
         fragment TablePage on Page {
-            totalElements
             pageSize
             pageNumber
+            totalElements
         }
     `,
 };

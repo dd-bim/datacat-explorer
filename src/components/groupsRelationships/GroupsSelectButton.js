@@ -7,44 +7,42 @@ import {useLazyQuery} from '@apollo/client';
 import {useHistory} from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 
-export const REL_GROUPS_SELECT_BUTTON_QUERY = gql`
+export const GROUPS_SELECT_BUTTON_QUERY = gql`
     query RelGroupsSelectButton($relatingObject: ID!, $pageSize: Int, $pageNumber: Int) {
-        groupsRelationships(options: {
-            relatingObject: $relatingObject
-            pageSize: $pageSize
-            pageNumber: $pageNumber
-        }) {
+        groupsRelations(
+            relatingObject: $relatingObject,
+            options: {
+                pageSize: $pageSize
+                pageNumber: $pageNumber
+            }
+        ) {
             nodes {
                 id
+                label
                 relatingObject {
-                    names {
-                        name
-                    }
+                    label
                 }
             }
         }
     }
 `;
 
-export default function RelGroupsSelectButton(props) {
+export default function GroupsSelectButton(props) {
     const {id, totalElements, onSelect, ...otherProps} = props;
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);
     const variables = {relatingObject: id};
-    const [loadRelGroups, { data }] = useLazyQuery(REL_GROUPS_SELECT_BUTTON_QUERY, {variables});
+    const [loadRelGroups, { data }] = useLazyQuery(GROUPS_SELECT_BUTTON_QUERY, {variables});
     const history = useHistory();
 
     useEffect(() => {
         if (!data) {
             setOptions([]);
         } else {
-            const newOptions = data.groupsRelationships.nodes.map(relationship => {
-                const {id, relatingObject} = relationship;
-                return {
-                    id: id,
-                    label: relatingObject.names[0].name,
-                }
-            });
+            const newOptions = data.groupsRelations.nodes.map(({id, label, relatingObject}) => ({
+                id: id,
+                label: label ? label : `${id.substring(0, 6)}...<${relatingObject.label}>`
+            }));
             setOptions(newOptions);
         }
     }, [data]);
