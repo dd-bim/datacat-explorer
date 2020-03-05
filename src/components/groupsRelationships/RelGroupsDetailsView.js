@@ -47,14 +47,16 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
                     label
                 }
                 page {
-                    pageNumber
-                    pageSize
+                    hasPrevious
+                    hasNext
                     totalElements
                 }
             }
         }
     }
 `;
+
+
 
 export default function RelGroupsDetailsView() {
     const {params: {id}} = useRouteMatch();
@@ -97,7 +99,13 @@ export default function RelGroupsDetailsView() {
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="h4">Gruppierte Objekte ({relatedObjects.nodes.length} / {relatedObjects.page.totalElements})</Typography>
-                <XtdList items={relatedObjects.nodes} />
+                <XtdList
+                    items={relatedObjects.nodes}
+                    hasPrevious={relatedObjects.page.hasPrevious}
+                    hasNext={relatedObjects.page.hasNext}
+                    onNext={() => setPageNumber(pageNumber + 1)}
+                    onBack={() => setPageNumber(pageNumber - 1)}
+                />
             </Grid>
         </Grid>
     );

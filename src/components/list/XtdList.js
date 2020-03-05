@@ -8,6 +8,9 @@ import {ListItemText} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import SubjectIcon from '../subjects/SubjectIcon';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import IconButton from '@material-ui/core/IconButton';
+import {ArrowBackIos, ArrowForwardIos} from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
     actions: {
@@ -18,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function XtdList(props) {
     const classes = useStyles();
-    const {items} = props;
+    const {items, hasNext, hasPrevious, onNext, onBack} = props;
 
     const listItems = items.map(item => (
         <ListItem key={item.id}>
@@ -34,16 +37,16 @@ export default function XtdList(props) {
                     {listItems}
                 </MaterialUIList>
             </Grid>
-            {/*<Grid item xs={12} className={classes.actions}>*/}
-            {/*    <ButtonGroup>*/}
-            {/*        <IconButton>*/}
-            {/*            <ArrowBackIos />*/}
-            {/*        </IconButton>*/}
-            {/*        <IconButton>*/}
-            {/*            <ArrowForwardIos />*/}
-            {/*        </IconButton>*/}
-            {/*    </ButtonGroup>*/}
-            {/*</Grid>*/}
+            <Grid item xs={12} className={classes.actions}>
+                <ButtonGroup>
+                    <IconButton disabled={!hasPrevious} onClick={onBack}>
+                        <ArrowBackIos />
+                    </IconButton>
+                    <IconButton disabled={!hasNext} onClick={onNext}>
+                        <ArrowForwardIos />
+                    </IconButton>
+                </ButtonGroup>
+            </Grid>
         </Grid>
     );
 }
