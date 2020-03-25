@@ -5,7 +5,6 @@ import React from 'react';
 import {useFieldArray, useFormContext} from 'react-hook-form';
 import get from 'lodash.get';
 import LanguageRepresentationField from './LanguageRepresentationField';
-import useTheme from '@material-ui/core/styles/useTheme';
 import Button from '@material-ui/core/Button';
 
 const defaultValues = () => ({
@@ -15,14 +14,13 @@ const defaultValues = () => ({
 });
 
 export default function LanguageRepresentationMultiField(props) {
-    const theme = useTheme();
     const {
         name,
         label,
         multiline = false,
         rows = 1,
-        highlightColor = theme.palette.primary.main,
-        inputOptions
+        inputOptions,
+        ...otherProps
     } = props;
     const keyName = '_fieldId';
     const {errors} = useFormContext();
@@ -57,8 +55,8 @@ export default function LanguageRepresentationMultiField(props) {
                     onMoveUp={onMoveUp}
                     onMoveDown={onMoveDown}
                     multiline={multiline} rows={rows}
-                    highlightColor={highlightColor}
                     inputOptions={inputOptions}
+                    {...otherProps}
                 />
             );
         });

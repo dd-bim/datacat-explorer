@@ -40,6 +40,7 @@ export default function LanguageRepresentationField(props) {
         onMoveUp,
         onMoveDown,
         onRemove,
+        ...otherProps
     } = props;
     const {control, watch, formState} = useFormContext();
     const [isPersistent, setIsPersistent] = useState(false);
@@ -51,14 +52,20 @@ export default function LanguageRepresentationField(props) {
         if (!formState.dirty && watch(idName) !== '') {
             setIsPersistent(true);
         }
-    }, [formState, watch, idName]);
+    }, []);
 
     return (
         <Grid container item spacing={2} className={classes.row}>
 
             <Grid container item xs={11} spacing={1}>
                 <Grid item xs={8}>
-                    <IdField name={idName} label="Unique ID" disabled={isPersistent} {...inputOptions}/>
+                    <IdField
+                        name={idName}
+                        label="Unique ID"
+                        disabled={isPersistent}
+                        {...inputOptions}
+                        {...otherProps}
+                    />
                 </Grid>
                 <Grid item xs={4}>
                     <Controller
@@ -70,8 +77,10 @@ export default function LanguageRepresentationField(props) {
                             <TextField
                                 select
                                 label="Language"
+                                required={true}
                                 disabled={isPersistent}
                                 {...inputOptions}
+                                {...otherProps}
                             >
                                 {languages.map(option => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -93,9 +102,11 @@ export default function LanguageRepresentationField(props) {
                                 label={label}
                                 error={!!error}
                                 multiline={multiline}
+                                required={true}
                                 rows={rows}
                                 helperText={error && 'This field is required.'}
                                 {...inputOptions}
+                                {...otherProps}
                             />
                         }
                     />
