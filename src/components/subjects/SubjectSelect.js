@@ -1,7 +1,6 @@
 import SearchField from '../SearchField';
 import React, {useState} from 'react';
-import gql from 'graphql-tag';
-import {useQuery} from '@apollo/client';
+import {gql, useQuery} from '@apollo/client';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {ListItemText} from '@material-ui/core';

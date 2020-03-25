@@ -6,9 +6,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import IdField from '../IdField';
 import NamesField from '../NamesField';
-import {useMutation} from '@apollo/client';
-import DescriptionsField from '../DescriptionsField';
-import gql from 'graphql-tag';
+import {gql, useMutation} from '@apollo/client';
 import {REL_GROUPS_VIEW_QUERY} from './RelGroupsView';
 import SubjectSelect from '../subjects/SubjectSelect';
 import Card from '@material-ui/core/Card';
@@ -118,7 +116,7 @@ export default function RelGroupsForm(props) {
                     <Grid item xs={12}>
                         <Card>
                             <CardContent>
-                                <DescriptionsField name="descriptions" inputOptions={inputOptions}/>
+
                             </CardContent>
                         </Card>
                     </Grid>

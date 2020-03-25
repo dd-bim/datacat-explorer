@@ -1,25 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {RelatingObjectIcon} from './RelGroupsIcon';
 import RelGroupsSelectDialog from './RelGroupsSelectDialog';
-import gql from 'graphql-tag';
 import IconButton from '@material-ui/core/IconButton';
-import {useLazyQuery} from '@apollo/client';
+import {gql, useLazyQuery} from '@apollo/client';
 import {useHistory} from 'react-router-dom';
 import Badge from '@material-ui/core/Badge';
 
 export const GROUPS_SELECT_BUTTON_QUERY = gql`
-    query RelGroupsSelectButton($relatingObject: ID!, $pageSize: Int, $pageNumber: Int) {
-        groupsRelations(
-            relatingObject: $relatingObject,
-            options: {
-                pageSize: $pageSize
-                pageNumber: $pageNumber
-            }
-        ) {
-            nodes {
-                id
-                label
-                relatingObject {
+    query RelGroupsSelectButton($relatingObject: ID!) {
+        subject(id: $relatingObject) {
+            id
+            label
+            groups {
+                nodes {
+                    id
                     label
                 }
             }
@@ -39,11 +33,7 @@ export default function GroupsSelectButton(props) {
         if (!data) {
             setOptions([]);
         } else {
-            const newOptions = data.groupsRelations.nodes.map(({id, label, relatingObject}) => ({
-                id: id,
-                label: label ? label : `${id.substring(0, 6)}...<${relatingObject.label}>`
-            }));
-            setOptions(newOptions);
+            setOptions(data.subject.groups.nodes);
         }
     }, [data]);
 

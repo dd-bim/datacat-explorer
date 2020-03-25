@@ -4,11 +4,11 @@ import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
 import DescriptionButton from '../DescriptionButton';
 import DeleteButton from '../DeleteButton';
-import {useMutation} from '@apollo/client';
-import gql from 'graphql-tag';
+import {gql, useMutation} from '@apollo/client';
 import SubjectChip from './SubjectChip';
 import GroupsSelectButton from '../groupsRelationships/GroupsSelectButton';
 import GroupedBySelectButton from '../groupsRelationships/GroupedBySelectButton';
+import EditButton from '../EditButton';
 
 export const SUBJECT_TABLE_VIEW_DELETE_MUTATION = gql`
     mutation SubjectTableViewDelete($id: ID!) {
@@ -19,7 +19,7 @@ export const SUBJECT_TABLE_VIEW_DELETE_MUTATION = gql`
 `;
 
 export default function SubjectTableRow(props) {
-    const {subject} = props;
+    const {subject, onEdit} = props;
     const {
         id,
         label,
@@ -33,6 +33,10 @@ export default function SubjectTableRow(props) {
     } = subject;
     const versionString = [versionId, toLocaleDateTimeString(versionDate, 'll')].join(' | ');
     const [deleteSubject] = useMutation(SUBJECT_TABLE_VIEW_DELETE_MUTATION, {refetchQueries: ['SubjectsView']});
+
+    const handleEdit = () => {
+        onEdit(id);
+    };
 
     const handleDelete = () => {
         deleteSubject({variables: {id}});
@@ -50,6 +54,7 @@ export default function SubjectTableRow(props) {
             <TableCell>
                 <GroupsSelectButton id={id} totalElements={groups.page.totalElements} />
                 <GroupedBySelectButton id={id} totalElements={groupedBy.page.totalElements} />
+                <EditButton onClick={() => onEdit(id)} />
                 <DeleteButton onDelete={handleDelete} />
             </TableCell>
         </TableRow>

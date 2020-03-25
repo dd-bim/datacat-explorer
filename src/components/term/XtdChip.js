@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Chip from '@material-ui/core/Chip';
 import {iconDict} from '../../utils';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
 
 const textReducer = (acc, cur) => acc ? acc + ', ' + cur.name : cur.name;
 

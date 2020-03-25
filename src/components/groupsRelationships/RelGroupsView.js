@@ -1,19 +1,20 @@
-import {useQuery} from '@apollo/client';
+import {gql, useQuery} from '@apollo/client';
 import React, {useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchField from '../SearchField';
 import ErrorAlert from '../ErrorAlert';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import RelGroupsTable from './RelGroupsTable';
-import gql from 'graphql-tag';
 
 export const REL_GROUPS_VIEW_QUERY = gql`
     query RelGroupsView($term: String, $pageSize: Int, $pageNumber: Int) {
-        groupsRelations(options: {
-            term: $term
-            pageSize: $pageSize
-            pageNumber: $pageNumber
-        }) {
+        groupsRelations(
+            term: $term, 
+            options: {
+                pageSize: $pageSize
+                pageNumber: $pageNumber
+            }
+        ) {
             ...RelGroupsTableXtdRelGroupsConnection
         }
     }

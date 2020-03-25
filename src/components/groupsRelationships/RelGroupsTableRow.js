@@ -4,8 +4,7 @@ import TableRow from '@material-ui/core/TableRow';
 import React from 'react';
 import DescriptionButton from '../DescriptionButton';
 import DeleteButton from '../DeleteButton';
-import {useMutation} from '@apollo/client';
-import gql from 'graphql-tag';
+import {gql, useMutation} from '@apollo/client';
 import RelGroupsChip from './RelGroupsChip';
 import {useHistory} from 'react-router-dom';
 

@@ -4,7 +4,7 @@ import RelGroupsTableRow from './RelGroupsTableRow';
 import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
 
 export default function RelGroupsTable(props) {
     const {nodes, page, onChangePage, onChangeRowsPerPage} = props;

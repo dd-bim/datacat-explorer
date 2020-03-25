@@ -1,19 +1,22 @@
-import {useQuery} from '@apollo/client';
+import {gql, useQuery} from '@apollo/client';
 import React, {useState} from 'react';
 import Grid from '@material-ui/core/Grid';
 import SearchField from '../SearchField';
 import ErrorAlert from '../ErrorAlert';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SubjectTable from './SubjectTable';
-import gql from 'graphql-tag';
+import SubjectTableRow from './SubjectTableRow';
+import {useHistory, useRouteMatch} from 'react-router-dom';
 
 export const SUBJECTS_VIEW_QUERY = gql`
     query SubjectsView($term: String, $pageSize: Int, $pageNumber: Int) {
-        subjects(options: {
+        subjects(
             term: $term
-            pageSize: $pageSize
-            pageNumber: $pageNumber
-        }) {
+            options: {
+                pageSize: $pageSize
+                pageNumber: $pageNumber
+            }
+        ) {
             ...SubjectTableXtdSubjectConnection
         }
     }
@@ -21,6 +24,8 @@ export const SUBJECTS_VIEW_QUERY = gql`
 `;
 
 export default function SubjectsView() {
+    const { path } = useRouteMatch();
+    const history = useHistory();
     const [searchTerm, setSearchTerm] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
     const [pageSize, setPageSize] = useState(10);
@@ -39,6 +44,23 @@ export default function SubjectsView() {
 
     const handleChangePage = (e, page) => setPageNumber(page);
 
+    const handleOnEdit = id => history.push(`${path}/${id}`);
+
+    let content = null;
+    if (error) {
+        content = <ErrorAlert/>;
+    }
+    if (!error && !loading) {
+        const {subjects: {nodes: subjects, page}} = data;
+        content = (
+            <SubjectTable page={page} onChangeRowsPerPage={handleChangeRowsPerPage} onChangePage={handleChangePage}>
+                {subjects.map((subject) => (
+                    <SubjectTableRow key={subject.id} subject={subject} onEdit={handleOnEdit} />
+                ))}
+            </SubjectTable>
+        );
+    }
+
     return (
         <Grid container spacing={1}>
             { loading && <LinearProgress /> }
@@ -46,16 +68,7 @@ export default function SubjectsView() {
                 <SearchField value={searchTerm} onChange={handleSearchTermChange} />
             </Grid>
             <Grid item xs={12}>
-                {error && <ErrorAlert/>}
-                {!error && !loading && (
-                    <SubjectTable
-                        data={data}
-                        pageNumber={pageNumber}
-                        pageSize={pageSize}
-                        onChangeRowsPerPage={handleChangeRowsPerPage}
-                        onChangePage={handleChangePage}
-                    />
-                )}
+                {content}
             </Grid>
         </Grid>
     );

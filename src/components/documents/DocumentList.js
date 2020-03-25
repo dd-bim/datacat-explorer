@@ -87,7 +87,6 @@ export default function DocumentList() {
                     label="Search"
                     value={searchTerm}
                     onChange={handleSearchTermChange}
-                    fullWidth
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">

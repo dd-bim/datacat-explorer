@@ -4,11 +4,10 @@ import SubjectTableRow from './SubjectTableRow';
 import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
 
 export default function SubjectTable(props) {
-    const {data, onChangePage, onChangeRowsPerPage} = props;
-    const {subjects: {nodes: subjects, page}} = data;
+    const {page, onChangePage, onChangeRowsPerPage, children} = props;
     const {pageNumber, pageSize, totalElements} = page;
 
     const tableHead = (
@@ -30,17 +29,17 @@ export default function SubjectTable(props) {
             onChangePage={onChangePage}
             onChangeRowsPerPage={onChangeRowsPerPage}
         >
-            {subjects.map((subject) => (
-                <SubjectTableRow key={subject.id} subject={subject} />
-            ))}
+            {children}
         </Table>
     );
 }
 
 SubjectTable.propTypes = {
-    data: PropTypes.object.isRequired,
-    pageNumber: PropTypes.number.isRequired,
-    pageSize: PropTypes.number.isRequired,
+    page: PropTypes.shape({
+        pageNumber: PropTypes.number.isRequired,
+        pageSize: PropTypes.number.isRequired,
+        totalElements: PropTypes.number.isRequired,
+    }).isRequired,
     onChangePage: PropTypes.func.isRequired,
     onChangeRowsPerPage: PropTypes.func.isRequired,
 };

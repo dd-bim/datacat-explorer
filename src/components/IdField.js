@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import {Lock as LockIcon, LockOpen as LockOpenIcon} from '@material-ui/icons';
@@ -7,7 +8,7 @@ import {useFormContext} from 'react-hook-form';
 import get from 'lodash.get';
 
 export default function IdField(props) {
-    const {name, ...otherProps} = props;
+    const {name, disabled = false, ...otherProps} = props;
     const {register, errors, setValue} = useFormContext();
     const error = get(errors, name);
     const [overrideId, setOverrideId] = useState(false);
@@ -24,12 +25,12 @@ export default function IdField(props) {
             name={name}
             {...otherProps}
             inputRef={register({required: overrideId})}
-            disabled={!overrideId}
+            disabled={!overrideId || disabled}
             error={!!(overrideId && error)}
             helperText={overrideId && error ? 'This field is required if auto-generation is deselected.' : 'Auto-generated after saving.'}
             InputProps={{
                 endAdornment: (
-                    <InputAdornment position="end">
+                    !disabled && <InputAdornment position="end">
                         <IconButton
                             aria-label="toggle unique id override"
                             onClick={handleIdOverrideClick}
@@ -42,3 +43,7 @@ export default function IdField(props) {
         />
     );
 }
+
+IdField.props = {
+    name: PropTypes.string.isRequired,
+};

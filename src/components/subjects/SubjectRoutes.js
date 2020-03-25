@@ -5,7 +5,8 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import AddButton from '../AddButton';
 import {makeStyles} from '@material-ui/core/styles';
 import SubjectsView from './SubjectsView';
-import SubjectForm from './SubjectForm';
+import SubjectUpdateView from './SubjectUpdateView';
+import SubjectCreateView from './SubjectCreateView';
 
 const useStyles = makeStyles(theme => ({
     actions: {
@@ -18,6 +19,7 @@ export default function DocumentRoutes() {
     const classes = useStyles();
     const { path } = useRouteMatch();
     const history = useHistory();
+    const handleOnCancel = () => history.push(path);
     const handleOnSubmit = () => history.push(path);
 
     return (
@@ -37,7 +39,12 @@ export default function DocumentRoutes() {
                 </Route>
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
-                        <SubjectForm onSubmit={handleOnSubmit} />
+                        <SubjectCreateView onSubmit={handleOnSubmit} onCancel={handleOnCancel} />
+                    </Grid>
+                </Route>
+                <Route path={`${path}/:id`}>
+                    <Grid item xs={12}>
+                        <SubjectUpdateView onSubmit={handleOnSubmit} onCancel={handleOnCancel} />
                     </Grid>
                 </Route>
             </Switch>

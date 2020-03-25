@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
 import React from 'react';
 import {Controller, useFormContext} from 'react-hook-form';
 import get from 'lodash.get';
-import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
 
 const languages = [
     {value: 'de', label: 'German'},
@@ -12,13 +11,13 @@ const languages = [
 ];
 
 export default function LanguageField(props) {
-    const {name, inputOptions} = props;
-    const {errors} = useFormContext();
+    const {name, label, helperText, inputOptions} = props;
+    const {errors, getValues} = useFormContext();
     const error = get(errors, name);
     const options = languages.map(option => (
-        <option key={option.value} value={option.value}>
+        <MenuItem key={option.value} value={option.value}>
             {option.label}
-        </option>
+        </MenuItem>
     ));
 
     return (
@@ -26,10 +25,9 @@ export default function LanguageField(props) {
             name={name}
             rules={{required: true}}
             as={
-                <select
-                >
+                <TextField select label={label} helperText={helperText} {...inputOptions}>
                     {options}
-                </select>
+                </TextField>
             }
         />
     );

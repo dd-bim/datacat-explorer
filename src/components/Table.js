@@ -6,7 +6,7 @@ import MaterialUITable from '@material-ui/core/Table';
 import {TableBody} from '@material-ui/core';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableFooter from '@material-ui/core/TableFooter';
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client';
 
 export default function Table(props) {
     const {

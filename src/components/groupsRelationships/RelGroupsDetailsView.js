@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import {useRouteMatch} from 'react-router-dom';
-import {useQuery} from '@apollo/client';
+import {gql, useQuery} from '@apollo/client';
 import ErrorAlert from '../ErrorAlert';
 import {CircularProgress} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import RelGroupsChip from './RelGroupsChip';
 import XtdList from '../list/XtdList';
-import gql from 'graphql-tag';
 import SubjectChip from '../subjects/SubjectChip';
 
 const REL_GROUPS_DETAILS_VIEW_QUERY = gql`

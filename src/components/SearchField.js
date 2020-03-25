@@ -14,7 +14,6 @@ export default function SearchField(props) {
             label="Search"
             value={value}
             onChange={onChange}
-            fullWidth={true}
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
