@@ -1,7 +1,7 @@
 import {gql, useMutation, useQuery} from '@apollo/client';
 import React from 'react';
-import RootForm from '../RootForm';
 import {useParams} from 'react-router-dom';
+import SubjectForm from '../SubjectForm';
 
 export const SUBJECT_FORM_UPDATE_QUERY = gql`
     query SubjectForm($id: ID!) {
@@ -60,12 +60,13 @@ export default function SubjectUpdateView(props) {
     const { id } = useParams();
     const { loading, error, data } = useQuery(SUBJECT_FORM_UPDATE_QUERY, { variables: {id} });
     const [executeUpdate] = useMutation(SUBJECT_FORM_UPDATE_MUTATION);
-    const handleOnSubmit = async (data, e) => {
+
+    const handleSubmit = async (data, e) => {
         await executeUpdate({ variables: { input: data } });
-        onSubmit && onSubmit();
+        onSubmit();
     };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error...</p>;
-    return <RootForm onSubmit={handleOnSubmit} onCancel={onCancel} defaultValues={data.subject}/>;
+    return <SubjectForm onSubmit={handleSubmit} onCancel={onCancel} defaultValues={data.subject} />;
 }

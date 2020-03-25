@@ -1,11 +1,11 @@
 import {gql, useQuery} from '@apollo/client';
 import React, {useState} from 'react';
 import Grid from '@material-ui/core/Grid';
-import SearchField from '../SearchField';
-import ErrorAlert from '../ErrorAlert';
+import SearchField from '../../SearchField';
+import ErrorAlert from '../../ErrorAlert';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import SubjectTable from './SubjectTable';
-import SubjectTableRow from './SubjectTableRow';
+import SubjectTable from '../SubjectTable';
+import SubjectTableRow from '../SubjectTableRow';
 import {useHistory, useRouteMatch} from 'react-router-dom';
 
 export const SUBJECTS_VIEW_QUERY = gql`

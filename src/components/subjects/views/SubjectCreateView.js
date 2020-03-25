@@ -1,6 +1,6 @@
 import React from 'react';
 import {gql, useMutation} from '@apollo/client';
-import RootForm from '../RootForm';
+import SubjectForm from '../SubjectForm';
 
 export const SUBJECT_ADD_MUTATION = gql`
     mutation SubjectFormAdd($input: RootInput!) {
@@ -31,9 +31,11 @@ export const SUBJECT_ADD_MUTATION = gql`
 export default function SubjectCreateView(props) {
     const { onSubmit, onCancel } = props;
     const [executeCreate] = useMutation(SUBJECT_ADD_MUTATION);
-    const handleOnSubmit = async (data, e) => {
+
+    const handleSubmit = async (data, e) => {
         await executeCreate({ variables: { input: data } });
         onSubmit && onSubmit();
     };
-    return <RootForm onCancle={onCancel} onSubmit={handleOnSubmit} />;
+
+    return <SubjectForm onSubmit={handleSubmit} onCancel={onCancel} />;
 }

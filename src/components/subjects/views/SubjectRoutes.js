@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import AddButton from '../AddButton';
+import AddButton from '../../AddButton';
 import {makeStyles} from '@material-ui/core/styles';
 import SubjectsView from './SubjectsView';
 import SubjectUpdateView from './SubjectUpdateView';
@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function DocumentRoutes() {
+
+export default function SubjectRoutes() {
     const classes = useStyles();
     const { path } = useRouteMatch();
     const history = useHistory();
