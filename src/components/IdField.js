@@ -8,7 +8,7 @@ import {useFormContext} from 'react-hook-form';
 import get from 'lodash.get';
 
 export default function IdField(props) {
-    const {name, disabled = false, ...otherProps} = props;
+    const {name, disabled, ...otherProps} = props;
     const {register, errors, setValue} = useFormContext();
     const error = get(errors, name);
     const [overrideId, setOverrideId] = useState(false);
@@ -27,6 +27,7 @@ export default function IdField(props) {
             inputRef={register({required: overrideId})}
             disabled={!overrideId || disabled}
             error={!!(overrideId && error)}
+            required={overrideId}
             helperText={overrideId && error ? 'This field is required if auto-generation is deselected.' : 'Auto-generated after saving.'}
             InputProps={{
                 endAdornment: (
