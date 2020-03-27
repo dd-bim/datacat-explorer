@@ -1,8 +1,6 @@
 import React from 'react';
 import {Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import AddButton from '../../AddButton';
 import {makeStyles} from '@material-ui/core/styles';
 import SubjectsView from './SubjectsView';
 import SubjectUpdateView from './SubjectUpdateView';
@@ -17,7 +15,6 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function SubjectRoutes() {
-    const classes = useStyles();
     const { path } = useRouteMatch();
     const history = useHistory();
     const handleOnCancel = () => history.push(path);
@@ -27,15 +24,8 @@ export default function SubjectRoutes() {
         <Grid container spacing={1}>
             <Switch>
                 <Route exact path={path}>
-                    <Grid className={classes.actions} item xs={12}>
-                        <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                            <AddButton to={`${path}/new`}>
-                                Add subject
-                            </AddButton>
-                        </ButtonGroup>
-                    </Grid>
                     <Grid item xs={12}>
-                        <SubjectsView/>
+                        <SubjectsView />
                     </Grid>
                 </Route>
                 <Route path={`${path}/new`}>

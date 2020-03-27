@@ -24,8 +24,7 @@ export default function LanguageRepresentationMultiField(props) {
     } = props;
     const keyName = '_fieldId';
     const {errors} = useFormContext();
-    const fieldArrayProps = useFieldArray({keyName: keyName, name});
-    const {fields, append, insert, remove, move} = fieldArrayProps;
+    const {fields, append, insert, remove, move} = useFieldArray({keyName, name});
 
     let items;
     if (!fields.length) {

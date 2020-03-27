@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {useRouteMatch} from 'react-router-dom';
 import {gql, useQuery} from '@apollo/client';
-import ErrorAlert from '../ErrorAlert';
+import ErrorAlert from '../../ErrorAlert';
 import {CircularProgress} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import RelGroupsChip from './RelGroupsChip';
-import XtdList from '../list/XtdList';
-import SubjectChip from '../subjects/SubjectChip';
+import RelGroupsChip from '../RelGroupsChip';
+import XtdList from '../../list/XtdList';
+import SubjectChip from '../../subjects/SubjectChip';
 
 const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
     query RelGroupsDetailView($id: ID!, $pageNumber: Int) {
@@ -25,7 +25,7 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
                 id
                 value
             }
-            relatingObject {
+            relatingThing {
                 id
                 label
                 created
@@ -37,7 +37,7 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
                     value
                 }
             }
-            relatedObjects(options: {
+            relatedThings(options: {
                 pageNumber: $pageNumber
             }) {
                 nodes {
@@ -57,7 +57,7 @@ const REL_GROUPS_DETAILS_VIEW_QUERY = gql`
 
 
 
-export default function RelGroupsDetailsView() {
+export default function GroupsRelationView() {
     const {params: {id}} = useRouteMatch();
     const [pageNumber, setPageNumber] = useState(0);
     const {loading, error, data} = useQuery(
@@ -68,8 +68,12 @@ export default function RelGroupsDetailsView() {
     if (loading) return <CircularProgress/>;
 
     const {
-        created, lastModified, versionId, versionDate,
-        relatingObject, relatedObjects,
+        created,
+        lastModified,
+        versionId,
+        versionDate,
+        relatingThing,
+        relatedThings,
     } = data.groupsRelation;
 
     return (
@@ -79,7 +83,7 @@ export default function RelGroupsDetailsView() {
                     <Typography variant="h4">Eigene Eigenschaften</Typography>
                     <Typography variant="body1">
                         Unique ID: {id}<br/>
-                        Name: <RelGroupsChip label={`${id.substr(0, 6)}..<${relatingObject.label}>`}/><br/>
+                        Name: <RelGroupsChip label={`${id.substr(0, 6)}..<${relatingThing.label}>`}/><br/>
                         Created: {created}<br/>
                         Last modified: {lastModified}<br/>
                         Version: {versionId} / {versionDate}
@@ -88,20 +92,20 @@ export default function RelGroupsDetailsView() {
                 <Grid item xs={12}>
                     <Typography variant="h4">Gruppierendes Objekt</Typography>
                     <Typography variant="body1">
-                        Unique ID: {relatingObject.id}<br/>
-                        Name: <SubjectChip label={relatingObject.label} /><br/>
-                        Created: {relatingObject.created}<br/>
-                        Last modified: {relatingObject.lastModified}<br/>
-                        Version: {relatingObject.versionId} / {relatingObject.versionDate}
+                        Unique ID: {relatingThing.id}<br/>
+                        Name: <SubjectChip label={relatingThing.label} /><br/>
+                        Created: {relatingThing.created}<br/>
+                        Last modified: {relatingThing.lastModified}<br/>
+                        Version: {relatingThing.versionId} / {relatingThing.versionDate}
                     </Typography>
                 </Grid>
             </Grid>
             <Grid item xs={6}>
-                <Typography variant="h4">Gruppierte Objekte ({relatedObjects.nodes.length} / {relatedObjects.page.totalElements})</Typography>
+                <Typography variant="h4">Gruppierte Objekte ({relatedThings.nodes.length} / {relatedThings.page.totalElements})</Typography>
                 <XtdList
-                    items={relatedObjects.nodes}
-                    hasPrevious={relatedObjects.page.hasPrevious}
-                    hasNext={relatedObjects.page.hasNext}
+                    items={relatedThings.nodes}
+                    hasPrevious={relatedThings.page.hasPrevious}
+                    hasNext={relatedThings.page.hasNext}
                     onNext={() => setPageNumber(pageNumber + 1)}
                     onBack={() => setPageNumber(pageNumber - 1)}
                 />

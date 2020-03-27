@@ -1,15 +1,16 @@
 import IconButton from '@material-ui/core/IconButton';
 import React, {useState} from 'react';
-import Popper from '@material-ui/core/Popper';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {makeStyles} from '@material-ui/core';
-import {Description} from '@material-ui/icons';
+import {Help as HelpIcon} from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => {
     return {
@@ -20,10 +21,8 @@ const useStyles = makeStyles(theme => {
 });
 
 export default function (props) {
-    const classes = useStyles();
-    const {descriptions} = props;
+    const {title, descriptions, ...otherProps} = props;
     const [open, setOpen] = useState(false);
-    const buttonRef = React.useRef(null);
 
     const listItems = descriptions.reduce((acc, {value}, index) => {
             acc.push(
@@ -38,12 +37,8 @@ export default function (props) {
             return acc;
     }, []);
 
-    const handleClose = event => {
-        if (buttonRef.current && buttonRef.current.contains(event.target)) {
-            return;
-        }
-        setOpen(false);
-    };
+    const handleOnOpen = () => setOpen(true);
+    const handleOnClose = () => setOpen(false);
 
     if (descriptions.length === 0) {
         return <React.Fragment />
@@ -51,25 +46,22 @@ export default function (props) {
 
     return (
         <React.Fragment>
-            <IconButton
-                ref={buttonRef}
-                onClick={() => setOpen(true)}
-            >
-                <Description />
+            <IconButton onClick={handleOnOpen} {...otherProps}>
+                <HelpIcon />
             </IconButton>
-            <Popper open={open} anchorEl={buttonRef.current} placement={'top'} transition>
-                {({TransitionProps}) => (
-                    <Grow {...TransitionProps}>
-                        <Paper className={classes.popover} elevation={3}>
-                            <ClickAwayListener onClickAway={handleClose}>
-                                <List component="ul" dense={true}>
-                                    {listItems}
-                                </List>
-                            </ClickAwayListener>
-                        </Paper>
-                    </Grow>
-                )}
-            </Popper>
+            <Dialog open={open} onClose={handleOnClose} aria-labelledby="dialog-title">
+                <DialogTitle id="dialog-title">{title}</DialogTitle>
+                <DialogContent>
+                    <List component="ul" dense={true}>
+                        {listItems}
+                    </List>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleOnClose} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </React.Fragment>
     );
 }

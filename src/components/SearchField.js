@@ -6,15 +6,17 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function SearchField(props) {
-    const {value, loading = false, onChange} = props;
+    const {label = 'Search', value, loading = false, onChange, InputProps, ...otherProps} = props;
 
     return (
         <TextField
             id="search-term-input"
-            label="Search"
+            label={label}
             value={value}
             onChange={onChange}
+            {...otherProps}
             InputProps={{
+                ...InputProps,
                 startAdornment: (
                     <InputAdornment position="start">
                         <SearchIcon/>

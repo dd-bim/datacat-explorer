@@ -34,3 +34,14 @@ export const iconDict = label => {
         case 'XtdUnit': return <Functions />;
     }
 };
+
+export const sanitizeTextInput = x => {
+    x.id = x.id === "" ? null : x.id;
+};
+
+export const sanitizeRootInput = input => {
+    input.id = input.id === "" ? null : input.id;
+    input.names.forEach(sanitizeTextInput);
+    input.descriptions = input.descriptions ? input.descriptions : [];
+    input.descriptions.forEach(sanitizeTextInput);
+};

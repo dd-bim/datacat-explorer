@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 
 const SUBJECT_FIELD_QUERY = gql`
     query SubjectField($searchTerm: String) {
-        subjects(options: { term: $searchTerm }) {
+        subjects(term: $searchTerm) {
             nodes { id label }
         }
     }

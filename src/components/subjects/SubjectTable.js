@@ -12,7 +12,9 @@ export default function SubjectTable(props) {
 
     const tableHead = (
         <TableRow>
+            <TableCell />
             <TableCell>Name</TableCell>
+            <TableCell />
             <TableCell>Created</TableCell>
             <TableCell>Last modified</TableCell>
             <TableCell>Version</TableCell>
@@ -22,6 +24,7 @@ export default function SubjectTable(props) {
 
     return (
         <Table
+            size="small"
             head={tableHead}
             pageNumber={pageNumber}
             pageSize={pageSize}

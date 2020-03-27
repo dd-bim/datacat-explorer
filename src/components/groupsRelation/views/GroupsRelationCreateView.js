@@ -1,10 +1,10 @@
 import React from 'react';
 import {gql, useMutation} from '@apollo/client';
-import RootForm from '../RootForm';
+import GroupsRelationForm from '../GroupsRelationForm';
 
 export const REL_GROUPS_ADD_MUTATION = gql`
-    mutation SubjectFormAdd($input: RootInput!, $relatingThing: ID!, $relatedThings: [ID!]!) {
-        createGroupsRelation(input: $input, relatingThing: $relatingThing, relatedThings: $relatedThings) {
+    mutation SubjectFormAdd($input: AssociationInput!) {
+        createGroupsRelation(input: $input) {
             id
             created
             lastModified
@@ -14,26 +14,27 @@ export const REL_GROUPS_ADD_MUTATION = gql`
                 id
                 created
                 lastModified
-                languageCode
+                languageName { id }
                 value
             }
             descriptions {
                 id
                 created
                 lastModified
-                languageCode
+                languageName { id }
                 value
             }
         }
     }
 `;
 
-export default function RelGroupsCreateView(props) {
+export default function GroupsRelationCreateView(props) {
     const { onSubmit, onCancel } = props;
     const [executeCreate] = useMutation(REL_GROUPS_ADD_MUTATION);
+
     const handleOnSubmit = async (data, e) => {
         await executeCreate({ variables: { input: data } });
         onSubmit && onSubmit();
     };
-    return <RootForm onCancle={onCancel} onSubmit={handleOnSubmit} />;
+    return <GroupsRelationForm onCancle={onCancel} onSubmit={handleOnSubmit} />;
 }

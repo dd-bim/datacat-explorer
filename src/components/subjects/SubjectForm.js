@@ -6,6 +6,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import RootFormset from '../form/RootFormset';
 import PropTypes from 'prop-types';
 import dateTime from '../../dateTime';
+import Typography from '@material-ui/core/Typography';
 
 const inputOptions = {
     variant: 'filled',
@@ -24,6 +25,7 @@ export default function SubjectForm(props) {
     return (
         <FormContext {...formMethods}>
             <form onSubmit={handleSubmit(handleValidSubmit)} noValidate autoComplete="off">
+                <Typography variant="h4">Edit Subject</Typography>
                 <RootFormset inputOptions={inputOptions} />
 
                 <ButtonGroup>

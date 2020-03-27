@@ -11,6 +11,7 @@ import {DatePicker, DateTimePicker} from '@material-ui/pickers';
 import LanguageRepresentationMultiField from './LanguageRepresentationMultiField';
 import Typography from '@material-ui/core/Typography';
 import useTheme from '@material-ui/core/styles/useTheme';
+import {sanitizeRootInput} from '../utils';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,17 +34,6 @@ const useStyles = makeStyles(theme => ({
 
 const inputOptions = {
     variant: 'filled',
-};
-
-const sanitizeTextInput = x => {
-    x.id = x.id === "" ? null : x.id;
-};
-
-const sanitizeRootInput = input => {
-    input.id = input.id === "" ? null : input.id;
-    input.names.forEach(sanitizeTextInput);
-    input.descriptions = input.descriptions ? input.descriptions : [];
-    input.descriptions.forEach(sanitizeTextInput);
 };
 
 export default function RootForm(props) {
@@ -70,6 +60,7 @@ export default function RootForm(props) {
                             name="id"
                             label="Unique ID"
                             disabled={true}
+                            fullWidth
                             {...inputOptions}
                         />
                     </Grid>

@@ -1,18 +1,20 @@
 import Table from '../Table';
 import PropTypes from 'prop-types';
-import RelGroupsTableRow from './RelGroupsTableRow';
+import GroupsRelationTableRow from './GroupsRelationTableRow';
 import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import {gql} from '@apollo/client';
 
-export default function RelGroupsTable(props) {
-    const {nodes, page, onChangePage, onChangeRowsPerPage} = props;
+export default function GroupsRelationTable(props) {
+    const {page, onChangePage, onChangeRowsPerPage, children} = props;
     const {pageNumber, pageSize, totalElements} = page;
 
     const tableHead = (
         <TableRow>
-            <TableCell>Relating Object</TableCell>
+            <TableCell />
+            <TableCell>Name</TableCell>
+            <TableCell />
             <TableCell>Created</TableCell>
             <TableCell>Last modified</TableCell>
             <TableCell>Version</TableCell>
@@ -23,6 +25,7 @@ export default function RelGroupsTable(props) {
 
     return (
         <Table
+            size="small"
             head={tableHead}
             pageNumber={pageNumber}
             pageSize={pageSize}
@@ -30,15 +33,12 @@ export default function RelGroupsTable(props) {
             onChangePage={onChangePage}
             onChangeRowsPerPage={onChangeRowsPerPage}
         >
-            {nodes.map((relationship) => (
-                <RelGroupsTableRow key={relationship.id} groupsRelationship={relationship} />
-            ))}
+            {children}
         </Table>
     );
 }
 
-RelGroupsTable.propTypes = {
-    nodes: PropTypes.arrayOf(PropTypes.object).isRequired,
+GroupsRelationTable.propTypes = {
     page: PropTypes.object.isRequired,
     pageNumber: PropTypes.number.isRequired,
     pageSize: PropTypes.number.isRequired,
@@ -46,7 +46,7 @@ RelGroupsTable.propTypes = {
     onChangeRowsPerPage: PropTypes.func.isRequired,
 };
 
-RelGroupsTable.fragments = {
+GroupsRelationTable.fragments = {
     groupRelationships: gql`
         fragment RelGroupsTableXtdRelGroupsConnection on XtdRelGroupsConnection {
             nodes {
@@ -57,7 +57,7 @@ RelGroupsTable.fragments = {
                 ...TablePage
             }
         }
-        ${RelGroupsTableRow.fragments.root}
+        ${GroupsRelationTableRow.fragments.root}
         ${Table.fragments.page}
     `,
 };

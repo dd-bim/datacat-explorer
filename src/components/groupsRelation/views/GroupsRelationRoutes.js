@@ -2,11 +2,11 @@ import React from 'react';
 import {Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import AddButton from '../AddButton';
+import AddButton from '../../AddButton';
 import {makeStyles} from '@material-ui/core/styles';
-import RelGroupsView from './RelGroupsView';
-import RelGroupsDetailsView from './RelGroupsDetailsView';
-import RelGroupsForm from './RelGroupsForm';
+import GroupsRelationsView from './GroupsRelationsView';
+import GroupsRelationCreateView from './GroupsRelationCreateView';
+import GroupsRelationUpdateView from './GroupsRelationUpdateView';
 
 const useStyles = makeStyles(theme => ({
     actions: {
@@ -15,10 +15,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function DocumentRoutes() {
+export default function GroupsRelationRoutes() {
     const classes = useStyles();
     const { path } = useRouteMatch();
     const history = useHistory();
+    const handleOnCancel = () => history.push(path);
     const handleOnSubmit = () => history.push(path);
 
     return (
@@ -33,16 +34,25 @@ export default function DocumentRoutes() {
                         </ButtonGroup>
                     </Grid>
                     <Grid item xs={12}>
-                        <RelGroupsView/>
+                        <GroupsRelationsView
+                            onSubmit={handleOnSubmit}
+                            onCancel={handleOnCancel}
+                        />
                     </Grid>
                 </Route>
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
-                        <RelGroupsForm onSubmit={handleOnSubmit} />
+                        <GroupsRelationCreateView
+                            onSubmit={handleOnSubmit}
+                            onCancel={handleOnCancel}
+                        />
                     </Grid>
                 </Route>
                 <Route path={`${path}/:id`}>
-                    <RelGroupsDetailsView />
+                    <GroupsRelationUpdateView
+                        onSubmit={handleOnSubmit}
+                        onCancel={handleOnCancel}
+                    />
                 </Route>
             </Switch>
         </Grid>

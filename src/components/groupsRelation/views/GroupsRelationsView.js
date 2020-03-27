@@ -1,10 +1,12 @@
 import {gql, useQuery} from '@apollo/client';
 import React, {useState} from 'react';
 import Grid from '@material-ui/core/Grid';
-import SearchField from '../SearchField';
-import ErrorAlert from '../ErrorAlert';
+import SearchField from '../../SearchField';
+import ErrorAlert from '../../ErrorAlert';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import RelGroupsTable from './RelGroupsTable';
+import GroupsRelationTable from '../GroupsRelationTable';
+import GroupsRelationTableRow from '../GroupsRelationTableRow';
+import {useHistory, useRouteMatch} from 'react-router-dom';
 
 export const REL_GROUPS_VIEW_QUERY = gql`
     query RelGroupsView($term: String, $pageSize: Int, $pageNumber: Int) {
@@ -18,10 +20,12 @@ export const REL_GROUPS_VIEW_QUERY = gql`
             ...RelGroupsTableXtdRelGroupsConnection
         }
     }
-    ${RelGroupsTable.fragments.groupRelationships}
+    ${GroupsRelationTable.fragments.groupRelationships}
 `;
 
-export default function RelGroupsView() {
+export default function GroupsRelationsView() {
+    const { path } = useRouteMatch();
+    const history = useHistory();
     const [searchTerm, setSearchTerm] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
     const [pageSize, setPageSize] = useState(10);
@@ -40,24 +44,31 @@ export default function RelGroupsView() {
 
     const handleChangePage = (e, page) => setPageNumber(page);
 
+    const handleOnEdit = id => history.push(`${path}/${id}`);
+
     return (
         <Grid container spacing={1}>
             { loading && <LinearProgress /> }
             <Grid item xs={12} sm={6}>
                 <SearchField value={searchTerm} onChange={handleSearchTermChange} />
-                {/*<SubjectSelect />*/}
             </Grid>
             <Grid item xs={12}>
                 {error && <ErrorAlert/>}
                 {!error && !loading && (
-                    <RelGroupsTable
-                        nodes={data.groupsRelations.nodes}
+                    <GroupsRelationTable
                         page={data.groupsRelations.page}
                         pageNumber={pageNumber}
                         pageSize={pageSize}
                         onChangeRowsPerPage={handleChangeRowsPerPage}
                         onChangePage={handleChangePage}
-                    />
+                    >{data.groupsRelations.nodes.map((relationship) => (
+                        <GroupsRelationTableRow
+                            key={relationship.id}
+                            groupsRelationship={relationship}
+                            onEdit={handleOnEdit}
+                        />
+                    ))}
+                    </GroupsRelationTable>
                 )}
             </Grid>
         </Grid>

@@ -8,8 +8,8 @@ import {Typography} from '@material-ui/core';
 import AppDrawer from './components/appDrawer/AppDrawer';
 import {Route, Switch} from 'react-router-dom';
 import DocumentRoutes from './components/documents/DocumentRoutes';
-import SubjectRoutes from './components/subjects/SubjectRoutes';
-import RelGroupsRoutes from './components/groupsRelationships/RelGroupsRoutes';
+import SubjectRoutes from './components/subjects/views/SubjectRoutes';
+import RelGroupsRoutes from './components/groupsRelation/views/GroupsRelationRoutes';
 import IconButton from '@material-ui/core/IconButton';
 
 const drawerWidth = 400;

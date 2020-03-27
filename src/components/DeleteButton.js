@@ -10,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
 export default function DeleteButton(props) {
-    const {onDelete} = props;
+    const {onDelete, ...otherProps} = props;
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleOnOpen = () => setDialogOpen(true);
@@ -24,7 +24,7 @@ export default function DeleteButton(props) {
 
     return (
         <React.Fragment>
-            <IconButton onClick={handleOnOpen}>
+            <IconButton onClick={handleOnOpen} {...otherProps}>
                 <DeleteForever/>
             </IconButton>
             <Dialog

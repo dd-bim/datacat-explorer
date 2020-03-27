@@ -7,6 +7,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import SubjectTable from '../SubjectTable';
 import SubjectTableRow from '../SubjectTableRow';
 import {useHistory, useRouteMatch} from 'react-router-dom';
+import AddButton from '../../AddButton';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 export const SUBJECTS_VIEW_QUERY = gql`
     query SubjectsView($term: String, $pageSize: Int, $pageNumber: Int) {
@@ -23,7 +25,7 @@ export const SUBJECTS_VIEW_QUERY = gql`
     ${SubjectTable.fragments.subjects}
 `;
 
-export default function SubjectsView() {
+export default function SubjectsView(props) {
     const { path } = useRouteMatch();
     const history = useHistory();
     const [searchTerm, setSearchTerm] = useState('');
@@ -64,8 +66,19 @@ export default function SubjectsView() {
     return (
         <Grid container spacing={1}>
             { loading && <LinearProgress /> }
-            <Grid item xs={12} sm={6}>
-                <SearchField value={searchTerm} onChange={handleSearchTermChange} />
+            <Grid item xs={8}>
+                <SearchField value={searchTerm} onChange={handleSearchTermChange} fullWidth />
+            </Grid>
+            <Grid item xs={4}>
+                <ButtonGroup
+                    variant="contained"
+                    color="primary"
+                    aria-label="contained primary button group"
+                >
+                    <AddButton to={`${path}/new`}>
+                        Add subject
+                    </AddButton>
+                </ButtonGroup>
             </Grid>
             <Grid item xs={12}>
                 {content}

@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import IdField from '../IdField';
 import NamesField from '../NamesField';
 import {gql, useMutation} from '@apollo/client';
-import {REL_GROUPS_VIEW_QUERY} from './RelGroupsView';
+import {REL_GROUPS_VIEW_QUERY} from './views/GroupsRelationsView';
 import SubjectSelect from '../subjects/SubjectSelect';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
