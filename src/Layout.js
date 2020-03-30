@@ -36,6 +36,13 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(3),
     },
     toolbar: theme.mixins.toolbar,
+    title: {
+        'display': 'inline',
+        'margin-right': theme.spacing(1),
+    },
+    version: {
+        display: 'inline'
+    }
 }));
 
 export default function Layout() {
@@ -55,7 +62,10 @@ export default function Layout() {
                     >
                         <Menu/>
                     </IconButton>
-                    <Typography variant="h6" component="h1">{process.env.REACT_APP_TITLE}</Typography>
+                    <span>
+                        <Typography className={classes.title} variant="h6" component="h1">{process.env.REACT_APP_TITLE}</Typography>
+                        <Typography className={classes.version} variant="subtitle1" component="span">{process.env.REACT_APP_VERSION}</Typography>
+                    </span>
                 </Toolbar>
             </AppBar>
             <AppDrawer
