@@ -12,9 +12,7 @@ import Button from '@material-ui/core/Button';
 export default function DeleteButton(props) {
     const {onDelete, ...otherProps} = props;
     const [dialogOpen, setDialogOpen] = useState(false);
-
     const handleOnOpen = () => setDialogOpen(true);
-
     const handleOnClose = () => setDialogOpen(false);
 
     const handleOnDelete = () => {

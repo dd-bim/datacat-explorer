@@ -1,12 +1,12 @@
 import {gql} from '@apollo/client';
 import * as React from 'react';
-import XtdTableView from '../../table/XtdTableView';
+import XtdTableView from "../table/XtdTableView";
 
 // TODO: Possible bug in Apollo client does forbid usage of fragments...
 //       Fragments are retrieved from server but not unpacked into data.
-export const GROUPS_QUERY = gql`
+export const SUBJECTS_VIEW_QUERY = gql`
   query Subjects($term: String, $options: PagingOptions) {
-    groupsRelations(term: $term, options: $options) {
+    subjects(term: $term, options: $options) {
       nodes {
         id
         created
@@ -29,17 +29,18 @@ export const GROUPS_QUERY = gql`
         }
       }
       page {
-        totalElements
         pageSize
         pageNumber
+        totalElements
+        totalPages
       }
     }
   }
 `;
 
-export const GROUPS_DELETE_MUTATION = gql`
+export const SUBJECTS_VIEW_DELETE_MUTATION = gql`
   mutation SubjectsViewDelete($id: ID!) {
-    deleteGroupsRelation(id: $id) {
+    deleteSubject(id: $id) {
       id
     }
   }
@@ -48,8 +49,9 @@ export const GROUPS_DELETE_MUTATION = gql`
 export default function SubjectsView() {
   return (
     <XtdTableView
-      title='Groups relationships'
-      findAllQuery={GROUPS_QUERY} findAllQueryKey='groupsRelations'
-      deleteQuery={GROUPS_DELETE_MUTATION} deleteQueryKey='deleteGroupsRelation' />
+      title='Subjects'
+      findAllQuery={SUBJECTS_VIEW_QUERY} findAllQueryKey='subjects'
+      deleteQuery={SUBJECTS_VIEW_DELETE_MUTATION} deleteQueryKey='deleteSubject'
+    />
   );
 };

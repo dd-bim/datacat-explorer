@@ -7,15 +7,16 @@ import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 import DayjsUtils from '@date-io/dayjs';
 import dateTime from './dateTime';
 import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from '@apollo/client';
-import Layout from './Layout';
+import Layout from './components/layout/Layout';
 
 const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: new HttpLink({
-        uri: process.env.REACT_APP_API
-    }),
-    name: 'datacat Explorer',
-    version: '0.2',
+  connectToDevTools: true,
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: process.env.REACT_APP_API,
+  }),
+  name: process.env.REACT_APP_TITLE,
+  version: process.env.REACT_APP_VERSION,
 });
 
 export default function App() {
