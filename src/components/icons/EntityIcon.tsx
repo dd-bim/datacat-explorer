@@ -22,7 +22,7 @@ export default function EntityIcon(props: EntityIconProps & SvgIconProps) {
       return <ActivityIcon {...otherProps} />;
     case XtdObjectTypes.XtdActor:
       return <ActorIcon {...otherProps} />;
-    case XtdObjectTypes.XtSubject:
+    case XtdObjectTypes.XtdSubject:
       return <SubjectIcon {...otherProps} />;
     case XtdCollectionTypes.XtdBag:
       return <BagIcon {...otherProps} />;

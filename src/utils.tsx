@@ -7,7 +7,7 @@ export const route = (typename: XtdObjectTypes | XtdCollectionTypes | XtdRelatio
       return '/objects/activities';
     case XtdObjectTypes.XtdActor:
       return '/objects/actors';
-    case XtdObjectTypes.XtSubject:
+    case XtdObjectTypes.XtdSubject:
       return '/objects/subjects';
     case XtdCollectionTypes.XtdBag:
       return '/collections/bags';
