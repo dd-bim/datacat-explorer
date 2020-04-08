@@ -11,23 +11,23 @@ import {gql} from "@apollo/client";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 
-interface RowAction {
-  (row: XtdRoot): void;
+interface RowAction<T> {
+  (row: T): void;
 }
 
-interface XtdTableProps {
-  rows: XtdRoot[];
+interface XtdTableProps<T> {
+  rows: T[];
   page: Page;
-  onNavSelect: RowAction;
-  onHelp?: RowAction;
-  onEdit?: RowAction;
-  onDelete?: RowAction;
+  onNavSelect: RowAction<T>;
+  onHelp?: RowAction<T>;
+  onEdit?: RowAction<T>;
+  onDelete?: RowAction<T>;
   onChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
   onChangeRowsPerPage?: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   IconButtonProps?: IconButtonProps
 }
 
-export default function XtdTable(props: XtdTableProps & TableProps) {
+export default function XtdTable<T extends XtdRoot<T>>(props: XtdTableProps<T> & TableProps) {
   const {
     rows,
     page: {

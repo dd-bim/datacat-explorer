@@ -17,9 +17,9 @@ import DeleteDialog from "../dialog/DeleteDialog";
 import RelGroupsIconButton from "../button/RelGroupsIconButton";
 import RelGroupsDialog from "../dialog/RelGroupsDialog";
 
-interface XtdTableRowProps {
-  row: XtdRoot;
-  onNavSelect: (entity: XtdRoot) => void;
+interface XtdTableRowProps<T> {
+  row: T;
+  onNavSelect: (entity: T) => void;
   onEdit?: () => void;
   onDelete?: () => void;
   ButtonProps?: IconButtonProps;
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function XtdTableRow(props: XtdTableRowProps & TableRowProps) {
+export default function XtdTableRow<T extends XtdRoot<T>>(props: XtdTableRowProps<T> & TableRowProps) {
   const {
     row: {
       id,

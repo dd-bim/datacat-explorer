@@ -22,12 +22,19 @@ export default function SubjectRoutes() {
                 </Route>
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
-                        <SubjectCreateView onSubmit={handleOnSubmit} onCancel={handleOnCancel} />
+                        <SubjectCreateView
+                          onSubmit={handleOnSubmit}
+                          onCancel={handleOnCancel}
+                        />
                     </Grid>
                 </Route>
                 <Route path={`${path}/:id`}>
                     <Grid item xs={12}>
-                        <SubjectUpdateView onSubmit={handleOnSubmit} onCancel={handleOnCancel} />
+                        <SubjectUpdateView
+                          queryKey="subject"
+                          onSubmit={handleOnSubmit}
+                          onCancel={handleOnCancel}
+                        />
                     </Grid>
                 </Route>
             </Switch>

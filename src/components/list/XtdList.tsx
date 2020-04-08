@@ -11,9 +11,9 @@ import EntityIcon from "../icons/EntityIcon";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 
-interface XtdListProps {
-  items: XtdRoot[];
-  onSelect?: (item: XtdRoot) => void;
+interface XtdListProps<T> {
+  items: T[];
+  onSelect?: (item: T) => void;
   PaginationProps: PaginationProps;
 }
 
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function XtdList(props: XtdListProps) {
+export default function XtdList<T extends XtdRoot<T>>(props: XtdListProps<T>) {
   const {
     items,
     onSelect,

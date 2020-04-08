@@ -1,5 +1,5 @@
 import {SvgIconProps} from "@material-ui/core";
-import {XtdCollectionTypes, XtdObjectTypes, XtdRelationshipTypes, XtdRoot} from "../../types";
+import {Entity, XtdCollectionTypes, XtdObjectTypes, XtdRelationshipTypes} from "../../types";
 import SubjectIcon from "./SubjectIcon";
 import React from "react";
 import ActivityIcon from "./ActivityIcon";
@@ -9,7 +9,7 @@ import NestIcon from "./NestIcon";
 import GroupsIcon from "./GroupsIcon";
 
 interface EntityIconProps {
-  entity: XtdRoot;
+  entity: Entity;
 }
 
 export default function EntityIcon(props: EntityIconProps & SvgIconProps) {

@@ -9,14 +9,14 @@ import XtdList from "../list/XtdList";
 import {DialogActions} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
-interface RelGroupsDialogProps {
-  entity: XtdRoot;
+interface RelGroupsDialogProps<T> {
+  entity: T;
   open: boolean;
-  onSelect: (entity: XtdRoot) => void;
+  onSelect: (entity: T) => void;
   onClose: () => void;
 }
 
-export default function RelGroupsDialog(props: RelGroupsDialogProps) {
+export default function RelGroupsDialog<T extends XtdRoot<T>>(props: RelGroupsDialogProps<T>) {
   const {
     entity: {
       id,
@@ -38,7 +38,7 @@ export default function RelGroupsDialog(props: RelGroupsDialogProps) {
   return (
     <Dialog fullWidth maxWidth="md" {...otherProps}>
       <DialogTitle>
-        {label}
+        {label} - {id}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={1}>

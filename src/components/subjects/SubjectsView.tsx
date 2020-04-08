@@ -1,6 +1,7 @@
 import {gql} from '@apollo/client';
 import * as React from 'react';
 import XtdTableView from "../table/XtdTableView";
+import {XtdSubject} from "../../types";
 
 // TODO: Possible bug in Apollo client does forbid usage of fragments...
 //       Fragments are retrieved from server but not unpacked into data.
@@ -48,10 +49,11 @@ export const SUBJECTS_VIEW_DELETE_MUTATION = gql`
 
 export default function SubjectsView() {
   return (
-    <XtdTableView
-      title='Subjects'
-      findAllQuery={SUBJECTS_VIEW_QUERY} findAllQueryKey='subjects'
-      deleteQuery={SUBJECTS_VIEW_DELETE_MUTATION} deleteQueryKey='deleteSubject'
+    <XtdTableView<XtdSubject>
+      title="Subjects"
+      queryKey="subjects"
+      findAllQuery={SUBJECTS_VIEW_QUERY}
+      deleteQuery={SUBJECTS_VIEW_DELETE_MUTATION}
     />
   );
 };

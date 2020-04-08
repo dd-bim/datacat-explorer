@@ -49,7 +49,9 @@ export default function SubjectsView() {
   return (
     <XtdTableView
       title='Groups relationships'
-      findAllQuery={GROUPS_QUERY} findAllQueryKey='groupsRelations'
-      deleteQuery={GROUPS_DELETE_MUTATION} deleteQueryKey='deleteGroupsRelation' />
+      queryKey="groupsRelations"
+      findAllQuery={GROUPS_QUERY}
+      deleteQuery={GROUPS_DELETE_MUTATION}
+    />
   );
 };

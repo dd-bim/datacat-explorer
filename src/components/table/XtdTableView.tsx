@@ -1,18 +1,18 @@
 import {DocumentNode, useMutation, useQuery} from '@apollo/client';
 import * as React from 'react';
-import {useState} from 'react';
 import SearchField from '../SearchField';
 import ErrorAlert from '../ErrorAlert';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import XtdTable from './XtdTable';
 import {useHistory, useRouteMatch} from 'react-router-dom';
 import {IconButtonProps} from "@material-ui/core";
-import {XtdRoot} from "../../types";
+import {QueryArgs, QueryConnection, XtdRoot} from "../../types";
 import AddButton from "../button/AddButton";
 import Paper from "@material-ui/core/Paper";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {route} from "../../utils";
+import {useQueryOptions} from "../../hooks";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,34 +35,40 @@ const useStyles = makeStyles(theme => ({
 
 interface XtdTableViewProps {
   title: string;
+  queryKey: string;
   findAllQuery: DocumentNode;
-  findAllQueryKey: string;
   deleteQuery: DocumentNode;
-  deleteQueryKey: string;
+}
+
+interface XtdTableData<T> {
+  [name: string]: QueryConnection<T>
 }
 
 const buttonProps: IconButtonProps = {
   size: 'small'
 };
 
-export default function XtdTableView(props: XtdTableViewProps) {
+export default function XtdTableView<T extends XtdRoot<T>>(props: XtdTableViewProps) {
   const {
     title,
-    findAllQuery, findAllQueryKey,
+    queryKey,
+    findAllQuery,
     deleteQuery
   } = props;
   const classes = useStyles();
   const {path} = useRouteMatch();
   const history = useHistory();
-  const [pageNumber, setPageNumber] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
-  const [searchTerm, setSearchTerm] = useState('');
-  const variables = {term: searchTerm, options: { pageSize, pageNumber }};
-  const {loading, error, data, refetch} = useQuery(findAllQuery, { variables });
+  const {term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize } = useQueryOptions();
+  const {loading, error, data, refetch} = useQuery<XtdTableData<T>, QueryArgs>(findAllQuery, {
+    variables: {
+      term,
+      options: { pageNumber, pageSize }
+    }
+  });
   const [deleteRow] = useMutation(deleteQuery);
 
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    setTerm(e.target.value);
     setPageNumber(0);
   };
 
@@ -75,11 +81,11 @@ export default function XtdTableView(props: XtdTableViewProps) {
     setPageNumber(page);
   };
 
-  const handleNavSelect = (row: XtdRoot) => history.push(`${route(row.__typename)}/${row.id}`);
+  const handleNavSelect = (row: T) => history.push(`${route(row.__typename)}/${row.id}`);
 
-  const handleOnEdit = (row: XtdRoot) => history.push(`${path}/${row.id}`);
+  const handleOnEdit = (row: T) => history.push(`${path}/${row.id}`);
 
-  const handleOnDelete = ({ id }: XtdRoot) => {
+  const handleOnDelete = ({ id }: T) => {
     deleteRow({
       variables: { id },
       update: () => refetch()
@@ -90,8 +96,8 @@ export default function XtdTableView(props: XtdTableViewProps) {
   if (error) {
     content = <ErrorAlert/>;
   }
-  if (!error && !loading) {
-    const {nodes: rows, page} = data[findAllQueryKey];
+  if (!error && !loading && data) {
+    const {nodes: rows, page} = data[queryKey];
     content = (
       <XtdTable
         rows={rows}
@@ -122,7 +128,7 @@ export default function XtdTableView(props: XtdTableViewProps) {
             variant="outlined"
             fullWidth
             loading={loading}
-            value={searchTerm}
+            value={term}
             onChange={handleSearchTermChange}
           />
         </Paper>
