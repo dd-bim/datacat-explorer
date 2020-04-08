@@ -1,7 +1,7 @@
 import React from 'react';
-import {XtdCollectionTypes, XtdObjectTypes, XtdRelationshipTypes} from "./types";
+import {EntityTypes, XtdCollectionTypes, XtdObjectTypes, XtdRelationshipTypes} from "./types";
 
-export const route = (typename: XtdObjectTypes | XtdCollectionTypes | XtdRelationshipTypes): string => {
+export const route = (typename: EntityTypes | XtdObjectTypes | XtdCollectionTypes | XtdRelationshipTypes): string => {
   switch (typename) {
     case XtdObjectTypes.XtdActivity:
       return '/objects/activities';
