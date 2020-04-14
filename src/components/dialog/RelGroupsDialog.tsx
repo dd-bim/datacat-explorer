@@ -1,4 +1,4 @@
-import {XtdRoot} from "../../types";
+import {XtdRelGroups, XtdRoot} from "../../types";
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -12,11 +12,11 @@ import Button from "@material-ui/core/Button";
 interface RelGroupsDialogProps<T> {
   entity: T;
   open: boolean;
-  onSelect: (entity: T) => void;
+  onSelect: (entity: XtdRelGroups) => void;
   onClose: () => void;
 }
 
-export default function RelGroupsDialog<T extends XtdRoot<T>>(props: RelGroupsDialogProps<T>) {
+export default function RelGroupsDialog<T extends XtdRoot>(props: RelGroupsDialogProps<T>) {
   const {
     entity: {
       id,

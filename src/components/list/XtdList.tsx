@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function XtdList<T extends XtdRoot<T>>(props: XtdListProps<T>) {
+export default function XtdList<T extends XtdRoot>(props: XtdListProps<T>) {
   const {
     items,
     onSelect,

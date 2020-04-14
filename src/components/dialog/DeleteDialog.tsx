@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import React from "react";
 
-interface DeleteDialogProps {
+export interface DeleteDialogProps {
   title?: string;
   message?: string
   open: boolean;

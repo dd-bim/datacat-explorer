@@ -19,7 +19,7 @@ interface XtdObjectFormProps<T> {
   onCancel: () => void;
 }
 
-export default function XtdObjectForm<T extends XtdObject<T>>(props: XtdObjectFormProps<T>) {
+export default function XtdObjectForm<T extends XtdObject>(props: XtdObjectFormProps<T>) {
   const { title, defaultValues, onSubmit, onCancel } = props;
   const formMethods = useForm({ defaultValues });
   const { handleSubmit } = formMethods;
