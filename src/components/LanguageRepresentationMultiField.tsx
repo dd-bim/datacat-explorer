@@ -6,6 +6,7 @@ import {useFieldArray, useFormContext} from 'react-hook-form';
 import get from 'lodash.get';
 import LanguageRepresentationField from './LanguageRepresentationField';
 import Button from '@material-ui/core/Button';
+import {TextFieldProps} from "@material-ui/core";
 
 const defaultValues = () => ({
     id: '',
@@ -13,13 +14,18 @@ const defaultValues = () => ({
     value: '',
 });
 
-export default function LanguageRepresentationMultiField(props) {
+interface LanguageRepresentationMultiFieldProps {
+    name: string;
+    multiline?: boolean;
+    rows?: number;
+}
+
+export default function LanguageRepresentationMultiField(props: LanguageRepresentationMultiFieldProps & TextFieldProps) {
     const {
         name,
         label,
         multiline = false,
         rows = 1,
-        inputOptions,
         ...otherProps
     } = props;
     const keyName = '_fieldId';
@@ -53,8 +59,8 @@ export default function LanguageRepresentationMultiField(props) {
                     onRemove={onRemove}
                     onMoveUp={onMoveUp}
                     onMoveDown={onMoveDown}
-                    multiline={multiline} rows={rows}
-                    inputOptions={inputOptions}
+                    multiline={multiline}
+                    rows={rows}
                     {...otherProps}
                 />
             );

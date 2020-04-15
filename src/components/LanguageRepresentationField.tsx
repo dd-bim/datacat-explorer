@@ -1,9 +1,8 @@
 import {Controller, useFormContext} from 'react-hook-form';
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import IdField from './IdField';
-import TextField from '@material-ui/core/TextField';
+import TextField, {TextFieldProps} from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import {languages} from '../lang';
@@ -14,6 +13,7 @@ import {
     Remove as RemoveIcon,
 } from '@material-ui/icons';
 import {makeStyles} from '@material-ui/core';
+import get from "lodash.get";
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -26,7 +26,16 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function LanguageRepresentationField(props) {
+interface LanguageRepresentationFieldProps {
+    field: Record<string, any>;
+    name: string;
+    onInsert?: () => void;
+    onMoveUp?: () => void;
+    onMoveDown?: () => void;
+    onRemove?: () => void;
+}
+
+export default function LanguageRepresentationField(props: LanguageRepresentationFieldProps & TextFieldProps) {
     const classes = useStyles(props);
     const {
         field,
@@ -34,7 +43,6 @@ export default function LanguageRepresentationField(props) {
         label,
         multiline,
         rows,
-        inputOptions,
         error,
         onInsert,
         onMoveUp,
@@ -42,17 +50,18 @@ export default function LanguageRepresentationField(props) {
         onRemove,
         ...otherProps
     } = props;
-    const {control, watch, formState} = useFormContext();
+    const {control, formState, getValues} = useFormContext();
     const [isPersistent, setIsPersistent] = useState(false);
     const idName = `${name}.id`;
     const languageName = `${name}.languageCode`;
     const valueName = `${name}.value`;
+    const id = get(getValues({ nest: true }), idName);
 
     useEffect(() => {
-        if (!formState.dirty && watch(idName) !== '') {
+        if (!formState.dirty && id) {
             setIsPersistent(true);
         }
-    }, []);
+    }, [formState, id]);
 
     return (
         <Grid container item spacing={2} className={classes.row}>
@@ -63,7 +72,6 @@ export default function LanguageRepresentationField(props) {
                         name={idName}
                         label="Unique ID"
                         disabled={isPersistent}
-                        {...inputOptions}
                         {...otherProps}
                     />
                 </Grid>
@@ -79,7 +87,6 @@ export default function LanguageRepresentationField(props) {
                                 label="Language"
                                 required={true}
                                 disabled={isPersistent}
-                                {...inputOptions}
                                 {...otherProps}
                             >
                                 {languages.map(option => (
@@ -105,7 +112,6 @@ export default function LanguageRepresentationField(props) {
                                 required={true}
                                 rows={rows}
                                 helperText={error && 'This field is required.'}
-                                {...inputOptions}
                                 {...otherProps}
                             />
                         }
@@ -131,7 +137,3 @@ export default function LanguageRepresentationField(props) {
         </Grid>
     );
 }
-
-LanguageRepresentationField.propTypes = {
-    highlightColor: PropTypes.string,
-};
