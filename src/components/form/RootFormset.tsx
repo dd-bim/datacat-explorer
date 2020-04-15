@@ -1,4 +1,4 @@
-import {Controller, useFormContext} from 'react-hook-form';
+import {useFormContext} from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
 import IdField from '../IdField';
 import PropTypes from 'prop-types';
@@ -9,6 +9,7 @@ import {gql} from '@apollo/client';
 import {DatePicker, DateTimePicker} from '@material-ui/pickers';
 import LanguageRepresentationMultiField from '../LanguageRepresentationMultiField';
 import Typography from '@material-ui/core/Typography';
+import {MaterialUiPickersDate} from "@material-ui/pickers/typings/date";
 
 const useStyles = makeStyles(theme => ({
     heading: {
@@ -24,11 +25,16 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function RootFormset(props) {
-    const {inputOptions} = props;
+interface RootFormsetProps {
+    variant: 'standard' | 'outlined' | 'filled';
+}
+
+export default function RootFormset(props: RootFormsetProps) {
+    const {variant} = props;
     const classes = useStyles();
     const [isUpdate, setIsUpdate] = useState(false);
-    const {getValues, register, errors} = useFormContext();
+    const {getValues, setValue, register, errors, watch} = useFormContext();
+    const { created, lastModified, versionDate } = watch();
 
     useEffect(() => {
         if (getValues().id !== '') {
@@ -36,10 +42,25 @@ export default function RootFormset(props) {
         }
     }, []);
 
+    useEffect(() => {
+        register({ name: 'versionDate' });
+    }, [register]);
+
+    const handleDateChange = (name: string, date?: MaterialUiPickersDate) => {
+        const value = date ? date.format('YYYY-MM-DD') : '';
+        setValue(name, value);
+    };
+
     return (
         <Grid container spacing={1}>
             <Grid item xs={12}>
-                <Typography className={classes.heading} variant="subtitle1" color="primary">General</Typography>
+                <Typography
+                    className={classes.heading}
+                    variant="subtitle1"
+                    color="primary"
+                >
+                    General
+                </Typography>
             </Grid>
             <Grid item xs={12}>
                 <IdField
@@ -47,32 +68,34 @@ export default function RootFormset(props) {
                     label="Unique ID"
                     disabled={isUpdate}
                     fullWidth
-                    {...inputOptions}
+                    variant={variant}
                 />
             </Grid>
             <Grid container item xs={12} spacing={1}>
                 <Grid item xs={6}>
                     <DateTimePicker
                         ampm={false}
-                        name="created"
-                        format={'LLL'}
-                        label="Created"
                         disabled={true}
+                        format={'LLL'}
                         fullWidth
-                        inputVariant={inputOptions.variant}
-                        {...inputOptions}
+                        inputVariant="filled"
+                        label="Created"
+                        name="created"
+                        onChange={() => {}}
+                        value={created}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <DateTimePicker
                         ampm={false}
-                        name="lastModified"
-                        format={'LLL'}
-                        label="Last modified"
                         disabled={true}
+                        format={'LLL'}
                         fullWidth
-                        inputVariant={inputOptions.variant}
-                        {...inputOptions}
+                        inputVariant={variant}
+                        label="Last modified"
+                        name="lastModified"
+                        onChange={() => {}}
+                        value={lastModified}
                     />
                 </Grid>
             </Grid>
@@ -86,26 +109,21 @@ export default function RootFormset(props) {
                         required={true}
                         helperText={'User-choosen version id.'}
                         fullWidth
-                        {...inputOptions}
+                        variant={variant}
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    <Controller
+                    <DatePicker
+                        error={!!errors.versionDate}
+                        format={'YYYY-MM-DD'}
+                        fullWidth
+                        helperText={'User-choosen version date.'}
+                        inputVariant={variant}
+                        label="Version Date"
                         name={'versionDate'}
-                        onChange={(([date]) => date.format('YYYY-MM-DD'))}
-                        as={
-                            <DatePicker
-                                name="versionDate"
-                                label="Version Date"
-                                format={'YYYY-MM-DD'}
-                                error={!!errors.versionDate}
-                                required={true}
-                                helperText={'User-choosen version date.'}
-                                fullWidth
-                                inputVariant={inputOptions.variant}
-                                {...inputOptions}
-                            />
-                        }
+                        onChange={handleDateChange.bind(null, 'versionDate')}
+                        required={true}
+                        value={versionDate}
                     />
                 </Grid>
             </Grid>
@@ -116,8 +134,8 @@ export default function RootFormset(props) {
                     <LanguageRepresentationMultiField
                         name="names"
                         label="Name"
-                        fullWidth
-                        inputOptions={inputOptions}
+                        fullWidth={true}
+                        variant={variant}
                     />
                 </Grid>
 
@@ -129,7 +147,7 @@ export default function RootFormset(props) {
                         multiline={true}
                         rows={3}
                         fullWidth
-                        inputOptions={inputOptions}
+                        variant={variant}
                     />
                 </Grid>
             </Grid>

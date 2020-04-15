@@ -8,10 +8,6 @@ import dateTime from '../../dateTime';
 import Typography from '@material-ui/core/Typography';
 import {XtdObject} from "../../types";
 
-const inputOptions = {
-  variant: 'filled',
-};
-
 interface XtdObjectFormProps<T> {
   title: string;
   defaultValues?: T;
@@ -33,7 +29,7 @@ export default function XtdObjectForm<T extends XtdObject>(props: XtdObjectFormP
     <FormContext {...formMethods}>
       <form onSubmit={handleSubmit(handleValidSubmit)} noValidate autoComplete="off">
         <Typography variant="h4">{title}</Typography>
-        <RootFormset inputOptions={inputOptions} />
+        <RootFormset variant="filled" />
 
         <ButtonGroup>
           <Button type="button" variant="contained" color="secondary" onClick={onCancel}>Cancel</Button>
