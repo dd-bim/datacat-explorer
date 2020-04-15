@@ -6,8 +6,14 @@ import TextField from '@material-ui/core/TextField';
 import React, {useState} from 'react';
 import {useFormContext} from 'react-hook-form';
 import get from 'lodash.get';
+import {TextFieldProps} from "@material-ui/core/TextField/TextField";
 
-export default function IdField(props) {
+interface IdFieldProps {
+    name: string;
+    disabled?: boolean;
+}
+
+export default function IdField(props: IdFieldProps & TextFieldProps) {
     const {name, disabled, ...otherProps} = props;
     const {register, errors, setValue} = useFormContext();
     const error = get(errors, name);
