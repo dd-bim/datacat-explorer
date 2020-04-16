@@ -75,8 +75,8 @@ export const addMutation = gql`
         createGroupsRelation(input: $input) {
             ...Props
         }
-        ${baseProperties}
     }
+    ${baseProperties}
 `;
 
 export const updateMutation = gql`
