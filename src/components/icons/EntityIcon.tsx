@@ -8,6 +8,7 @@ import BagIcon from "./BagIcon";
 import NestIcon from "./NestIcon";
 import GroupsIcon from "./GroupsIcon";
 import ExternalDocumentIcon from "./ExternalDocumentIcon";
+import UnitIcon from "./UnitIcon";
 
 interface EntityIconProps {
   entity: XtdEntity;
@@ -27,6 +28,8 @@ export default function EntityIcon(props: EntityIconProps & SvgIconProps) {
       return <ActorIcon {...otherProps} />;
     case XtdObjectTypes.XtdSubject:
       return <SubjectIcon {...otherProps} />;
+    case XtdObjectTypes.XtdUnit:
+      return <UnitIcon />
     case XtdCollectionTypes.XtdBag:
       return <BagIcon {...otherProps} />;
     case XtdCollectionTypes.XtdNest:
