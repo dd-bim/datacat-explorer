@@ -51,6 +51,10 @@ export enum XtdCollectionTypes {
 export enum XtdRelationshipTypes {
     XtdRelDocuments = 'XtdRelDocuments',
     XtdAssociates = 'XtdAssociates',
+}
+
+export enum XtdRelAssociatesTypes {
+    XtdRelSpecializes = 'XtdRelSpecializes',
     XtdRelGroups = 'XtdRelGroups',
 }
 
@@ -60,6 +64,11 @@ export interface XtdLanguage {
     languageCode: string;
     languageNameInEnglish: string;
     languageNameInSelf: string;
+}
+
+export interface TextInput {
+    languageCode: string;
+    value: string;
 }
 
 export interface XtdLanguageRepresentation {
@@ -80,24 +89,23 @@ export interface XtdDescription extends XtdLanguageRepresentation {
     __typename: XtdLanguageRepresentationTypes.XtdDescription;
 }
 
-export interface Entity {
-    __typename: EntityTypes | XtdObjectTypes | XtdCollectionTypes | XtdRelationshipTypes;
+export interface XtdEntity {
+    __typename: EntityTypes | XtdObjectTypes | XtdCollectionTypes | XtdRelationshipTypes | XtdRelAssociatesTypes;
     id: string;
     created: Date;
     lastModified: Date;
-}
-
-export interface XtdExternalDocument extends Entity {
-    __typename: EntityTypes.XtdExternalDocument;
+    label: string;
     names: XtdName[];
 }
 
-export interface XtdRoot extends Entity {
-    __typename: XtdObjectTypes | XtdCollectionTypes | XtdRelationshipTypes;
+export interface XtdExternalDocument extends XtdEntity {
+    __typename: EntityTypes.XtdExternalDocument;
+}
+
+export interface XtdRoot extends XtdEntity {
+    __typename: XtdObjectTypes | XtdCollectionTypes | XtdRelationshipTypes | XtdRelAssociatesTypes;
     versionId: string;
     versionDate: string;
-    label: string;
-    names: XtdName[]
     descriptions: XtdDescription[]
     groups: QueryConnection<XtdRelGroups>
     groupedBy: QueryConnection<XtdRelGroups>
@@ -140,11 +148,29 @@ export interface XtdNest extends XtdCollection {
 }
 
 export interface XtdRelationship extends XtdRoot {
-    __typename: XtdRelationshipTypes;
+    __typename: XtdRelationshipTypes | XtdRelAssociatesTypes;
+}
+
+export interface AssociationInput {
+    id?: string;
+    versionId: string;
+    versionDate: string;
+    names: TextInput[];
+    descriptions?: TextInput[];
+    relatingThing: string;
+    relatedThings: string[];
+}
+
+export interface XtdRelAssociates extends XtdRelationship {
+    __typename: XtdRelationshipTypes.XtdAssociates | XtdRelAssociatesTypes;
+    relatingThing: XtdRoot
+    relatedThings: XtdRoot[]
 }
 
 export interface XtdRelGroups extends XtdRelationship {
-    __typename: XtdRelationshipTypes;
-    relatingThing: XtdRoot
-    relatedThings: XtdRoot[]
+    __typename: XtdRelAssociatesTypes.XtdRelGroups;
+}
+
+export interface XtdRelSpecializes extends XtdRelationship {
+    __typename: XtdRelAssociatesTypes.XtdRelSpecializes;
 }
