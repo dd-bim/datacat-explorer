@@ -5,7 +5,7 @@ import {makeStyles} from '@material-ui/core';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DocumentIcon from '../documents/DocumentIcon';
 import SubjectIcon from '../icons/SubjectIcon';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useHistory} from 'react-router-dom';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,211 +21,244 @@ import UnitIcon from "../icons/UnitIcon";
 import BagIcon from "../icons/BagIcon";
 import GroupsIcon from "../icons/GroupsIcon";
 import PropertyIcon from "../icons/PropertyIcon";
-
-interface AppDrawerProps extends DrawerProps {
-  onClose: () => void;
-  drawerWidth?: number;
-}
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import AddIconButton from "../button/AddIconButton";
 
 const defaultDrawerWidth = 250;
 const widthProperty = ({drawerWidth = defaultDrawerWidth}: AppDrawerProps) => drawerWidth;
 
 const useStyles = makeStyles(() => ({
-  root: {
-    width: widthProperty,
-  },
-  drawerPaper: {
-    width: widthProperty,
-  },
+    root: {
+        width: widthProperty,
+    },
+    drawerPaper: {
+        width: widthProperty,
+    },
 }));
 
+interface AppDrawerProps extends DrawerProps {
+    onClose: () => void;
+    drawerWidth?: number;
+}
+
 export default function AppDrawer(props: AppDrawerProps) {
-  const classes = useStyles(props);
-  const {open, onClose} = props;
+    const classes = useStyles(props);
+    const history = useHistory();
+    const {open, onClose} = props;
 
-  return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      className={classes.root}
-      variant={'temporary'}
-      classes={{paper: classes.drawerPaper}}
-    >
-      <List dense>
+    const handleOnAddClick = (target: string) => {
+        history.push(target);
+        onClose();
+    }
 
-        <ListItem button component={RouterLink} to="/documents" onClick={onClose}>
-          <ListItemIcon>
-            <DocumentIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Externe Dokumente"
-            secondary="Externe Dokumente, Bücher oder schriftliche Informationen"
-          />
-        </ListItem>
+    return (
+        <Drawer
+            open={open}
+            onClose={onClose}
+            className={classes.root}
+            variant={'temporary'}
+            classes={{paper: classes.drawerPaper}}
+        >
+            <List>
 
-        <ListSubheader disableSticky>Objekte</ListSubheader>
+                <ListItem button component={RouterLink} to="/documents" onClick={onClose}>
+                    <ListItemIcon>
+                        <DocumentIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Externe Dokumente"
+                        secondary="Externe Dokumente, Bücher oder schriftliche Informationen"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton
+                            edge="end"
+                            aria-label="add new"
+                            onClick={() => handleOnAddClick('/documents/new')}
+                        />
+                    </ListItemSecondaryAction>
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="/objects/activities" onClick={onClose}>
-          <ListItemIcon>
-            <ActivityIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Aktivitäten"
-            secondary="Aktivitäten oder Prozesse, die auf Subjekte verändern"
-          />
-        </ListItem>
+                <ListSubheader disableSticky>Objekte</ListSubheader>
 
-        <ListItem button component={RouterLink} to="/objects/actors" onClick={onClose}>
-          <ListItemIcon>
-            <ActorIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Akteure"
-            secondary="Mittler, der im Rahmen einer Aktivität auf ein Subjekt Einfluss nimmt"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/objects/activities" onClick={onClose}>
+                    <ListItemIcon>
+                        <ActivityIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Aktivitäten"
+                        secondary="Aktivitäten oder Prozesse, die auf Subjekte verändern"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/objects/activities/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="/objects/subjects" onClick={onClose}>
-          <ListItemIcon>
-            <SubjectIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Subjekte"
-            secondary="Physische oder logische Konzepte, die durch zugeordnete Merkmale und Aktivitäten näher beschrieben werden"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/objects/actors" onClick={onClose}>
+                    <ListItemIcon>
+                        <ActorIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Akteure"
+                        secondary="Mittler, der im Rahmen einer Aktivität auf ein Subjekt Einfluss nimmt"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/objects/actors/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="/objects/units" onClick={onClose}>
-          <ListItemIcon>
-            <UnitIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Einheiten"
-            secondary="Skale, anhand derer eine Wert gemessen werden kann"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/objects/subjects" onClick={onClose}>
+                    <ListItemIcon>
+                        <SubjectIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Subjekte"
+                        secondary="Physische oder logische Konzepte, die durch zugeordnete Merkmale und Aktivitäten näher beschrieben werden"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/objects/subjects/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="/objects/properties" onClick={onClose}>
-          <ListItemIcon>
-            <PropertyIcon />
-          </ListItemIcon>
-          <ListItemText
-              primary="Merkmale"
-              secondary="Eigenschaften, anhand derer Objekte qualifiziert oder quantifiziert werden können"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/objects/units" onClick={onClose}>
+                    <ListItemIcon>
+                        <UnitIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Einheiten"
+                        secondary="Skale, anhand derer eine Wert gemessen werden kann"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/objects/units/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
 
-        <ListSubheader disableSticky>Sammlungen</ListSubheader>
-        <ListItem button component={RouterLink} to="collections/bags" disabled>
-          <ListItemIcon>
-            <BagIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Tasche"
-            secondary="Sammlungen beliebiger Objekte"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/objects/properties" onClick={onClose}>
+                    <ListItemIcon>
+                        <PropertyIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Merkmale"
+                        secondary="Eigenschaften, anhand derer Objekte qualifiziert oder quantifiziert werden können"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/objects/properties/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="collections/nests" disabled>
-          <ListItemIcon>
-            <NestIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Nest"
-            secondary="Sammlungen gleicher Objekte"
-          />
-        </ListItem>
+                <ListSubheader disableSticky>Sammlungen</ListSubheader>
+                <ListItem button component={RouterLink} to="collections/bags" disabled>
+                    <ListItemIcon>
+                        <BagIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Tasche"
+                        secondary="Sammlungen beliebiger Objekte"
+                    />
+                </ListItem>
 
-        <ListSubheader disableSticky>Beziehungen</ListSubheader>
+                <ListItem button component={RouterLink} to="collections/nests" disabled>
+                    <ListItemIcon>
+                        <NestIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Nest"
+                        secondary="Sammlungen gleicher Objekte"
+                    />
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="collections/nests" disabled>
-          <ListItemIcon>
-            <DocumentIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Dokumentationen"
-            secondary="Verlinkung eines Konzepts zu einer weiterführenden Dokumentation"
-          />
-        </ListItem>
+                <ListSubheader disableSticky>Beziehungen</ListSubheader>
 
-        <ListItem button component={RouterLink} to="/relationships/collects" disabled>
-          <ListItemIcon>
-            <CollectsIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Sammlungen"
-            secondary="Beziehungen beliebiger Objekte zu einer Sammlung"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="relationships/documents" disabled>
+                    <ListItemIcon>
+                        <DocumentIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Dokumentationen"
+                        secondary="Verlinkung eines Konzepts zu einer weiterführenden Dokumentation"
+                    />
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="relationships/associates" disabled>
-          <ListItemIcon>
-            <AssociatesRelationIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Assoziationen"
-            secondary="Beziehungen beliebiger Sammlungen zu einem Objekt"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/relationships/collects" disabled>
+                    <ListItemIcon>
+                        <CollectsIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Sammlungen"
+                        secondary="Beziehungen beliebiger Objekte zu einer Sammlung"
+                    />
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="/relationships/composes" disabled>
-          <ListItemIcon>
-            <ComposesIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Komposition"
-            secondary="Komposition eines Konzepts durch eine Menge anderer Konzepte"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="relationships/associates" disabled>
+                    <ListItemIcon>
+                        <AssociatesRelationIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Assoziationen"
+                        secondary="Beziehungen beliebiger Sammlungen zu einem Objekt"
+                    />
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="/relationships/groups" onClick={onClose}>
-          <ListItemIcon>
-            <GroupsIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Gruppierungen"
-            secondary="Gruppierungen einer Menge von Objekten in einem Objekt"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/relationships/composes" disabled>
+                    <ListItemIcon>
+                        <ComposesIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Komposition"
+                        secondary="Komposition eines Konzepts durch eine Menge anderer Konzepte"
+                    />
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="/relationships/specializes" disabled>
-          <ListItemIcon>
-            <SpecializesIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Spezialisierung"
-            secondary="Spezialisierung eines Konzepts durch eine Menge anderer Konzepte"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/relationships/groups" onClick={onClose}>
+                    <ListItemIcon>
+                        <GroupsIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Gruppierungen"
+                        secondary="Gruppierungen einer Menge von Objekten in einem Objekt"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/groups/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
 
-        <ListItem button component={RouterLink} to="/relationships/actsUpon" disabled>
-          <ListItemIcon>
-            <ActsUponIcon/>
-          </ListItemIcon>
-          <ListItemText
-            primary="Einflussnahme"
-            secondary="Einflussnahme eines Konzepts auf eine Menge anderer Konzepte"
-          />
-        </ListItem>
+                <ListItem button component={RouterLink} to="/relationships/specializes" disabled>
+                    <ListItemIcon>
+                        <SpecializesIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Spezialisierung"
+                        secondary="Spezialisierung eines Konzepts durch eine Menge anderer Konzepte"
+                    />
+                </ListItem>
+
+                <ListItem button component={RouterLink} to="/relationships/actsUpon" disabled>
+                    <ListItemIcon>
+                        <ActsUponIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Einflussnahme"
+                        secondary="Einflussnahme eines Konzepts auf eine Menge anderer Konzepte"
+                    />
+                </ListItem>
 
 
-        {/*<AppDrawerItem to="/relationships/collects" icon={} label="Sammlungen">*/}
-        {/*    Beziehungen beliebiger Objekte zu einer Sammlung*/}
-        {/*</AppDrawerItem>*/}
-        {/*<AppDrawerItem to="/relationships/specializes" label="Spezialisierungen">*/}
-        {/*    Verbindungen eines Objekts zu einer Menge anderer Objekte*/}
-        {/*</AppDrawerItem>*/}
-        {/*<AppDrawerItem>*/}
-        {/*    <ListItemText primary={"Zusammensetzungen"} secondary={"Verbindungen eines Objekts zu einer Menge anderer Objekte"} />*/}
-        {/*</ListItem>*/}
-        {/*<AppDrawerItem>*/}
-        {/*    <ListItemText primary={"Handlungen"} secondary={"Verbindungen eines Objekts zu einer Menge anderer Objekte"} />*/}
-        {/*</ListItem>*/}
-        {/*<AppDrawerItem>*/}
-        {/*    <ListItemText primary={"Zuordnungen von Merkmalen"} secondary={"Verbindungen eines Objekts zu einer Menge anderer Objekte"} />*/}
-        {/*</ListItem>*/}
+                {/*<AppDrawerItem to="/relationships/collects" icon={} label="Sammlungen">*/}
+                {/*    Beziehungen beliebiger Objekte zu einer Sammlung*/}
+                {/*</AppDrawerItem>*/}
+                {/*<AppDrawerItem to="/relationships/specializes" label="Spezialisierungen">*/}
+                {/*    Verbindungen eines Objekts zu einer Menge anderer Objekte*/}
+                {/*</AppDrawerItem>*/}
+                {/*<AppDrawerItem>*/}
+                {/*    <ListItemText primary={"Zusammensetzungen"} secondary={"Verbindungen eines Objekts zu einer Menge anderer Objekte"} />*/}
+                {/*</ListItem>*/}
+                {/*<AppDrawerItem>*/}
+                {/*    <ListItemText primary={"Handlungen"} secondary={"Verbindungen eines Objekts zu einer Menge anderer Objekte"} />*/}
+                {/*</ListItem>*/}
+                {/*<AppDrawerItem>*/}
+                {/*    <ListItemText primary={"Zuordnungen von Merkmalen"} secondary={"Verbindungen eines Objekts zu einer Menge anderer Objekte"} />*/}
+                {/*</ListItem>*/}
 
-      </List>
-    </Drawer>
-  );
+            </List>
+        </Drawer>
+    );
 }
