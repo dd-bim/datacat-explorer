@@ -20,6 +20,7 @@ import ActsUponIcon from "../icons/ActsUponIcon";
 import UnitIcon from "../icons/UnitIcon";
 import BagIcon from "../icons/BagIcon";
 import GroupsIcon from "../icons/GroupsIcon";
+import PropertyIcon from "../icons/PropertyIcon";
 
 interface AppDrawerProps extends DrawerProps {
   onClose: () => void;
@@ -101,6 +102,16 @@ export default function AppDrawer(props: AppDrawerProps) {
           <ListItemText
             primary="Einheiten"
             secondary="Skale, anhand derer eine Wert gemessen werden kann"
+          />
+        </ListItem>
+
+        <ListItem button component={RouterLink} to="/objects/properties" onClick={onClose}>
+          <ListItemIcon>
+            <PropertyIcon />
+          </ListItemIcon>
+          <ListItemText
+              primary="Merkmale"
+              secondary="Eigenschaften, anhand derer Objekte qualifiziert oder quantifiziert werden können"
           />
         </ListItem>
 

@@ -3,12 +3,12 @@ import {Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import {gql} from "@apollo/client";
 import ObjectView from "../views/ObjectView";
-import {XtdRelGroups} from "../types";
-import GroupsRelationCreateView from "../views/GroupsRelationCreateView";
-import GroupsRelationUpdateView from "../views/GroupsRelationUpdateView";
+import {XtdProperty} from "../types";
+import ObjectCreateView from "../views/ObjectCreateView";
+import ObjectUpdateView from "../views/ObjectUpdateView";
 
 const baseProperties = gql`
-    fragment Props on XtdRelGroups {
+    fragment Props on XtdProperty {
         id
         label
         created
@@ -33,8 +33,8 @@ const baseProperties = gql`
 `;
 
 export const findOneQuery = gql`
-    query findOneActor($id: ID!) {
-        groupsRelation(id: $id) {
+    query findOneProperty($id: ID!) {
+        property(id: $id) {
             ...Props
         }
     }
@@ -42,8 +42,8 @@ export const findOneQuery = gql`
 `;
 
 export const findAllQuery = gql`
-    query findAllActors($term: String, $options: PagingOptions) {
-        groupsRelations(term: $term, options: $options) {
+    query findAllProperties($term: String, $options: PagingOptions) {
+        properties(term: $term, options: $options) {
             nodes {
                 ...Props
                 groups(options: { pageSize: 100 }) {
@@ -71,8 +71,8 @@ export const findAllQuery = gql`
 `;
 
 export const addMutation = gql`
-    mutation add($input: AssociationInput!) {
-        createGroupsRelation(input: $input) {
+    mutation add($input: RootInput!) {
+        createProperty(input: $input) {
             ...Props
         }
     }
@@ -80,8 +80,8 @@ export const addMutation = gql`
 `;
 
 export const updateMutation = gql`
-    mutation update($input: AssociationUpdateInput!) {
-        updateGroupsRelation(input: $input) {
+    mutation update($input: RootUpdateInput!) {
+        updateProperty(input: $input) {
             ...Props
         }
     }
@@ -90,14 +90,14 @@ export const updateMutation = gql`
 
 export const deleteMutation = gql`
     mutation delete($id: ID!) {
-        deleteGroupsRelation(id: $id) {
+        deleteProperty(id: $id) {
             id
         }
     }
 `;
 
 
-export default function RelGroupsRoutes() {
+export default function PropertyRoutes() {
     const {path} = useRouteMatch();
     const history = useHistory();
     const handleOnCancel = () => history.push(path);
@@ -108,9 +108,9 @@ export default function RelGroupsRoutes() {
             <Switch>
                 <Route exact path={path}>
                     <Grid item xs={12}>
-                        <ObjectView<XtdRelGroups>
-                            title={'Groups relationships'}
-                            queryDataKey={'groupsRelations'}
+                        <ObjectView<XtdProperty>
+                            title={'Properties'}
+                            queryDataKey={'properties'}
                             findAllQuery={findAllQuery}
                             deleteMutation={deleteMutation}
                         />
@@ -118,7 +118,10 @@ export default function RelGroupsRoutes() {
                 </Route>
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
-                        <GroupsRelationCreateView
+                        <ObjectCreateView<XtdProperty>
+                            title={'Add property'}
+                            findAllQuery={findAllQuery}
+                            addMutation={addMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
                         />
@@ -126,7 +129,10 @@ export default function RelGroupsRoutes() {
                 </Route>
                 <Route path={`${path}/:id`}>
                     <Grid item xs={12}>
-                        <GroupsRelationUpdateView
+                        <ObjectUpdateView<XtdProperty>
+                            findOneQuery={findOneQuery}
+                            findOneDataKey={'property'}
+                            updateMutation={updateMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
                         />

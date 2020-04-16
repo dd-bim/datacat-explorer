@@ -1,9 +1,9 @@
 import React from 'react';
 import {gql, useMutation, useQuery} from '@apollo/client';
-import XtdRelAssociatesForm from '../../form/XtdRelAssociatesForm';
+import XtdRelAssociatesForm from '../components/form/XtdRelAssociatesForm';
 import {useParams} from 'react-router-dom';
 import cloneDeep from 'lodash.clonedeep';
-import {AssociationInput} from "../../../types";
+import {AssociationInput} from "../types";
 
 export const GROUPS_FORM_UPDATE_QUERY = gql`
     query GroupsForm($id: ID!) {

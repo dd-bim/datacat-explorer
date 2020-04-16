@@ -135,6 +135,10 @@ export interface XtdUnit extends XtdObject {
     __typename: XtdObjectTypes.XtdUnit;
 }
 
+export interface XtdProperty extends XtdObject {
+    __typename: XtdObjectTypes.XtdProperty;
+}
+
 export interface XtdCollection extends XtdRoot {
     __typename: XtdCollectionTypes;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {gql, useMutation} from '@apollo/client';
-import XtdRelAssociatesForm from '../../form/XtdRelAssociatesForm';
-import {AssociationInput} from "../../../types";
+import XtdRelAssociatesForm from '../components/form/XtdRelAssociatesForm';
+import {AssociationInput} from "../types";
 
 export const REL_GROUPS_ADD_MUTATION = gql`
     mutation SubjectFormAdd($input: AssociationInput!) {

@@ -14,6 +14,7 @@ import ActorRoutes from "../../routes/ActorRoutes";
 import RelGroupsRoutes from "../../routes/RelGroupsRoutes";
 import ActivityRoutes from "../../routes/ActivityRoutes";
 import UnitRoutes from "../../routes/UnitRoutes";
+import PropertyRoutes from "../../routes/PropertyRoutes";
 
 const drawerWidth = 400;
 
@@ -93,6 +94,9 @@ export default function Layout() {
                     </Route>
                     <Route path="/objects/units">
                         <UnitRoutes />
+                    </Route>
+                    <Route path="/objects/properties">
+                        <PropertyRoutes />
                     </Route>
                     <Route path="/relationships/groups">
                         <RelGroupsRoutes />
