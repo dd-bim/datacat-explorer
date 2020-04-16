@@ -22,6 +22,7 @@ import BagIcon from "../icons/BagIcon";
 import GroupsIcon from "../icons/GroupsIcon";
 
 interface AppDrawerProps extends DrawerProps {
+  onClose: () => void;
   drawerWidth?: number;
 }
 
@@ -51,7 +52,7 @@ export default function AppDrawer(props: AppDrawerProps) {
     >
       <List dense>
 
-        <ListItem button component={RouterLink} to="/documents">
+        <ListItem button component={RouterLink} to="/documents" onClick={onClose}>
           <ListItemIcon>
             <DocumentIcon/>
           </ListItemIcon>
@@ -63,7 +64,7 @@ export default function AppDrawer(props: AppDrawerProps) {
 
         <ListSubheader disableSticky>Objekte</ListSubheader>
 
-        <ListItem button component={RouterLink} to="/objects/activities">
+        <ListItem button component={RouterLink} to="/objects/activities" onClick={onClose}>
           <ListItemIcon>
             <ActivityIcon/>
           </ListItemIcon>
@@ -73,7 +74,7 @@ export default function AppDrawer(props: AppDrawerProps) {
           />
         </ListItem>
 
-        <ListItem button component={RouterLink} to="/objects/actors">
+        <ListItem button component={RouterLink} to="/objects/actors" onClick={onClose}>
           <ListItemIcon>
             <ActorIcon/>
           </ListItemIcon>
@@ -83,7 +84,7 @@ export default function AppDrawer(props: AppDrawerProps) {
           />
         </ListItem>
 
-        <ListItem button component={RouterLink} to="/objects/subjects">
+        <ListItem button component={RouterLink} to="/objects/subjects" onClick={onClose}>
           <ListItemIcon>
             <SubjectIcon />
           </ListItemIcon>
@@ -93,7 +94,7 @@ export default function AppDrawer(props: AppDrawerProps) {
           />
         </ListItem>
 
-        <ListItem button component={RouterLink} to="/objects/units" disabled>
+        <ListItem button component={RouterLink} to="/objects/units" onClick={onClose}>
           <ListItemIcon>
             <UnitIcon />
           </ListItemIcon>
@@ -166,7 +167,7 @@ export default function AppDrawer(props: AppDrawerProps) {
           />
         </ListItem>
 
-        <ListItem button component={RouterLink} to="/relationships/groups">
+        <ListItem button component={RouterLink} to="/relationships/groups" onClick={onClose}>
           <ListItemIcon>
             <GroupsIcon />
           </ListItemIcon>
