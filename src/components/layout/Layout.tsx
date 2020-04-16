@@ -12,6 +12,7 @@ import ExternalDocumentRoutes from "../../routes/ExternalDocumentRoutes";
 import SubjectRoutes from "../../routes/SubjectRoutes";
 import ActorRoutes from "../../routes/ActorRoutes";
 import RelGroupsRoutes from "../../routes/RelGroupsRoutes";
+import ActivityRoutes from "../../routes/ActivityRoutes";
 
 const drawerWidth = 400;
 
@@ -82,6 +83,9 @@ export default function Layout() {
                     </Route>
                     <Route path="/objects/actors">
                         <ActorRoutes />
+                    </Route>
+                    <Route path="/objects/activities">
+                        <ActivityRoutes />
                     </Route>
                     <Route path="/objects/subjects">
                         <SubjectRoutes />

@@ -63,7 +63,7 @@ export default function AppDrawer(props: AppDrawerProps) {
 
         <ListSubheader disableSticky>Objekte</ListSubheader>
 
-        <ListItem button component={RouterLink} to="/objects/activities" disabled>
+        <ListItem button component={RouterLink} to="/objects/activities">
           <ListItemIcon>
             <ActivityIcon/>
           </ListItemIcon>
