@@ -119,6 +119,7 @@ export default function ActivityRoutes() {
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
                         <ObjectCreateView<XtdActivity>
+                            title={'Add activity'}
                             findAllQuery={findAllQuery}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}

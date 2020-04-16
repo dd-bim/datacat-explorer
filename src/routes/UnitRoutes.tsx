@@ -119,6 +119,7 @@ export default function UnitRoutes() {
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
                         <ObjectCreateView<XtdUnit>
+                            title={'Add unit'}
                             findAllQuery={findAllQuery}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}

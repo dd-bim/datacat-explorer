@@ -5,6 +5,7 @@ import {XtdObject} from "../types";
 import {FieldValues, OnSubmit} from "react-hook-form";
 
 interface ObjectCreateViewProps {
+    title: string;
     findAllQuery: DocumentNode;
     addMutation: DocumentNode;
     onSubmit: () => void;
@@ -13,6 +14,7 @@ interface ObjectCreateViewProps {
 
 export default function ObjectCreateView<T extends XtdObject>(props: ObjectCreateViewProps) {
     const {
+        title,
         findAllQuery,
         addMutation,
         onSubmit,
@@ -30,7 +32,7 @@ export default function ObjectCreateView<T extends XtdObject>(props: ObjectCreat
     };
 
     return <XtdObjectForm<T>
-        title="Add subject"
+        title={title}
         onSubmit={handleSubmit}
         onCancel={onCancel}
     />;

@@ -119,6 +119,7 @@ export default function SubjectRoutes() {
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
                         <ObjectCreateView<XtdSubject>
+                            title={'Add subject'}
                             findAllQuery={findAllQuery}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}
