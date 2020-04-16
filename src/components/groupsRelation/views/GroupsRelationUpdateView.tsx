@@ -1,8 +1,9 @@
 import React from 'react';
 import {gql, useMutation, useQuery} from '@apollo/client';
-import GroupsRelationForm from '../GroupsRelationForm';
+import XtdRelAssociatesForm from '../../form/XtdRelAssociatesForm';
 import {useParams} from 'react-router-dom';
 import cloneDeep from 'lodash.clonedeep';
+import {AssociationInput} from "../../../types";
 
 export const GROUPS_FORM_UPDATE_QUERY = gql`
     query GroupsForm($id: ID!) {
@@ -60,15 +61,20 @@ export const REL_GROUPS_ADD_MUTATION = gql`
     }
 `;
 
-export default function GroupsRelationCreateView(props) {
+interface GroupsRelationUpdateViewProps {
+    onSubmit: () => void;
+    onCancel: () => void;
+}
+
+export default function GroupsRelationCreateView(props: GroupsRelationUpdateViewProps) {
     const { onSubmit, onCancel } = props;
     const { id } = useParams();
     const { loading, error, data } = useQuery(GROUPS_FORM_UPDATE_QUERY, { variables: {id} });
     const [executeCreate] = useMutation(REL_GROUPS_ADD_MUTATION);
 
-    const handleOnSubmit = async (data, e) => {
+    const handleOnSubmit = async (data: AssociationInput) => {
         await executeCreate({ variables: { input: data } });
-        onSubmit && onSubmit();
+        onSubmit?.();
     };
 
     if (loading) return <p>Loading...</p>;
@@ -78,8 +84,8 @@ export default function GroupsRelationCreateView(props) {
     defaultValues.relatedThings = defaultValues.relatedThings.nodes;
 
     return (
-        <GroupsRelationForm
-            onCancle={onCancel}
+        <XtdRelAssociatesForm
+            onCancel={onCancel}
             onSubmit={handleOnSubmit}
             defaultValues={defaultValues}
         />

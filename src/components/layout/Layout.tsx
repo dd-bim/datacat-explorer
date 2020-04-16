@@ -7,9 +7,11 @@ import {Menu} from '@material-ui/icons';
 import {Typography} from '@material-ui/core';
 import AppDrawer from './AppDrawer';
 import {Route, Switch} from 'react-router-dom';
-import SubjectRoutes from '../subjects/SubjectRoutes';
 import IconButton from '@material-ui/core/IconButton';
-import GroupsRelationRoutes from '../groupsRelation/views/GroupsRelationRoutes';
+import ExternalDocumentRoutes from "../../routes/ExternalDocumentRoutes";
+import SubjectRoutes from "../../routes/SubjectRoutes";
+import ActorRoutes from "../../routes/ActorRoutes";
+import RelGroupsRoutes from "../../routes/RelGroupsRoutes";
 
 const drawerWidth = 400;
 
@@ -75,14 +77,17 @@ export default function Layout() {
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
                 <Switch>
-                    {/*<Route path="/documents">*/}
-                    {/*    <DocumentRoutes/>*/}
-                    {/*</Route>*/}
+                    <Route path="/documents">
+                        <ExternalDocumentRoutes />
+                    </Route>
+                    <Route path="/objects/actors">
+                        <ActorRoutes />
+                    </Route>
                     <Route path="/objects/subjects">
-                        <SubjectRoutes/>
+                        <SubjectRoutes />
                     </Route>
                     <Route path="/relationships/groups">
-                        <GroupsRelationRoutes />
+                        <RelGroupsRoutes />
                     </Route>
                 </Switch>
             </main>

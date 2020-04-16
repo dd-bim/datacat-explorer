@@ -1,6 +1,7 @@
 import React from 'react';
 import {gql, useMutation} from '@apollo/client';
-import GroupsRelationForm from '../GroupsRelationForm';
+import XtdRelAssociatesForm from '../../form/XtdRelAssociatesForm';
+import {AssociationInput} from "../../../types";
 
 export const REL_GROUPS_ADD_MUTATION = gql`
     mutation SubjectFormAdd($input: AssociationInput!) {
@@ -28,13 +29,18 @@ export const REL_GROUPS_ADD_MUTATION = gql`
     }
 `;
 
-export default function GroupsRelationCreateView(props) {
+interface GroupsRelationCreateViewProps {
+    onSubmit: () => void;
+    onCancel: () => void;
+}
+
+export default function GroupsRelationCreateView(props: GroupsRelationCreateViewProps) {
     const { onSubmit, onCancel } = props;
     const [executeCreate] = useMutation(REL_GROUPS_ADD_MUTATION);
 
-    const handleOnSubmit = async (data, e) => {
+    const handleOnSubmit = async (data: AssociationInput) => {
         await executeCreate({ variables: { input: data } });
-        onSubmit && onSubmit();
+        onSubmit?.();
     };
-    return <GroupsRelationForm onCancle={onCancel} onSubmit={handleOnSubmit} />;
+    return <XtdRelAssociatesForm onCancel={onCancel} onSubmit={handleOnSubmit} />;
 }

@@ -4,6 +4,7 @@ import {XtdRelGroups, XtdRoot} from "../../types";
 import RelGroupsIconButton from "../button/RelGroupsIconButton";
 import RelGroupsDialog from "../dialog/RelGroupsDialog";
 import {IconButtonProps} from "@material-ui/core";
+import {gql} from "@apollo/client";
 
 interface RelGroupsRowActionProps<T> {
     row: T;
@@ -31,4 +32,21 @@ export default function RelGroupsRowAction<T extends XtdRoot>(props: RelGroupsRo
             />
         </React.Fragment>
     );
+}
+
+RelGroupsRowAction.fragments = {
+    root: gql`
+        fragment RelGroupsRowActionRoot on XtdRoot {
+            groups {
+                page {
+                    totalElements
+                }
+            }
+            groupedBy {
+                page {
+                    totalElements
+                }
+            }
+        }
+    `
 }

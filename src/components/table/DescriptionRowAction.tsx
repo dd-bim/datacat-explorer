@@ -4,6 +4,7 @@ import * as React from "react";
 import {useState} from "react";
 import {IconButtonProps} from "@material-ui/core";
 import {XtdRoot} from "../../types";
+import {gql} from "@apollo/client";
 
 interface DescriptionRowActionProps<T> {
     row: T;
@@ -32,4 +33,15 @@ export default function DescriptionRowAction<T extends XtdRoot>(props: Descripti
     )}
         </React.Fragment>
     )
+}
+
+DescriptionRowAction.fragments = {
+    root: gql`
+        fragment DescriptionRowActionRoot on XtdRoot {
+            descriptions {
+                id
+                value
+            }
+        }
+    `
 }

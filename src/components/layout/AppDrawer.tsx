@@ -51,7 +51,7 @@ export default function AppDrawer(props: AppDrawerProps) {
     >
       <List dense>
 
-        <ListItem button component={RouterLink} to="/documents" disabled>
+        <ListItem button component={RouterLink} to="/documents">
           <ListItemIcon>
             <DocumentIcon/>
           </ListItemIcon>
@@ -73,7 +73,7 @@ export default function AppDrawer(props: AppDrawerProps) {
           />
         </ListItem>
 
-        <ListItem button component={RouterLink} to="/objects/actors" disabled>
+        <ListItem button component={RouterLink} to="/objects/actors">
           <ListItemIcon>
             <ActorIcon/>
           </ListItemIcon>
