@@ -4,30 +4,30 @@ import Grid from '@material-ui/core/Grid';
 import {gql} from "@apollo/client";
 import ObjectView from "../views/ObjectView";
 import {XtdRelGroups} from "../types";
-import GroupsRelationCreateView from "../views/GroupsRelationCreateView";
+import AssociationCreateView from "../views/AssociationCreateView";
 import GroupsRelationUpdateView from "../views/GroupsRelationUpdateView";
 
 const baseProperties = gql`
     fragment Props on XtdRelGroups {
         id
-        label
         created
         lastModified
         versionId
         versionDate
+        label
         names {
             id
-            created
-            lastModified
             languageCode
             value
         }
         descriptions {
             id
-            created
-            lastModified
             languageCode
             value
+        }
+        relatingThing { id label }
+        relatedThings {
+            nodes { id label }
         }
     }
 `;
@@ -118,7 +118,9 @@ export default function RelGroupsRoutes() {
                 </Route>
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
-                        <GroupsRelationCreateView
+                        <AssociationCreateView
+                            title={'Create association'}
+                            addMutation={addMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
                         />
@@ -127,6 +129,9 @@ export default function RelGroupsRoutes() {
                 <Route path={`${path}/:id`}>
                     <Grid item xs={12}>
                         <GroupsRelationUpdateView
+                            findOneQuery={findOneQuery}
+                            findOneDataKey={'groupsRelation'}
+                            updateMutation={updateMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
                         />

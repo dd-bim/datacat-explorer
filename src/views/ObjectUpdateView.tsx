@@ -5,7 +5,7 @@ import XtdObjectForm from '../components/form/XtdObjectForm';
 import {FieldValues, OnSubmit} from "react-hook-form";
 import {XtdObject} from "../types";
 
-interface SubjectUpdateViewProps {
+interface ObjectUpdateViewProps {
     findOneQuery: DocumentNode;
     findOneDataKey: string;
     updateMutation: DocumentNode;
@@ -17,7 +17,7 @@ interface QueryData<T> {
     [name: string]: T
 }
 
-export default function ObjectUpdateView<T extends XtdObject>(props: SubjectUpdateViewProps) {
+export default function ObjectUpdateView<T extends XtdObject>(props: ObjectUpdateViewProps) {
     const {findOneQuery, findOneDataKey, updateMutation, onSubmit, onCancel} = props;
     const {id} = useParams();
     const {loading, error, data} = useQuery<QueryData<T>>(findOneQuery, {variables: {id}});
