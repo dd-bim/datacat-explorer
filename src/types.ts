@@ -106,9 +106,11 @@ export interface XtdRoot extends XtdEntity {
     __typename: XtdObjectTypes | XtdCollectionTypes | XtdRelationshipTypes | XtdRelAssociatesTypes;
     versionId: string;
     versionDate: string;
-    descriptions: XtdDescription[]
-    groups: QueryConnection<XtdRelGroups>
-    groupedBy: QueryConnection<XtdRelGroups>
+    descriptions: XtdDescription[];
+    associates: QueryConnection<XtdRelAssociates>;
+    associatedBy: QueryConnection<XtdRelAssociates>;
+    groups: QueryConnection<XtdRelGroups>;
+    groupedBy: QueryConnection<XtdRelGroups>;
 }
 
 export interface XtdObject extends XtdRoot {
