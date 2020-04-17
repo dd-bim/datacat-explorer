@@ -16,6 +16,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import {List} from "@material-ui/core";
+import RelAssociatesRowAction from "./RelAssociatesRowAction";
 
 const useStyles = makeStyles(theme => ({
     describedEntity: {
@@ -92,9 +93,15 @@ export default function RootTableRow<T extends XtdRoot>(props: XtdRootTableRowPr
             <TableCell>{toLocaleDateTimeString(row.lastModified)}</TableCell>
             <TableCell>{row.versionId} | {toLocaleDateTimeString(row.versionDate, 'll')}</TableCell>
             <TableCell align={'center'}>
+                <RelAssociatesRowAction
+                    row={row}
+                    onSelect={onEntitySelect}
+                    ButtonProps={{ size: 'small' }}
+                />
                 <RelGroupsRowAction
                     row={row}
                     onSelect={onEntitySelect}
+                    ButtonProps={{ size: 'small' }}
                 />
             </TableCell>
             <TableCell align={'center'}>
