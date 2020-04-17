@@ -188,7 +188,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                 </ListItem>
 
-                <ListItem button component={RouterLink} to="relationships/associates" disabled>
+                <ListItem button component={RouterLink} to="/relationships/associates">
                     <ListItemIcon>
                         <AssociatesRelationIcon/>
                     </ListItemIcon>

@@ -3,12 +3,12 @@ import {Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import {gql} from "@apollo/client";
 import ObjectView from "../views/ObjectView";
-import {XtdRelGroups} from "../types";
+import {XtdRelAssociates} from "../types";
 import AssociationCreateView from "../views/AssociationCreateView";
 import AssociationUpdateView from "../views/AssociationUpdateView";
 
 const baseProperties = gql`
-    fragment Props on XtdRelGroups {
+    fragment Props on XtdRelAssociates {
         id
         created
         lastModified
@@ -33,8 +33,8 @@ const baseProperties = gql`
 `;
 
 export const findOneQuery = gql`
-    query findOneActor($id: ID!) {
-        groupsRelation(id: $id) {
+    query findOne($id: ID!) {
+        associatesRelation(id: $id) {
             ...Props
         }
     }
@@ -42,8 +42,8 @@ export const findOneQuery = gql`
 `;
 
 export const findAllQuery = gql`
-    query findAllActors($term: String, $options: PagingOptions) {
-        groupsRelations(term: $term, options: $options) {
+    query findAll($term: String, $options: PagingOptions) {
+        associatesRelations(term: $term, options: $options) {
             nodes {
                 ...Props
                 groups(options: { pageSize: 100 }) {
@@ -72,7 +72,7 @@ export const findAllQuery = gql`
 
 export const addMutation = gql`
     mutation add($input: AssociationInput!) {
-        createGroupsRelation(input: $input) {
+        createAssociatesRelation(input: $input) {
             ...Props
         }
     }
@@ -81,7 +81,7 @@ export const addMutation = gql`
 
 export const updateMutation = gql`
     mutation update($input: AssociationUpdateInput!) {
-        updateGroupsRelation(input: $input) {
+        updateAssociatesRelation(input: $input) {
             ...Props
         }
     }
@@ -90,14 +90,14 @@ export const updateMutation = gql`
 
 export const deleteMutation = gql`
     mutation delete($id: ID!) {
-        deleteGroupsRelation(id: $id) {
+        deleteAssociatesRelation(id: $id) {
             id
         }
     }
 `;
 
 
-export default function RelGroupsRoutes() {
+export default function RelAssociatesRoutes() {
     const {path} = useRouteMatch();
     const history = useHistory();
     const handleOnCancel = () => history.push(path);
@@ -108,9 +108,9 @@ export default function RelGroupsRoutes() {
             <Switch>
                 <Route exact path={path}>
                     <Grid item xs={12}>
-                        <ObjectView<XtdRelGroups>
-                            title={'Groups relationships'}
-                            queryDataKey={'groupsRelations'}
+                        <ObjectView<XtdRelAssociates>
+                            title={'Association relationships'}
+                            queryDataKey={'associatesRelations'}
                             findAllQuery={findAllQuery}
                             deleteMutation={deleteMutation}
                         />
@@ -130,7 +130,7 @@ export default function RelGroupsRoutes() {
                     <Grid item xs={12}>
                         <AssociationUpdateView
                             findOneQuery={findOneQuery}
-                            findOneDataKey={'groupsRelation'}
+                            findOneDataKey={'associatesRelation'}
                             updateMutation={updateMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
