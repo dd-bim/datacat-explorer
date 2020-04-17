@@ -171,7 +171,7 @@ export interface XtdRelAssociates extends XtdRelationship {
     relatedThings: XtdRoot[]
 }
 
-export interface XtdRelGroups extends XtdRelationship {
+export interface XtdRelGroups extends XtdRelAssociates {
     __typename: XtdRelAssociatesTypes.XtdRelGroups;
 }
 
