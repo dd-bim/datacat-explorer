@@ -46,6 +46,18 @@ export const findAllQuery = gql`
         subjects(term: $term, options: $options) {
             nodes {
                 ...Props
+                associates(options: { pageSize: 100 }) {
+                    nodes { id label }
+                    page {
+                        totalElements
+                    }
+                }
+                associatedBy(options: { pageSize: 100 }) {
+                    nodes { id label }
+                    page {
+                        totalElements
+                    }
+                }
                 groups(options: { pageSize: 100 }) {
                     nodes { id label }
                     page {
