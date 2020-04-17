@@ -11,10 +11,19 @@ import DeleteRowAction from "./DeleteRowAction";
 import DescriptionRowAction from "./DescriptionRowAction";
 import RelGroupsRowAction from "./RelGroupsRowAction";
 import {gql} from "@apollo/client";
+import {HtmlTooltip} from "../HtmlTooltip";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
+import {List} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
+    describedEntity: {
+        'text-descoration': 'underlined'
+    },
     idLabel: {
-        'color': theme.palette.text.hint
+        'color': theme.palette.text.hint,
+        'font-family': 'monospace'
     }
 }));
 
@@ -26,18 +35,59 @@ export interface XtdRootTableRowProps<T> {
 }
 
 export default function RootTableRow<T extends XtdRoot>(props: XtdRootTableRowProps<T>) {
-    const { row, onEntitySelect, onEdit, onDelete } = props;
+    const {row, onEntitySelect, onEdit, onDelete} = props;
     const classes = useStyles();
+    const hasDescriptions = row.descriptions.length;
 
-    return (
-        <TableRow>
-            <TableCell align={'center'}>
-                <EntityIcon entity={row} fontSize={'small'}/>
-            </TableCell>
+    let entityLabel;
+    if (hasDescriptions) {
+        entityLabel = (
+            <HtmlTooltip
+                arrow
+                title={
+                    <React.Fragment>
+                        <List dense disablePadding={true}>
+                            {row.descriptions.reduce((acc: JSX.Element[], {value}, index) => {
+                                acc.push(
+                                    <ListItem key={index} component="li" dense disableGutters={true}>
+                                        <ListItemText primary={value}/>
+                                    </ListItem>
+                                );
+
+                                if (index < hasDescriptions - 1) {
+                                    acc.push(<Divider key={index + '-divider'}/>);
+                                }
+                                return acc;
+                            }, [])}
+                        </List>
+                    </React.Fragment>
+                }
+            >
+                <TableCell>
+                    <Typography variant="body1">{row.label}</Typography>
+                    <Typography className={classes.idLabel} variant="body2">{row.id}</Typography>
+                </TableCell>
+            </HtmlTooltip>
+        );
+    } else {
+        entityLabel = (
             <TableCell>
                 <Typography variant="body1">{row.label}</Typography>
                 <Typography className={classes.idLabel} variant="body2">{row.id}</Typography>
             </TableCell>
+        );
+    }
+
+    return (
+        <TableRow>
+            <TableCell align={'center'}>
+                <EntityIcon
+                    entity={row}
+                    fontSize="small"
+                    color={hasDescriptions ? 'inherit' : 'disabled'}
+                />
+            </TableCell>
+            {entityLabel}
             <TableCell>{toLocaleDateTimeString(row.created)}</TableCell>
             <TableCell>{toLocaleDateTimeString(row.lastModified)}</TableCell>
             <TableCell>{row.versionId} | {toLocaleDateTimeString(row.versionDate, 'll')}</TableCell>
@@ -48,7 +98,6 @@ export default function RootTableRow<T extends XtdRoot>(props: XtdRootTableRowPr
                 />
             </TableCell>
             <TableCell align={'center'}>
-                <DescriptionRowAction row={row} />
                 <EditIconButton
                     onClick={() => onEdit(row)}
                     size='small'

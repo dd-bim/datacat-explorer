@@ -26,7 +26,7 @@ export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRo
     const classes = useStyles();
 
     return (
-        <TableRow>
+        <TableRow hover>
             <TableCell align={'center'}>
                 <EntityIcon entity={row} fontSize={'small'}/>
             </TableCell>
