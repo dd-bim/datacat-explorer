@@ -1,5 +1,12 @@
 import {SvgIconProps} from "@material-ui/core";
-import {EntityTypes, XtdCollectionTypes, XtdEntity, XtdObjectTypes, XtdRelAssociatesTypes} from "../../types";
+import {
+    EntityTypes,
+    XtdCollectionTypes,
+    XtdEntity,
+    XtdObjectTypes,
+    XtdRelAssociatesTypes,
+    XtdRelationshipTypes
+} from "../../types";
 import SubjectIcon from "./SubjectIcon";
 import React from "react";
 import ActivityIcon from "./ActivityIcon";
@@ -10,6 +17,9 @@ import GroupsIcon from "./GroupsIcon";
 import ExternalDocumentIcon from "./ExternalDocumentIcon";
 import UnitIcon from "./UnitIcon";
 import PropertyIcon from "./PropertyIcon";
+import AssociatesIcon from "./AssociatesIcon";
+import DocumentsIcon from "./DocumentsIcon";
+import CollectsIcon from "./CollectsIcon";
 
 interface EntityIconProps {
   entity: XtdEntity;
@@ -37,6 +47,12 @@ export default function EntityIcon(props: EntityIconProps & SvgIconProps) {
       return <BagIcon {...otherProps} />;
     case XtdCollectionTypes.XtdNest:
       return <NestIcon {...otherProps} />;
+    case XtdRelationshipTypes.XtdRelDocuments:
+      return <DocumentsIcon {...otherProps} />;
+    case XtdRelationshipTypes.XtdRelCollects:
+      return <CollectsIcon {...otherProps} />;
+    case XtdRelationshipTypes.XtdRelAssociates:
+      return <AssociatesIcon {...otherProps} />;
     case XtdRelAssociatesTypes.XtdRelGroups:
       return <GroupsIcon {...otherProps} />;
     default:
