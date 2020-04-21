@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,6 +18,8 @@ import PropertyRoutes from "../../routes/PropertyRoutes";
 import RelAssociatesRoutes from "../../routes/RelAssociatesRoutes";
 import SearchView from "../../views/SearchView";
 import Avatar from "@material-ui/core/Avatar";
+import {Alert} from "@material-ui/lab";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const drawerWidth = 400;
 
@@ -58,10 +60,27 @@ const useStyles = makeStyles(theme => ({
 export default function Layout() {
     const classes = useStyles();
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [demoWarning, setDemoWarning] = useState(false);
+
+    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setDemoWarning(false);
+    };
+
+    useEffect(() => {
+        setTimeout(() => setDemoWarning(true), 3000);
+    }, [])
 
     return (
         <div className={classes.root}>
             <CssBaseline/>
+            <Snackbar open={demoWarning} autoHideDuration={6000}>
+                <Alert onClose={handleClose} severity="error">
+                    This is a demo installation. All changes made will be lost after restarting the server application.
+                </Alert>
+            </Snackbar>
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                     <IconButton
