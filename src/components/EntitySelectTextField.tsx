@@ -12,6 +12,7 @@ import {QueryConnection, XtdEntity, XtdObjectTypes} from "../types";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import EntityIcon from "./icons/EntityIcon";
 import {useAsFormValue} from "../hooks";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const CONCEPT_SEARCH_QUERY = gql`
     query ConceptSelectSearch($options: SearchInput) {
@@ -64,13 +65,20 @@ export default function EntitySelectTextField(props: ConceptSelectProps & TextFi
         <div>
 
             <TextField
-                value={current?.label || ''}
+                value={current ? `${current.label} (${current.id})`  : ''}
                 onClick={handleClickOpen}
                 required={true}
                 error={!!error}
                 fullWidth
                 variant="filled"
-                InputProps={{ readOnly: true }}
+                InputProps={{
+                    readOnly: true,
+                    startAdornment: (current &&
+                        <InputAdornment position="start">
+                            <EntityIcon entity={current} />
+                        </InputAdornment>
+                    )
+                }}
                 InputLabelProps={{ shrink: true}}
                 {...otherProps}
             />
