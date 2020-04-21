@@ -19,8 +19,30 @@ export function usePagination(initialPageNumber = 0, initialPageSize = 10): Pagi
 
 export function useQueryOptions(initalTerm = '',  initialPageNumber = 0, initialPageSize = 10) {
   const [term, setTerm] = useState(initalTerm);
-  const pagination = usePagination(initialPageNumber, initialPageSize);
-  return { term, setTerm, ...pagination};
+  const { pageSize, setPageSize, pageNumber, setPageNumber } = usePagination(initialPageNumber, initialPageSize);
+
+  const handleTermChange = (newTerm: string) => {
+    setTerm(newTerm);
+    setPageNumber(0);
+  };
+
+  const handleChangeRowsPerPage = (pageSize: number): void => {
+    setPageSize(pageSize);
+    setPageNumber(0);
+  };
+
+  const handleChangePage = (page: number) => {
+    setPageNumber(page);
+  };
+
+  return {
+    term,
+    setTerm: handleTermChange,
+    pageSize,
+    setPageSize: handleChangeRowsPerPage,
+    pageNumber,
+    setPageNumber: handleChangePage
+  };
 }
 
 export interface FindOneQueryData<T> {
