@@ -24,9 +24,7 @@ export default function ObjectCreateView<T extends XtdObject>(props: ObjectCreat
 
     const handleSubmit: OnSubmit<FieldValues> = async (data, e) => {
         await executeCreate({
-            variables: { input: data },
-            refetchQueries: [ { query: findAllQuery }],
-            awaitRefetchQueries: true
+            variables: { input: data }
         });
         onSubmit();
     };

@@ -21,7 +21,9 @@ export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
     const history = useHistory();
     const {term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize} = useQueryOptions();
     const {loading, error, nodes, page, refetch} = useFindAllQuery<T>(findAllQuery, queryDataKey, {
-        variables: { term, options: {pageNumber, pageSize} }
+        variables: { term, options: {pageNumber, pageSize} },
+        fetchPolicy: "network-only"
+
     });
     const [deleteRow] = useMutation(deleteMutation);
 
