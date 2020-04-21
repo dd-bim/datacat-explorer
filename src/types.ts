@@ -50,7 +50,8 @@ export enum XtdCollectionTypes {
 
 export enum XtdRelationshipTypes {
     XtdRelDocuments = 'XtdRelDocuments',
-    XtdAssociates = 'XtdAssociates',
+    XtdRelAssociates = 'XtdRelAssociates',
+    XtdRelCollects = 'XtdRelCollects',
 }
 
 export enum XtdRelAssociatesTypes {
@@ -168,7 +169,7 @@ export interface AssociationInput {
 }
 
 export interface XtdRelAssociates extends XtdRelationship {
-    __typename: XtdRelationshipTypes.XtdAssociates | XtdRelAssociatesTypes;
+    __typename: XtdRelationshipTypes.XtdRelAssociates | XtdRelAssociatesTypes;
     relatingThing: XtdRoot;
     relatedThings: QueryConnection<XtdRoot>;
 }
