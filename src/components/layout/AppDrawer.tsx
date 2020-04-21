@@ -23,6 +23,7 @@ import GroupsIcon from "../icons/GroupsIcon";
 import PropertyIcon from "../icons/PropertyIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import AddIconButton from "../button/AddIconButton";
+import {Search} from "@material-ui/icons";
 
 const defaultDrawerWidth = 250;
 const widthProperty = ({drawerWidth = defaultDrawerWidth}: AppDrawerProps) => drawerWidth;
@@ -60,6 +61,13 @@ export default function AppDrawer(props: AppDrawerProps) {
             classes={{paper: classes.drawerPaper}}
         >
             <List>
+
+                <ListItem button component={RouterLink} to="/" onClick={onClose}>
+                    <ListItemIcon>
+                        <Search />
+                    </ListItemIcon>
+                    <ListItemText primary="Search" />
+                </ListItem>
 
                 <ListItem button component={RouterLink} to="/documents" onClick={onClose}>
                     <ListItemIcon>

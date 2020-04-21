@@ -31,8 +31,8 @@ const useStyles = makeStyles(theme => ({
 export interface XtdRootTableRowProps<T> {
     row: T;
     onEntitySelect: (entity: XtdEntity) => void;
-    onEdit: (row: T) => void;
-    onDelete: (row: T) => void;
+    onEdit?: (row: T) => void;
+    onDelete?: (row: T) => void;
 }
 
 export default function RootTableRow<T extends XtdRoot>(props: XtdRootTableRowProps<T>) {
@@ -105,15 +105,15 @@ export default function RootTableRow<T extends XtdRoot>(props: XtdRootTableRowPr
                 />
             </TableCell>
             <TableCell align={'center'}>
-                <EditIconButton
+                {onEdit && <EditIconButton
                     onClick={() => onEdit(row)}
                     size='small'
-                />
-                <DeleteRowAction
+                />}
+                {onDelete && <DeleteRowAction
                     title={`Delete ${row.label}`}
                     onConfirm={() => onDelete(row)}
                     ButtonProps={{size: 'small'}}
-                />
+                />}
             </TableCell>
         </TableRow>
     );

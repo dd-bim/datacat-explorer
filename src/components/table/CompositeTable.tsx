@@ -6,7 +6,6 @@ import ErrorAlert from "../ErrorAlert";
 import SimpleTable from "./SimpleTable";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import AddButton from "../button/AddButton";
 import SearchField from "../SearchField";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {makeStyles} from "@material-ui/core/styles";
@@ -15,6 +14,7 @@ interface CompositeTableProps<T> {
     title: string;
     loading: boolean;
     error?: ApolloError;
+    tools?: React.ReactNode;
     tableHeader: React.ReactNode;
     children?: React.ReactNode;
     page?: Page;
@@ -48,6 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function CompositeTable<T extends XtdEntity>(props: CompositeTableProps<T>) {
     const {
+        tools,
         tableHeader,
         title,
         loading,
@@ -77,6 +78,9 @@ export default function CompositeTable<T extends XtdEntity>(props: CompositeTabl
     if (error) {
         content = <ErrorAlert/>;
     }
+
+    console.log(error, loading, page);
+
     if (!error && !loading && page) {
         content = (
             <SimpleTable
@@ -95,9 +99,7 @@ export default function CompositeTable<T extends XtdEntity>(props: CompositeTabl
             <Paper className={classes.actionBar}>
                 <div className={classes.header}>
                     <Typography component="h2" variant="h4">{title}</Typography>
-                    <AddButton to={`${path}/new`} variant="contained" size="small">
-                        Add row
-                    </AddButton>
+                    {tools}
                 </div>
                 <SearchField
                     label="Search id, name and description"

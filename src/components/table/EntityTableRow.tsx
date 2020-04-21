@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
 
 export interface EntityTableRowProps<T> {
     row: T;
-    onEdit: (row: T) => void;
-    onDelete: (row: T) => void;
+    onEdit?: (row: T) => void;
+    onDelete?: (row: T) => void;
 }
 
 export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRowProps<T>) {
@@ -37,15 +37,15 @@ export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRo
             <TableCell>{toLocaleDateTimeString(row.created)}</TableCell>
             <TableCell>{toLocaleDateTimeString(row.lastModified)}</TableCell>
             <TableCell align={'center'}>
-                <EditIconButton
+                {onEdit && <EditIconButton
                     onClick={() => onEdit(row)}
                     size='small'
-                />
-                <DeleteRowAction
+                />}
+                {onDelete && <DeleteRowAction
                     title={`Delete ${row.label}`}
                     onConfirm={() => onDelete(row)}
                     ButtonProps={{size: 'small'}}
-                />
+                />}
             </TableCell>
         </TableRow>
     );

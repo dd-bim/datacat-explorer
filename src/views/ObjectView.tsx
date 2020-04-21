@@ -7,6 +7,7 @@ import {useFindAllQuery, useQueryOptions} from "../hooks";
 import RootTableHeader from "../components/table/RootTableHeader";
 import RootTableRow from "../components/table/RootTableRow";
 import {route} from "../utils";
+import AddButton from "../components/button/AddButton";
 
 export interface ObjectViewProps {
     title: string;
@@ -21,25 +22,10 @@ export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
     const history = useHistory();
     const {term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize} = useQueryOptions();
     const {loading, error, nodes, page, refetch} = useFindAllQuery<T>(findAllQuery, queryDataKey, {
+        fetchPolicy: "network-only",
         variables: { term, options: {pageNumber, pageSize} },
-        fetchPolicy: "network-only"
-
     });
     const [deleteRow] = useMutation(deleteMutation);
-
-    const handleTermChange = (newTerm: string) => {
-        setTerm(newTerm);
-        setPageNumber(0);
-    };
-
-    const handleChangeRowsPerPage = (pageSize: number): void => {
-        setPageSize(pageSize);
-        setPageNumber(0);
-    };
-
-    const handleChangePage = (page: number) => {
-        setPageNumber(page);
-    };
 
     const handleOnEntitySelect = (entity: XtdEntity) => {
         history.push(`${route(entity.__typename)}/${entity.id}`);
@@ -56,12 +42,17 @@ export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
             title={title}
             loading={loading}
             error={error}
+            tools={
+                <AddButton to={`${path}/new`} variant="contained" size="small">
+                    Add
+                </AddButton>
+            }
             tableHeader={<RootTableHeader />}
             page={page}
             term={term}
-            onTermChange={handleTermChange}
-            onPageNumberChange={handleChangePage}
-            onPageSizeChange={handleChangeRowsPerPage}
+            onTermChange={setTerm}
+            onPageNumberChange={setPageNumber}
+            onPageSizeChange={setPageSize}
         >
             {nodes?.map((row) => (
                 <RootTableRow<T>
