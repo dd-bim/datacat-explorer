@@ -4,11 +4,11 @@ import {Add as AddIcon} from '@material-ui/icons';
 import React from 'react';
 import {useFieldArray, useFormContext} from 'react-hook-form';
 import get from 'lodash.get';
-import LanguageRepresentationField from './LanguageRepresentationField';
+import LanguageRepresentationField, {LanguageRepresentationFieldDefaultValues} from './LanguageRepresentationField';
 import Button from '@material-ui/core/Button';
 import {TextFieldProps} from "@material-ui/core";
 
-const defaultValues = () => ({
+const defaultValues = (): LanguageRepresentationFieldDefaultValues => ({
     id: '',
     languageCode: 'de',
     value: '',

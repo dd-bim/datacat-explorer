@@ -48,7 +48,7 @@ export default function RootFormset(props: RootFormsetProps) {
 
     const handleDateChange = (name: string, date?: MaterialUiPickersDate) => {
         const value = date ? date.format('YYYY-MM-DD') : '';
-        setValue(name, value);
+        setValue('object', { [name]: value });
     };
 
     return (

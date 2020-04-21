@@ -11,12 +11,12 @@ interface AssociationCreateViewProps {
 }
 
 export default function AssociationCreateView(props: AssociationCreateViewProps) {
-    const { addMutation, onSubmit, onCancel } = props;
+    const { title, addMutation, onSubmit, onCancel } = props;
     const [executeCreate] = useMutation(addMutation);
 
     const handleOnSubmit = async (data: AssociationInput) => {
         await executeCreate({ variables: { input: data } });
         onSubmit?.();
     };
-    return <XtdRelAssociatesForm onCancel={onCancel} onSubmit={handleOnSubmit} />;
+    return <XtdRelAssociatesForm title={title} onCancel={onCancel} onSubmit={handleOnSubmit} />;
 }

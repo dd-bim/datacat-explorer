@@ -26,6 +26,12 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+export interface LanguageRepresentationFieldDefaultValues {
+    id: string;
+    languageCode: string;
+    value: string;
+}
+
 interface LanguageRepresentationFieldProps {
     field: Record<string, any>;
     name: string;

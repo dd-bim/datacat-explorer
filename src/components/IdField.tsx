@@ -21,7 +21,7 @@ export default function IdField(props: IdFieldProps & TextFieldProps) {
 
     const handleIdOverrideClick = () => {
         if (overrideId) {
-            setValue(name, '', true);
+            setValue('object', { [name]: '' }, true);
         }
         setOverrideId(!overrideId);
     };
