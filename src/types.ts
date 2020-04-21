@@ -169,8 +169,8 @@ export interface AssociationInput {
 
 export interface XtdRelAssociates extends XtdRelationship {
     __typename: XtdRelationshipTypes.XtdAssociates | XtdRelAssociatesTypes;
-    relatingThing: XtdRoot
-    relatedThings: XtdRoot[]
+    relatingThing: XtdRoot;
+    relatedThings: QueryConnection<XtdRoot>;
 }
 
 export interface XtdRelGroups extends XtdRelAssociates {
