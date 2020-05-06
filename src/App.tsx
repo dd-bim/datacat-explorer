@@ -8,10 +8,13 @@ import DayjsUtils from '@date-io/dayjs';
 import dateTime from './dateTime';
 import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from '@apollo/client';
 import Layout from './components/layout/Layout';
+import possibleTypes from './possibleTypes.json';
 
 const client = new ApolloClient({
   connectToDevTools: true,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+      possibleTypes
+  }),
   link: new HttpLink({
     uri: process.env.REACT_APP_API,
   }),

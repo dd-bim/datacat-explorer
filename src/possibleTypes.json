@@ -1,0 +1,91 @@
+{
+    "Node": [
+        "XtdActivity",
+        "XtdActor",
+        "XtdBag",
+        "XtdClassification",
+        "XtdDescription",
+        "XtdExternalDocument",
+        "XtdLanguage",
+        "XtdMeasureWithUnit",
+        "XtdName",
+        "XtdNest",
+        "XtdProperty",
+        "XtdRelActsUpon",
+        "XtdRelAssociates",
+        "XtdRelCollects",
+        "XtdRelComposes",
+        "XtdRelDocuments",
+        "XtdRelGroups",
+        "XtdRelSpecializes",
+        "XtdSubject",
+        "XtdUnit",
+        "XtdValue"
+    ],
+    "XtdCollection": [
+        "XtdBag",
+        "XtdNest"
+    ],
+    "XtdEntity": [
+        "XtdActivity",
+        "XtdActor",
+        "XtdBag",
+        "XtdClassification",
+        "XtdExternalDocument",
+        "XtdMeasureWithUnit",
+        "XtdNest",
+        "XtdProperty",
+        "XtdRelActsUpon",
+        "XtdRelAssociates",
+        "XtdRelCollects",
+        "XtdRelComposes",
+        "XtdRelDocuments",
+        "XtdRelGroups",
+        "XtdRelSpecializes",
+        "XtdSubject",
+        "XtdUnit",
+        "XtdValue"
+    ],
+    "XtdLanguageRepresentation": [
+        "XtdDescription",
+        "XtdName"
+    ],
+    "XtdObject": [
+        "XtdActivity",
+        "XtdActor",
+        "XtdClassification",
+        "XtdMeasureWithUnit",
+        "XtdProperty",
+        "XtdSubject",
+        "XtdUnit",
+        "XtdValue"
+    ],
+    "XtdRelationship": [
+        "XtdRelActsUpon",
+        "XtdRelAssociates",
+        "XtdRelCollects",
+        "XtdRelComposes",
+        "XtdRelDocuments",
+        "XtdRelGroups",
+        "XtdRelSpecializes"
+    ],
+    "XtdRoot": [
+        "XtdActivity",
+        "XtdActor",
+        "XtdBag",
+        "XtdClassification",
+        "XtdMeasureWithUnit",
+        "XtdNest",
+        "XtdProperty",
+        "XtdRelActsUpon",
+        "XtdRelAssociates",
+        "XtdRelCollects",
+        "XtdRelComposes",
+        "XtdRelDocuments",
+        "XtdRelGroups",
+        "XtdRelSpecializes",
+        "XtdSubject",
+        "XtdUnit",
+        "XtdValue"
+    ]
+}
