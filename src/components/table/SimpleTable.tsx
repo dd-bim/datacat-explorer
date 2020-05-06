@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Page, XtdEntity} from "../../types";
+import {PageInfo, XtdEntity} from "../../types";
 import TableHead from "@material-ui/core/TableHead";
 import {TableBody, TableProps} from "@material-ui/core";
 import TablePagination from "@material-ui/core/TablePagination";
@@ -11,7 +11,8 @@ import Paper from "@material-ui/core/Paper";
 export interface XtdTableProps<T> {
     children: React.ReactNode;
     tableHeader: React.ReactNode;
-    page: Page;
+    totalElements: number;
+    pageInfo: PageInfo;
     onChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
     onChangeRowsPerPage?: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
@@ -20,10 +21,10 @@ export default function SimpleTable<T extends XtdEntity>(props: XtdTableProps<T>
     const {
         children,
         tableHeader,
-        page: {
+        totalElements,
+        pageInfo: {
             pageNumber,
-            pageSize,
-            totalElements
+            pageSize
         },
         onChangePage,
         onChangeRowsPerPage,
@@ -56,9 +57,8 @@ export default function SimpleTable<T extends XtdEntity>(props: XtdTableProps<T>
 }
 
 SimpleTable.fragments = {
-    page: gql`
-        fragment SimpleTablePage on Page {
-            totalElements
+    pageInfo: gql`
+        fragment SimpleTablePage on PageInfo {
             pageSize
             pageNumber
         }

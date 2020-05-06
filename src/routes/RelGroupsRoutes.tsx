@@ -8,75 +8,67 @@ import AssociationCreateView from "../views/AssociationCreateView";
 import AssociationUpdateView from "../views/AssociationUpdateView";
 
 const baseProperties = gql`
-    fragment Props on XtdRelGroups {
+    fragment Props on XtdRoot {
         id
+        label
         created
         lastModified
         versionId
         versionDate
-        label
         names {
             id
+            created
+            lastModified
             languageCode
             value
         }
         descriptions {
             id
+            created
+            lastModified
             languageCode
             value
-        }
-        relatingThing { id label }
-        relatedThings {
-            nodes { id label }
         }
     }
 `;
 
 export const findOneQuery = gql`
-    query findOneActor($id: ID!) {
-        groupsRelation(id: $id) {
+    query findOne($id: ID!) {
+        node(id: $id) {
             ...Props
+            ... on XtdRelGroups {
+                relatingThing { id label }
+                relatedThings {
+                    nodes { id label }
+                }
+            }
         }
     }
     ${baseProperties}
 `;
 
 export const findAllQuery = gql`
-    query findAllActors($term: String, $options: PagingOptions) {
+    query findAll($term: String, $options: PagingOptions) {
         groupsRelations(term: $term, options: $options) {
             nodes {
                 ...Props
-                associates(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                associatedBy(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                groups(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                groupedBy(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
+                associates { totalElements }
+                associatedBy { totalElements }
+                composes { totalElements }
+                composedBy { totalElements }
+                groups { totalElements }
+                groupedBy { totalElements }
+                specializes { totalElements }
+                specializedBy { totalElements }
+                actsUpon { totalElements }
+                actedUponBy { totalElements }
             }
-            page {
+            pageInfo {
                 pageSize
                 pageNumber
-                totalElements
                 totalPages
             }
+            totalElements
         }
     }
     ${baseProperties}
@@ -121,7 +113,7 @@ export default function RelGroupsRoutes() {
                 <Route exact path={path}>
                     <Grid item xs={12}>
                         <ObjectView<XtdRelGroups>
-                            title={'Groups relationships'}
+                            title={'"Groups" relationships'}
                             queryDataKey={'groupsRelations'}
                             findAllQuery={findAllQuery}
                             deleteMutation={deleteMutation}
@@ -131,7 +123,7 @@ export default function RelGroupsRoutes() {
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
                         <AssociationCreateView
-                            title={'Create association'}
+                            title={'Create "Groups" relationship'}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
@@ -142,7 +134,7 @@ export default function RelGroupsRoutes() {
                     <Grid item xs={12}>
                         <AssociationUpdateView
                             findOneQuery={findOneQuery}
-                            findOneDataKey={'groupsRelation'}
+                            findOneDataKey={'node'}
                             updateMutation={updateMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}

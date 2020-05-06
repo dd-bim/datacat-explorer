@@ -2,7 +2,7 @@ import * as React from "react";
 import {useState} from "react";
 import {XtdRelAssociates, XtdRoot} from "../../types";
 import RelAssociatesIconButton from "../button/RelAssociatesIconButton";
-import RelAssociatesDialog from "../dialog/RelAssociatesDialog";
+// import RelAssociatesDialog from "../dialog/RelAssociatesDialog";
 import {IconButtonProps} from "@material-ui/core";
 import {gql} from "@apollo/client";
 
@@ -20,16 +20,16 @@ export default function RelAssociatesRowAction<T extends XtdRoot>(props: RelAsso
     return (
         <React.Fragment>
             <RelAssociatesIconButton
-                disabled={(associates.page.totalElements + associatedBy.page.totalElements) === 0}
+                disabled={(associates.totalElements + associatedBy.totalElements) === 0}
                 onClick={() => setOpenRelAssociatesDialog(true)}
                 {...ButtonProps}
             />
-            <RelAssociatesDialog
-                entity={row}
-                open={openRelAssociatesDialog}
-                onSelect={onSelect}
-                onClose={() => setOpenRelAssociatesDialog(false)}
-            />
+            {/*<RelAssociatesDialog*/}
+            {/*    entity={row}*/}
+            {/*    open={openRelAssociatesDialog}*/}
+            {/*    onSelect={onSelect}*/}
+            {/*    onClose={() => setOpenRelAssociatesDialog(false)}*/}
+            {/*/>*/}
         </React.Fragment>
     );
 }
@@ -38,14 +38,24 @@ RelAssociatesRowAction.fragments = {
     root: gql`
         fragment RelAssociatesRowActionRoot on XtdRoot {
             associates {
-                page {
-                    totalElements
+                nodes {
+                    id label
                 }
+                pageInfo {
+                    pageNumber
+                    totalPages
+                }
+                totalElements
             }
             associatedBy {
-                page {
-                    totalElements
+                nodes {
+                    id label
                 }
+                pageInfo {
+                    pageNumber
+                    totalPages
+                }
+                totalElements
             }
         }
     `

@@ -28,7 +28,7 @@ export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRo
     return (
         <TableRow hover>
             <TableCell align={'center'}>
-                <EntityIcon entity={row} fontSize={'small'}/>
+                <EntityIcon entityType={row.__typename} fontSize={'small'}/>
             </TableCell>
             <TableCell>
                 <Typography variant="body1">{row.label}</Typography>

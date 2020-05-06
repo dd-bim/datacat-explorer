@@ -16,12 +16,12 @@ export const findAllQuery = gql`
                 lastModified
                 label
             }
-            page {
+            pageInfo {
                 pageSize
                 pageNumber
-                totalElements
                 totalPages
             }
+            totalElements
         }
     }
 `;
@@ -38,7 +38,7 @@ export default function ExternalDocumentView() {
     const { path } = useRouteMatch();
     const history = useHistory();
     const {term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize} = useQueryOptions();
-    const {loading, error, nodes, page, refetch} = useFindAllQuery<XtdExternalDocument>(findAllQuery, 'documents', {
+    const {loading, error, totalElements, nodes, pageInfo, refetch} = useFindAllQuery<XtdExternalDocument>(findAllQuery, 'documents', {
         variables: { term, options: {pageNumber, pageSize} }
     });
     const [deleteRow] = useMutation(deleteMutation);
@@ -69,8 +69,9 @@ export default function ExternalDocumentView() {
             loading={loading}
             error={error}
             tableHeader={<EntityTableHeader />}
-            page={page}
+            pageInfo={pageInfo}
             term={term}
+            totalElements={totalElements}
             onTermChange={handleTermChange}
             onPageNumberChange={handleChangePage}
             onPageSizeChange={handleChangeRowsPerPage}

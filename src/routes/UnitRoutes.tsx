@@ -34,7 +34,7 @@ const baseProperties = gql`
 
 export const findOneQuery = gql`
     query findOneUnit($id: ID!) {
-        unit(id: $id) {
+        node(id: $id) {
             ...Props
         }
     }
@@ -46,37 +46,23 @@ export const findAllQuery = gql`
         units(term: $term, options: $options) {
             nodes {
                 ...Props
-                associates(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                associatedBy(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                groups(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                groupedBy(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
+                associates { totalElements }
+                associatedBy { totalElements }
+                composes { totalElements }
+                composedBy { totalElements }
+                groups { totalElements }
+                groupedBy { totalElements }
+                specializes { totalElements }
+                specializedBy { totalElements }
+                actsUpon { totalElements }
+                actedUponBy { totalElements }
             }
-            page {
+            pageInfo {
                 pageSize
                 pageNumber
-                totalElements
                 totalPages
             }
+            totalElements
         }
     }
     ${baseProperties}
@@ -143,7 +129,7 @@ export default function UnitRoutes() {
                     <Grid item xs={12}>
                         <ObjectUpdateView<XtdUnit>
                             findOneQuery={findOneQuery}
-                            findOneDataKey={'unit'}
+                            findOneDataKey={'node'}
                             updateMutation={updateMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}

@@ -7,6 +7,7 @@ import {route} from "../utils";
 import {useHistory} from "react-router-dom";
 import EntityTableHeader from "../components/table/EntityTableHeader";
 import EntityTableRow from "../components/table/EntityTableRow";
+import RootTableRow from "../components/table/RootTableRow";
 
 const query = gql`
     query ConceptSelectSearch($options: SearchInput, $paging: PagingOptions) {
@@ -14,21 +15,26 @@ const query = gql`
             nodes { 
                 id 
                 label
+                ... on XtdRoot {
+                    ...CompositeTableRoot
+                    ...RootTableRowRoot
+                }
             }
-            page {
-                pageSize
-                pageNumber
-                totalElements
-                totalPages
+            pageInfo {
+                ...CompositeTablePage
             }
+            totalElements
         }
     }
+    ${CompositeTable.fragments.root}
+    ${CompositeTable.fragments.pageInfo}
+    ${RootTableRow.fragments.root}
 `;
 
 export default function SearchView() {
     const history = useHistory();
     const { term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize } = useQueryOptions();
-    const { loading, error, nodes, page } = useFindAllQuery<XtdEntity>(query, 'search', {
+    const { loading, error, nodes, pageInfo, totalElements } = useFindAllQuery<XtdEntity>(query, 'search', {
         fetchPolicy: "network-only",
         variables: {
             options: { term  },
@@ -46,7 +52,8 @@ export default function SearchView() {
             loading={loading}
             error={error}
             tableHeader={<EntityTableHeader />}
-            page={page}
+            totalElements={totalElements}
+            pageInfo={pageInfo}
             term={term}
             onTermChange={setTerm}
             onPageNumberChange={setPageNumber}

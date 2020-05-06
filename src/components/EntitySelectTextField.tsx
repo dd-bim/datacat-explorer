@@ -75,7 +75,7 @@ export default function EntitySelectTextField(props: ConceptSelectProps & TextFi
                     readOnly: true,
                     startAdornment: (current &&
                         <InputAdornment position="start">
-                            <EntityIcon entity={current} />
+                            <EntityIcon entityType={current.__typename} />
                         </InputAdornment>
                     )
                 }}
@@ -102,7 +102,7 @@ export default function EntitySelectTextField(props: ConceptSelectProps & TextFi
                                 onClick={() => handleSelect(item)}
                             >
                                 <ListItemIcon>
-                                    <EntityIcon entity={item} />
+                                    <EntityIcon entityType={item.__typename} />
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={item.label}

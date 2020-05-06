@@ -3,12 +3,12 @@ import {Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import {gql} from "@apollo/client";
 import ObjectView from "../views/ObjectView";
-import {XtdActor} from "../types";
-import ObjectCreateView from "../views/ObjectCreateView";
-import ObjectUpdateView from "../views/ObjectUpdateView";
+import {XtdRelSpecializes} from "../types";
+import AssociationCreateView from "../views/AssociationCreateView";
+import AssociationUpdateView from "../views/AssociationUpdateView";
 
 const baseProperties = gql`
-    fragment Props on XtdActor {
+    fragment Props on XtdRoot {
         id
         label
         created
@@ -33,17 +33,23 @@ const baseProperties = gql`
 `;
 
 export const findOneQuery = gql`
-    query findOneActor($id: ID!) {
+    query findOne($id: ID!) {
         node(id: $id) {
             ...Props
+            ... on XtdRelSpecializes {
+                relatingThing { id label }
+                relatedThings {
+                    nodes { id label }
+                }
+            }
         }
     }
     ${baseProperties}
 `;
 
 export const findAllQuery = gql`
-    query findAllActors($term: String, $options: PagingOptions) {
-        actors(term: $term, options: $options) {
+    query findAll($term: String, $options: PagingOptions) {
+        specializesRelations(term: $term, options: $options) {
             nodes {
                 ...Props
                 associates { totalElements }
@@ -69,8 +75,8 @@ export const findAllQuery = gql`
 `;
 
 export const addMutation = gql`
-    mutation add($input: RootInput!) {
-        createActor(input: $input) {
+    mutation add($input: AssociationInput!) {
+        createSpecializesRelation(input: $input) {
             ...Props
         }
     }
@@ -78,8 +84,8 @@ export const addMutation = gql`
 `;
 
 export const updateMutation = gql`
-    mutation update($input: RootUpdateInput!) {
-        updateActor(input: $input) {
+    mutation update($input: AssociationUpdateInput!) {
+        updateSpecializesRelation(input: $input) {
             ...Props
         }
     }
@@ -88,14 +94,14 @@ export const updateMutation = gql`
 
 export const deleteMutation = gql`
     mutation delete($id: ID!) {
-        deleteActor(id: $id) {
+        deleteSpecializesRelation(id: $id) {
             id
         }
     }
 `;
 
 
-export default function ActorRoutes() {
+export default function RelSpecializesRoutes() {
     const {path} = useRouteMatch();
     const history = useHistory();
     const handleOnCancel = () => history.push(path);
@@ -106,9 +112,9 @@ export default function ActorRoutes() {
             <Switch>
                 <Route exact path={path}>
                     <Grid item xs={12}>
-                        <ObjectView<XtdActor>
-                            title={'Actors'}
-                            queryDataKey={'actors'}
+                        <ObjectView<XtdRelSpecializes>
+                            title={'"Specializes" relationships'}
+                            queryDataKey={'specializesRelations'}
                             findAllQuery={findAllQuery}
                             deleteMutation={deleteMutation}
                         />
@@ -116,9 +122,8 @@ export default function ActorRoutes() {
                 </Route>
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
-                        <ObjectCreateView<XtdActor>
-                            title={'Add actor'}
-                            findAllQuery={findAllQuery}
+                        <AssociationCreateView
+                            title={'Create "Specializes" relationship'}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
@@ -127,7 +132,7 @@ export default function ActorRoutes() {
                 </Route>
                 <Route path={`${path}/:id`}>
                     <Grid item xs={12}>
-                        <ObjectUpdateView<XtdActor>
+                        <AssociationUpdateView
                             findOneQuery={findOneQuery}
                             findOneDataKey={'node'}
                             updateMutation={updateMutation}

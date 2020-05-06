@@ -1,6 +1,5 @@
-import {useRouteMatch} from "react-router-dom";
 import {ApolloError, gql} from "@apollo/client";
-import {Page, XtdEntity} from "../../types";
+import {PageInfo, XtdEntity} from "../../types";
 import * as React from "react";
 import ErrorAlert from "../ErrorAlert";
 import SimpleTable from "./SimpleTable";
@@ -17,7 +16,8 @@ interface CompositeTableProps<T> {
     tools?: React.ReactNode;
     tableHeader: React.ReactNode;
     children?: React.ReactNode;
-    page?: Page;
+    totalElements?: number;
+    pageInfo?: PageInfo;
     term: string;
     onTermChange: (newTerm: string) => void;
     onPageNumberChange: (newPageNumber: number) => void;
@@ -54,13 +54,13 @@ export default function CompositeTable<T extends XtdEntity>(props: CompositeTabl
         loading,
         error,
         children,
-        page,
+        totalElements,
+        pageInfo,
         term, onTermChange,
         onPageNumberChange,
         onPageSizeChange,
     } = props;
     const classes = useStyles();
-    const {path} = useRouteMatch();
 
     const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onTermChange(e.target.value);
@@ -79,13 +79,17 @@ export default function CompositeTable<T extends XtdEntity>(props: CompositeTabl
         content = <ErrorAlert/>;
     }
 
-    console.log(error, loading, page);
+    console.log(error, loading, pageInfo, totalElements);
 
-    if (!error && !loading && page) {
+    if (!error && !loading && pageInfo && totalElements) {
+
+        console.log(children);
+
         content = (
             <SimpleTable
                 tableHeader={tableHeader}
-                page={page}
+                totalElements={totalElements}
+                pageInfo={pageInfo}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
                 onChangePage={handleChangePage}
             >
@@ -119,10 +123,17 @@ export default function CompositeTable<T extends XtdEntity>(props: CompositeTabl
 }
 
 CompositeTable.fragments = {
-    page: gql`
-        fragment CompositeTablePage on Page {
+    root: gql`
+        fragment CompositeTableRoot on XtdRoot {
+            descriptions {
+                id value
+            }
+        }
+    `,
+    pageInfo: gql`
+        fragment CompositeTablePage on PageInfo {
             ...SimpleTablePage
         }
-        ${SimpleTable.fragments.page}
+        ${SimpleTable.fragments.pageInfo}
     `
 }

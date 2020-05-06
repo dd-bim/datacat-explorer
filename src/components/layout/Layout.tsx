@@ -20,6 +20,9 @@ import SearchView from "../../views/SearchView";
 import Avatar from "@material-ui/core/Avatar";
 import {Alert} from "@material-ui/lab";
 import Snackbar from "@material-ui/core/Snackbar";
+import RelComposesRoutes from "../../routes/RelComposesRoutes";
+import RelSpecializesRoutes from "../../routes/RelSpecializesRoutes";
+import RelActsUponRoutes from "../../routes/RelActsUponRoutes";
 
 const drawerWidth = 400;
 
@@ -115,7 +118,7 @@ export default function Layout() {
                     <Route path="/" exact>
                         <SearchView/>
                     </Route>
-                    <Route path="/documents">
+                    <Route path="/externalDocuments">
                         <ExternalDocumentRoutes/>
                     </Route>
                     <Route path="/objects/actors">
@@ -136,8 +139,17 @@ export default function Layout() {
                     <Route path="/relationships/associates">
                         <RelAssociatesRoutes/>
                     </Route>
+                    <Route path="/relationships/composes">
+                        <RelComposesRoutes/>
+                    </Route>
                     <Route path="/relationships/groups">
                         <RelGroupsRoutes/>
+                    </Route>
+                    <Route path="/relationships/specializes">
+                        <RelSpecializesRoutes/>
+                    </Route>
+                    <Route path="/relationships/actsUpon">
+                        <RelActsUponRoutes/>
                     </Route>
                 </Switch>
             </main>

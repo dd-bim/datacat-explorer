@@ -1,6 +1,6 @@
 import {DocumentNode, gql, useMutation} from '@apollo/client';
 import * as React from 'react';
-import {XtdEntity, XtdRoot} from "../types";
+import {XtdRoot} from "../types";
 import CompositeTable from "../components/table/CompositeTable";
 import {useHistory, useRouteMatch} from "react-router-dom";
 import {useFindAllQuery, useQueryOptions} from "../hooks";
@@ -8,6 +8,7 @@ import RootTableHeader from "../components/table/RootTableHeader";
 import RootTableRow from "../components/table/RootTableRow";
 import {route} from "../utils";
 import AddButton from "../components/button/AddButton";
+import {EntityItem} from "../components/list/PaginatedEntityList";
 
 export interface ObjectViewProps {
     title: string;
@@ -21,14 +22,14 @@ export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
     const { path } = useRouteMatch();
     const history = useHistory();
     const {term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize} = useQueryOptions();
-    const {loading, error, nodes, page, refetch} = useFindAllQuery<T>(findAllQuery, queryDataKey, {
+    const {loading, error, totalElements, nodes, pageInfo, refetch} = useFindAllQuery<T>(findAllQuery, queryDataKey, {
         fetchPolicy: "network-only",
         variables: { term, options: {pageNumber, pageSize} },
     });
     const [deleteRow] = useMutation(deleteMutation);
 
-    const handleOnEntitySelect = (entity: XtdEntity) => {
-        history.push(`${route(entity.__typename)}/${entity.id}`);
+    const handleOnSelectItem = (item: EntityItem) => {
+        history.push(`${route(item.entityType)}/${item.id}`);
     };
 
     const handleOnEdit = (row: T) => history.push(`${path}/${row.id}`);
@@ -48,7 +49,8 @@ export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
                 </AddButton>
             }
             tableHeader={<RootTableHeader />}
-            page={page}
+            totalElements={totalElements}
+            pageInfo={pageInfo}
             term={term}
             onTermChange={setTerm}
             onPageNumberChange={setPageNumber}
@@ -58,7 +60,7 @@ export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
                 <RootTableRow<T>
                     key={row.id}
                     row={row}
-                    onEntitySelect={handleOnEntitySelect}
+                    onSelectItem={handleOnSelectItem}
                     onEdit={handleOnEdit}
                     onDelete={handleOnDelete}
                 />
@@ -76,9 +78,9 @@ ObjectView.fragments = {
         ${RootTableRow.fragments.root}
     `,
     page: gql`
-        fragment ObjectViewPage on Page {
+        fragment ObjectViewPage on PageInfo {
             ...CompositeTablePage
         }
-        ${CompositeTable.fragments.page}
+        ${CompositeTable.fragments.pageInfo}
     `
 };

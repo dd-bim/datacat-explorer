@@ -8,7 +8,7 @@ import ObjectCreateView from "../views/ObjectCreateView";
 import ObjectUpdateView from "../views/ObjectUpdateView";
 
 const baseProperties = gql`
-    fragment Props on XtdSubject {
+    fragment Props on XtdRoot {
         id
         label
         created
@@ -33,8 +33,8 @@ const baseProperties = gql`
 `;
 
 export const findOneQuery = gql`
-    query findOneSubject($id: ID!) {
-        subject(id: $id) {
+    query findOne($id: ID!) {
+        node(id: $id) {
             ...Props
         }
     }
@@ -46,37 +46,23 @@ export const findAllQuery = gql`
         subjects(term: $term, options: $options) {
             nodes {
                 ...Props
-                associates(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                associatedBy(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                groups(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
-                groupedBy(options: { pageSize: 100 }) {
-                    nodes { id label }
-                    page {
-                        totalElements
-                    }
-                }
+                associates { totalElements }
+                associatedBy { totalElements }
+                composes { totalElements }
+                composedBy { totalElements }
+                groups { totalElements }
+                groupedBy { totalElements }
+                specializes { totalElements }
+                specializedBy { totalElements }
+                actsUpon { totalElements }
+                actedUponBy { totalElements }
             }
-            page {
+            pageInfo {
                 pageSize
                 pageNumber
-                totalElements
                 totalPages
             }
+            totalElements
         }
     }
     ${baseProperties}
@@ -143,7 +129,7 @@ export default function SubjectRoutes() {
                     <Grid item xs={12}>
                         <ObjectUpdateView<XtdSubject>
                             findOneQuery={findOneQuery}
-                            findOneDataKey={'subject'}
+                            findOneDataKey={'node'}
                             updateMutation={updateMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}

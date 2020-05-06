@@ -206,7 +206,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                 </ListItem>
 
-                <ListItem button component={RouterLink} to="/relationships/composes" disabled>
+                <ListItem button component={RouterLink} to="/relationships/composes">
                     <ListItemIcon>
                         <ComposesIcon/>
                     </ListItemIcon>
@@ -229,7 +229,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     </ListItemSecondaryAction>
                 </ListItem>
 
-                <ListItem button component={RouterLink} to="/relationships/specializes" disabled>
+                <ListItem button component={RouterLink} to="/relationships/specializes" onClick={onClose}>
                     <ListItemIcon>
                         <SpecializesIcon/>
                     </ListItemIcon>
@@ -239,7 +239,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                 </ListItem>
 
-                <ListItem button component={RouterLink} to="/relationships/actsUpon" disabled>
+                <ListItem button component={RouterLink} to="/relationships/actsUpon" onClick={onClose}>
                     <ListItemIcon>
                         <ActsUponIcon/>
                     </ListItemIcon>
