@@ -1,8 +1,10 @@
 import React from 'react';
-import {EntityTypes, XtdCollectionTypes, XtdObjectTypes, XtdRelAssociatesTypes, XtdRelationshipTypes} from "./types";
+import {XtdCollectionTypes, XtdObjectTypes, XtdRelationshipTypes, XtdTypes} from "./types";
 
-export const route = (typename: EntityTypes | XtdObjectTypes | XtdCollectionTypes | XtdRelationshipTypes | XtdRelAssociatesTypes): string => {
+export const route = (typename: string): string => {
     switch (typename) {
+        case XtdTypes.XtdExternalDocument:
+            return '/externalDocuments';
         case XtdObjectTypes.XtdActivity:
             return '/objects/activities';
         case XtdObjectTypes.XtdActor:
@@ -23,8 +25,12 @@ export const route = (typename: EntityTypes | XtdObjectTypes | XtdCollectionType
             return '/relationships/collects';
         case XtdRelationshipTypes.XtdRelAssociates:
             return '/relationships/associates';
-        case XtdRelAssociatesTypes.XtdRelGroups:
+        case XtdRelationshipTypes.XtdRelGroups:
             return '/relationships/groups';
+        case XtdRelationshipTypes.XtdRelSpecializes:
+            return '/relationships/specializes';
+        case XtdRelationshipTypes.XtdRelActsUpon:
+            return '/relationships/actsUpon';
         default:
             throw new Error("Unknown type")
     }
