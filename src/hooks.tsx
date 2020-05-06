@@ -6,25 +6,14 @@ import get from "lodash.get";
 
 interface Pagination {
   pageNumber: number;
-  setPageNumber: (value: (((prevState: number) => number) | number)) => void;
+  setPageNumber: (pageNumber: number) => void;
   pageSize: number;
-  setPageSize: (value: (((prevState: number) => number) | number)) => void;
+  setPageSize: (pageNumber: number) => void;
 }
 
 export function usePagination(initialPageNumber = 0, initialPageSize = 10): Pagination {
   const [pageNumber, setPageNumber] = useState(initialPageNumber);
   const [pageSize, setPageSize] = useState(initialPageSize);
-  return { pageNumber, setPageNumber, pageSize, setPageSize };
-}
-
-export function useQueryOptions(initalTerm = '',  initialPageNumber = 0, initialPageSize = 10) {
-  const [term, setTerm] = useState(initalTerm);
-  const { pageSize, setPageSize, pageNumber, setPageNumber } = usePagination(initialPageNumber, initialPageSize);
-
-  const handleTermChange = (newTerm: string) => {
-    setTerm(newTerm);
-    setPageNumber(0);
-  };
 
   const handleChangeRowsPerPage = (pageSize: number): void => {
     setPageSize(pageSize);
@@ -36,12 +25,29 @@ export function useQueryOptions(initalTerm = '',  initialPageNumber = 0, initial
   };
 
   return {
-    term,
-    setTerm: handleTermChange,
     pageSize,
     setPageSize: handleChangeRowsPerPage,
     pageNumber,
-    setPageNumber: handleChangePage
+    setPageNumber: handleChangePage,
+  };
+}
+
+export function useQueryOptions(initalTerm = '',  initialPageNumber = 0, initialPageSize = 10) {
+  const [term, setTerm] = useState(initalTerm);
+  const { pageSize, setPageSize, pageNumber, setPageNumber } = usePagination(initialPageNumber, initialPageSize);
+
+  const handleTermChange = (newTerm: string) => {
+    setTerm(newTerm);
+    setPageNumber(0);
+  };
+
+  return {
+    term,
+    setTerm: handleTermChange,
+    pageSize,
+    setPageSize,
+    pageNumber,
+    setPageNumber
   };
 }
 
@@ -60,7 +66,7 @@ export interface FindAllQueryData<T> {
 
 export function useFindAllQuery<T extends XtdEntity>(query: DocumentNode, key: string, options: QueryHookOptions<FindAllQueryData<T>>) {
   const { data, ...otherProps } = useQuery<FindAllQueryData<T>>(query, options);
-  return { nodes: data?.[key].nodes, page: data?.[key].page, ...otherProps };
+  return { nodes: data?.[key].nodes, pageInfo: data?.[key].pageInfo, totalElements: data?.[key].totalElements, ...otherProps };
 }
 
 export function useAsFormValue(options: { name: string, defaultValue: XtdEntity | null }) {
