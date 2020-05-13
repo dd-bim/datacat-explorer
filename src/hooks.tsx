@@ -1,8 +1,57 @@
-import {useState} from "react";
+import {Dispatch, useContext, useState} from "react";
 import {QueryConnection, XtdEntity} from "./types";
 import {DocumentNode, QueryHookOptions, useQuery} from "@apollo/client";
 import {useFormContext} from "react-hook-form";
 import get from "lodash.get";
+import {AuthContext} from "./AuthContext";
+
+export function useLocalStorage<S>(key: string, initialState: S): [S, Dispatch<S>] {
+  // State to store our value
+  // Pass initial state function to useState so logic is only executed once
+  const [storedValue, setStoredValue] = useState<S>(() => {
+    try {
+      // Get from local storage by key
+      const item = window.localStorage.getItem(key);
+
+      // Parse stored json or if none return initialValue
+      return item ? JSON.parse(item) : initialState;
+    } catch (error) {
+      // If error also return initialState
+      console.log(error);
+      return initialState;
+    }
+  });
+
+  // Return a wrapped version of useState's setter function that ...
+  // ... persists the new value to localStorage.
+  const setValue = (value: S) => {
+    try {
+      // Allow value to be a function so we have same API as useState
+      const valueToStore = value instanceof Function ? value() : value;
+      // Save state
+      setStoredValue(valueToStore);
+      // Save to local storage
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      // A more advanced implementation would handle the error case
+      console.log(error);
+    }
+  };
+  return [storedValue, setValue];
+}
+
+export const useGraphiQLFetcher = () => {
+  const context = useContext(AuthContext);
+  let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (context.session) {
+    headers = { 'Authorization': `Bearer ${context.session.token}`, ...headers };
+  }
+  return (params: any) => fetch(process.env.REACT_APP_API as string, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(params),
+  }).then(response => response.json());
+}
 
 interface Pagination {
   pageNumber: number;

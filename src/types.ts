@@ -217,3 +217,9 @@ export interface XtdRelActsUpon extends XtdRelationship {
     relatingThing: XtdRoot;
     relatedThings: QueryConnection<XtdRoot>;
 }
+
+export interface JwtToken {
+    subject: string;
+    roles: string[];
+    exp: number;
+}

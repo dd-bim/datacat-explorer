@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -23,6 +23,15 @@ import Snackbar from "@material-ui/core/Snackbar";
 import RelComposesRoutes from "../../routes/RelComposesRoutes";
 import RelSpecializesRoutes from "../../routes/RelSpecializesRoutes";
 import RelActsUponRoutes from "../../routes/RelActsUponRoutes";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+// @ts-ignore
+import GraphiQL from "graphiql";
+import 'graphiql/graphiql.min.css';
+import {AuthContext} from "../../AuthContext";
+import {useGraphiQLFetcher} from "../../hooks";
+import Button from "@material-ui/core/Button";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import BoardingView from "../../views/BoardingView";
 
 const drawerWidth = 400;
 
@@ -62,8 +71,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function Layout() {
     const classes = useStyles();
+    const graphiqlFetcher = useGraphiQLFetcher();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [demoWarning, setDemoWarning] = useState(false);
+    const { session, login, logout } = useContext(AuthContext);
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
         if (reason === 'clickaway') {
@@ -100,6 +111,24 @@ export default function Layout() {
                     >
                         {process.env.REACT_APP_TITLE} {process.env.REACT_APP_VERSION}
                     </Typography>
+                    {session && (
+                        <Button
+                            color="inherit"
+                            aria-label="logout"
+                            startIcon={<AccountBoxIcon/>}
+                        >
+                            {session.user.username}
+                        </Button>
+                    )}
+                    {session && (
+                        <IconButton
+                            color="inherit"
+                            onClick={() => logout()}
+                            aria-label="logout"
+                        >
+                            <ExitToAppIcon />
+                        </IconButton>
+                    )}
                     <Avatar
                         variant="rounded"
                         src="/logo-building-smart-sm.svg"
@@ -114,44 +143,51 @@ export default function Layout() {
             />
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
-                <Switch>
-                    <Route path="/" exact>
-                        <SearchView/>
-                    </Route>
-                    <Route path="/externalDocuments">
-                        <ExternalDocumentRoutes/>
-                    </Route>
-                    <Route path="/objects/actors">
-                        <ActorRoutes/>
-                    </Route>
-                    <Route path="/objects/activities">
-                        <ActivityRoutes/>
-                    </Route>
-                    <Route path="/objects/subjects">
-                        <SubjectRoutes/>
-                    </Route>
-                    <Route path="/objects/units">
-                        <UnitRoutes/>
-                    </Route>
-                    <Route path="/objects/properties">
-                        <PropertyRoutes/>
-                    </Route>
-                    <Route path="/relationships/associates">
-                        <RelAssociatesRoutes/>
-                    </Route>
-                    <Route path="/relationships/composes">
-                        <RelComposesRoutes/>
-                    </Route>
-                    <Route path="/relationships/groups">
-                        <RelGroupsRoutes/>
-                    </Route>
-                    <Route path="/relationships/specializes">
-                        <RelSpecializesRoutes/>
-                    </Route>
-                    <Route path="/relationships/actsUpon">
-                        <RelActsUponRoutes/>
-                    </Route>
-                </Switch>
+                {session ? (
+                    <Switch>
+                        <Route path="/" exact>
+                            <SearchView/>
+                        </Route>
+                        <Route path="/graphiql" exact>
+                            <GraphiQL fetcher={graphiqlFetcher} />
+                        </Route>
+                        <Route path="/externalDocuments">
+                            <ExternalDocumentRoutes/>
+                        </Route>
+                        <Route path="/objects/actors">
+                            <ActorRoutes/>
+                        </Route>
+                        <Route path="/objects/activities">
+                            <ActivityRoutes/>
+                        </Route>
+                        <Route path="/objects/subjects">
+                            <SubjectRoutes/>
+                        </Route>
+                        <Route path="/objects/units">
+                            <UnitRoutes/>
+                        </Route>
+                        <Route path="/objects/properties">
+                            <PropertyRoutes/>
+                        </Route>
+                        <Route path="/relationships/associates">
+                            <RelAssociatesRoutes/>
+                        </Route>
+                        <Route path="/relationships/composes">
+                            <RelComposesRoutes/>
+                        </Route>
+                        <Route path="/relationships/groups">
+                            <RelGroupsRoutes/>
+                        </Route>
+                        <Route path="/relationships/specializes">
+                            <RelSpecializesRoutes/>
+                        </Route>
+                        <Route path="/relationships/actsUpon">
+                            <RelActsUponRoutes/>
+                        </Route>
+                    </Switch>
+                ) : (
+                  <BoardingView onLogin={login} onSignup={login} />
+                )}
             </main>
         </div>
     );

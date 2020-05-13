@@ -20,6 +20,7 @@
     "@types/react-dom": "^16.9.7",
     "@types/react-router-dom": "^5.1.5",
     "dayjs": "^1.8.26",
+    "graphiql": "^0.17.5",
     "graphql": "^14.6.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.get": "^4.4.2",
