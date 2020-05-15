@@ -81,7 +81,7 @@ export function usePagination(initialPageNumber = 0, initialPageSize = 10): Pagi
   };
 }
 
-export function useQueryOptions(initalTerm = '',  initialPageNumber = 0, initialPageSize = 10) {
+export function useQueryOptions(initalTerm = "",  initialPageNumber = 0, initialPageSize = 10) {
   const [term, setTerm] = useState(initalTerm);
   const { pageSize, setPageSize, pageNumber, setPageNumber } = usePagination(initialPageNumber, initialPageSize);
 

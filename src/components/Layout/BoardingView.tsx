@@ -1,9 +1,9 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import LoginForm from "../components/form/LoginForm";
+import LoginForm from "../form/LoginForm";
 import Typography from "@material-ui/core/Typography";
-import SignupForm from "../components/form/SignupForm";
-import {UserSession} from "../AuthContext";
+import SignupForm from "../form/SignupForm";
+import {UserSession} from "../../AuthContext";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 interface BoardingViewProps {

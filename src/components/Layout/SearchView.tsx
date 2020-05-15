@@ -1,13 +1,14 @@
-import {useFindAllQuery, useQueryOptions} from "../hooks";
-import {XtdEntity} from "../types";
+import {useFindAllQuery, useQueryOptions} from "../../hooks";
+import {XtdEntity} from "../../types";
 import {gql} from "@apollo/client";
-import CompositeTable from "../components/table/CompositeTable";
+import CompositeTable from "../table/CompositeTable";
 import * as React from "react";
-import {route} from "../utils";
+import {route} from "../../utils";
 import {useHistory} from "react-router-dom";
-import EntityTableHeader from "../components/table/EntityTableHeader";
-import EntityTableRow from "../components/table/EntityTableRow";
-import RootTableRow from "../components/table/RootTableRow";
+import EntityTableHeader from "../table/EntityTableHeader";
+import EntityTableRow from "../table/EntityTableRow";
+import RootTableRow from "../table/RootTableRow";
+import useLocationQueryParam from "../../hooks/useLocationQueryParam";
 
 const query = gql`
     query ConceptSelectSearch($options: SearchInput, $paging: PagingOptions) {
@@ -33,7 +34,8 @@ const query = gql`
 
 export default function SearchView() {
     const history = useHistory();
-    const { term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize } = useQueryOptions();
+    const q = useLocationQueryParam("q", "");
+    const { term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize } = useQueryOptions(q);
     const { loading, error, nodes, pageInfo, totalElements } = useFindAllQuery<XtdEntity>(query, 'search', {
         fetchPolicy: "network-only",
         variables: {

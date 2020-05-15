@@ -79,8 +79,6 @@ export default function CompositeTable<T extends XtdEntity>(props: CompositeTabl
         content = <ErrorAlert/>;
     }
 
-    console.log(error, loading, pageInfo, totalElements);
-
     if (!error && !loading && pageInfo && totalElements) {
 
         console.log(children);
