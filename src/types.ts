@@ -90,7 +90,9 @@ export interface XtdEntity {
     __typename: XtdEntityTypes;
     id: string;
     created: Date;
+    createdBy: string;
     lastModified: Date;
+    lastModifiedBy: string;
     label: string;
     names: XtdName[];
 }
@@ -216,10 +218,4 @@ export interface XtdRelActsUpon extends XtdRelationship {
     __typename: XtdRelationshipTypes.XtdRelActsUpon;
     relatingThing: XtdRoot;
     relatedThings: QueryConnection<XtdRoot>;
-}
-
-export interface JwtToken {
-    subject: string;
-    roles: string[];
-    exp: number;
 }

@@ -5,50 +5,27 @@ import {BrowserRouter as Router} from "react-router-dom";
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DayjsUtils from "@date-io/dayjs";
 import dateTime from "./dateTime";
-import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from "@apollo/client";
 import Layout from "./components/Layout/Layout";
-import possibleTypes from "./possibleTypes.json";
-import {AuthContext, UserAuthentication, UserSession} from "./AuthContext";
-import {useLocalStorage} from "./hooks";
+import AuthProvider from "./AuthProvider";
+import ApiProvider from "./ApiProvider";
 
 export default function App() {
-    const [session, setSession] = useLocalStorage<UserSession | null>("dcuser", null);
-    const auth: UserAuthentication = {
-        session,
-        login: (userSession) => {
-            setSession(userSession)
-        },
-        logout: () => {
-            setSession(null)
-        }
-    };
-    const headers = session ? {
-        'Authorization': `Bearer ${session.token}`
-    } : {};
-    const apolloClient = new ApolloClient({
-        connectToDevTools: true,
-        cache: new InMemoryCache({
-            possibleTypes
-        }),
-        link: new HttpLink({
-            uri: process.env.REACT_APP_API,
-            headers
-        }),
-        name: process.env.REACT_APP_TITLE,
-        version: process.env.REACT_APP_VERSION,
-    });
-
     return (
         <Router>
-            <ThemeProvider theme={theme}>
-                <ApolloProvider client={apolloClient}>
-                    <MuiPickersUtilsProvider utils={DayjsUtils} libInstance={dateTime}>
-                        <AuthContext.Provider value={auth}>
+            <AuthProvider>
+                <ApiProvider>
+                    <ThemeProvider
+                        theme={theme}
+                    >
+                        <MuiPickersUtilsProvider
+                            utils={DayjsUtils}
+                            libInstance={dateTime}
+                        >
                             <Layout/>
-                        </AuthContext.Provider>
-                    </MuiPickersUtilsProvider>
-                </ApolloProvider>
-            </ThemeProvider>
+                        </MuiPickersUtilsProvider>
+                    </ThemeProvider>
+                </ApiProvider>
+            </AuthProvider>
         </Router>
     );
 }

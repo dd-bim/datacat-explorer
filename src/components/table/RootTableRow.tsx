@@ -31,11 +31,11 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export interface XtdRootTableRowProps<T> {
+export type XtdRootTableRowProps<T> = {
     row: T;
-    onSelectItem: (item: EntityItem) => void;
-    onEdit?: (row: T) => void;
-    onDelete?: (row: T) => void;
+    onSelectItem(item: EntityItem): void;
+    onEdit?(row: T): void;
+    onDelete?(row: T): void;
 }
 
 export default function RootTableRow<T extends XtdEntity>(props: XtdRootTableRowProps<T>) {
@@ -89,11 +89,11 @@ export default function RootTableRow<T extends XtdEntity>(props: XtdRootTableRow
                 />
             </TableCell>
             {entityLabel}
-            <TableCell>{toLocaleDateTimeString(row.created)}</TableCell>
-            <TableCell>{toLocaleDateTimeString(row.lastModified)}</TableCell>
+            <TableCell>{toLocaleDateTimeString(row.created)} ({row.createdBy})</TableCell>
+            <TableCell>{toLocaleDateTimeString(row.lastModified)} ({row.lastModifiedBy})</TableCell>
             <TableCell>{versionString}</TableCell>
             <TableCell align={'center'}>
-                {isXtdRoot(row) && <RelAssociatesDialogView
+                {isXtdRoot(row) && row.associates.totalElements + row.associatedBy.totalElements && <RelAssociatesDialogView
                     id={row.id}
                     totalElementsAssociates={row.associates.totalElements}
                     totalElementsAssociatedBy={row.associatedBy.totalElements}
@@ -151,7 +151,9 @@ RootTableRow.fragments = {
             label
             descriptions { id value }
             created
+            createdBy
             lastModified
+            lastModifiedBy
             versionId
             versionDate
         }

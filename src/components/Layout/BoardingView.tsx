@@ -3,8 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import LoginForm from "../form/LoginForm";
 import Typography from "@material-ui/core/Typography";
 import SignupForm from "../form/SignupForm";
-import {UserSession} from "../../AuthContext";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {UserSession} from "../../AuthProvider";
 
 interface BoardingViewProps {
     onLogin: (session: UserSession) => void;

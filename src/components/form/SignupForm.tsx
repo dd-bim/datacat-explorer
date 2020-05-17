@@ -1,8 +1,8 @@
 import React from "react";
 import {gql, useMutation} from "@apollo/client";
 import {useForm} from "react-hook-form";
-import {UserSession} from "../../AuthContext";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {UserSession} from "../../AuthProvider";
 
 interface SignupFormProps {
     onSignup: (user: UserSession) => void;

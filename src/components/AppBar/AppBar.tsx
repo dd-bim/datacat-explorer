@@ -7,9 +7,9 @@ import Button from "@material-ui/core/Button";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
 import MaterialUIAppBar from "@material-ui/core/AppBar";
-import React, {useContext} from "react";
-import {AuthContext} from "../../AuthContext";
+import React from "react";
 import {SearchInput} from "./SearchInput";
+import useAuthContext from "../../hooks/useAuthContext";
 
 interface AppBarProps {
     toggleDrawer: () => void
@@ -44,10 +44,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 export function AppBar(props: AppBarProps) {
     const classes = useStyles();
     const { toggleDrawer } = props;
-    const { session, logout } = useContext(AuthContext);
+    const { user, logout } = useAuthContext();
     let restrictedContent = [];
 
-    if (session) {
+    if (user) {
         restrictedContent.push(
             <SearchInput className={classes.searchInput} />,
             <Button
@@ -57,7 +57,7 @@ export function AppBar(props: AppBarProps) {
                 endIcon={<ExitToAppIcon/>}
                 onClick={() => logout()}
             >
-                {session.user.username}
+                {user.username}
             </Button>
         );
     }

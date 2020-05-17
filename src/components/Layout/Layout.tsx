@@ -1,11 +1,11 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppDrawer from "./AppDrawer";
-import {AuthContext} from "../../AuthContext";
 import BoardingView from "./BoardingView";
 import {AppBar} from "../AppBar/AppBar";
 import Content from "./Content";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const drawerWidth = 400;
 
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 export default function Layout() {
     const classes = useStyles();
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const {session, login} = useContext(AuthContext);
+    const {token, login} = useAuthContext();
 
     return (
         <React.Fragment>
@@ -60,7 +60,7 @@ export default function Layout() {
             />
             <main className={classes.content}>
                 {
-                    !session
+                    !token
                     ? <BoardingView onLogin={login} onSignup={login}/>
                     : <Content />
                 }

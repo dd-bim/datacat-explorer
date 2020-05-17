@@ -1,8 +1,8 @@
 import {useForm} from "react-hook-form";
 import React from "react";
-import {UserSession} from "../../AuthContext";
 import {gql, useMutation} from "@apollo/client";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import {UserSession} from "../../AuthProvider";
 
 interface LoginFormProps {
     onLogin: (user: UserSession) => void;

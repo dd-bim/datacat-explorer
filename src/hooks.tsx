@@ -1,9 +1,9 @@
-import {Dispatch, useContext, useState} from "react";
+import {Dispatch, useState} from "react";
 import {QueryConnection, XtdEntity} from "./types";
 import {DocumentNode, QueryHookOptions, useQuery} from "@apollo/client";
 import {useFormContext} from "react-hook-form";
 import get from "lodash.get";
-import {AuthContext} from "./AuthContext";
+import useAuthContext from "./hooks/useAuthContext";
 
 export function useLocalStorage<S>(key: string, initialState: S): [S, Dispatch<S>] {
   // State to store our value
@@ -41,10 +41,10 @@ export function useLocalStorage<S>(key: string, initialState: S): [S, Dispatch<S
 }
 
 export const useGraphiQLFetcher = () => {
-  const context = useContext(AuthContext);
+  const {token} = useAuthContext();
   let headers: Record<string, string> = { 'Content-Type': 'application/json' };
-  if (context.session) {
-    headers = { 'Authorization': `Bearer ${context.session.token}`, ...headers };
+  if (token) {
+    headers = { 'Authorization': `Bearer ${token}`, ...headers };
   }
   return (params: any) => fetch(process.env.REACT_APP_API as string, {
     method: 'POST',
