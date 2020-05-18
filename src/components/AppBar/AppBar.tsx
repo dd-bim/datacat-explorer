@@ -69,6 +69,7 @@ export function AppBar(props: AppBarProps) {
                     color="inherit"
                     onClick={toggleDrawer}
                     aria-label="menu"
+                    disabled={!user}
                 >
                     <Menu/>
                 </IconButton>
