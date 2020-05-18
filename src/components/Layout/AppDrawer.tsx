@@ -25,6 +25,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import AddIconButton from "../button/AddIconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import StorageIcon from '@material-ui/icons/Storage';
+import ValueIcon from "../icons/ValueIcon";
 
 const defaultDrawerWidth = 250;
 const widthProperty = ({drawerWidth = defaultDrawerWidth}: AppDrawerProps) => drawerWidth;
@@ -161,6 +162,19 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                     <ListItemSecondaryAction>
                         <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/objects/properties/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
+
+                <ListItem button component={RouterLink} to="/objects/values" onClick={onClose} disabled>
+                    <ListItemIcon>
+                        <ValueIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Werte"
+                        secondary="Beschreibt die konkrete Ausprägung, die ein Merkmal annehmen kann"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/objects/properties/new')} disabled />
                     </ListItemSecondaryAction>
                 </ListItem>
 
