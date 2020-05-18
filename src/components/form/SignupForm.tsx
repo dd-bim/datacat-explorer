@@ -3,6 +3,9 @@ import {gql, useMutation} from "@apollo/client";
 import {useForm} from "react-hook-form";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {UserSession} from "../../AuthProvider";
+import {Alert} from "@material-ui/lab";
+import {TextField} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 interface SignupFormProps {
     onSignup: (user: UserSession) => void;
@@ -44,10 +47,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         "display": "flex",
         "flex-direction": "column",
-        "& label": {
-            "margin-bottom": theme.spacing(1)
-        },
-        "& input": {
+        "& > *": {
             "margin-bottom": theme.spacing(2)
         }
     }
@@ -67,53 +67,70 @@ export default function SignupForm(props: SignupFormProps) {
 
     return (
         <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-            {error && error.message}
+            {error && <Alert severity="error">{error.message}</Alert>}
 
-            <label htmlFor="username">Username</label>
-            <input
+            <TextField
                 name="username"
-                ref={register({required: true})}
+                label="Username"
+                required
+                error={!!errors.username}
+                helperText={errors.username ? errors.username.message : ''}
+                inputRef={register({ required: true })}
+                fullWidth
             />
-            {errors.username && errors.username.message}
 
-            <label htmlFor="password">Password</label>
-            <input
+            <TextField
                 type="password"
                 name="password"
-                ref={register({required: true})}
+                label="Password"
+                required
+                helperText={errors.password ? errors.password.message : ''}
+                inputRef={register({ required: true })}
+                fullWidth
             />
-            {errors.password && errors.password.message}
 
-            <label htmlFor="firstName">Firstname</label>
-            <input
+            <TextField
                 name="firstName"
-                ref={register({required: true})}
+                label="Firstname"
+                required
+                error={!!errors.firstName}
+                helperText={errors.firstName ? errors.firstName.message : ''}
+                inputRef={register({ required: true })}
+                fullWidth
             />
-            {errors.firstName && errors.firstName.message}
 
-            <label htmlFor="Lastname">Lastname</label>
-            <input
+            <TextField
                 name="lastName"
-                ref={register({required: true})}
+                label="Lastname"
+                required
+                error={!!errors.lastName}
+                helperText={errors.lastName ? errors.lastName.message : ''}
+                inputRef={register({ required: true })}
+                fullWidth
             />
-            {errors.lastName && errors.lastName.message}
 
-            <label htmlFor="email">Email</label>
-            <input
+            <TextField
                 type="email"
                 name="email"
-                ref={register({required: true})}
+                label="Email"
+                required
+                error={!!errors.email}
+                helperText={errors.email ? errors.email.message : ''}
+                inputRef={register({ required: true })}
+                fullWidth
             />
-            {errors.email && errors.email.message}
 
-            <label htmlFor="organization">Organization</label>
-            <input
+            <TextField
                 name="organization"
-                ref={register({required: true})}
+                label="Organization"
+                required
+                error={!!errors.organization}
+                helperText={errors.organization ? errors.organization.message : ''}
+                inputRef={register({ required: true })}
+                fullWidth
             />
-            {errors.organization && errors.organization.message}
 
-            <button type="submit">Signup</button>
+            <Button type="submit" color="primary" variant="contained">Signup</Button>
         </form>
     )
 }

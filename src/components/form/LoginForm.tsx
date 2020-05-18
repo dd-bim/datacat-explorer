@@ -3,6 +3,9 @@ import React from "react";
 import {gql, useMutation} from "@apollo/client";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {UserSession} from "../../AuthProvider";
+import TextField from "@material-ui/core/TextField";
+import {Button} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
 
 interface LoginFormProps {
     onLogin: (user: UserSession) => void;
@@ -40,8 +43,8 @@ const useStyles = makeStyles(theme => ({
     root: {
         "display": "flex",
         "flex-direction": "column",
-        "& label, input": {
-            "margin-bottom": theme.spacing(1)
+        "& > *": {
+            "margin-bottom": theme.spacing(2)
         }
     }
 }));
@@ -50,7 +53,7 @@ export default function LoginForm(props: LoginFormProps) {
     const classes = useStyles();
     const { onLogin } = props;
     const [login, { error }] = useMutation<Response, Variables>(loginMutation, {
-        errorPolicy: 'ignore',
+        errorPolicy: 'all',
         onCompleted: ({ login: session }) => onLogin(session)
     });
     const { handleSubmit, register, errors } = useForm<LoginInput>();
@@ -60,24 +63,35 @@ export default function LoginForm(props: LoginFormProps) {
 
     return (
         <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-            {error && error.message}
+            {error && <Alert severity="error">{error.message}</Alert>}
 
-            <label htmlFor="username">Username</label>
-            <input
+            <TextField
                 name="username"
-                ref={register({ required: true })}
+                label="Username"
+                required
+                error={!!errors.username}
+                helperText={errors.username ? errors.username.message : ''}
+                inputRef={register({ required: true })}
+                fullWidth
             />
-            {errors.username && errors.username.message}
 
-            <label htmlFor="password">Password</label>
-            <input
+            <TextField
                 type="password"
                 name="password"
-                ref={register({ required: true })}
+                label="Password"
+                required
+                helperText={errors.password ? errors.password.message : ''}
+                inputRef={register({ required: true })}
+                fullWidth
             />
-            {errors.password && errors.password.message}
 
-            <button type="submit">Login</button>
+            <Button
+                color="primary"
+                type="submit"
+                variant="contained"
+            >
+                Login
+            </Button>
         </form>
     );
 };
