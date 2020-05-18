@@ -180,6 +180,22 @@ export interface XtdRelationship extends XtdRoot {
     __typename: XtdRelationshipTypes;
 }
 
+export type CollectsInput = {
+    id?: string;
+    versionId: string;
+    versionDate: string;
+    names: TextInput[];
+    descriptions?: TextInput[];
+    relatingCollection: string;
+    relatedThings: string[];
+}
+
+export interface XtdRelCollects extends XtdRelationship {
+    __typename: XtdRelationshipTypes.XtdRelCollects;
+    relatingCollection: XtdCollection;
+    relatedThings: QueryConnection<XtdRoot>;
+}
+
 export interface AssociationInput {
     id?: string;
     versionId: string;

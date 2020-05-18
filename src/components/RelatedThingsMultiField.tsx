@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import {Add as AddIcon, Clear as ClearIcon} from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import {TextFieldProps} from "@material-ui/core";
-import {XtdEntity, XtdObjectTypes} from "../types";
+import {XtdEntity, XtdEntityTypes} from "../types";
 
 const defaultValues = () => ({
     id: '',
@@ -17,7 +17,7 @@ interface RelatedThingsMultiFieldProps {
     initialEntities?: XtdEntity[];
     name: string;
     label: string;
-    labels: XtdObjectTypes[]
+    labels: XtdEntityTypes[]
     excludedIds: string[];
     inputOptions?: TextFieldProps;
 }

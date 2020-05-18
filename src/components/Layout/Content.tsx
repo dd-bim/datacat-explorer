@@ -18,6 +18,7 @@ import "graphiql/graphiql.min.css";
 import {useGraphiQLFetcher} from "../../hooks";
 import BagRoutes from "../../routes/BagRoutes";
 import NestRoutes from "../../routes/NestRoutes";
+import RelCollectsRoutes from "../../routes/RelCollectsRoutes";
 
 export default function Content() {
     const graphiqlFetcher = useGraphiQLFetcher();
@@ -53,6 +54,9 @@ export default function Content() {
             </Route>
             <Route path="/collections/nests">
                 <NestRoutes/>
+            </Route>
+            <Route path="/relationships/collects">
+                <RelCollectsRoutes/>
             </Route>
             <Route path="/relationships/associates">
                 <RelAssociatesRoutes/>

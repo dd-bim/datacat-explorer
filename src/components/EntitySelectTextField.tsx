@@ -8,7 +8,7 @@ import SearchField from './SearchField';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import {QueryConnection, XtdEntity, XtdObjectTypes} from "../types";
+import {QueryConnection, XtdEntity, XtdEntityTypes} from "../types";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import EntityIcon from "./icons/EntityIcon";
 import {useAsFormValue} from "../hooks";
@@ -25,7 +25,7 @@ const CONCEPT_SEARCH_QUERY = gql`
 export interface ConceptSelectProps {
     initialEntity?: XtdEntity;
     supportedFieldName: string;
-    labels: XtdObjectTypes[]
+    labels: XtdEntityTypes[]
     excludedIds: string[];
     onConceptSelect: (selection: XtdEntity | null) => void;
 }
