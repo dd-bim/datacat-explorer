@@ -28,11 +28,13 @@ export type UserAuthentication = {
     token?: JwtToken;
     payload?: JwtTokenPayload;
     user?: UserProfile;
+    hasRole(role: string): boolean;
     login(user: UserSession): void;
     logout(): void;
 };
 
 export const AuthContext = React.createContext<UserAuthentication>({
+    hasRole() { return false; },
     login() { console.warn("Missing auth provider."); },
     logout() { console.warn("Missing auth provider."); }
 });
@@ -42,7 +44,7 @@ type AuthProviderProps = {
 }
 
 const parseJwtToken = (token: JwtToken): JwtTokenPayload => {
-    const [header, payload, signiture] = token.split(".");
+    const [header, payload, signature] = token.split(".");
     const decoded = atob(payload);
     const json = JSON.parse(decoded);
     json.exp = new Date(json.exp * 1000);
@@ -58,6 +60,9 @@ export default function AuthProvider(props: AuthProviderProps) {
         token: session?.token,
         payload,
         user: session?.user,
+        hasRole: (role: string) => {
+            return payload ? payload.roles.includes('ROLE_' + role) : false;
+        },
         login: (userSession) => {
             setSession(userSession)
         },
