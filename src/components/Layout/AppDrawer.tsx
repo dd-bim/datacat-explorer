@@ -26,6 +26,8 @@ import AddIconButton from "../button/AddIconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import StorageIcon from '@material-ui/icons/Storage';
 import ValueIcon from "../icons/ValueIcon";
+import MeasureWithUnitIcon from "../icons/MeasureWithUnitIcon";
+import SequencesIcon from "../icons/SequencesIcon";
 
 const defaultDrawerWidth = 250;
 const widthProperty = ({drawerWidth = defaultDrawerWidth}: AppDrawerProps) => drawerWidth;
@@ -81,7 +83,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                 </ListItem>
 
-                <ListItem button component={RouterLink} to="/documents" onClick={onClose}>
+                <ListItem button component={RouterLink} to="/documents" onClick={onClose} disabled>
                     <ListItemIcon>
                         <DocumentIcon/>
                     </ListItemIcon>
@@ -91,6 +93,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                     <ListItemSecondaryAction>
                         <AddIconButton
+                            disabled
                             edge="end"
                             aria-label="add new"
                             onClick={() => handleOnAddClick('/documents/new')}
@@ -165,6 +168,19 @@ export default function AppDrawer(props: AppDrawerProps) {
                     </ListItemSecondaryAction>
                 </ListItem>
 
+                <ListItem button component={RouterLink} to="/objects/measuresWithUnit" onClick={onClose} disabled>
+                    <ListItemIcon>
+                        <MeasureWithUnitIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Bemaßung"
+                        secondary="Macht Merkmale messbar, indem Werte mit Einheiten in Bezug gebracht werden"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/objects/properties/new')} disabled />
+                    </ListItemSecondaryAction>
+                </ListItem>
+
                 <ListItem button component={RouterLink} to="/objects/values" onClick={onClose} disabled>
                     <ListItemIcon>
                         <ValueIcon />
@@ -220,7 +236,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     </ListItemSecondaryAction>
                 </ListItem>
 
-                <ListItem button component={RouterLink} to="/relationships/collects" disabled>
+                <ListItem button component={RouterLink} to="/relationships/collects">
                     <ListItemIcon>
                         <CollectsIcon />
                     </ListItemIcon>
@@ -230,6 +246,52 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                     <ListItemSecondaryAction>
                         <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/collects/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
+
+                <ListItem button component={RouterLink} to="/relationships/assignsCollections" disabled>
+                    <ListItemText
+                        inset
+                        primary="Sammlungszuweisungen"
+                        secondary="Zuweisung von Sammlungen zu einem Objekt"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton disabled edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/assignsCollections/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
+
+                <ListItem button component={RouterLink} to="/relationships/assignsProperties" disabled>
+                    <ListItemText
+                        inset
+                        primary="Einfache Merkmalszuweisungen"
+                        secondary="Zuweisung von Merkmalen zu einem Objekt"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton disabled edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/assignsProperties/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
+
+                <ListItem button component={RouterLink} to="/relationships/assignsPropertiesWithValues" disabled>
+                    <ListItemText
+                        inset
+                        primary="Komplexe Merkmalszuweisung"
+                        secondary="Zuweisung von Merkmalen zu einem Objekt"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton disabled edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/assignsPropertiesWithValues/new')} />
+                    </ListItemSecondaryAction>
+                </ListItem>
+
+                <ListItem button component={RouterLink} to="/relationships/sequences" disabled>
+                    <ListItemIcon>
+                        <SequencesIcon/>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Sequenz"
+                        secondary="Abfolge von Aktivitäten"
+                    />
+                    <ListItemSecondaryAction>
+                        <AddIconButton disabled edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/sequences/new')} />
                     </ListItemSecondaryAction>
                 </ListItem>
 
