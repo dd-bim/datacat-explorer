@@ -8,11 +8,13 @@ import ObjectCreateView from "../views/ObjectCreateView";
 import ObjectUpdateView from "../views/ObjectUpdateView";
 
 const baseProperties = gql`
-    fragment Props on XtdBag {
+    fragment Props on XtdRoot {
         id
         label
         created
+        createdBy
         lastModified
+        lastModifiedBy
         versionId
         versionDate
         names {

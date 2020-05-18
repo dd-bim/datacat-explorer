@@ -3,9 +3,9 @@ import {Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import {gql} from "@apollo/client";
 import ObjectView from "../views/ObjectView";
-import {XtdRelSpecializes} from "../types";
-import AssociationCreateView from "../views/AssociationCreateView";
-import AssociationUpdateView from "../views/AssociationUpdateView";
+import {XtdNest} from "../types";
+import ObjectCreateView from "../views/ObjectCreateView";
+import ObjectUpdateView from "../views/ObjectUpdateView";
 
 const baseProperties = gql`
     fragment Props on XtdRoot {
@@ -35,23 +35,17 @@ const baseProperties = gql`
 `;
 
 export const findOneQuery = gql`
-    query findOne($id: ID!) {
+    query findOneNest($id: ID!) {
         node(id: $id) {
             ...Props
-            ... on XtdRelSpecializes {
-                relatingThing { id label }
-                relatedThings {
-                    nodes { id label }
-                }
-            }
         }
     }
     ${baseProperties}
 `;
 
 export const findAllQuery = gql`
-    query findAll($term: String, $options: PagingOptions) {
-        specializesRelations(term: $term, options: $options) {
+    query findAllNests($term: String, $options: PagingOptions) {
+        nests(term: $term, options: $options) {
             nodes {
                 ...Props
                 associates { totalElements }
@@ -77,8 +71,8 @@ export const findAllQuery = gql`
 `;
 
 export const addMutation = gql`
-    mutation add($input: AssociationInput!) {
-        createSpecializesRelation(input: $input) {
+    mutation add($input: RootInput!) {
+        createNest(input: $input) {
             ...Props
         }
     }
@@ -86,8 +80,8 @@ export const addMutation = gql`
 `;
 
 export const updateMutation = gql`
-    mutation update($input: AssociationUpdateInput!) {
-        updateSpecializesRelation(input: $input) {
+    mutation update($input: RootUpdateInput!) {
+        updateNest(input: $input) {
             ...Props
         }
     }
@@ -96,14 +90,14 @@ export const updateMutation = gql`
 
 export const deleteMutation = gql`
     mutation delete($id: ID!) {
-        deleteSpecializesRelation(id: $id) {
+        deleteNest(id: $id) {
             id
         }
     }
 `;
 
 
-export default function RelSpecializesRoutes() {
+export default function NestRoutes() {
     const {path} = useRouteMatch();
     const history = useHistory();
     const handleOnCancel = () => history.push(path);
@@ -114,9 +108,9 @@ export default function RelSpecializesRoutes() {
             <Switch>
                 <Route exact path={path}>
                     <Grid item xs={12}>
-                        <ObjectView<XtdRelSpecializes>
-                            title={'"Specializes" relationships'}
-                            queryDataKey={'specializesRelations'}
+                        <ObjectView<XtdNest>
+                            title={'Nests'}
+                            queryDataKey={'nests'}
                             findAllQuery={findAllQuery}
                             deleteMutation={deleteMutation}
                         />
@@ -124,8 +118,8 @@ export default function RelSpecializesRoutes() {
                 </Route>
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
-                        <AssociationCreateView
-                            title={'Create "Specializes" relationship'}
+                        <ObjectCreateView<XtdNest>
+                            title={'Add nest'}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
@@ -134,7 +128,7 @@ export default function RelSpecializesRoutes() {
                 </Route>
                 <Route path={`${path}/:id`}>
                     <Grid item xs={12}>
-                        <AssociationUpdateView
+                        <ObjectUpdateView<XtdNest>
                             findOneQuery={findOneQuery}
                             findOneDataKey={'node'}
                             updateMutation={updateMutation}
@@ -145,5 +139,5 @@ export default function RelSpecializesRoutes() {
                 </Route>
             </Switch>
         </Grid>
-    );
+    )
 }

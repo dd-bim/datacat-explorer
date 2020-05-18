@@ -8,20 +8,26 @@ import AssociationCreateView from "../views/AssociationCreateView";
 import AssociationUpdateView from "../views/AssociationUpdateView";
 
 const baseProperties = gql`
-    fragment Props on XtdRelAssociates {
+    fragment Props on XtdRoot {
         id
+        label
         created
+        createdBy
         lastModified
+        lastModifiedBy
         versionId
         versionDate
-        label
         names {
             id
+            created
+            lastModified
             languageCode
             value
         }
         descriptions {
             id
+            created
+            lastModified
             languageCode
             value
         }

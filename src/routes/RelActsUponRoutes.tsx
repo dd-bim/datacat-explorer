@@ -12,7 +12,9 @@ const baseProperties = gql`
         id
         label
         created
+        createdBy
         lastModified
+        lastModifiedBy
         versionId
         versionDate
         names {
