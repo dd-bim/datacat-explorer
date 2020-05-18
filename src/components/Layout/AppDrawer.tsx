@@ -192,7 +192,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     </ListItemSecondaryAction>
                 </ListItem>
 
-                <ListItem button component={RouterLink} to="collections/nests" disabled>
+                <ListItem button component={RouterLink} to="/collections/nests">
                     <ListItemIcon>
                         <NestIcon/>
                     </ListItemIcon>
