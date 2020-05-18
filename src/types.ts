@@ -125,7 +125,7 @@ export interface XtdRoot extends XtdEntity {
 }
 
 export function isXtdObject(entity: XtdEntity): entity is XtdObject {
-    return (<any>Object).values(XtdObjectTypes).includes(entity.__typename);
+    return (Object as any).values(XtdObjectTypes).includes(entity.__typename);
 }
 
 export interface XtdObject extends XtdRoot {
@@ -157,7 +157,7 @@ export interface XtdProperty extends XtdObject {
 }
 
 export function isXtdCollection(entity: XtdEntity): entity is XtdCollection {
-    return (<any>Object).values(XtdCollectionTypes).includes(entity.__typename);
+    return (Object as any).values(XtdCollectionTypes).includes(entity.__typename);
 }
 
 export interface XtdCollection extends XtdRoot {
@@ -173,7 +173,7 @@ export interface XtdNest extends XtdCollection {
 }
 
 export function isXtdRelationship(entity: XtdEntity): entity is XtdRelationship {
-    return (<any>Object).values(XtdRelationshipTypes).includes(entity.__typename);
+    return (Object as any).values(XtdRelationshipTypes).includes(entity.__typename);
 }
 
 export interface XtdRelationship extends XtdRoot {

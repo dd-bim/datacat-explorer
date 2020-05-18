@@ -4,8 +4,7 @@ import {route} from "../utils";
 
 export default function useEntityRoute() {
     const history = useHistory();
-    const onUse = (entity: XtdEntity) => {
+    return (entity: XtdEntity) => {
         history.push(`${route(entity.__typename)}/${entity.id}`);
-    }
-    return onUse;
+    };
 }

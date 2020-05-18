@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from "react";
 import {XtdCollectionTypes, XtdObjectTypes, XtdRelationshipTypes, XtdTypes} from "./types";
 
 export const route = (typename: string): string => {
