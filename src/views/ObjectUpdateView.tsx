@@ -3,7 +3,7 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import XtdObjectForm from '../components/form/XtdObjectForm';
 import {FieldValues, OnSubmit} from "react-hook-form";
-import {XtdObject} from "../types";
+import {XtdRoot} from "../types";
 
 interface ObjectUpdateViewProps {
     findOneQuery: DocumentNode;
@@ -17,7 +17,7 @@ interface QueryData<T> {
     [name: string]: T
 }
 
-export default function ObjectUpdateView<T extends XtdObject>(props: ObjectUpdateViewProps) {
+export default function ObjectUpdateView<T extends XtdRoot>(props: ObjectUpdateViewProps) {
     const {findOneQuery, findOneDataKey, updateMutation, onSubmit, onCancel} = props;
     const {id} = useParams();
     const {loading, error, data} = useQuery<QueryData<T>>(findOneQuery, {variables: {id}});

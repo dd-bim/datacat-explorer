@@ -118,7 +118,6 @@ export default function PropertyRoutes() {
                     <Grid item xs={12}>
                         <ObjectCreateView<XtdProperty>
                             title={'Add property'}
-                            findAllQuery={findAllQuery}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}

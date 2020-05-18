@@ -1,21 +1,19 @@
 import React from 'react';
 import {DocumentNode, useMutation} from '@apollo/client';
 import XtdObjectForm from '../components/form/XtdObjectForm';
-import {XtdObject} from "../types";
+import {XtdRoot} from "../types";
 import {FieldValues, OnSubmit} from "react-hook-form";
 
 interface ObjectCreateViewProps {
     title: string;
-    findAllQuery: DocumentNode;
     addMutation: DocumentNode;
     onSubmit: () => void;
     onCancel: () => void;
 }
 
-export default function ObjectCreateView<T extends XtdObject>(props: ObjectCreateViewProps) {
+export default function ObjectCreateView<T extends XtdRoot>(props: ObjectCreateViewProps) {
     const {
         title,
-        findAllQuery,
         addMutation,
         onSubmit,
         onCancel

@@ -179,7 +179,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                 </ListItem>
 
                 <ListSubheader disableSticky>Sammlungen</ListSubheader>
-                <ListItem button component={RouterLink} to="/collections/bags" disabled>
+                <ListItem button component={RouterLink} to="/collections/bags">
                     <ListItemIcon>
                         <BagIcon/>
                     </ListItemIcon>

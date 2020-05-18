@@ -16,6 +16,7 @@ import React from "react";
 import GraphiQL from "graphiql";
 import "graphiql/graphiql.min.css";
 import {useGraphiQLFetcher} from "../../hooks";
+import BagRoutes from "../../routes/BagRoutes";
 
 export default function Content() {
     const graphiqlFetcher = useGraphiQLFetcher();
@@ -45,6 +46,9 @@ export default function Content() {
             </Route>
             <Route path="/objects/properties">
                 <PropertyRoutes/>
+            </Route>
+            <Route path="/collections/bags">
+                <BagRoutes/>
             </Route>
             <Route path="/relationships/associates">
                 <RelAssociatesRoutes/>

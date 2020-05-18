@@ -118,7 +118,6 @@ export default function ActorRoutes() {
                     <Grid item xs={12}>
                         <ObjectCreateView<XtdActor>
                             title={'Add actor'}
-                            findAllQuery={findAllQuery}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}

@@ -6,7 +6,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import RootFormset from '../form/RootFormset';
 import dateTime from '../../dateTime';
 import Typography from '@material-ui/core/Typography';
-import {XtdObject} from "../../types";
+import {XtdRoot} from "../../types";
 import useAuthContext from "../../hooks/useAuthContext";
 
 interface XtdObjectFormProps<T> {
@@ -16,7 +16,7 @@ interface XtdObjectFormProps<T> {
   onCancel: () => void;
 }
 
-export default function XtdObjectForm<T extends XtdObject>(props: XtdObjectFormProps<T>) {
+export default function XtdObjectForm<T extends XtdRoot>(props: XtdObjectFormProps<T>) {
   const { title, defaultValues, onSubmit, onCancel } = props;
   const { hasRole } = useAuthContext();
   const formMethods = useForm({ defaultValues });

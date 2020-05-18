@@ -3,18 +3,16 @@ import {Route, Switch, useHistory, useRouteMatch} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import {gql} from "@apollo/client";
 import ObjectView from "../views/ObjectView";
-import {XtdSubject} from "../types";
+import {XtdBag} from "../types";
 import ObjectCreateView from "../views/ObjectCreateView";
 import ObjectUpdateView from "../views/ObjectUpdateView";
 
 const baseProperties = gql`
-    fragment Props on XtdRoot {
+    fragment Props on XtdBag {
         id
         label
         created
-        createdBy
         lastModified
-        lastModifiedBy
         versionId
         versionDate
         names {
@@ -35,7 +33,7 @@ const baseProperties = gql`
 `;
 
 export const findOneQuery = gql`
-    query findOne($id: ID!) {
+    query findOneBag($id: ID!) {
         node(id: $id) {
             ...Props
         }
@@ -44,8 +42,8 @@ export const findOneQuery = gql`
 `;
 
 export const findAllQuery = gql`
-    query findAllSubjects($term: String, $options: PagingOptions) {
-        subjects(term: $term, options: $options) {
+    query findAllBags($term: String, $options: PagingOptions) {
+        bags(term: $term, options: $options) {
             nodes {
                 ...Props
                 associates { totalElements }
@@ -72,7 +70,7 @@ export const findAllQuery = gql`
 
 export const addMutation = gql`
     mutation add($input: RootInput!) {
-        createSubject(input: $input) {
+        createBag(input: $input) {
             ...Props
         }
     }
@@ -81,7 +79,7 @@ export const addMutation = gql`
 
 export const updateMutation = gql`
     mutation update($input: RootUpdateInput!) {
-        updateSubject(input: $input) {
+        updateBag(input: $input) {
             ...Props
         }
     }
@@ -90,14 +88,14 @@ export const updateMutation = gql`
 
 export const deleteMutation = gql`
     mutation delete($id: ID!) {
-        deleteSubject(id: $id) {
+        deleteBag(id: $id) {
             id
         }
     }
 `;
 
 
-export default function SubjectRoutes() {
+export default function BagRoutes() {
     const {path} = useRouteMatch();
     const history = useHistory();
     const handleOnCancel = () => history.push(path);
@@ -108,9 +106,9 @@ export default function SubjectRoutes() {
             <Switch>
                 <Route exact path={path}>
                     <Grid item xs={12}>
-                        <ObjectView<XtdSubject>
-                            title={'Subjects'}
-                            queryDataKey={'subjects'}
+                        <ObjectView<XtdBag>
+                            title={'Bags'}
+                            queryDataKey={'bags'}
                             findAllQuery={findAllQuery}
                             deleteMutation={deleteMutation}
                         />
@@ -118,8 +116,8 @@ export default function SubjectRoutes() {
                 </Route>
                 <Route path={`${path}/new`}>
                     <Grid item xs={12}>
-                        <ObjectCreateView<XtdSubject>
-                            title={'Add subject'}
+                        <ObjectCreateView<XtdBag>
+                            title={'Add bag'}
                             addMutation={addMutation}
                             onSubmit={handleOnSubmit}
                             onCancel={handleOnCancel}
@@ -128,7 +126,7 @@ export default function SubjectRoutes() {
                 </Route>
                 <Route path={`${path}/:id`}>
                     <Grid item xs={12}>
-                        <ObjectUpdateView<XtdSubject>
+                        <ObjectUpdateView<XtdBag>
                             findOneQuery={findOneQuery}
                             findOneDataKey={'node'}
                             updateMutation={updateMutation}
