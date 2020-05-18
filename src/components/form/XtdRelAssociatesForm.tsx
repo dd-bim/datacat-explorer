@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core';
 import {AssociationInput, XtdEntity, XtdObjectTypes, XtdRelAssociates} from "../../types";
 import {LanguageRepresentationFieldDefaultValues} from "../LanguageRepresentationField";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const useStyles = makeStyles(theme => ({
     heading: {
@@ -75,6 +76,7 @@ const entityToDefaultValues = (entity: XtdRelAssociates): XtdRelAssociatesFormDe
 export default function XtdRelAssociatesForm<T extends XtdRelAssociates>(props: XtdRelAssociatesFormProps) {
     const classes = useStyles();
     const { title, entity, onSubmit, onCancel } = props;
+    const { hasRole } = useAuthContext();
     const defaultValues = entity ? entityToDefaultValues(entity) : initialValues();
     const formMethods = useForm({ defaultValues });
     const { getValues, setValue, errors, handleSubmit, register } = formMethods;
@@ -143,7 +145,7 @@ export default function XtdRelAssociatesForm<T extends XtdRelAssociates>(props: 
 
                 <ButtonGroup>
                     <Button type="button" variant="contained" color="secondary" onClick={onCancel}>Cancel</Button>
-                    <Button type="submit" variant="contained" color="primary">Submit</Button>
+                    <Button disabled={!hasRole('USER')} type="submit" variant="contained" color="primary">Submit</Button>
                 </ButtonGroup>
             </form>
         </FormContext>

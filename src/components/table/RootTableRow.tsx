@@ -20,6 +20,7 @@ import {EntityItem} from "../list/PaginatedEntityList";
 import RelComposesDialogView from "../../views/dialog/RelComposesDialogView";
 import RelSpecializesDialogView from "../../views/dialog/RelSpecializesDialogView";
 import RelActsUponDialogView from "../../views/dialog/RelActsUponDialogView";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const useStyles = makeStyles(theme => ({
     describedEntity: {
@@ -40,6 +41,7 @@ export type XtdRootTableRowProps<T> = {
 
 export default function RootTableRow<T extends XtdEntity>(props: XtdRootTableRowProps<T>) {
     const {row, onSelectItem, onEdit, onDelete} = props;
+    const { hasRole } = useAuthContext();
     const classes = useStyles();
     const tableCell = (
         <TableCell>
@@ -93,7 +95,7 @@ export default function RootTableRow<T extends XtdEntity>(props: XtdRootTableRow
             <TableCell>{toLocaleDateTimeString(row.lastModified)} ({row.lastModifiedBy})</TableCell>
             <TableCell>{versionString}</TableCell>
             <TableCell align={'center'}>
-                {isXtdRoot(row) && row.associates.totalElements + row.associatedBy.totalElements && <RelAssociatesDialogView
+                {isXtdRoot(row) && <RelAssociatesDialogView
                     id={row.id}
                     totalElementsAssociates={row.associates.totalElements}
                     totalElementsAssociatedBy={row.associatedBy.totalElements}
@@ -131,6 +133,7 @@ export default function RootTableRow<T extends XtdEntity>(props: XtdRootTableRow
             </TableCell>
             <TableCell align={'center'}>
                 {onEdit && <EditIconButton
+                    disabled={!hasRole('USER')}
                     onClick={() => onEdit(row)}
                     size='small'
                 />}

@@ -6,46 +6,20 @@ import BoardingView from "./BoardingView";
 import {AppBar} from "../AppBar/AppBar";
 import Content from "./Content";
 import useAuthContext from "../../hooks/useAuthContext";
+import {useRouteMatch} from "react-router-dom";
 
 const drawerWidth = 400;
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        'display': 'flex',
-        'min-height': '100vh'
-    },
-    appBar: {
-        'z-index': theme.zIndex.drawer + 1,
-    },
-    tools: {
-        'display': 'flex',
-        'flex-direction': 'row'
-    },
-    avatar: {
-        'margin-right': theme.spacing(2)
-    },
-    logo: {
-        'max-width': '150px'
-    },
-    menuButton: {
-        'margin-right': theme.spacing(2),
-    },
     content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
-    toolbar: theme.mixins.toolbar,
-    title: {
-        'flex-grow': 1,
-        'margin-left': theme.spacing(1),
-    },
-    version: {
-        display: 'inline'
+        height: (props: {graphiql: boolean}) => props.graphiql ? `calc(100vh - 64px)` : undefined,
+        padding: (props: {graphiql: boolean}) => props.graphiql ? 0 : theme.spacing(2),
     }
 }));
 
 export default function Layout() {
-    const classes = useStyles();
+    const match = useRouteMatch("/graphiql");
+    const classes = useStyles({ graphiql: !!match });
     const [drawerOpen, setDrawerOpen] = useState(false);
     const {token, login} = useAuthContext();
 

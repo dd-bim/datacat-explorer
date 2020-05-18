@@ -8,6 +8,7 @@ import {XtdEntity} from "../../types";
 import {makeStyles} from "@material-ui/core/styles";
 import EditIconButton from "../button/EditIconButton";
 import DeleteRowAction from "./DeleteRowAction";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const useStyles = makeStyles(theme => ({
     idLabel: {
@@ -23,6 +24,7 @@ export interface EntityTableRowProps<T> {
 
 export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRowProps<T>) {
     const { row, onEdit, onDelete } = props;
+    const { hasRole } = useAuthContext();
     const classes = useStyles();
 
     return (
@@ -38,6 +40,7 @@ export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRo
             <TableCell>{toLocaleDateTimeString(row.lastModified)}</TableCell>
             <TableCell align={'center'}>
                 {onEdit && <EditIconButton
+                    disabled={!hasRole('USER')}
                     onClick={() => onEdit(row)}
                     size='small'
                 />}

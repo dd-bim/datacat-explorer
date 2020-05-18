@@ -3,6 +3,7 @@ import DeleteDialog from "../dialog/DeleteDialog";
 import * as React from "react";
 import {useState} from "react";
 import {IconButtonProps} from "@material-ui/core";
+import useAuthContext from "../../hooks/useAuthContext";
 
 interface DeleteRowActionProps {
     title?: string;
@@ -14,12 +15,13 @@ interface DeleteRowActionProps {
 
 export default function DeleteRowAction(props: DeleteRowActionProps) {
     const { title, message, disabled, onConfirm, ButtonProps } = props;
+    const { hasRole } = useAuthContext();
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
     return (
         <React.Fragment>
             <DeleteIconButton
-                disabled={disabled}
+                disabled={!hasRole('USER') || disabled}
                 onClick={() => setOpenDeleteDialog(true)}
                 {...ButtonProps}
             />

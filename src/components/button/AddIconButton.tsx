@@ -3,15 +3,17 @@ import IconButton, {IconButtonProps} from "@material-ui/core/IconButton";
 import React from "react";
 import {ButtonBaseProps} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
+import useAuthContext from "../../hooks/useAuthContext";
 
 export default function AddIconButton(props: IconButtonProps & ButtonBaseProps) {
-  return (
-      <Tooltip arrow title="Add">
+    const {hasRole} = useAuthContext();
+    return (
+        <Tooltip arrow title="Add">
           <span>
-              <IconButton {...props}>
-                  <Add />
+              <IconButton disabled={!hasRole('USER')} {...props}>
+                  <Add/>
               </IconButton>
           </span>
-      </Tooltip>
-  );
+        </Tooltip>
+    );
 }

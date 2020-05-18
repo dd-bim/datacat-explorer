@@ -9,6 +9,7 @@ import RootTableRow from "../components/table/RootTableRow";
 import {route} from "../utils";
 import AddButton from "../components/button/AddButton";
 import {EntityItem} from "../components/list/PaginatedEntityList";
+import useAuthContext from "../hooks/useAuthContext";
 
 export interface ObjectViewProps {
     title: string;
@@ -19,6 +20,7 @@ export interface ObjectViewProps {
 
 export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
     const { title, queryDataKey, findAllQuery, deleteMutation } = props;
+    const { hasRole } = useAuthContext();
     const { path } = useRouteMatch();
     const history = useHistory();
     const {term, setTerm, pageNumber, setPageNumber, pageSize, setPageSize} = useQueryOptions();
@@ -44,7 +46,11 @@ export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
             loading={loading}
             error={error}
             tools={
-                <AddButton to={`${path}/new`} variant="contained" size="small">
+                <AddButton
+                    disabled={!hasRole('USER')}
+                    to={`${path}/new`}
+                    variant="contained"
+                    size="small">
                     Add
                 </AddButton>
             }

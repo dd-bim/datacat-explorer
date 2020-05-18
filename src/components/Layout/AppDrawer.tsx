@@ -67,7 +67,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     <ListItemIcon>
                         <SearchIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Search" />
+                    <ListItemText primary="Search" secondary="Freie Suche über den gesamten Datenbestand des Katalogs" />
                 </ListItem>
 
                 <ListItem button component={RouterLink} to="/graphiql" onClick={onClose}>
@@ -165,7 +165,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                 </ListItem>
 
                 <ListSubheader disableSticky>Sammlungen</ListSubheader>
-                <ListItem button component={RouterLink} to="collections/bags" disabled>
+                <ListItem button component={RouterLink} to="/collections/bags" disabled>
                     <ListItemIcon>
                         <BagIcon/>
                     </ListItemIcon>
@@ -173,6 +173,9 @@ export default function AppDrawer(props: AppDrawerProps) {
                         primary="Tasche"
                         secondary="Sammlungen beliebiger Objekte"
                     />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/collections/bags/new')} />
+                    </ListItemSecondaryAction>
                 </ListItem>
 
                 <ListItem button component={RouterLink} to="collections/nests" disabled>
@@ -183,11 +186,14 @@ export default function AppDrawer(props: AppDrawerProps) {
                         primary="Nest"
                         secondary="Sammlungen gleicher Objekte"
                     />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/collections/nests/new')} />
+                    </ListItemSecondaryAction>
                 </ListItem>
 
                 <ListSubheader disableSticky>Beziehungen</ListSubheader>
 
-                <ListItem button component={RouterLink} to="relationships/documents" disabled>
+                <ListItem button component={RouterLink} to="/relationships/documents" disabled>
                     <ListItemIcon>
                         <DocumentIcon/>
                     </ListItemIcon>
@@ -195,6 +201,9 @@ export default function AppDrawer(props: AppDrawerProps) {
                         primary="Dokumentationen"
                         secondary="Verlinkung eines Konzepts zu einer weiterführenden Dokumentation"
                     />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/documents/new')} />
+                    </ListItemSecondaryAction>
                 </ListItem>
 
                 <ListItem button component={RouterLink} to="/relationships/collects" disabled>
@@ -205,6 +214,9 @@ export default function AppDrawer(props: AppDrawerProps) {
                         primary="Sammlungen"
                         secondary="Beziehungen beliebiger Objekte zu einer Sammlung"
                     />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/collects/new')} />
+                    </ListItemSecondaryAction>
                 </ListItem>
 
                 <ListItem button component={RouterLink} to="/relationships/associates">
@@ -215,6 +227,9 @@ export default function AppDrawer(props: AppDrawerProps) {
                         primary="Assoziationen"
                         secondary="Beziehungen beliebiger Sammlungen zu einem Objekt"
                     />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/associates/new')} />
+                    </ListItemSecondaryAction>
                 </ListItem>
 
                 <ListItem button component={RouterLink} to="/relationships/composes">
@@ -225,6 +240,9 @@ export default function AppDrawer(props: AppDrawerProps) {
                         primary="Komposition"
                         secondary="Komposition eines Konzepts durch eine Menge anderer Konzepte"
                     />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/composes/new')} />
+                    </ListItemSecondaryAction>
                 </ListItem>
 
                 <ListItem button component={RouterLink} to="/relationships/groups" onClick={onClose}>
@@ -248,6 +266,9 @@ export default function AppDrawer(props: AppDrawerProps) {
                         primary="Spezialisierung"
                         secondary="Spezialisierung eines Konzepts durch eine Menge anderer Konzepte"
                     />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/specializes/new')} />
+                    </ListItemSecondaryAction>
                 </ListItem>
 
                 <ListItem button component={RouterLink} to="/relationships/actsUpon" onClick={onClose}>
@@ -258,6 +279,9 @@ export default function AppDrawer(props: AppDrawerProps) {
                         primary="Einflussnahme"
                         secondary="Einflussnahme eines Konzepts auf eine Menge anderer Konzepte"
                     />
+                    <ListItemSecondaryAction>
+                        <AddIconButton edge="end" aria-label="add new" onClick={() => handleOnAddClick('/relationships/actsUpon/new')} />
+                    </ListItemSecondaryAction>
                 </ListItem>
 
 
