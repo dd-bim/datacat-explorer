@@ -49,8 +49,8 @@ export function AppBar(props: AppBarProps) {
 
     if (user) {
         restrictedContent.push(
-            <SearchInput className={classes.searchInput} />,
-            <Button
+            <SearchInput key="search-input" className={classes.searchInput} />,
+            <Button key="logout-button"
                 className={classes.logoutButton}
                 color="inherit"
                 aria-label="logout"

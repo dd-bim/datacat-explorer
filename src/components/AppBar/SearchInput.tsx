@@ -1,7 +1,7 @@
 import {gql} from "@apollo/client";
 import {Link as ReactRouterLink} from "react-router-dom";
 import {useFindAllQuery} from "../../hooks";
-import {XtdEntity} from "../../types";
+import {XtdRoot} from "../../types";
 import {fade, makeStyles, Theme} from "@material-ui/core/styles";
 import React, {useRef, useState} from "react";
 import SearchIcon from "@material-ui/icons/Search";
@@ -68,6 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     searchContent: {
         'margin-top': theme.spacing(1),
         'min-width': '150px',
+        'max-width': '400px',
         'padding': theme.spacing(2)
     },
     entityIcon: {
@@ -81,6 +82,11 @@ const query = gql`
             nodes {
                 id
                 label
+                ... on XtdRoot {
+                    descriptions {
+                        id value
+                    }
+                }
             }
             totalElements
         }
@@ -91,7 +97,7 @@ export function SearchInput(props: SearchInputProps) {
     const classes = useStyles();
     const searchInput = useRef(null);
     const [term, setTerm] = useState("");
-    const { loading, error, nodes, totalElements } = useFindAllQuery<XtdEntity>(query, 'search', {
+    const { loading, error, nodes, totalElements } = useFindAllQuery<XtdRoot>(query, 'search', {
         skip: !term,
         fetchPolicy: "network-only",
         variables: {
@@ -138,12 +144,22 @@ export function SearchInput(props: SearchInputProps) {
                                         onClick(result);
                                         setTerm("");
                                     }
+                                    const description = result.descriptions?.reduce((acc, {value}, index) => {
+                                        if (index > 0) {
+                                            acc += " | ";
+                                        }
+                                        acc += value;
+                                        if (acc.length > 120) {
+                                            return acc.substr(0, 120) + "…";
+                                        }
+                                        return acc;
+                                    }, "")
                                     return (
                                         <ListItem key={result.id} button disableGutters onClick={handleOnClick}>
                                             <ListItemIcon className={classes.entityIcon}>
                                                 <EntityIcon entityType={result.__typename}/>
                                             </ListItemIcon>
-                                            <ListItemText primary={result.label}/>
+                                            <ListItemText primary={result.label} secondary={description}/>
                                         </ListItem>
                                     );
                                 })}
