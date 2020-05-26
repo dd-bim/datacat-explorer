@@ -3,7 +3,6 @@ import Drawer, {DrawerProps} from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import {makeStyles} from '@material-ui/core';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import DocumentIcon from '../documents/DocumentIcon';
 import SubjectIcon from '../icons/SubjectIcon';
 import {Link as RouterLink, useHistory} from 'react-router-dom';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -28,6 +27,8 @@ import StorageIcon from '@material-ui/icons/Storage';
 import ValueIcon from "../icons/ValueIcon";
 import MeasureWithUnitIcon from "../icons/MeasureWithUnitIcon";
 import SequencesIcon from "../icons/SequencesIcon";
+import ExternalDocumentIcon from "../icons/ExternalDocumentIcon";
+import DocumentsIcon from "../icons/DocumentsIcon";
 
 const defaultDrawerWidth = 250;
 const widthProperty = ({drawerWidth = defaultDrawerWidth}: AppDrawerProps) => drawerWidth;
@@ -83,9 +84,9 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                 </ListItem>
 
-                <ListItem button component={RouterLink} to="/documents" onClick={onClose} disabled>
+                <ListItem button component={RouterLink} to="/externalDocuments" onClick={onClose}>
                     <ListItemIcon>
-                        <DocumentIcon/>
+                        <ExternalDocumentIcon/>
                     </ListItemIcon>
                     <ListItemText
                         primary="Externe Dokumente"
@@ -93,7 +94,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                     />
                     <ListItemSecondaryAction>
                         <AddIconButton
-                            disabled
                             edge="end"
                             aria-label="add new"
                             onClick={() => handleOnAddClick('/documents/new')}
@@ -223,9 +223,9 @@ export default function AppDrawer(props: AppDrawerProps) {
 
                 <ListSubheader disableSticky>Beziehungen</ListSubheader>
 
-                <ListItem button component={RouterLink} to="/relationships/documents" disabled>
+                <ListItem button component={RouterLink} to="/relationships/documents">
                     <ListItemIcon>
-                        <DocumentIcon/>
+                        <DocumentsIcon/>
                     </ListItemIcon>
                     <ListItemText
                         primary="Dokumentationen"

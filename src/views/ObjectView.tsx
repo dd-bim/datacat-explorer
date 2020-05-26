@@ -1,6 +1,6 @@
 import {DocumentNode, gql, useMutation} from '@apollo/client';
 import * as React from 'react';
-import {XtdRoot} from "../types";
+import {XtdEntity} from "../types";
 import CompositeTable from "../components/table/CompositeTable";
 import {useHistory, useRouteMatch} from "react-router-dom";
 import {useFindAllQuery, useQueryOptions} from "../hooks";
@@ -18,7 +18,7 @@ export interface ObjectViewProps {
     deleteMutation: DocumentNode;
 }
 
-export default function ObjectView<T extends XtdRoot>(props: ObjectViewProps) {
+export default function ObjectView<T extends XtdEntity>(props: ObjectViewProps) {
     const { title, queryDataKey, findAllQuery, deleteMutation } = props;
     const { hasRole } = useAuthContext();
     const { path } = useRouteMatch();

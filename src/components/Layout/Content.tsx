@@ -1,6 +1,5 @@
 import {Route, Switch} from "react-router-dom";
 import SearchView from "./SearchView";
-import ExternalDocumentRoutes from "../../routes/ExternalDocumentRoutes";
 import ActorRoutes from "../../routes/ActorRoutes";
 import ActivityRoutes from "../../routes/ActivityRoutes";
 import SubjectRoutes from "../../routes/SubjectRoutes";
@@ -19,6 +18,8 @@ import {useGraphiQLFetcher} from "../../hooks";
 import BagRoutes from "../../routes/BagRoutes";
 import NestRoutes from "../../routes/NestRoutes";
 import RelCollectsRoutes from "../../routes/RelCollectsRoutes";
+import DocumentRoutes from "../../routes/DocumentRoutes";
+import RelDocumentsRoutes from "../../routes/RelDocumentsRoutes";
 
 export default function Content() {
     const graphiqlFetcher = useGraphiQLFetcher();
@@ -32,7 +33,7 @@ export default function Content() {
                 <GraphiQL fetcher={graphiqlFetcher}/>
             </Route>
             <Route path="/externalDocuments">
-                <ExternalDocumentRoutes/>
+                <DocumentRoutes/>
             </Route>
             <Route path="/objects/actors">
                 <ActorRoutes/>
@@ -54,6 +55,9 @@ export default function Content() {
             </Route>
             <Route path="/collections/nests">
                 <NestRoutes/>
+            </Route>
+            <Route path="/relationships/documents">
+                <RelDocumentsRoutes/>
             </Route>
             <Route path="/relationships/collects">
                 <RelCollectsRoutes/>
