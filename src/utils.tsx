@@ -52,6 +52,11 @@ export const sanitizeTextInput = (x: { id: string | null }) => {
     x.id = x.id === "" ? null : x.id;
 };
 
+export const sanitizeEntityInput = (input: any) => {
+    input.id = input.id === "" ? null : input.id;
+    input.names.forEach(sanitizeTextInput);
+};
+
 export const sanitizeRootInput = (input: any) => {
     input.id = input.id === "" ? null : input.id;
     input.names.forEach(sanitizeTextInput);
