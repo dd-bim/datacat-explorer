@@ -1,12 +1,31 @@
 {
-    "Node": [
+    "CatalogItem": [
+        "XtdActivity",
+        "XtdActor",
+        "XtdBag",
+        "XtdClassification",
+        "XtdExternalDocument",
+        "XtdMeasureWithUnit",
+        "XtdNest",
+        "XtdProperty",
+        "XtdRelActsUpon",
+        "XtdRelAssociates",
+        "XtdRelCollects",
+        "XtdRelComposes",
+        "XtdRelDocuments",
+        "XtdRelGroups",
+        "XtdRelSpecializes",
+        "XtdSubject",
+        "XtdUnit",
+        "XtdValue"
+    ],
+    "Entity": [
         "XtdActivity",
         "XtdActor",
         "XtdBag",
         "XtdClassification",
         "XtdDescription",
         "XtdExternalDocument",
-        "XtdLanguage",
         "XtdMeasureWithUnit",
         "XtdName",
         "XtdNest",
@@ -25,26 +44,6 @@
     "XtdCollection": [
         "XtdBag",
         "XtdNest"
-    ],
-    "XtdEntity": [
-        "XtdActivity",
-        "XtdActor",
-        "XtdBag",
-        "XtdClassification",
-        "XtdExternalDocument",
-        "XtdMeasureWithUnit",
-        "XtdNest",
-        "XtdProperty",
-        "XtdRelActsUpon",
-        "XtdRelAssociates",
-        "XtdRelCollects",
-        "XtdRelComposes",
-        "XtdRelDocuments",
-        "XtdRelGroups",
-        "XtdRelSpecializes",
-        "XtdSubject",
-        "XtdUnit",
-        "XtdValue"
     ],
     "XtdLanguageRepresentation": [
         "XtdDescription",
