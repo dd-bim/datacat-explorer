@@ -44,7 +44,10 @@ export default function AppDrawerItem(props: AppDrawerItemProps) {
                         aria-label={"add new"}
                         edge="end"
                         disabled={disabled}
-                        onClick={() => history.push(addRoute)}
+                        onClick={() => {
+                            history.push(addRoute)
+                            onClick && onClick();
+                        }}
                     />
                 </ListItemSecondaryAction>
             )}
