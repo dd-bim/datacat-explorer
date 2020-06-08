@@ -1,0 +1,5 @@
+fragment ExternalDocument on XtdExternalDocument {
+    documents {
+        totalElements
+    }
+}

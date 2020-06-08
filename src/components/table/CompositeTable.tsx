@@ -1,5 +1,4 @@
-import {ApolloError, gql} from "@apollo/client";
-import {PageInfo, XtdEntity} from "../../types";
+import {ApolloError} from "@apollo/client";
 import * as React from "react";
 import ErrorAlert from "../ErrorAlert";
 import SimpleTable from "./SimpleTable";
@@ -8,8 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import SearchField from "../SearchField";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import {makeStyles} from "@material-ui/core/styles";
+import {PageInfoFragment} from "../../generated/types";
 
-interface CompositeTableProps<T> {
+interface CompositeTableProps {
     title: string;
     loading: boolean;
     error?: ApolloError;
@@ -17,7 +17,7 @@ interface CompositeTableProps<T> {
     tableHeader: React.ReactNode;
     children?: React.ReactNode;
     totalElements?: number;
-    pageInfo?: PageInfo;
+    pageInfo?: PageInfoFragment;
     term: string;
     onTermChange: (newTerm: string) => void;
     onPageNumberChange: (newPageNumber: number) => void;
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function CompositeTable<T extends XtdEntity>(props: CompositeTableProps<T>) {
+export default function CompositeTable(props: CompositeTableProps) {
     const {
         tools,
         tableHeader,
@@ -80,9 +80,6 @@ export default function CompositeTable<T extends XtdEntity>(props: CompositeTabl
     }
 
     if (!error && !loading && pageInfo && totalElements) {
-
-        console.log(children);
-
         content = (
             <SimpleTable
                 tableHeader={tableHeader}
@@ -118,20 +115,4 @@ export default function CompositeTable<T extends XtdEntity>(props: CompositeTabl
             {content}
         </div>
     );
-}
-
-CompositeTable.fragments = {
-    root: gql`
-        fragment CompositeTableRoot on XtdRoot {
-            descriptions {
-                id value
-            }
-        }
-    `,
-    pageInfo: gql`
-        fragment CompositeTablePage on PageInfo {
-            ...SimpleTablePage
-        }
-        ${SimpleTable.fragments.pageInfo}
-    `
 }

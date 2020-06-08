@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {PageInfo, XtdEntity} from "../../types";
 import TableHead from "@material-ui/core/TableHead";
 import {TableBody, TableProps} from "@material-ui/core";
 import TablePagination from "@material-ui/core/TablePagination";
@@ -7,17 +6,18 @@ import Table from "@material-ui/core/Table";
 import {gql} from "@apollo/client";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
+import {PageInfoFragment} from "../../generated/types";
 
-export interface XtdTableProps<T> {
+export interface XtdTableProps {
     children: React.ReactNode;
     tableHeader: React.ReactNode;
     totalElements: number;
-    pageInfo: PageInfo;
+    pageInfo: PageInfoFragment;
     onChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
     onChangeRowsPerPage?: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 
-export default function SimpleTable<T extends XtdEntity>(props: XtdTableProps<T> & TableProps) {
+export default function SimpleTable(props: XtdTableProps & TableProps) {
     const {
         children,
         tableHeader,

@@ -1,12 +1,12 @@
 import {useFieldArray, useFormContext} from 'react-hook-form';
-import EntitySelectTextField from './EntitySelectTextField';
+import EntitySelectTextField from './CatalogItemSelect/EntitySelectTextField';
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import {Add as AddIcon, Clear as ClearIcon} from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import {TextFieldProps} from "@material-ui/core";
-import {XtdEntity, XtdEntityTypes} from "../types";
+import {CatalogItemFragment} from "../generated/types";
 
 const defaultValues = () => ({
     id: '',
@@ -14,11 +14,11 @@ const defaultValues = () => ({
 });
 
 interface RelatedThingsMultiFieldProps {
-    initialEntities?: XtdEntity[];
+    initialEntities?: CatalogItemFragment[];
     name: string;
     label: string;
-    labels: XtdEntityTypes[]
-    excludedIds: string[];
+    // labels: XtdEntityTypes[]
+    // excludedIds: string[];
     inputOptions?: TextFieldProps;
 }
 
@@ -27,8 +27,8 @@ export default function RelatedThingsMultiField(props: RelatedThingsMultiFieldPr
         initialEntities,
         name,
         label,
-        labels,
-        excludedIds,
+        // labels,
+        // excludedIds,
         inputOptions,
     } = props;
     const keyName = 'fieldId';
@@ -39,8 +39,8 @@ export default function RelatedThingsMultiField(props: RelatedThingsMultiFieldPr
         <Grid container spacing={1}>
             {fields.map((field, index) => {
                 const accessor = `${name}[${index}]`;
-                const handleNewSelection = (selection: XtdEntity | null) => {
-                    setValue(accessor, selection ? selection.id : '', true);
+                const handleNewSelection = (id: string | null) => {
+                    setValue(accessor, id ? id : '', true);
                 };
                 return (
                     <Grid key={field.fieldId} container spacing={1} item xs={12}>
@@ -51,8 +51,8 @@ export default function RelatedThingsMultiField(props: RelatedThingsMultiFieldPr
                                 initialEntity={initialEntities?.[index]}
                                 supportedFieldName={accessor}
                                 label={`${label} (${index + 1}/${fields.length})`}
-                                labels={labels}
-                                excludedIds={excludedIds}
+                                // labels={labels}
+                                // excludedIds={excludedIds}
                                 {...inputOptions}
                             />
                         </Grid>

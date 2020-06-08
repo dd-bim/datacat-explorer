@@ -1,12 +1,10 @@
 import {Dispatch, useState} from "react";
-import {QueryConnection, XtdEntity} from "./types";
-import {DocumentNode, QueryHookOptions, useQuery} from "@apollo/client";
 import {useFormContext} from "react-hook-form";
 import get from "lodash.get";
 import useAuthContext from "./hooks/useAuthContext";
 
 export function useLocalStorage<S>(key: string, initialState: S): [S, Dispatch<S>] {
-  // State to store our value
+  // State to store our id
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<S>(() => {
     try {
@@ -23,10 +21,10 @@ export function useLocalStorage<S>(key: string, initialState: S): [S, Dispatch<S
   });
 
   // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to localStorage.
+  // ... persists the new id to localStorage.
   const setValue = (value: S) => {
     try {
-      // Allow value to be a function so we have same API as useState
+      // Allow id to be a function so we have same API as useState
       const valueToStore = value instanceof Function ? value() : value;
       // Save state
       setStoredValue(valueToStore);
@@ -81,18 +79,18 @@ export function usePagination(initialPageNumber = 0, initialPageSize = 10): Pagi
   };
 }
 
-export function useQueryOptions(initalTerm = "",  initialPageNumber = 0, initialPageSize = 10) {
-  const [term, setTerm] = useState(initalTerm);
+export function useQueryOptions(initialQuery = "",  initialPageNumber = 0, initialPageSize = 10) {
+  const [query, setQuery] = useState(initialQuery);
   const { pageSize, setPageSize, pageNumber, setPageNumber } = usePagination(initialPageNumber, initialPageSize);
 
-  const handleTermChange = (newTerm: string) => {
-    setTerm(newTerm);
+  const handleQueryChange = (newQuery: string) => {
+    setQuery(newQuery);
     setPageNumber(0);
   };
 
   return {
-    term,
-    setTerm: handleTermChange,
+    query,
+    setQuery: handleQueryChange,
     pageSize,
     setPageSize,
     pageNumber,
@@ -100,31 +98,15 @@ export function useQueryOptions(initalTerm = "",  initialPageNumber = 0, initial
   };
 }
 
-export interface FindOneQueryData<T> {
-  [name: string]: T
-}
+export type Concept = { __typename: string, id: string, label: string };
 
-export function useFindOneQuery<T extends XtdEntity>(query: DocumentNode, key: string, options: QueryHookOptions<FindOneQueryData<T>>) {
-  const { data, ...otherProps } = useQuery<FindOneQueryData<T>>(query, options);
-  return { result: data?.[key], ...otherProps };
-}
-
-export interface FindAllQueryData<T> {
-  [name: string]: QueryConnection<T>
-}
-
-export function useFindAllQuery<T extends XtdEntity>(query: DocumentNode, key: string, options: QueryHookOptions<FindAllQueryData<T>>) {
-  const { data, ...otherProps } = useQuery<FindAllQueryData<T>>(query, options);
-  return { nodes: data?.[key].nodes, pageInfo: data?.[key].pageInfo, totalElements: data?.[key].totalElements, ...otherProps };
-}
-
-export function useAsFormValue(options: { name: string, defaultValue: XtdEntity | null }) {
+export function useAsFormValue(options: { name: string, defaultValue: Concept | null }) {
   const { name, defaultValue } = options;
   const { errors } = useFormContext();
   const [current, setCurrent] = useState(defaultValue);
   const error = get(errors, name);
 
-  const handleNewConcept = (concept?: XtdEntity) => {
+  const handleNewConcept = (concept?: Concept) => {
     setCurrent(concept ? concept : null);
   };
 

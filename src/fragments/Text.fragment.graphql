@@ -1,0 +1,9 @@
+fragment Text on XtdLanguageRepresentation {
+    id
+    language {
+        id
+        languageNameInEnglish
+        languageNameInSelf
+    }
+    value
+}

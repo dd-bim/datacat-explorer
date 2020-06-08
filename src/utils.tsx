@@ -1,35 +1,37 @@
 import * as React from "react";
-import {XtdCollectionTypes, XtdObjectTypes, XtdRelationshipTypes, XtdTypes} from "./types";
+import {languages} from "./lang";
+import {EntityInput, EntityUpdateInput, TextFragment, TextInput} from "./generated/types";
 
 export const route = (typename: string): string => {
+
     switch (typename) {
-        case XtdTypes.XtdExternalDocument:
+        case 'XtdExternalDocument':
             return '/externalDocuments';
-        case XtdObjectTypes.XtdActivity:
+        case 'XtdActivity':
             return '/objects/activities';
-        case XtdObjectTypes.XtdActor:
+        case 'XtdActor':
             return '/objects/actors';
-        case XtdObjectTypes.XtdSubject:
+        case 'XtdSubject':
             return '/objects/subjects';
-        case XtdObjectTypes.XtdUnit:
+        case 'XtdUnit':
             return '/objects/units';
-        case XtdObjectTypes.XtdProperty:
+        case 'XtdProperty':
             return '/objects/properties';
-        case XtdCollectionTypes.XtdBag:
+        case 'XtdBag':
             return '/collections/bags';
-        case XtdCollectionTypes.XtdNest:
+        case 'XtdNest':
             return '/collections/nests';
-        case XtdRelationshipTypes.XtdRelDocuments:
+        case 'XtdRelDocuments':
             return '/relationships/documents';
-        case XtdRelationshipTypes.XtdRelCollects:
+        case 'XtdRelCollects':
             return '/relationships/collects';
-        case XtdRelationshipTypes.XtdRelAssociates:
+        case 'XtdRelAssociates':
             return '/relationships/associates';
-        case XtdRelationshipTypes.XtdRelGroups:
+        case 'XtdRelGroups':
             return '/relationships/groups';
-        case XtdRelationshipTypes.XtdRelSpecializes:
+        case 'XtdRelSpecializes':
             return '/relationships/specializes';
-        case XtdRelationshipTypes.XtdRelActsUpon:
+        case 'XtdRelActsUpon':
             return '/relationships/actsUpon';
         default:
             throw new Error("Unknown type")
@@ -48,14 +50,19 @@ export const removeTypename = (obj: any) => {
     return obj;
 };
 
-export const sanitizeTextInput = (x: { id: string | null }) => {
-    x.id = x.id === "" ? null : x.id;
-};
+export const defaultTextInputs = () => Object
+    .keys(languages)
+    .map(languageCode => ({
+        id: '',
+        languageCode,
+        value: ''
+    }));
 
-export const sanitizeEntityInput = (input: any) => {
-    input.id = input.id === "" ? null : input.id;
-    input.names.forEach(sanitizeTextInput);
-};
+export const mapTextFragmentToTextInput = ({id, language, value}: TextFragment): TextInput => ({
+    id,
+    languageCode: language.id,
+    value
+});
 
 export const sanitizeRootInput = (input: any) => {
     input.id = input.id === "" ? null : input.id;
@@ -63,3 +70,26 @@ export const sanitizeRootInput = (input: any) => {
     input.descriptions = input.descriptions ? input.descriptions : [];
     input.descriptions.forEach(sanitizeTextInput);
 };
+
+export const defaultEntityInput = (): EntityInput => ({
+    id: '',
+    names: defaultTextInputs()
+});
+
+function validId(input: { id?: string | null }) {
+    return input.id && input.id.trim();
+}
+
+export const sanitizeTextInput = (input: TextInput) => {
+    if (!validId(input)) {
+        delete input.id;
+    }
+};
+
+export const sanitizeEntityInput = (input: EntityInput | EntityUpdateInput) => {
+    if (!validId(input)) {
+        delete input.id;
+    }
+    input.names = input.names.filter(name => name.value && name.value.trim());
+    input.names.forEach(sanitizeTextInput);
+}

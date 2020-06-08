@@ -1,0 +1,11 @@
+query SearchView($input: FilterInput) {
+    search(input: $input) {
+        nodes {
+            ...CatalogItem
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}

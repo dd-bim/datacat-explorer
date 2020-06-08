@@ -1,0 +1,18 @@
+query ExternalDocumentList($input: FilterInput) {
+    externalDocuments(input: $input) {
+        nodes {
+            ...CatalogItem
+            ...ExternalDocument
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query ExternalDocument($id: ID!) {
+    node(id: $id) {
+        ...ExternalDocumentDetails
+    }
+}

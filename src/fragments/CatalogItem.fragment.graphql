@@ -1,0 +1,12 @@
+fragment CatalogItem on CatalogItem {
+    id
+    label
+    created
+    createdBy
+    lastModified
+    lastModifiedBy
+    names {
+        ...Text
+    }
+    ...Root
+}

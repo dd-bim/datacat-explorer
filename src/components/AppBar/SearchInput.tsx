@@ -1,7 +1,4 @@
-import {gql} from "@apollo/client";
 import {Link as ReactRouterLink} from "react-router-dom";
-import {useFindAllQuery} from "../../hooks";
-import {XtdRoot} from "../../types";
 import {fade, makeStyles, Theme} from "@material-ui/core/styles";
 import React, {useRef, useState} from "react";
 import SearchIcon from "@material-ui/icons/Search";
@@ -12,11 +9,12 @@ import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import EntityIcon from "../icons/EntityIcon";
+import CatalogItemIcon from "../icons/CatalogItemIcon";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Typography from "@material-ui/core/Typography";
 import useEntityRoute from "../../hooks/useEntityRoute";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import {RootFragment, useSearchInputQuery} from "../../generated/types";
 
 interface SearchInputProps {
     className?: string
@@ -76,36 +74,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-const query = gql`
-    query AppBarSearch($options: SearchInput!) {
-        search(options: $options, paging: { pageSize: 10 }) {
-            nodes {
-                id
-                label
-                ... on XtdRoot {
-                    descriptions {
-                        id value
-                    }
-                }
-            }
-            totalElements
-        }
-    }
-`;
-
 export function SearchInput(props: SearchInputProps) {
     const classes = useStyles();
     const searchInput = useRef(null);
-    const [term, setTerm] = useState("");
-    const { loading, error, nodes, totalElements } = useFindAllQuery<XtdRoot>(query, 'search', {
-        skip: !term,
+    const [query, setQuery] = useState("");
+    const { loading, error, data } = useSearchInputQuery({
+        skip: !query,
         fetchPolicy: "network-only",
         variables: {
-            options: { term  }
+            input: { query }
         }
     });
     const onClick = useEntityRoute();
-    const open = Boolean(!error && !loading && term);
+    const open = Boolean(!error && !loading && query);
     const id = open ? 'transitions-popper' : undefined;
 
     return (
@@ -121,11 +102,11 @@ export function SearchInput(props: SearchInputProps) {
                     input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'search' }}
-                value={term}
-                onChange={e => setTerm(e.target.value)}
+                value={query}
+                onChange={e => setQuery(e.target.value)}
             />
         </div>
-            <ClickAwayListener onClickAway={() => setTerm("")}>
+            <ClickAwayListener onClickAway={() => setQuery("")}>
             <Popper
                 id={id}
                 open={open}
@@ -137,14 +118,14 @@ export function SearchInput(props: SearchInputProps) {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Paper className={classes.searchContent}>
-                            <Typography variant="body1">{totalElements} Ergebnisse</Typography>
+                            <Typography variant="body1">{data?.search.totalElements} Ergebnisse</Typography>
                             <List dense disablePadding>
-                                {nodes?.map(result => {
+                                {data?.search.nodes.map(item => {
                                     const handleOnClick = () => {
-                                        onClick(result);
-                                        setTerm("");
+                                        onClick(item);
+                                        setQuery("");
                                     }
-                                    const description = result.descriptions?.reduce((acc, {value}, index) => {
+                                    const description = (item as RootFragment).descriptions?.reduce((acc, {value}, index) => {
                                         if (index > 0) {
                                             acc += " | ";
                                         }
@@ -155,15 +136,15 @@ export function SearchInput(props: SearchInputProps) {
                                         return acc;
                                     }, "")
                                     return (
-                                        <ListItem key={result.id} button disableGutters onClick={handleOnClick}>
+                                        <ListItem key={item.id} button disableGutters onClick={handleOnClick}>
                                             <ListItemIcon className={classes.entityIcon}>
-                                                <EntityIcon entityType={result.__typename}/>
+                                                <CatalogItemIcon itemType={item.__typename}/>
                                             </ListItemIcon>
-                                            <ListItemText primary={result.label} secondary={description}/>
+                                            <ListItemText primary={item.label} secondary={description}/>
                                         </ListItem>
                                     );
                                 })}
-                                <ListItem button component={ReactRouterLink} to={`/?q=${term}`} onClick={() => setTerm("")}>
+                                <ListItem button component={ReactRouterLink} to={`/?q=${query}`} onClick={() => setQuery("")}>
                                     <ListItemText primary="Mehr..."  />
                                 </ListItem>
                             </List>

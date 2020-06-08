@@ -1,0 +1,5 @@
+mutation LoginForm($credentials: LoginInput!) {
+    login(input: $credentials) {
+        ...UserSession
+    }
+}

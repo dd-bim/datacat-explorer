@@ -1,0 +1,8 @@
+fragment Root on XtdRoot {
+    names {
+        ...Text
+    }
+    descriptions {
+        ...Text
+    }
+}

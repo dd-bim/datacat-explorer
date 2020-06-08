@@ -1,0 +1,17 @@
+mutation CreateExternalDocument($input: EntityInput!) {
+    createExternalDocument(input: $input) {
+        ...ExternalDocumentDetails
+    }
+}
+
+mutation UpdateExternalDocument($input: EntityUpdateInput!) {
+    updateExternalDocument(input: $input) {
+        ...ExternalDocumentDetails
+    }
+}
+
+mutation DeleteExternalDocument($id: ID!) {
+    deleteExternalDocument(id: $id) {
+        id
+    }
+}

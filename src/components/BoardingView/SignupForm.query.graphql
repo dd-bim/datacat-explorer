@@ -1,0 +1,8 @@
+mutation SignupForm($profile: SignupInput!) {
+    signup(input: $profile) {
+        token
+        user {
+            ...UserProfile
+        }
+    }
+}

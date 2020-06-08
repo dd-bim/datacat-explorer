@@ -1,0 +1,7 @@
+fragment UserProfile on UserProfile {
+    username
+    firstName
+    lastName
+    email
+    organization
+}

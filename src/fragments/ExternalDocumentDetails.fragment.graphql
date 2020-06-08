@@ -1,0 +1,21 @@
+fragment ExternalDocumentDetails on XtdExternalDocument {
+    ...CatalogItem
+    documents {
+        nodes {
+            ...CatalogItem
+            relatedObjects {
+                nodes {
+                    ...CatalogItem
+                }
+                pageInfo {
+                    ...PageInfo
+                }
+                totalElements
+            }
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}

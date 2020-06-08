@@ -1,14 +1,14 @@
 import TableCell from "@material-ui/core/TableCell";
-import EntityIcon from "../icons/EntityIcon";
+import CatalogItemIcon from "../icons/CatalogItemIcon";
 import Typography from "@material-ui/core/Typography";
 import {toLocaleDateTimeString} from "../../dateTime";
 import TableRow from "@material-ui/core/TableRow";
 import * as React from "react";
-import {XtdEntity} from "../../types";
 import {makeStyles} from "@material-ui/core/styles";
-import EditIconButton from "../button/EditIconButton";
-import DeleteRowAction from "./DeleteRowAction";
+import EditIconButton from "../buttons/EditIconButton";
+// import DeleteRowAction from "./DeleteRowAction";
 import useAuthContext from "../../hooks/useAuthContext";
+import {CatalogItemFragment} from "../../generated/types";
 
 const useStyles = makeStyles(theme => ({
     idLabel: {
@@ -16,13 +16,13 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export interface EntityTableRowProps<T> {
-    row: T;
-    onEdit?: (row: T) => void;
-    onDelete?: (row: T) => void;
+export interface EntityTableRowProps {
+    row: CatalogItemFragment;
+    onEdit?: (row: CatalogItemFragment) => void;
+    onDelete?: (row: CatalogItemFragment) => void;
 }
 
-export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRowProps<T>) {
+export default function EntityTableRow(props: EntityTableRowProps) {
     const { row, onEdit, onDelete } = props;
     const { hasRole } = useAuthContext();
     const classes = useStyles();
@@ -30,7 +30,7 @@ export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRo
     return (
         <TableRow hover>
             <TableCell align={'center'}>
-                <EntityIcon entityType={row.__typename} fontSize={'small'}/>
+                <CatalogItemIcon itemType={row.__typename} fontSize={'small'}/>
             </TableCell>
             <TableCell>
                 <Typography variant="body1">{row.label}</Typography>
@@ -44,11 +44,11 @@ export default function EntityTableRow<T extends XtdEntity>(props: EntityTableRo
                     onClick={() => onEdit(row)}
                     size='small'
                 />}
-                {onDelete && <DeleteRowAction
-                    title={`Delete ${row.label}`}
-                    onConfirm={() => onDelete(row)}
-                    ButtonProps={{size: 'small'}}
-                />}
+                {/*{onDelete && <DeleteRowAction*/}
+                {/*    title={`Delete ${row.label}`}*/}
+                {/*    onConfirm={() => onDelete(row)}*/}
+                {/*    ButtonProps={{size: 'small'}}*/}
+                {/*/>}*/}
             </TableCell>
         </TableRow>
     );

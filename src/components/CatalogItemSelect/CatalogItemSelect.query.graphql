@@ -1,0 +1,12 @@
+query CatalogItemSelect($input: FilterInput) {
+    search(input: $input) {
+        nodes {
+            id
+            label
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}

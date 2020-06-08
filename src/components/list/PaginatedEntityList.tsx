@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import EntityIcon from "../icons/EntityIcon";
+import CatalogItemIcon from "../icons/CatalogItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
 export interface EntityItem {
@@ -39,7 +39,7 @@ export default function PaginatedEntityList(props: PaginatedEntityListProps) {
             onClick={onSelectItem ? () => onSelectItem(item) : undefined}
         >
             <ListItemIcon>
-                <EntityIcon entityType={item.entityType} />
+                <CatalogItemIcon itemType={item.entityType} />
             </ListItemIcon>
             <ListItemText
                 primary={item.label}

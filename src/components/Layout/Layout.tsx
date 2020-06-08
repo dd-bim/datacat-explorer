@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppDrawer from "./AppDrawer";
-import BoardingView from "./BoardingView";
+import AppDrawer from "../AppDrawer/AppDrawer";
+import BoardingView from "../BoardingView/BoardingView";
 import {AppBar} from "../AppBar/AppBar";
-import Content from "./Content";
+import Router from "./Router";
 import useAuthContext from "../../hooks/useAuthContext";
 import {useRouteMatch} from "react-router-dom";
 
@@ -36,7 +36,7 @@ export default function Layout() {
                 {
                     !token
                     ? <BoardingView onLogin={login} onSignup={login}/>
-                    : <Content />
+                    : <Router />
                 }
             </main>
         </React.Fragment>

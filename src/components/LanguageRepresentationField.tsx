@@ -95,8 +95,8 @@ export default function LanguageRepresentationField(props: LanguageRepresentatio
                                 disabled={isPersistent}
                                 {...otherProps}
                             >
-                                {languages.map(option => (
-                                    <MenuItem key={option.value} value={option.value}>
+                                {Object.values(languages).map(option => (
+                                    <MenuItem key={option.id} value={option.id}>
                                         {option.label}
                                     </MenuItem>
                                 ))}
