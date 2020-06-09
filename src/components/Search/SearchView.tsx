@@ -2,21 +2,10 @@ import {useQueryOptions} from "../../hooks";
 import * as React from "react";
 import useLocationQueryParam from "../../hooks/useLocationQueryParam";
 import {useSearchViewQuery} from "../../generated/types";
-import {makeStyles} from "@material-ui/core/styles";
 import Table, {useCatalogItemRows} from "../table/Table";
-import {Paper} from "@material-ui/core";
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        padding: theme.spacing(3)
-    },
-    idLabel: {
-        'color': theme.palette.text.hint
-    }
-}));
+import ViewWrapper from "../View/ViewWrapper";
 
 export default function SearchView() {
-    const classes = useStyles();
     const q = useLocationQueryParam("q", "");
     const { query, setQuery, pageNumber, setPageNumber, pageSize, setPageSize } = useQueryOptions(q);
     const { error, loading, data } = useSearchViewQuery({
@@ -27,7 +16,7 @@ export default function SearchView() {
     const { columns, rows } = useCatalogItemRows(data?.search.nodes)
 
     return (
-        <Paper className={classes.root}>
+        <ViewWrapper>
             <Table
                 title="Search catalog"
                 query={query}
@@ -45,6 +34,6 @@ export default function SearchView() {
                     onChangePage: (e, num) => setPageNumber(num)
                 }}
             />
-        </Paper>
+        </ViewWrapper>
     );
 }

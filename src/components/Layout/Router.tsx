@@ -1,5 +1,5 @@
 import {Route, Switch} from "react-router-dom";
-import SearchView from "../SearchView/SearchView";
+import SearchView from "../Search/SearchView";
 import React from "react";
 // @ts-ignore
 import GraphiQL from "graphiql";
