@@ -1,5 +1,5 @@
-import React from 'react';
-import {Route, Switch, useHistory, useParams, useRouteMatch} from 'react-router-dom';
+import React, {useContext} from 'react';
+import {useParams} from 'react-router-dom';
 import ExternalDocumentForm from "./ExternalDocumentForm";
 import {
     EntityInput,
@@ -12,32 +12,18 @@ import {
 } from "../../generated/types";
 import {defaultEntityInput, defaultTextInputs, sanitizeEntityInput} from "../../utils";
 import {Typography} from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import useLocationQueryParam from "../../hooks/useLocationQueryParam";
 import {useQueryOptions} from "../../hooks";
 import Table, {useCatalogItemRows} from "../table/Table";
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        padding: theme.spacing(3)
-    },
-    idLabel: {
-        'color': theme.palette.text.hint
-    }
-}));
-
-type ViewProps = {
-    onCompleted(): void
-    onCancel(): void
-}
+import ViewWrapper from "../View/ViewWrapper";
+import ViewSwitch, {ViewContext} from "../View/ViewSwitch";
 
 function ListView() {
-    const classes = useStyles();
-    const history = useHistory();
+    const { createPath } = useContext(ViewContext);
     const q = useLocationQueryParam("q", "");
     const {query, setQuery, pageNumber, setPageNumber, pageSize, setPageSize} = useQueryOptions(q);
     const {error, loading, data} = useExternalDocumentListQuery({
+        fetchPolicy: "network-only",
         variables: {
             input: {query, pageSize, pageNumber}
         }
@@ -45,32 +31,29 @@ function ListView() {
     const {columns, rows} = useCatalogItemRows(data?.externalDocuments.nodes)
 
     return (
-        <Paper className={classes.root}>
-            <Table
-                title="External documents"
-                onAdd={() => history.push('/externalDocuments/new')}
-                query={query}
-                onQueryChange={setQuery}
-                loading={loading}
-                error={!!error}
-                columns={columns}
-                rows={rows}
-                paginationOptions={{
-                    page: pageNumber,
-                    count: data?.externalDocuments.totalElements || 0,
-                    rowsPerPage: pageSize,
-                    rowsPerPageOptions: [10, 20, 50, 100],
-                    onChangeRowsPerPage: e => setPageSize(parseInt(e.target.value, 10)),
-                    onChangePage: (e, num) => setPageNumber(num)
-                }}
-            />
-        </Paper>
+        <Table
+            title="External documents"
+            createPath={createPath}
+            query={query}
+            onQueryChange={setQuery}
+            loading={loading}
+            error={!!error}
+            columns={columns}
+            rows={rows}
+            paginationOptions={{
+                page: pageNumber,
+                count: data?.externalDocuments.totalElements || 0,
+                rowsPerPage: pageSize,
+                rowsPerPageOptions: [10, 20, 50, 100],
+                onChangeRowsPerPage: e => setPageSize(parseInt(e.target.value, 10)),
+                onChangePage: (e, num) => setPageNumber(num)
+            }}
+        />
     );
 }
 
-function CreateView(props: ViewProps) {
-    const classes = useStyles();
-    const {onCompleted, onCancel} = props;
+function CreateView() {
+    const { onCompleted, onCancel } = useContext(ViewContext);
     const defaultValues = defaultEntityInput();
     const [createExternalDocument] = useCreateExternalDocumentMutation({onCompleted});
     const handleSubmit = (data: EntityInput) => {
@@ -79,34 +62,37 @@ function CreateView(props: ViewProps) {
     };
 
     return (
-        <Paper className={classes.root}>
+        <React.Fragment>
             <Typography variant="h5" gutterBottom>Create external document</Typography>
             <ExternalDocumentForm
                 defaultValues={defaultValues}
                 onSubmit={handleSubmit}
                 onCancel={onCancel}
             />
-        </Paper>
+        </React.Fragment>
     )
 }
 
-function UpdateView(props: ViewProps) {
-    const classes = useStyles();
-    const {onCompleted, onCancel} = props;
+function UpdateView() {
+    const { onCompleted, onCancel } = useContext(ViewContext);
     const {id} = useParams();
     const {loading, error, data} = useExternalDocumentQuery({variables: {id}});
     const [updateExternalDocument] = useUpdateExternalDocumentMutation({onCompleted});
-    const handleSubmit = (input: EntityUpdateInput) => {
+    const handleSubmit = async (input: EntityUpdateInput) => {
         sanitizeEntityInput(input);
-        return updateExternalDocument({variables: {input}});
+        return await updateExternalDocument({variables: {input}});
     };
 
     if (loading) return (
-        <p>Loading...</p>
+        <ViewWrapper>
+            <p>Loading...</p>
+        </ViewWrapper>
     );
 
     if (error) return (
-        <p>Error...</p>
+        <ViewWrapper>
+            <p>Error...</p>
+        </ViewWrapper>
     );
 
     const node = (data?.node as ExternalDocumentDetailsFragment);
@@ -122,7 +108,7 @@ function UpdateView(props: ViewProps) {
         })
     };
     return (
-        <Paper className={classes.root}>
+        <React.Fragment>
             <Typography variant="h5" gutterBottom>Update external document</Typography>
             <ExternalDocumentForm
                 defaultValues={defaultValues}
@@ -130,32 +116,16 @@ function UpdateView(props: ViewProps) {
                 onCancel={onCancel}
                 catalogItemFormProps={{isUpdate: true}}
             />
-        </Paper>
+        </React.Fragment>
     )
 }
 
 export default function ExternalDocumentViews() {
-    const {path} = useRouteMatch();
-    const history = useHistory();
-    const onCompleted = () => history.push(path);
-
     return (
-        <Switch>
-            <Route exact path={path}>
-                <ListView />
-            </Route>
-            <Route exact path={`${path}/new`}>
-                <CreateView
-                    onCancel={onCompleted}
-                    onCompleted={onCompleted}
-                />
-            </Route>
-            <Route path={`${path}/:id`}>
-                <UpdateView
-                    onCancel={onCompleted}
-                    onCompleted={onCompleted}
-                />
-            </Route>
-        </Switch>
-    )
+        <ViewSwitch
+            listView={<ListView />}
+            createView={<CreateView />}
+            updateView={<UpdateView />}
+        />
+    );
 }

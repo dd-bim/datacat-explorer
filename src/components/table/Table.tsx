@@ -80,7 +80,7 @@ export const useCatalogItemRows = (items?: CatalogItemFragment[]) => {
 
 export type TableProps = {
     title: string
-    onAdd?(): void
+    createPath?: string
     query: string
     onQueryChange(newQuery: string): void
     error?: boolean
@@ -93,7 +93,7 @@ export type TableProps = {
 export default function Table(props: TableProps) {
     const {
         title,
-        onAdd,
+        createPath,
         query,
         onQueryChange,
         error,
@@ -152,8 +152,7 @@ export default function Table(props: TableProps) {
         <TableContainer>
             <TableToolbar
                 title={title}
-                onAdd={onAdd}
-
+                createPath={createPath}
                 SearchProps={{
                     size: "small",
                     label: "Search id, name and description",

@@ -6,7 +6,9 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
-import AddIconButton from "../buttons/AddIconButton";
+import Link from "@material-ui/core/Link";
+import {Link as RouterLink} from "react-router-dom";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -15,6 +17,7 @@ const useStyles = makeStyles(theme => ({
         'justify-content': 'space-between'
     },
     addButton: {
+        'vertical-align': 'text-bottom',
         'margin-right': theme.spacing(.5)
     }
 }))
@@ -22,22 +25,23 @@ const useStyles = makeStyles(theme => ({
 type TableToolbarProps = {
     title: string
     SearchProps?: TextFieldProps
-    onAdd?(): void
+    createPath?: string
 }
 
 export default function TableToolbar(props: TableToolbarProps) {
-    const { title, SearchProps, onAdd } = props;
+    const { title, SearchProps, createPath } = props;
     const classes = useStyles();
 
     return (
         <Toolbar className={classes.root} disableGutters>
             <Typography variant="h6">
-                {onAdd && (
-                    <AddIconButton
-                        className={classes.addButton}
-                        color="primary"
-                        onClick={onAdd}
-                    />
+                {createPath && (
+                    <Link component={RouterLink} to={createPath}>
+                        <AddCircleIcon
+                            className={classes.addButton}
+                            color="primary"
+                        />
+                    </Link>
                 )}
                 {title}
             </Typography>
