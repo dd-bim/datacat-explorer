@@ -8,7 +8,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Avatar from "@material-ui/core/Avatar";
 import MaterialUIAppBar from "@material-ui/core/AppBar";
 import React from "react";
-import {SearchInput} from "./SearchInput";
+import {QuickSearchWidget} from "./QuickSearchWidget";
 import useAuthContext from "../../hooks/useAuthContext";
 
 interface AppBarProps {
@@ -49,7 +49,7 @@ export function AppBar(props: AppBarProps) {
 
     if (user) {
         restrictedContent.push(
-            <SearchInput key="search-input" className={classes.searchInput} />,
+            <QuickSearchWidget key="search-input" className={classes.searchInput} />,
             <Button key="logout-button"
                 className={classes.logoutButton}
                 color="inherit"
