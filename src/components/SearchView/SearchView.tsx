@@ -1,17 +1,15 @@
 import {useQueryOptions} from "../../hooks";
-import CompositeTable from "../table/CompositeTable";
 import * as React from "react";
-import EntityTableHeader from "../table/EntityTableHeader";
 import useLocationQueryParam from "../../hooks/useLocationQueryParam";
-import TableCell from "@material-ui/core/TableCell";
-import CatalogItemIcon from "../icons/CatalogItemIcon";
-import Typography from "@material-ui/core/Typography";
-import {toLocaleDateTimeString} from "../../dateTime";
-import TableRow from "@material-ui/core/TableRow";
 import {useSearchViewQuery} from "../../generated/types";
 import {makeStyles} from "@material-ui/core/styles";
+import Table, {useCatalogItemRows} from "../table/Table";
+import {Paper} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        padding: theme.spacing(3)
+    },
     idLabel: {
         'color': theme.palette.text.hint
     }
@@ -26,36 +24,27 @@ export default function SearchView() {
             input: { query, pageSize, pageNumber}
         }
     });
+    const { columns, rows } = useCatalogItemRows(data?.search.nodes)
 
     return (
-        <CompositeTable
-            title={'Search'}
-            loading={loading}
-            error={error}
-            tableHeader={<EntityTableHeader />}
-            totalElements={data?.search.totalElements}
-            pageInfo={data?.search.pageInfo}
-            term={query}
-            onTermChange={setQuery}
-            onPageNumberChange={setPageNumber}
-            onPageSizeChange={setPageSize}
-        >
-            {data?.search.nodes.map((item) => (
-                <TableRow hover>
-                    <TableCell align={'center'}>
-                        <CatalogItemIcon itemType={item.__typename} fontSize={'small'}/>
-                    </TableCell>
-                    <TableCell>
-                        <Typography variant="body1">{item.label}</Typography>
-                        <Typography className={classes.idLabel} variant="body2">{item.id}</Typography>
-                    </TableCell>
-                    <TableCell>{toLocaleDateTimeString(item.created)}</TableCell>
-                    <TableCell>{toLocaleDateTimeString(item.lastModified)}</TableCell>
-                    <TableCell align={'center'}>
-                        Empty
-                    </TableCell>
-                </TableRow>
-            ))}
-        </CompositeTable>
+        <Paper className={classes.root}>
+            <Table
+                title="Search catalog"
+                query={query}
+                onQueryChange={setQuery}
+                loading={loading}
+                error={!!error}
+                columns={columns}
+                rows={rows}
+                paginationOptions={{
+                    page: pageNumber,
+                    count: data?.search.totalElements || 0,
+                    rowsPerPage: pageSize,
+                    rowsPerPageOptions: [10, 20, 50, 100],
+                    onChangeRowsPerPage: e => setPageSize(parseInt(e.target.value, 10)),
+                    onChangePage: (e, num) => setPageNumber(num)
+                }}
+            />
+        </Paper>
     );
 }
