@@ -1,4 +1,4 @@
-fragment Root on XtdRoot {
+fragment RootDetails on XtdRoot {
     versionId
     versionDate
     descriptions {

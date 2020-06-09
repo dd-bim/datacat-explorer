@@ -2,6 +2,7 @@ query SearchInput($input: FilterInput) {
     search(input: $input) {
         nodes {
             ...CatalogItem
+            ...Root
         }
         pageInfo {
             ...PageInfo

@@ -289,59 +289,76 @@ export type SearchInputQueryVariables = {
 
 
 export type SearchInputQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<(
-      { __typename: 'XtdActivity' }
-      & CatalogItem_XtdActivity_Fragment
-    ) | (
-      { __typename: 'XtdActor' }
-      & CatalogItem_XtdActor_Fragment
-    ) | (
-      { __typename: 'XtdBag' }
-      & CatalogItem_XtdBag_Fragment
-    ) | (
-      { __typename: 'XtdClassification' }
-      & CatalogItem_XtdClassification_Fragment
-    ) | (
       { __typename: 'XtdExternalDocument' }
       & CatalogItem_XtdExternalDocument_Fragment
     ) | (
-      { __typename: 'XtdMeasureWithUnit' }
-      & CatalogItem_XtdMeasureWithUnit_Fragment
-    ) | (
-      { __typename: 'XtdNest' }
-      & CatalogItem_XtdNest_Fragment
-    ) | (
-      { __typename: 'XtdProperty' }
-      & CatalogItem_XtdProperty_Fragment
+      { __typename: 'XtdRelDocuments' }
+      & CatalogItem_XtdRelDocuments_Fragment
+      & Root_XtdRelDocuments_Fragment
     ) | (
       { __typename: 'XtdRelActsUpon' }
       & CatalogItem_XtdRelActsUpon_Fragment
+      & Root_XtdRelActsUpon_Fragment
     ) | (
       { __typename: 'XtdRelAssociates' }
       & CatalogItem_XtdRelAssociates_Fragment
+      & Root_XtdRelAssociates_Fragment
     ) | (
       { __typename: 'XtdRelCollects' }
       & CatalogItem_XtdRelCollects_Fragment
+      & Root_XtdRelCollects_Fragment
     ) | (
       { __typename: 'XtdRelComposes' }
       & CatalogItem_XtdRelComposes_Fragment
-    ) | (
-      { __typename: 'XtdRelDocuments' }
-      & CatalogItem_XtdRelDocuments_Fragment
+      & Root_XtdRelComposes_Fragment
     ) | (
       { __typename: 'XtdRelGroups' }
       & CatalogItem_XtdRelGroups_Fragment
+      & Root_XtdRelGroups_Fragment
     ) | (
       { __typename: 'XtdRelSpecializes' }
       & CatalogItem_XtdRelSpecializes_Fragment
+      & Root_XtdRelSpecializes_Fragment
+    ) | (
+      { __typename: 'XtdActor' }
+      & CatalogItem_XtdActor_Fragment
+      & Root_XtdActor_Fragment
+    ) | (
+      { __typename: 'XtdActivity' }
+      & CatalogItem_XtdActivity_Fragment
+      & Root_XtdActivity_Fragment
+    ) | (
+      { __typename: 'XtdClassification' }
+      & CatalogItem_XtdClassification_Fragment
+      & Root_XtdClassification_Fragment
+    ) | (
+      { __typename: 'XtdMeasureWithUnit' }
+      & CatalogItem_XtdMeasureWithUnit_Fragment
+      & Root_XtdMeasureWithUnit_Fragment
+    ) | (
+      { __typename: 'XtdProperty' }
+      & CatalogItem_XtdProperty_Fragment
+      & Root_XtdProperty_Fragment
     ) | (
       { __typename: 'XtdSubject' }
       & CatalogItem_XtdSubject_Fragment
+      & Root_XtdSubject_Fragment
     ) | (
       { __typename: 'XtdUnit' }
       & CatalogItem_XtdUnit_Fragment
+      & Root_XtdUnit_Fragment
     ) | (
       { __typename: 'XtdValue' }
       & CatalogItem_XtdValue_Fragment
+      & Root_XtdValue_Fragment
+    ) | (
+      { __typename: 'XtdBag' }
+      & CatalogItem_XtdBag_Fragment
+      & Root_XtdBag_Fragment
+    ) | (
+      { __typename: 'XtdNest' }
+      & CatalogItem_XtdNest_Fragment
+      & Root_XtdNest_Fragment
     )>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
@@ -372,7 +389,7 @@ export type CatalogItemSelectQueryVariables = {
 };
 
 
-export type CatalogItemSelectQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<{ __typename: 'XtdActivity', id: string, label: string } | { __typename: 'XtdActor', id: string, label: string } | { __typename: 'XtdBag', id: string, label: string } | { __typename: 'XtdClassification', id: string, label: string } | { __typename: 'XtdExternalDocument', id: string, label: string } | { __typename: 'XtdMeasureWithUnit', id: string, label: string } | { __typename: 'XtdNest', id: string, label: string } | { __typename: 'XtdProperty', id: string, label: string } | { __typename: 'XtdRelActsUpon', id: string, label: string } | { __typename: 'XtdRelAssociates', id: string, label: string } | { __typename: 'XtdRelCollects', id: string, label: string } | { __typename: 'XtdRelComposes', id: string, label: string } | { __typename: 'XtdRelDocuments', id: string, label: string } | { __typename: 'XtdRelGroups', id: string, label: string } | { __typename: 'XtdRelSpecializes', id: string, label: string } | { __typename: 'XtdSubject', id: string, label: string } | { __typename: 'XtdUnit', id: string, label: string } | { __typename: 'XtdValue', id: string, label: string }>, pageInfo: (
+export type CatalogItemSelectQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<{ __typename: 'XtdExternalDocument', id: string, label: string } | { __typename: 'XtdRelDocuments', id: string, label: string } | { __typename: 'XtdRelActsUpon', id: string, label: string } | { __typename: 'XtdRelAssociates', id: string, label: string } | { __typename: 'XtdRelCollects', id: string, label: string } | { __typename: 'XtdRelComposes', id: string, label: string } | { __typename: 'XtdRelGroups', id: string, label: string } | { __typename: 'XtdRelSpecializes', id: string, label: string } | { __typename: 'XtdActor', id: string, label: string } | { __typename: 'XtdActivity', id: string, label: string } | { __typename: 'XtdClassification', id: string, label: string } | { __typename: 'XtdMeasureWithUnit', id: string, label: string } | { __typename: 'XtdProperty', id: string, label: string } | { __typename: 'XtdSubject', id: string, label: string } | { __typename: 'XtdUnit', id: string, label: string } | { __typename: 'XtdValue', id: string, label: string } | { __typename: 'XtdBag', id: string, label: string } | { __typename: 'XtdNest', id: string, label: string }>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
     ) } };
@@ -423,10 +440,10 @@ export type ExternalDocumentQueryVariables = {
 };
 
 
-export type ExternalDocumentQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdActivity' } | { __typename: 'XtdActor' } | { __typename: 'XtdBag' } | { __typename: 'XtdClassification' } | { __typename: 'XtdDescription' } | (
+export type ExternalDocumentQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | (
     { __typename: 'XtdExternalDocument' }
     & ExternalDocumentDetailsFragment
-  ) | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdName' } | { __typename: 'XtdNest' } | { __typename: 'XtdProperty' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdSubject' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' }> };
+  ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
 
 export type SearchViewQueryVariables = {
   input?: Maybe<FilterInput>;
@@ -434,29 +451,11 @@ export type SearchViewQueryVariables = {
 
 
 export type SearchViewQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<(
-      { __typename: 'XtdActivity' }
-      & CatalogItem_XtdActivity_Fragment
-    ) | (
-      { __typename: 'XtdActor' }
-      & CatalogItem_XtdActor_Fragment
-    ) | (
-      { __typename: 'XtdBag' }
-      & CatalogItem_XtdBag_Fragment
-    ) | (
-      { __typename: 'XtdClassification' }
-      & CatalogItem_XtdClassification_Fragment
-    ) | (
       { __typename: 'XtdExternalDocument' }
       & CatalogItem_XtdExternalDocument_Fragment
     ) | (
-      { __typename: 'XtdMeasureWithUnit' }
-      & CatalogItem_XtdMeasureWithUnit_Fragment
-    ) | (
-      { __typename: 'XtdNest' }
-      & CatalogItem_XtdNest_Fragment
-    ) | (
-      { __typename: 'XtdProperty' }
-      & CatalogItem_XtdProperty_Fragment
+      { __typename: 'XtdRelDocuments' }
+      & CatalogItem_XtdRelDocuments_Fragment
     ) | (
       { __typename: 'XtdRelActsUpon' }
       & CatalogItem_XtdRelActsUpon_Fragment
@@ -470,14 +469,26 @@ export type SearchViewQuery = { __typename: 'Query', search: { __typename: 'Sear
       { __typename: 'XtdRelComposes' }
       & CatalogItem_XtdRelComposes_Fragment
     ) | (
-      { __typename: 'XtdRelDocuments' }
-      & CatalogItem_XtdRelDocuments_Fragment
-    ) | (
       { __typename: 'XtdRelGroups' }
       & CatalogItem_XtdRelGroups_Fragment
     ) | (
       { __typename: 'XtdRelSpecializes' }
       & CatalogItem_XtdRelSpecializes_Fragment
+    ) | (
+      { __typename: 'XtdActor' }
+      & CatalogItem_XtdActor_Fragment
+    ) | (
+      { __typename: 'XtdActivity' }
+      & CatalogItem_XtdActivity_Fragment
+    ) | (
+      { __typename: 'XtdClassification' }
+      & CatalogItem_XtdClassification_Fragment
+    ) | (
+      { __typename: 'XtdMeasureWithUnit' }
+      & CatalogItem_XtdMeasureWithUnit_Fragment
+    ) | (
+      { __typename: 'XtdProperty' }
+      & CatalogItem_XtdProperty_Fragment
     ) | (
       { __typename: 'XtdSubject' }
       & CatalogItem_XtdSubject_Fragment
@@ -487,164 +498,211 @@ export type SearchViewQuery = { __typename: 'Query', search: { __typename: 'Sear
     ) | (
       { __typename: 'XtdValue' }
       & CatalogItem_XtdValue_Fragment
+    ) | (
+      { __typename: 'XtdBag' }
+      & CatalogItem_XtdBag_Fragment
+    ) | (
+      { __typename: 'XtdNest' }
+      & CatalogItem_XtdNest_Fragment
     )>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
     ) } };
 
-type CatalogItem_XtdActivity_Fragment = (
-  { __typename: 'XtdActivity', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )> }
-  & Root_XtdActivity_Fragment
-);
+export type SubjectListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
 
-type CatalogItem_XtdActor_Fragment = (
-  { __typename: 'XtdActor', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )> }
-  & Root_XtdActor_Fragment
-);
 
-type CatalogItem_XtdBag_Fragment = (
-  { __typename: 'XtdBag', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )> }
-  & Root_XtdBag_Fragment
-);
+export type SubjectListQuery = { __typename: 'Query', subjects: { __typename: 'XtdSubjectConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdSubject' }
+      & CatalogItem_XtdSubject_Fragment
+      & Root_XtdSubject_Fragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
 
-type CatalogItem_XtdClassification_Fragment = (
-  { __typename: 'XtdClassification', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )> }
-  & Root_XtdClassification_Fragment
-);
+export type SubjectQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type SubjectQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | (
+    { __typename: 'XtdExternalDocument' }
+    & CatalogItem_XtdExternalDocument_Fragment
+  ) | (
+    { __typename: 'XtdRelDocuments' }
+    & CatalogItem_XtdRelDocuments_Fragment
+    & RootDetails_XtdRelDocuments_Fragment
+  ) | { __typename: 'XtdDescription' } | (
+    { __typename: 'XtdRelActsUpon' }
+    & CatalogItem_XtdRelActsUpon_Fragment
+    & RootDetails_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & CatalogItem_XtdRelAssociates_Fragment
+    & RootDetails_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & CatalogItem_XtdRelCollects_Fragment
+    & RootDetails_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & CatalogItem_XtdRelComposes_Fragment
+    & RootDetails_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & CatalogItem_XtdRelGroups_Fragment
+    & RootDetails_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & CatalogItem_XtdRelSpecializes_Fragment
+    & RootDetails_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & CatalogItem_XtdActor_Fragment
+    & RootDetails_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & CatalogItem_XtdActivity_Fragment
+    & RootDetails_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & CatalogItem_XtdClassification_Fragment
+    & RootDetails_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & CatalogItem_XtdMeasureWithUnit_Fragment
+    & RootDetails_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & CatalogItem_XtdProperty_Fragment
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & CatalogItem_XtdSubject_Fragment
+    & RootDetails_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & CatalogItem_XtdUnit_Fragment
+    & RootDetails_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & CatalogItem_XtdValue_Fragment
+    & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & CatalogItem_XtdBag_Fragment
+    & RootDetails_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & CatalogItem_XtdNest_Fragment
+    & RootDetails_XtdNest_Fragment
+  )> };
 
 type CatalogItem_XtdExternalDocument_Fragment = { __typename: 'XtdExternalDocument', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
   )> };
 
-type CatalogItem_XtdMeasureWithUnit_Fragment = (
-  { __typename: 'XtdMeasureWithUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdRelDocuments_Fragment = { __typename: 'XtdRelDocuments', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdMeasureWithUnit_Fragment
-);
+  )> };
 
-type CatalogItem_XtdNest_Fragment = (
-  { __typename: 'XtdNest', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdRelActsUpon_Fragment = { __typename: 'XtdRelActsUpon', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdNest_Fragment
-);
+  )> };
 
-type CatalogItem_XtdProperty_Fragment = (
-  { __typename: 'XtdProperty', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdRelAssociates_Fragment = { __typename: 'XtdRelAssociates', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdProperty_Fragment
-);
+  )> };
 
-type CatalogItem_XtdRelActsUpon_Fragment = (
-  { __typename: 'XtdRelActsUpon', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdRelCollects_Fragment = { __typename: 'XtdRelCollects', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdRelActsUpon_Fragment
-);
+  )> };
 
-type CatalogItem_XtdRelAssociates_Fragment = (
-  { __typename: 'XtdRelAssociates', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdRelComposes_Fragment = { __typename: 'XtdRelComposes', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdRelAssociates_Fragment
-);
+  )> };
 
-type CatalogItem_XtdRelCollects_Fragment = (
-  { __typename: 'XtdRelCollects', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdRelGroups_Fragment = { __typename: 'XtdRelGroups', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdRelCollects_Fragment
-);
+  )> };
 
-type CatalogItem_XtdRelComposes_Fragment = (
-  { __typename: 'XtdRelComposes', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdRelSpecializes_Fragment = { __typename: 'XtdRelSpecializes', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdRelComposes_Fragment
-);
+  )> };
 
-type CatalogItem_XtdRelDocuments_Fragment = (
-  { __typename: 'XtdRelDocuments', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdActor_Fragment = { __typename: 'XtdActor', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdRelDocuments_Fragment
-);
+  )> };
 
-type CatalogItem_XtdRelGroups_Fragment = (
-  { __typename: 'XtdRelGroups', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdActivity_Fragment = { __typename: 'XtdActivity', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdRelGroups_Fragment
-);
+  )> };
 
-type CatalogItem_XtdRelSpecializes_Fragment = (
-  { __typename: 'XtdRelSpecializes', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdClassification_Fragment = { __typename: 'XtdClassification', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdRelSpecializes_Fragment
-);
+  )> };
 
-type CatalogItem_XtdSubject_Fragment = (
-  { __typename: 'XtdSubject', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdMeasureWithUnit_Fragment = { __typename: 'XtdMeasureWithUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdSubject_Fragment
-);
+  )> };
 
-type CatalogItem_XtdUnit_Fragment = (
-  { __typename: 'XtdUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdProperty_Fragment = { __typename: 'XtdProperty', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdUnit_Fragment
-);
+  )> };
 
-type CatalogItem_XtdValue_Fragment = (
-  { __typename: 'XtdValue', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+type CatalogItem_XtdSubject_Fragment = { __typename: 'XtdSubject', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
-  )> }
-  & Root_XtdValue_Fragment
-);
+  )> };
 
-export type CatalogItemFragment = CatalogItem_XtdActivity_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdNest_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment;
+type CatalogItem_XtdUnit_Fragment = { __typename: 'XtdUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+    { __typename: 'XtdName' }
+    & Text_XtdName_Fragment
+  )> };
+
+type CatalogItem_XtdValue_Fragment = { __typename: 'XtdValue', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+    { __typename: 'XtdName' }
+    & Text_XtdName_Fragment
+  )> };
+
+type CatalogItem_XtdBag_Fragment = { __typename: 'XtdBag', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+    { __typename: 'XtdName' }
+    & Text_XtdName_Fragment
+  )> };
+
+type CatalogItem_XtdNest_Fragment = { __typename: 'XtdNest', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+    { __typename: 'XtdName' }
+    & Text_XtdName_Fragment
+  )> };
+
+export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment;
 
 export type ExternalDocumentFragment = { __typename: 'XtdExternalDocument', documents: { __typename: 'XtdRelDocumentsConnection', totalElements: number } };
 
 export type ExternalDocumentDetailsFragment = (
   { __typename: 'XtdExternalDocument', documents: { __typename: 'XtdRelDocumentsConnection', totalElements: number, nodes: Array<(
       { __typename: 'XtdRelDocuments', relatedObjects: { __typename: 'XtdObjectConnection', totalElements: number, nodes: Array<(
-          { __typename: 'XtdActivity' }
-          & CatalogItem_XtdActivity_Fragment
-        ) | (
           { __typename: 'XtdActor' }
           & CatalogItem_XtdActor_Fragment
+        ) | (
+          { __typename: 'XtdActivity' }
+          & CatalogItem_XtdActivity_Fragment
         ) | (
           { __typename: 'XtdClassification' }
           & CatalogItem_XtdClassification_Fragment
@@ -677,149 +735,185 @@ export type ExternalDocumentDetailsFragment = (
 
 export type PageInfoFragment = { __typename: 'PageInfo', pageSize: number, pageNumber: number, totalPages: number };
 
-type Root_XtdActivity_Fragment = { __typename: 'XtdActivity', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdRelDocuments_Fragment = { __typename: 'XtdRelDocuments', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdActor_Fragment = { __typename: 'XtdActor', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdRelActsUpon_Fragment = { __typename: 'XtdRelActsUpon', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdBag_Fragment = { __typename: 'XtdBag', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdRelAssociates_Fragment = { __typename: 'XtdRelAssociates', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdClassification_Fragment = { __typename: 'XtdClassification', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdRelCollects_Fragment = { __typename: 'XtdRelCollects', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdMeasureWithUnit_Fragment = { __typename: 'XtdMeasureWithUnit', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdRelComposes_Fragment = { __typename: 'XtdRelComposes', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdNest_Fragment = { __typename: 'XtdNest', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdRelGroups_Fragment = { __typename: 'XtdRelGroups', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdProperty_Fragment = { __typename: 'XtdProperty', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdRelSpecializes_Fragment = { __typename: 'XtdRelSpecializes', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdRelActsUpon_Fragment = { __typename: 'XtdRelActsUpon', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdActor_Fragment = { __typename: 'XtdActor', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdRelAssociates_Fragment = { __typename: 'XtdRelAssociates', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdActivity_Fragment = { __typename: 'XtdActivity', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdRelCollects_Fragment = { __typename: 'XtdRelCollects', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdClassification_Fragment = { __typename: 'XtdClassification', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdRelComposes_Fragment = { __typename: 'XtdRelComposes', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdMeasureWithUnit_Fragment = { __typename: 'XtdMeasureWithUnit', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdRelDocuments_Fragment = { __typename: 'XtdRelDocuments', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdProperty_Fragment = { __typename: 'XtdProperty', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdRelGroups_Fragment = { __typename: 'XtdRelGroups', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdSubject_Fragment = { __typename: 'XtdSubject', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdRelSpecializes_Fragment = { __typename: 'XtdRelSpecializes', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdUnit_Fragment = { __typename: 'XtdUnit', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdSubject_Fragment = { __typename: 'XtdSubject', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdValue_Fragment = { __typename: 'XtdValue', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdUnit_Fragment = { __typename: 'XtdUnit', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdBag_Fragment = { __typename: 'XtdBag', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-type Root_XtdValue_Fragment = { __typename: 'XtdValue', names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )>, descriptions: Array<(
+type Root_XtdNest_Fragment = { __typename: 'XtdNest', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
     & Text_XtdDescription_Fragment
-  )> };
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
 
-export type RootFragment = Root_XtdActivity_Fragment | Root_XtdActor_Fragment | Root_XtdBag_Fragment | Root_XtdClassification_Fragment | Root_XtdMeasureWithUnit_Fragment | Root_XtdNest_Fragment | Root_XtdProperty_Fragment | Root_XtdRelActsUpon_Fragment | Root_XtdRelAssociates_Fragment | Root_XtdRelCollects_Fragment | Root_XtdRelComposes_Fragment | Root_XtdRelDocuments_Fragment | Root_XtdRelGroups_Fragment | Root_XtdRelSpecializes_Fragment | Root_XtdSubject_Fragment | Root_XtdUnit_Fragment | Root_XtdValue_Fragment;
+export type RootFragment = Root_XtdRelDocuments_Fragment | Root_XtdRelActsUpon_Fragment | Root_XtdRelAssociates_Fragment | Root_XtdRelCollects_Fragment | Root_XtdRelComposes_Fragment | Root_XtdRelGroups_Fragment | Root_XtdRelSpecializes_Fragment | Root_XtdActor_Fragment | Root_XtdActivity_Fragment | Root_XtdClassification_Fragment | Root_XtdMeasureWithUnit_Fragment | Root_XtdProperty_Fragment | Root_XtdSubject_Fragment | Root_XtdUnit_Fragment | Root_XtdValue_Fragment | Root_XtdBag_Fragment | Root_XtdNest_Fragment;
 
-type Text_XtdDescription_Fragment = { __typename: 'XtdDescription', id: string, value: string, language: { __typename: 'XtdLanguage', id: string, languageNameInEnglish: string, languageNameInSelf: string } };
+type RootDetails_XtdRelDocuments_Fragment = { __typename: 'XtdRelDocuments', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdRelActsUpon_Fragment = { __typename: 'XtdRelActsUpon', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdRelAssociates_Fragment = { __typename: 'XtdRelAssociates', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdRelCollects_Fragment = { __typename: 'XtdRelCollects', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdRelComposes_Fragment = { __typename: 'XtdRelComposes', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdRelGroups_Fragment = { __typename: 'XtdRelGroups', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdRelSpecializes_Fragment = { __typename: 'XtdRelSpecializes', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdActor_Fragment = { __typename: 'XtdActor', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdActivity_Fragment = { __typename: 'XtdActivity', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdClassification_Fragment = { __typename: 'XtdClassification', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdMeasureWithUnit_Fragment = { __typename: 'XtdMeasureWithUnit', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdProperty_Fragment = { __typename: 'XtdProperty', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdSubject_Fragment = { __typename: 'XtdSubject', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdUnit_Fragment = { __typename: 'XtdUnit', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdValue_Fragment = { __typename: 'XtdValue', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdBag_Fragment = { __typename: 'XtdBag', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+type RootDetails_XtdNest_Fragment = { __typename: 'XtdNest', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } };
+
+export type RootDetailsFragment = RootDetails_XtdRelDocuments_Fragment | RootDetails_XtdRelActsUpon_Fragment | RootDetails_XtdRelAssociates_Fragment | RootDetails_XtdRelCollects_Fragment | RootDetails_XtdRelComposes_Fragment | RootDetails_XtdRelGroups_Fragment | RootDetails_XtdRelSpecializes_Fragment | RootDetails_XtdActor_Fragment | RootDetails_XtdActivity_Fragment | RootDetails_XtdClassification_Fragment | RootDetails_XtdMeasureWithUnit_Fragment | RootDetails_XtdProperty_Fragment | RootDetails_XtdSubject_Fragment | RootDetails_XtdUnit_Fragment | RootDetails_XtdValue_Fragment | RootDetails_XtdBag_Fragment | RootDetails_XtdNest_Fragment;
 
 type Text_XtdName_Fragment = { __typename: 'XtdName', id: string, value: string, language: { __typename: 'XtdLanguage', id: string, languageNameInEnglish: string, languageNameInSelf: string } };
 
-export type TextFragment = Text_XtdDescription_Fragment | Text_XtdName_Fragment;
+type Text_XtdDescription_Fragment = { __typename: 'XtdDescription', id: string, value: string, language: { __typename: 'XtdLanguage', id: string, languageNameInEnglish: string, languageNameInSelf: string } };
+
+export type TextFragment = Text_XtdName_Fragment | Text_XtdDescription_Fragment;
 
 export type UserProfileFragment = { __typename: 'UserProfile', username: string, firstName: string, lastName: string, email: string, organization: string };
 
@@ -846,16 +940,6 @@ export const TextFragmentDoc = gql`
   value
 }
     `;
-export const RootFragmentDoc = gql`
-    fragment Root on XtdRoot {
-  names {
-    ...Text
-  }
-  descriptions {
-    ...Text
-  }
-}
-    ${TextFragmentDoc}`;
 export const CatalogItemFragmentDoc = gql`
     fragment CatalogItem on CatalogItem {
   id
@@ -867,10 +951,8 @@ export const CatalogItemFragmentDoc = gql`
   names {
     ...Text
   }
-  ...Root
 }
-    ${TextFragmentDoc}
-${RootFragmentDoc}`;
+    ${TextFragmentDoc}`;
 export const PageInfoFragmentDoc = gql`
     fragment PageInfo on PageInfo {
   pageSize
@@ -902,6 +984,90 @@ export const ExternalDocumentDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${PageInfoFragmentDoc}`;
+export const RootFragmentDoc = gql`
+    fragment Root on XtdRoot {
+  versionId
+  versionDate
+  descriptions {
+    ...Text
+  }
+  actedUponBy {
+    totalElements
+  }
+  actsUpon {
+    totalElements
+  }
+  associatedBy {
+    totalElements
+  }
+  associates {
+    totalElements
+  }
+  collectedBy {
+    totalElements
+  }
+  composedBy {
+    totalElements
+  }
+  composes {
+    totalElements
+  }
+  groupedBy {
+    totalElements
+  }
+  groups {
+    totalElements
+  }
+  specializedBy {
+    totalElements
+  }
+  specializes {
+    totalElements
+  }
+}
+    ${TextFragmentDoc}`;
+export const RootDetailsFragmentDoc = gql`
+    fragment RootDetails on XtdRoot {
+  versionId
+  versionDate
+  descriptions {
+    ...Text
+  }
+  actedUponBy {
+    totalElements
+  }
+  actsUpon {
+    totalElements
+  }
+  associatedBy {
+    totalElements
+  }
+  associates {
+    totalElements
+  }
+  collectedBy {
+    totalElements
+  }
+  composedBy {
+    totalElements
+  }
+  composes {
+    totalElements
+  }
+  groupedBy {
+    totalElements
+  }
+  groups {
+    totalElements
+  }
+  specializedBy {
+    totalElements
+  }
+  specializes {
+    totalElements
+  }
+}
+    ${TextFragmentDoc}`;
 export const UserProfileFragmentDoc = gql`
     fragment UserProfile on UserProfile {
   username
@@ -924,6 +1090,7 @@ export const SearchInputDocument = gql`
   search(input: $input) {
     nodes {
       ...CatalogItem
+      ...Root
     }
     pageInfo {
       ...PageInfo
@@ -932,6 +1099,7 @@ export const SearchInputDocument = gql`
   }
 }
     ${CatalogItemFragmentDoc}
+${RootFragmentDoc}
 ${PageInfoFragmentDoc}`;
 
 /**
@@ -1277,3 +1445,80 @@ export function useSearchViewLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryH
 export type SearchViewQueryHookResult = ReturnType<typeof useSearchViewQuery>;
 export type SearchViewLazyQueryHookResult = ReturnType<typeof useSearchViewLazyQuery>;
 export type SearchViewQueryResult = ApolloReactCommon.QueryResult<SearchViewQuery, SearchViewQueryVariables>;
+export const SubjectListDocument = gql`
+    query SubjectList($input: FilterInput) {
+  subjects(input: $input) {
+    nodes {
+      ...CatalogItem
+      ...Root
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useSubjectListQuery__
+ *
+ * To run a query within a React component, call `useSubjectListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSubjectListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSubjectListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSubjectListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SubjectListQuery, SubjectListQueryVariables>) {
+        return ApolloReactHooks.useQuery<SubjectListQuery, SubjectListQueryVariables>(SubjectListDocument, baseOptions);
+      }
+export function useSubjectListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SubjectListQuery, SubjectListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SubjectListQuery, SubjectListQueryVariables>(SubjectListDocument, baseOptions);
+        }
+export type SubjectListQueryHookResult = ReturnType<typeof useSubjectListQuery>;
+export type SubjectListLazyQueryHookResult = ReturnType<typeof useSubjectListLazyQuery>;
+export type SubjectListQueryResult = ApolloReactCommon.QueryResult<SubjectListQuery, SubjectListQueryVariables>;
+export const SubjectDocument = gql`
+    query Subject($id: ID!) {
+  node(id: $id) {
+    ...CatalogItem
+    ...RootDetails
+  }
+}
+    ${CatalogItemFragmentDoc}
+${RootDetailsFragmentDoc}`;
+
+/**
+ * __useSubjectQuery__
+ *
+ * To run a query within a React component, call `useSubjectQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSubjectQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSubjectQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSubjectQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SubjectQuery, SubjectQueryVariables>) {
+        return ApolloReactHooks.useQuery<SubjectQuery, SubjectQueryVariables>(SubjectDocument, baseOptions);
+      }
+export function useSubjectLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SubjectQuery, SubjectQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SubjectQuery, SubjectQueryVariables>(SubjectDocument, baseOptions);
+        }
+export type SubjectQueryHookResult = ReturnType<typeof useSubjectQuery>;
+export type SubjectLazyQueryHookResult = ReturnType<typeof useSubjectLazyQuery>;
+export type SubjectQueryResult = ApolloReactCommon.QueryResult<SubjectQuery, SubjectQueryVariables>;

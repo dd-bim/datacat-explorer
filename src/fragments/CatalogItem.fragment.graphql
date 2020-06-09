@@ -8,5 +8,4 @@ fragment CatalogItem on CatalogItem {
     names {
         ...Text
     }
-    ...Root
 }
