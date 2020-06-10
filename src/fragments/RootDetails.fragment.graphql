@@ -1,4 +1,5 @@
 fragment RootDetails on XtdRoot {
+    ...CatalogItem
     versionId
     versionDate
     descriptions {
