@@ -1,37 +1,39 @@
-import {useFormContext} from "react-hook-form";
-import React from "react";
-import TextInputGridItems from "./TextInputGridItems";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import {FormContext, useForm} from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import FormControls from "./FormControls";
+import React from "react";
 
-export type CatalogItemFormProps = {
-    isUpdate?: boolean
+type FormProps<T> = {
+    children: React.ReactNode
+    defaultValues: T
+    onSubmit?(input: T): void
+    onDelete?(): void
+    onCancel(): void
 }
 
-export default function CatalogItemForm(props: CatalogItemFormProps) {
-    const { isUpdate } = props;
-    const { register } = useFormContext();
+export default function CatalogItemForm<T>(props: FormProps<T>) {
+    const { children, defaultValues, onCancel, onSubmit, onDelete } = props;
+    const formMethods = useForm<T>({ defaultValues });
+    const { handleSubmit } = formMethods;
+    const stubOnSubmit = (input: T) => onSubmit?.(input);
 
     return (
-        <React.Fragment>
-            <Grid item xs={12}>
-                <Typography variant="h6">
-                    General information
-                </Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    disabled={isUpdate}
-                    fullWidth
-                    helperText={"Well known unique identifier of the described concept."}
-                    inputRef={register({required: isUpdate})}
-                    label={"Universal ID"}
-                    name="id"
-                    variant="outlined"
-                />
-            </Grid>
-            <TextInputGridItems name="names" required />
-        </React.Fragment>
+        <FormContext {...formMethods}>
+            <form onSubmit={handleSubmit(stubOnSubmit)} noValidate autoComplete="off">
+                <Grid container>
+                    {children}
+                    <Grid item xs={12}>
+                        <Box display="flex" justifyContent="end">
+                            <FormControls
+                                submit={!!onSubmit}
+                                onCancel={onCancel}
+                                onDelete={onDelete}
+                            />
+                        </Box>
+                    </Grid>
+                </Grid>
+            </form>
+        </FormContext>
     );
 }

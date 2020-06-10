@@ -5,6 +5,7 @@ import TextField, {TextFieldProps} from "@material-ui/core/TextField";
 import {Grid} from "@material-ui/core";
 import {languages} from "../../lang";
 import get from "lodash.get";
+import TextFieldOptions from "./TextFieldOptions";
 
 type NameInputProps = {
     name: string
@@ -44,14 +45,13 @@ export default function TextInputGridItems(props: NameInputProps & TextFieldProp
                     <TextField
                         defaultValue={field.value}
                         error={error}
-                        fullWidth
                         helperText={error && "This field is required and may not be empty."}
                         id={`${accessor}.value`}
                         inputRef={register({required: required && language.required})}
-                        label={`${language.label} name`}
+                        label={`${language.label}`}
                         name={`${accessor}.value`}
                         required={required && language.required}
-                        variant="outlined"
+                        {...TextFieldOptions}
                         {...otherProps}
                     />
                 </Grid>
