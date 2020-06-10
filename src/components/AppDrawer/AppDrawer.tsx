@@ -100,7 +100,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                 />
                 <AppDrawerItem
                     addRoute={'/objects/subjects/new'}
-                    disabled
                     icon={<SubjectIcon />}
                     onClick={onClose}
                     route="/objects/subjects"

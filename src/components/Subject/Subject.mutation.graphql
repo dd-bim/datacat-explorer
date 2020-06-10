@@ -1,0 +1,17 @@
+mutation CreateSubject($input: RootInput!) {
+    createSubject(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation UpdateSubject($input: RootUpdateInput!) {
+    updateSubject(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation DeleteSubject($id: ID!) {
+    deleteSubject(id: $id) {
+        id
+    }
+}

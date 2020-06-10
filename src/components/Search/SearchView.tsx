@@ -2,8 +2,9 @@ import {useQueryOptions} from "../../hooks";
 import * as React from "react";
 import useLocationQueryParam from "../../hooks/useLocationQueryParam";
 import {useSearchViewQuery} from "../../generated/types";
-import Table, {useCatalogItemRows} from "../table/Table";
+import Table from "../table/Table";
 import ViewWrapper from "../View/ViewWrapper";
+import useCatalogItemRows from "../../hooks/useCatalogItemRows";
 
 export default function SearchView() {
     const q = useLocationQueryParam("q", "");

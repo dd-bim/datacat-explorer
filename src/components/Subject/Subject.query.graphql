@@ -1,0 +1,17 @@
+query SubjectList($input: FilterInput) {
+    subjects(input: $input) {
+        nodes {
+            ...Root
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Subject($id: ID!) {
+    node(id: $id) {
+        ...RootDetails
+    }
+}
