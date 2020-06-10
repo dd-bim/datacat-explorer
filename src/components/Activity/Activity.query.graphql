@@ -1,0 +1,17 @@
+query ActivityList($input: FilterInput) {
+    activities(input: $input) {
+        nodes {
+            ...Root
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Activity($id: ID!) {
+    node(id: $id) {
+        ...RootDetails
+    }
+}

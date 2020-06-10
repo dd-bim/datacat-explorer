@@ -82,7 +82,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                 <ListSubheader disableSticky>Objekte</ListSubheader>
                 <AppDrawerItem
                     addRoute={'/objects/activities/new'}
-                    disabled
                     icon={<ActivityIcon/>}
                     onClick={onClose}
                     route={'/objects/activities'}
