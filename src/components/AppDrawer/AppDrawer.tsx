@@ -130,8 +130,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                     title="Bemaßung"
                 />
                 <AppDrawerItem
-                    addRoute={'/objects/properties/new'}
-                    disabled
+                    addRoute={'/objects/values/new'}
                     icon={<ValueIcon/>}
                     onClick={onClose}
                     route="/objects/values"

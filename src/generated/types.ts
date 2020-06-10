@@ -192,12 +192,12 @@ export type ValueInput = {
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
   names: Array<TextInput>;
-  descriptions?: Maybe<Array<TextInput>>;
-  toleranceType?: Maybe<XtdToleranceTypeEnum>;
+  descriptions: Array<TextInput>;
+  toleranceType: XtdToleranceTypeEnum;
   lowerTolerance?: Maybe<Scalars['String']>;
   upperTolerance?: Maybe<Scalars['String']>;
-  valueRole?: Maybe<XtdValueRoleEnum>;
-  valueType?: Maybe<XtdValueTypeEnum>;
+  valueRole: XtdValueRoleEnum;
+  valueType: XtdValueTypeEnum;
   nominalValue?: Maybe<Scalars['String']>;
 };
 
@@ -207,11 +207,11 @@ export type ValueUpdateInput = {
   versionDate: Scalars['String'];
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
-  toleranceType?: Maybe<XtdToleranceTypeEnum>;
+  toleranceType: XtdToleranceTypeEnum;
   lowerTolerance?: Maybe<Scalars['String']>;
   upperTolerance?: Maybe<Scalars['String']>;
-  valueRole?: Maybe<XtdValueRoleEnum>;
-  valueType?: Maybe<XtdValueTypeEnum>;
+  valueRole: XtdValueRoleEnum;
+  valueType: XtdValueTypeEnum;
   nominalValue?: Maybe<Scalars['String']>;
 };
 
@@ -260,6 +260,7 @@ export type ValueUpdateInput = {
 
 
 export enum XtdToleranceTypeEnum {
+  Nil = 'Nil',
   Realvalue = 'Realvalue',
   Percentage = 'Percentage'
 }
@@ -269,12 +270,14 @@ export enum XtdToleranceTypeEnum {
 
 
 export enum XtdValueRoleEnum {
+  Nil = 'Nil',
   Nominal = 'Nominal',
   Maximum = 'Maximum',
   Minimum = 'Minimum'
 }
 
 export enum XtdValueTypeEnum {
+  Nil = 'Nil',
   XtdString = 'XtdString',
   XtdNumber = 'XtdNumber',
   XtdInteger = 'XtdInteger',
@@ -998,6 +1001,56 @@ export type UnitQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdNa
     & RootDetails_XtdNest_Fragment
   )> };
 
+export type CreateValueMutationVariables = {
+  input: ValueInput;
+};
+
+
+export type CreateValueMutation = { __typename: 'Mutation', createValue?: Maybe<(
+    { __typename: 'XtdValue' }
+    & RootDetails_XtdValue_Fragment
+  )> };
+
+export type UpdateValueMutationVariables = {
+  input: ValueUpdateInput;
+};
+
+
+export type UpdateValueMutation = { __typename: 'Mutation', updateValue?: Maybe<(
+    { __typename: 'XtdValue' }
+    & RootDetails_XtdValue_Fragment
+  )> };
+
+export type DeleteValueMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type DeleteValueMutation = { __typename: 'Mutation', deleteValue?: Maybe<{ __typename: 'XtdValue', id: string }> };
+
+export type ValueListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
+
+
+export type ValueListQuery = { __typename: 'Query', values: { __typename: 'XtdValueConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdValue' }
+      & ValueFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type ValueQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type ValueQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdUnit' } | (
+    { __typename: 'XtdValue' }
+    & ValueDetailsFragment
+  ) | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+
 type CatalogItem_XtdExternalDocument_Fragment = { __typename: 'XtdExternalDocument', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
@@ -1424,6 +1477,18 @@ export type UserSessionFragment = { __typename: 'UserSession', token: string, us
     & UserProfileFragment
   ) };
 
+export type ValueFragment = (
+  { __typename: 'XtdValue', valueType: XtdValueTypeEnum, valueRole: XtdValueRoleEnum, nominalValue?: Maybe<string>, toleranceType: XtdToleranceTypeEnum, lowerTolerance?: Maybe<string>, upperTolerance?: Maybe<string> }
+  & CatalogItem_XtdValue_Fragment
+  & Root_XtdValue_Fragment
+);
+
+export type ValueDetailsFragment = (
+  { __typename: 'XtdValue', valueType: XtdValueTypeEnum, valueRole: XtdValueRoleEnum, nominalValue?: Maybe<string>, toleranceType: XtdToleranceTypeEnum, lowerTolerance?: Maybe<string>, upperTolerance?: Maybe<string> }
+  & CatalogItem_XtdValue_Fragment
+  & RootDetails_XtdValue_Fragment
+);
+
 export const TextFragmentDoc = gql`
     fragment Text on XtdLanguageRepresentation {
   id
@@ -1487,6 +1552,23 @@ export const ExternalDocumentDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${PageInfoFragmentDoc}`;
+export const UserProfileFragmentDoc = gql`
+    fragment UserProfile on UserProfile {
+  username
+  firstName
+  lastName
+  email
+  organization
+}
+    `;
+export const UserSessionFragmentDoc = gql`
+    fragment UserSession on UserSession {
+  token
+  user {
+    ...UserProfile
+  }
+}
+    ${UserProfileFragmentDoc}`;
 export const RootFragmentDoc = gql`
     fragment Root on XtdRoot {
   ...CatalogItem
@@ -1531,6 +1613,19 @@ export const RootFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${TextFragmentDoc}`;
+export const ValueFragmentDoc = gql`
+    fragment Value on XtdValue {
+  ...CatalogItem
+  ...Root
+  valueType
+  valueRole
+  nominalValue
+  toleranceType
+  lowerTolerance
+  upperTolerance
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}`;
 export const RootDetailsFragmentDoc = gql`
     fragment RootDetails on XtdRoot {
   ...CatalogItem
@@ -1575,23 +1670,19 @@ export const RootDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${TextFragmentDoc}`;
-export const UserProfileFragmentDoc = gql`
-    fragment UserProfile on UserProfile {
-  username
-  firstName
-  lastName
-  email
-  organization
+export const ValueDetailsFragmentDoc = gql`
+    fragment ValueDetails on XtdValue {
+  ...CatalogItem
+  ...RootDetails
+  valueType
+  valueRole
+  nominalValue
+  toleranceType
+  lowerTolerance
+  upperTolerance
 }
-    `;
-export const UserSessionFragmentDoc = gql`
-    fragment UserSession on UserSession {
-  token
-  user {
-    ...UserProfile
-  }
-}
-    ${UserProfileFragmentDoc}`;
+    ${CatalogItemFragmentDoc}
+${RootDetailsFragmentDoc}`;
 export const CreateActivityDocument = gql`
     mutation CreateActivity($input: RootInput!) {
   createActivity(input: $input) {
@@ -2795,3 +2886,172 @@ export function useUnitLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type UnitQueryHookResult = ReturnType<typeof useUnitQuery>;
 export type UnitLazyQueryHookResult = ReturnType<typeof useUnitLazyQuery>;
 export type UnitQueryResult = ApolloReactCommon.QueryResult<UnitQuery, UnitQueryVariables>;
+export const CreateValueDocument = gql`
+    mutation CreateValue($input: ValueInput!) {
+  createValue(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type CreateValueMutationFn = ApolloReactCommon.MutationFunction<CreateValueMutation, CreateValueMutationVariables>;
+
+/**
+ * __useCreateValueMutation__
+ *
+ * To run a mutation, you first call `useCreateValueMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateValueMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createValueMutation, { data, loading, error }] = useCreateValueMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateValueMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateValueMutation, CreateValueMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateValueMutation, CreateValueMutationVariables>(CreateValueDocument, baseOptions);
+      }
+export type CreateValueMutationHookResult = ReturnType<typeof useCreateValueMutation>;
+export type CreateValueMutationResult = ApolloReactCommon.MutationResult<CreateValueMutation>;
+export type CreateValueMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateValueMutation, CreateValueMutationVariables>;
+export const UpdateValueDocument = gql`
+    mutation UpdateValue($input: ValueUpdateInput!) {
+  updateValue(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type UpdateValueMutationFn = ApolloReactCommon.MutationFunction<UpdateValueMutation, UpdateValueMutationVariables>;
+
+/**
+ * __useUpdateValueMutation__
+ *
+ * To run a mutation, you first call `useUpdateValueMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateValueMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateValueMutation, { data, loading, error }] = useUpdateValueMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateValueMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateValueMutation, UpdateValueMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateValueMutation, UpdateValueMutationVariables>(UpdateValueDocument, baseOptions);
+      }
+export type UpdateValueMutationHookResult = ReturnType<typeof useUpdateValueMutation>;
+export type UpdateValueMutationResult = ApolloReactCommon.MutationResult<UpdateValueMutation>;
+export type UpdateValueMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateValueMutation, UpdateValueMutationVariables>;
+export const DeleteValueDocument = gql`
+    mutation DeleteValue($id: ID!) {
+  deleteValue(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteValueMutationFn = ApolloReactCommon.MutationFunction<DeleteValueMutation, DeleteValueMutationVariables>;
+
+/**
+ * __useDeleteValueMutation__
+ *
+ * To run a mutation, you first call `useDeleteValueMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteValueMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteValueMutation, { data, loading, error }] = useDeleteValueMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteValueMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteValueMutation, DeleteValueMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteValueMutation, DeleteValueMutationVariables>(DeleteValueDocument, baseOptions);
+      }
+export type DeleteValueMutationHookResult = ReturnType<typeof useDeleteValueMutation>;
+export type DeleteValueMutationResult = ApolloReactCommon.MutationResult<DeleteValueMutation>;
+export type DeleteValueMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteValueMutation, DeleteValueMutationVariables>;
+export const ValueListDocument = gql`
+    query ValueList($input: FilterInput) {
+  values(input: $input) {
+    nodes {
+      ...Value
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${ValueFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useValueListQuery__
+ *
+ * To run a query within a React component, call `useValueListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useValueListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useValueListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useValueListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ValueListQuery, ValueListQueryVariables>) {
+        return ApolloReactHooks.useQuery<ValueListQuery, ValueListQueryVariables>(ValueListDocument, baseOptions);
+      }
+export function useValueListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ValueListQuery, ValueListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ValueListQuery, ValueListQueryVariables>(ValueListDocument, baseOptions);
+        }
+export type ValueListQueryHookResult = ReturnType<typeof useValueListQuery>;
+export type ValueListLazyQueryHookResult = ReturnType<typeof useValueListLazyQuery>;
+export type ValueListQueryResult = ApolloReactCommon.QueryResult<ValueListQuery, ValueListQueryVariables>;
+export const ValueDocument = gql`
+    query Value($id: ID!) {
+  node(id: $id) {
+    ...ValueDetails
+  }
+}
+    ${ValueDetailsFragmentDoc}`;
+
+/**
+ * __useValueQuery__
+ *
+ * To run a query within a React component, call `useValueQuery` and pass it any options that fit your needs.
+ * When your component renders, `useValueQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useValueQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useValueQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ValueQuery, ValueQueryVariables>) {
+        return ApolloReactHooks.useQuery<ValueQuery, ValueQueryVariables>(ValueDocument, baseOptions);
+      }
+export function useValueLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ValueQuery, ValueQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ValueQuery, ValueQueryVariables>(ValueDocument, baseOptions);
+        }
+export type ValueQueryHookResult = ReturnType<typeof useValueQuery>;
+export type ValueLazyQueryHookResult = ReturnType<typeof useValueLazyQuery>;
+export type ValueQueryResult = ApolloReactCommon.QueryResult<ValueQuery, ValueQueryVariables>;

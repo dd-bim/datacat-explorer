@@ -1,0 +1,17 @@
+mutation CreateValue($input: ValueInput!) {
+    createValue(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation UpdateValue($input: ValueUpdateInput!) {
+    updateValue(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation DeleteValue($id: ID!) {
+    deleteValue(id: $id) {
+        id
+    }
+}

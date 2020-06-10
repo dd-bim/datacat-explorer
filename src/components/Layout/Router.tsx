@@ -11,6 +11,7 @@ import ActivityViews from "../Activity/ActivityViews";
 import ActorViews from "../Actor/ActorViews";
 import UnitViews from "../Unit/UnitViews";
 import PropertyViews from "../Property/PropertyViews";
+import ValueViews from "../Value/ValueViews";
 
 export default function Router() {
     const graphiqlFetcher = useGraphiQLFetcher();
@@ -40,6 +41,9 @@ export default function Router() {
             </Route>
             <Route path="/objects/properties">
                 <PropertyViews/>
+            </Route>
+            <Route path="/objects/values">
+                <ValueViews/>
             </Route>
             {/*<Route path="/collections/bags">*/}
             {/*    <BagRoutes/>*/}

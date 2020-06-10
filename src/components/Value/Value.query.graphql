@@ -1,0 +1,17 @@
+query ValueList($input: FilterInput) {
+    values(input: $input) {
+        nodes {
+            ...Value
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Value($id: ID!) {
+    node(id: $id) {
+        ...ValueDetails
+    }
+}

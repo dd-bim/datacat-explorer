@@ -1,0 +1,10 @@
+fragment ValueDetails on XtdValue {
+    ...CatalogItem
+    ...RootDetails
+    valueType
+    valueRole
+    nominalValue
+    toleranceType
+    lowerTolerance
+    upperTolerance
+}

@@ -4,7 +4,12 @@ import {
     RootFragment,
     RootUpdateInput,
     TextFragment,
-    TextInput
+    TextInput,
+    ValueFragment,
+    ValueUpdateInput,
+    XtdToleranceTypeEnum,
+    XtdValueRoleEnum,
+    XtdValueTypeEnum
 } from "../generated/types";
 import {languages} from "../lang";
 
@@ -64,13 +69,40 @@ export const useRootInputTemplate = (): (item?: RootFragment) => RootUpdateInput
                 descriptions: textInputTemplate()
             };
         } else {
+            const { names, descriptions, ...otherProps } = item;
             return {
-                id: item.id,
-                versionId: item.versionId,
-                versionDate: item.versionDate,
-                names: mapTextFragmentToTextInput(item.names, textInputTemplate()),
-                descriptions: mapTextFragmentToTextInput(item.descriptions, textInputTemplate())
+                names: mapTextFragmentToTextInput(names, textInputTemplate()),
+                descriptions: mapTextFragmentToTextInput(descriptions, textInputTemplate()),
+                ...otherProps
             };
         }
     };
 };
+
+export const useValueInputTemplate = (): (item?: ValueFragment) => ValueUpdateInput => {
+    const textInputTemplate = useTextInputTemplate();
+    return (item) => {
+        if (!item) {
+            return {
+                id: '',
+                versionId: '',
+                versionDate: '',
+                names: textInputTemplate(),
+                descriptions: textInputTemplate(),
+                toleranceType: XtdToleranceTypeEnum.Nil,
+                lowerTolerance: '',
+                upperTolerance: '',
+                valueType: XtdValueTypeEnum.Nil,
+                valueRole: XtdValueRoleEnum.Nil,
+                nominalValue: ''
+            };
+        } else {
+            const { names, descriptions, ...otherProps } = item;
+            return {
+                names: mapTextFragmentToTextInput(names, textInputTemplate()),
+                descriptions: mapTextFragmentToTextInput(descriptions, textInputTemplate()),
+                ...otherProps
+            };
+        }
+    };
+}
