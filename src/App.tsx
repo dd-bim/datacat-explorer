@@ -4,7 +4,7 @@ import theme from "./theme";
 import {BrowserRouter as Router} from "react-router-dom";
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DayjsUtils from "@date-io/dayjs";
-import dateTime from "./dateTime";
+import dateUtil from "./dateUtil";
 import Layout from "./components/Layout/Layout";
 import AuthProvider from "./AuthProvider";
 import ApiProvider from "./ApiProvider";
@@ -19,7 +19,7 @@ export default function App() {
                     >
                         <MuiPickersUtilsProvider
                             utils={DayjsUtils}
-                            libInstance={dateTime}
+                            libInstance={dateUtil}
                         >
                             <Layout/>
                         </MuiPickersUtilsProvider>

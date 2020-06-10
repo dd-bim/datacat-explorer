@@ -6,11 +6,3 @@ dayjs.locale(de);
 dayjs.extend(LocalizedFormat);
 
 export default dayjs;
-
-export const toLocaleDateTimeString = (input, format = 'lll') => {
-    const value = dayjs(input);
-    if (value.isValid()) {
-        return value.format(format);
-    }
-    return '';
-};
