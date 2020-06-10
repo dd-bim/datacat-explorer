@@ -1,0 +1,17 @@
+query UnitList($input: FilterInput) {
+    units(input: $input) {
+        nodes {
+            ...Root
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Unit($id: ID!) {
+    node(id: $id) {
+        ...RootDetails
+    }
+}

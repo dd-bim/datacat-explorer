@@ -1,0 +1,17 @@
+mutation CreateUnit($input: RootInput!) {
+    createUnit(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation UpdateUnit($input: RootUpdateInput!) {
+    updateUnit(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation DeleteUnit($id: ID!) {
+    deleteUnit(id: $id) {
+        id
+    }
+}
