@@ -640,6 +640,104 @@ export type ExternalDocumentQuery = { __typename: 'Query', node?: Maybe<{ __type
     & ExternalDocumentDetailsFragment
   ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
 
+export type CreatePropertyMutationVariables = {
+  input: RootInput;
+};
+
+
+export type CreatePropertyMutation = { __typename: 'Mutation', createProperty?: Maybe<(
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  )> };
+
+export type UpdatePropertyMutationVariables = {
+  input: RootUpdateInput;
+};
+
+
+export type UpdatePropertyMutation = { __typename: 'Mutation', updateProperty?: Maybe<(
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  )> };
+
+export type DeletePropertyMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type DeletePropertyMutation = { __typename: 'Mutation', deleteProperty?: Maybe<{ __typename: 'XtdProperty', id: string }> };
+
+export type PropertyListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
+
+
+export type PropertyListQuery = { __typename: 'Query', properties: { __typename: 'XtdPropertyConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdProperty' }
+      & Root_XtdProperty_Fragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type PropertyQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type PropertyQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
+    { __typename: 'XtdRelDocuments' }
+    & RootDetails_XtdRelDocuments_Fragment
+  ) | { __typename: 'XtdDescription' } | (
+    { __typename: 'XtdRelActsUpon' }
+    & RootDetails_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & RootDetails_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & RootDetails_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & RootDetails_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & RootDetails_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & RootDetails_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & RootDetails_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & RootDetails_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & RootDetails_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & RootDetails_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & RootDetails_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & RootDetails_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & RootDetails_XtdNest_Fragment
+  )> };
+
 export type SearchViewQueryVariables = {
   input?: Maybe<FilterInput>;
 };
@@ -2150,6 +2248,175 @@ export function useExternalDocumentLazyQuery(baseOptions?: ApolloReactHooks.Lazy
 export type ExternalDocumentQueryHookResult = ReturnType<typeof useExternalDocumentQuery>;
 export type ExternalDocumentLazyQueryHookResult = ReturnType<typeof useExternalDocumentLazyQuery>;
 export type ExternalDocumentQueryResult = ApolloReactCommon.QueryResult<ExternalDocumentQuery, ExternalDocumentQueryVariables>;
+export const CreatePropertyDocument = gql`
+    mutation CreateProperty($input: RootInput!) {
+  createProperty(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type CreatePropertyMutationFn = ApolloReactCommon.MutationFunction<CreatePropertyMutation, CreatePropertyMutationVariables>;
+
+/**
+ * __useCreatePropertyMutation__
+ *
+ * To run a mutation, you first call `useCreatePropertyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePropertyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPropertyMutation, { data, loading, error }] = useCreatePropertyMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreatePropertyMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreatePropertyMutation, CreatePropertyMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreatePropertyMutation, CreatePropertyMutationVariables>(CreatePropertyDocument, baseOptions);
+      }
+export type CreatePropertyMutationHookResult = ReturnType<typeof useCreatePropertyMutation>;
+export type CreatePropertyMutationResult = ApolloReactCommon.MutationResult<CreatePropertyMutation>;
+export type CreatePropertyMutationOptions = ApolloReactCommon.BaseMutationOptions<CreatePropertyMutation, CreatePropertyMutationVariables>;
+export const UpdatePropertyDocument = gql`
+    mutation UpdateProperty($input: RootUpdateInput!) {
+  updateProperty(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type UpdatePropertyMutationFn = ApolloReactCommon.MutationFunction<UpdatePropertyMutation, UpdatePropertyMutationVariables>;
+
+/**
+ * __useUpdatePropertyMutation__
+ *
+ * To run a mutation, you first call `useUpdatePropertyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePropertyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePropertyMutation, { data, loading, error }] = useUpdatePropertyMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdatePropertyMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdatePropertyMutation, UpdatePropertyMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdatePropertyMutation, UpdatePropertyMutationVariables>(UpdatePropertyDocument, baseOptions);
+      }
+export type UpdatePropertyMutationHookResult = ReturnType<typeof useUpdatePropertyMutation>;
+export type UpdatePropertyMutationResult = ApolloReactCommon.MutationResult<UpdatePropertyMutation>;
+export type UpdatePropertyMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdatePropertyMutation, UpdatePropertyMutationVariables>;
+export const DeletePropertyDocument = gql`
+    mutation DeleteProperty($id: ID!) {
+  deleteProperty(id: $id) {
+    id
+  }
+}
+    `;
+export type DeletePropertyMutationFn = ApolloReactCommon.MutationFunction<DeletePropertyMutation, DeletePropertyMutationVariables>;
+
+/**
+ * __useDeletePropertyMutation__
+ *
+ * To run a mutation, you first call `useDeletePropertyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePropertyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePropertyMutation, { data, loading, error }] = useDeletePropertyMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeletePropertyMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeletePropertyMutation, DeletePropertyMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeletePropertyMutation, DeletePropertyMutationVariables>(DeletePropertyDocument, baseOptions);
+      }
+export type DeletePropertyMutationHookResult = ReturnType<typeof useDeletePropertyMutation>;
+export type DeletePropertyMutationResult = ApolloReactCommon.MutationResult<DeletePropertyMutation>;
+export type DeletePropertyMutationOptions = ApolloReactCommon.BaseMutationOptions<DeletePropertyMutation, DeletePropertyMutationVariables>;
+export const PropertyListDocument = gql`
+    query PropertyList($input: FilterInput) {
+  properties(input: $input) {
+    nodes {
+      ...Root
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${RootFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __usePropertyListQuery__
+ *
+ * To run a query within a React component, call `usePropertyListQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePropertyListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePropertyListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function usePropertyListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PropertyListQuery, PropertyListQueryVariables>) {
+        return ApolloReactHooks.useQuery<PropertyListQuery, PropertyListQueryVariables>(PropertyListDocument, baseOptions);
+      }
+export function usePropertyListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PropertyListQuery, PropertyListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<PropertyListQuery, PropertyListQueryVariables>(PropertyListDocument, baseOptions);
+        }
+export type PropertyListQueryHookResult = ReturnType<typeof usePropertyListQuery>;
+export type PropertyListLazyQueryHookResult = ReturnType<typeof usePropertyListLazyQuery>;
+export type PropertyListQueryResult = ApolloReactCommon.QueryResult<PropertyListQuery, PropertyListQueryVariables>;
+export const PropertyDocument = gql`
+    query Property($id: ID!) {
+  node(id: $id) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+
+/**
+ * __usePropertyQuery__
+ *
+ * To run a query within a React component, call `usePropertyQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePropertyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePropertyQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePropertyQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PropertyQuery, PropertyQueryVariables>) {
+        return ApolloReactHooks.useQuery<PropertyQuery, PropertyQueryVariables>(PropertyDocument, baseOptions);
+      }
+export function usePropertyLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PropertyQuery, PropertyQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<PropertyQuery, PropertyQueryVariables>(PropertyDocument, baseOptions);
+        }
+export type PropertyQueryHookResult = ReturnType<typeof usePropertyQuery>;
+export type PropertyLazyQueryHookResult = ReturnType<typeof usePropertyLazyQuery>;
+export type PropertyQueryResult = ApolloReactCommon.QueryResult<PropertyQuery, PropertyQueryVariables>;
 export const SearchViewDocument = gql`
     query SearchView($input: FilterInput) {
   search(input: $input) {

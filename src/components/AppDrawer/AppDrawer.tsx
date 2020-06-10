@@ -114,7 +114,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                 />
                 <AppDrawerItem
                     addRoute='/objects/properties/new'
-                    disabled
                     icon={<PropertyIcon/>}
                     onClick={onClose}
                     route="/objects/properties"

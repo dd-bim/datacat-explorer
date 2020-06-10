@@ -1,0 +1,17 @@
+query PropertyList($input: FilterInput) {
+    properties(input: $input) {
+        nodes {
+            ...Root
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Property($id: ID!) {
+    node(id: $id) {
+        ...RootDetails
+    }
+}
