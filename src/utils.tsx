@@ -1,6 +1,5 @@
 import * as React from "react";
-import {languages} from "./lang";
-import {EntityInput, EntityUpdateInput, TextFragment, TextInput} from "./generated/types";
+import {EntityInput, EntityUpdateInput, RootInput, RootUpdateInput, TextInput} from "./generated/types";
 
 export const route = (typename: string): string => {
 
@@ -50,32 +49,6 @@ export const removeTypename = (obj: any) => {
     return obj;
 };
 
-export const defaultTextInputs = () => Object
-    .keys(languages)
-    .map(languageCode => ({
-        id: '',
-        languageCode,
-        value: ''
-    }));
-
-export const mapTextFragmentToTextInput = ({id, language, value}: TextFragment): TextInput => ({
-    id,
-    languageCode: language.id,
-    value
-});
-
-export const sanitizeRootInput = (input: any) => {
-    input.id = input.id === "" ? null : input.id;
-    input.names.forEach(sanitizeTextInput);
-    input.descriptions = input.descriptions ? input.descriptions : [];
-    input.descriptions.forEach(sanitizeTextInput);
-};
-
-export const defaultEntityInput = (): EntityInput => ({
-    id: '',
-    names: defaultTextInputs()
-});
-
 function validId(input: { id?: string | null }) {
     return input.id && input.id.trim();
 }
@@ -86,10 +59,18 @@ export const sanitizeTextInput = (input: TextInput) => {
     }
 };
 
+const validTextInputPredicate = (text: TextInput) => text.value && text.value.trim();
+
 export const sanitizeEntityInput = (input: EntityInput | EntityUpdateInput) => {
     if (!validId(input)) {
         delete input.id;
     }
-    input.names = input.names.filter(name => name.value && name.value.trim());
+    input.names = input.names.filter(validTextInputPredicate);
     input.names.forEach(sanitizeTextInput);
+}
+
+export const sanitizeRootInput = (input: RootInput | RootUpdateInput) => {
+    sanitizeEntityInput(input);
+    input.descriptions = input.descriptions.filter(validTextInputPredicate);
+    input.descriptions.forEach(sanitizeTextInput);
 }
