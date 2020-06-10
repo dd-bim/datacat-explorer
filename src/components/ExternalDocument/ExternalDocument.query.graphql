@@ -1,7 +1,6 @@
 query ExternalDocumentList($input: FilterInput) {
     externalDocuments(input: $input) {
         nodes {
-            ...CatalogItem
             ...ExternalDocument
         }
         pageInfo {

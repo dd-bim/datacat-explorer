@@ -3,9 +3,9 @@ import React from "react";
 import ViewWrapper from "./ViewWrapper";
 
 type ViewSwitchProps = {
-    listView?: React.ReactNode
-    createView?: React.ReactNode
-    updateView?: React.ReactNode
+    read?: React.ReactNode
+    create?: React.ReactNode
+    update?: React.ReactNode
 }
 
 export const ViewContext = React.createContext({
@@ -15,8 +15,8 @@ export const ViewContext = React.createContext({
     onCancel() {}
 });
 
-export default function ViewSwitch(props: ViewSwitchProps) {
-    const { listView, createView, updateView } = props;
+export default function CrudSwitch(props: ViewSwitchProps) {
+    const { read, create, update } = props;
     const {path} = useRouteMatch();
     const history = useHistory();
 
@@ -31,19 +31,19 @@ export default function ViewSwitch(props: ViewSwitchProps) {
         >
             <ViewWrapper>
                 <Switch>
-                    {listView && (
+                    {read && (
                         <Route exact path={path}>
-                            {listView}
+                            {read}
                         </Route>
                     )}
-                    {createView && (
+                    {create && (
                         <Route exact path={`${path}/new`}>
-                            {createView}
+                            {create}
                         </Route>
                     )}
-                    {updateView && (
+                    {update && (
                         <Route path={`${path}/:id`}>
-                            {updateView}
+                            {update}
                         </Route>
                     )}
                 </Switch>
