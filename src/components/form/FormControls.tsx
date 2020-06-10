@@ -24,7 +24,7 @@ export default function FormControls(props: FormControlsProps) {
     return (
         <div className={classes.root}>
             {onCancel && <CancelButton onClick={onCancel} />}
-            {onDelete && <DeleteButton onClick={onDelete} />}
+            {onDelete && <DeleteButton onConfirm={onDelete} />}
             {submit && <SubmitButton />}
         </div>
 
