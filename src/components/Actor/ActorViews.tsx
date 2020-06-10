@@ -30,7 +30,6 @@ function ListView() {
     } = useListView(useActorListQuery);
     const {createPath} = useContext(ViewContext);
     const {columns, rows} = useCatalogRootItemRows(data?.actors.nodes)
-    pagingOptions.count = data?.actors.totalElements || 0;
 
     return (
         <Table
@@ -42,7 +41,10 @@ function ListView() {
             error={!!error}
             columns={columns}
             rows={rows}
-            paginationOptions={pagingOptions}
+            paginationOptions={{
+                count: data?.actors.totalElements || 0,
+                ...pagingOptions
+            }}
         />
     );
 }

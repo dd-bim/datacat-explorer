@@ -18,9 +18,8 @@ export default function useListView<TData>(listQuery: (baseOptions?: ApolloReact
     });
 
     const { setPageSize, setPageNumber } = queryOptions;
-    const pagingOptions: Omit<TablePaginationProps<'td'>, 'component'> = {
+    const pagingOptions: Omit<TablePaginationProps<'td'>, 'component' | 'count'> = {
         page: pageNumber,
-        count: 0,
         rowsPerPage: pageSize,
         rowsPerPageOptions: [10, 20, 50, 100],
         onChangeRowsPerPage: e => setPageSize(parseInt(e.target.value, 10)),

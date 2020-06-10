@@ -1,7 +1,5 @@
 import React, {useContext} from 'react';
 import CrudSwitch, {ViewContext} from "../View/CrudSwitch";
-import useLocationQueryParam from "../../hooks/useLocationQueryParam";
-import {useQueryOptions} from "../../hooks";
 import {
     EntityInput,
     EntityUpdateInput,
@@ -23,17 +21,15 @@ import {useParams} from "react-router-dom";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import {useWriteAccess} from "../../hooks/useAuthContext";
+import useListView from "../View/useListView";
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
-    const q = useLocationQueryParam("q", "");
-    const {query, setQuery, pageNumber, setPageNumber, pageSize, setPageSize} = useQueryOptions(q);
-    const {error, loading, data} = useExternalDocumentListQuery({
-        fetchPolicy: "network-only",
-        variables: {
-            input: {query, pageSize, pageNumber}
-        }
-    });
+    const {
+        queryOptions: { query, setQuery },
+        result: { loading, error, data },
+        pagingOptions
+    } = useListView(useExternalDocumentListQuery);
     const {columns, rows} = useCatalogItemRows(data?.externalDocuments.nodes)
 
     return (
@@ -47,12 +43,8 @@ function ListView() {
             columns={columns}
             rows={rows}
             paginationOptions={{
-                page: pageNumber,
                 count: data?.externalDocuments.totalElements || 0,
-                rowsPerPage: pageSize,
-                rowsPerPageOptions: [10, 20, 50, 100],
-                onChangeRowsPerPage: e => setPageSize(parseInt(e.target.value, 10)),
-                onChangePage: (e, num) => setPageNumber(num)
+                ...pagingOptions
             }}
         />
     );

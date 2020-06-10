@@ -1,7 +1,5 @@
 import React, {useContext} from "react";
 import CrudSwitch, {ViewContext} from "../View/CrudSwitch";
-import useLocationQueryParam from "../../hooks/useLocationQueryParam";
-import {useQueryOptions} from "../../hooks";
 import {
     RootDetailsFragment,
     RootInput,
@@ -22,17 +20,15 @@ import CatalogObjectFormSet from "../form/CatalogObjectFormSet";
 import CatalogItemForm from "../form/CatalogItemForm";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
+import useListView from "../View/useListView";
 
 function ListView() {
     const { createPath } = useContext(ViewContext);
-    const q = useLocationQueryParam("q", "");
-    const {query, setQuery, pageNumber, setPageNumber, pageSize, setPageSize} = useQueryOptions(q);
-    const {error, loading, data} = useActivityListQuery({
-        fetchPolicy: "network-only",
-        variables: {
-            input: {query, pageSize, pageNumber}
-        }
-    });
+    const {
+        queryOptions: { query, setQuery },
+        result: { loading, error, data },
+        pagingOptions
+    } = useListView(useActivityListQuery);
     const {columns, rows} = useCatalogRootItemRows(data?.activities.nodes)
 
     return (
@@ -46,12 +42,8 @@ function ListView() {
             columns={columns}
             rows={rows}
             paginationOptions={{
-                page: pageNumber,
                 count: data?.activities.totalElements || 0,
-                rowsPerPage: pageSize,
-                rowsPerPageOptions: [10, 20, 50, 100],
-                onChangeRowsPerPage: e => setPageSize(parseInt(e.target.value, 10)),
-                onChangePage: (e, num) => setPageNumber(num)
+                ...pagingOptions
             }}
         />
     );
