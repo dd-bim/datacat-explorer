@@ -381,6 +381,104 @@ export type ActivityQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'X
     & RootDetails_XtdNest_Fragment
   )> };
 
+export type CreateActorMutationVariables = {
+  input: RootInput;
+};
+
+
+export type CreateActorMutation = { __typename: 'Mutation', createActor?: Maybe<(
+    { __typename: 'XtdActor' }
+    & RootDetails_XtdActor_Fragment
+  )> };
+
+export type UpdateActorMutationVariables = {
+  input: RootUpdateInput;
+};
+
+
+export type UpdateActorMutation = { __typename: 'Mutation', updateActor?: Maybe<(
+    { __typename: 'XtdActor' }
+    & RootDetails_XtdActor_Fragment
+  )> };
+
+export type DeleteActorMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type DeleteActorMutation = { __typename: 'Mutation', deleteActor?: Maybe<{ __typename: 'XtdActor', id: string }> };
+
+export type ActorListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
+
+
+export type ActorListQuery = { __typename: 'Query', actors: { __typename: 'XtdActorConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdActor' }
+      & Root_XtdActor_Fragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type ActorQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type ActorQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
+    { __typename: 'XtdRelDocuments' }
+    & RootDetails_XtdRelDocuments_Fragment
+  ) | { __typename: 'XtdDescription' } | (
+    { __typename: 'XtdRelActsUpon' }
+    & RootDetails_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & RootDetails_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & RootDetails_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & RootDetails_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & RootDetails_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & RootDetails_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & RootDetails_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & RootDetails_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & RootDetails_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & RootDetails_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & RootDetails_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & RootDetails_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & RootDetails_XtdNest_Fragment
+  )> };
+
 export type SearchInputQueryVariables = {
   input?: Maybe<FilterInput>;
 };
@@ -1467,6 +1565,175 @@ export function useActivityLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type ActivityQueryHookResult = ReturnType<typeof useActivityQuery>;
 export type ActivityLazyQueryHookResult = ReturnType<typeof useActivityLazyQuery>;
 export type ActivityQueryResult = ApolloReactCommon.QueryResult<ActivityQuery, ActivityQueryVariables>;
+export const CreateActorDocument = gql`
+    mutation CreateActor($input: RootInput!) {
+  createActor(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type CreateActorMutationFn = ApolloReactCommon.MutationFunction<CreateActorMutation, CreateActorMutationVariables>;
+
+/**
+ * __useCreateActorMutation__
+ *
+ * To run a mutation, you first call `useCreateActorMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateActorMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createActorMutation, { data, loading, error }] = useCreateActorMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateActorMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateActorMutation, CreateActorMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateActorMutation, CreateActorMutationVariables>(CreateActorDocument, baseOptions);
+      }
+export type CreateActorMutationHookResult = ReturnType<typeof useCreateActorMutation>;
+export type CreateActorMutationResult = ApolloReactCommon.MutationResult<CreateActorMutation>;
+export type CreateActorMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateActorMutation, CreateActorMutationVariables>;
+export const UpdateActorDocument = gql`
+    mutation UpdateActor($input: RootUpdateInput!) {
+  updateActor(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type UpdateActorMutationFn = ApolloReactCommon.MutationFunction<UpdateActorMutation, UpdateActorMutationVariables>;
+
+/**
+ * __useUpdateActorMutation__
+ *
+ * To run a mutation, you first call `useUpdateActorMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateActorMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateActorMutation, { data, loading, error }] = useUpdateActorMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateActorMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateActorMutation, UpdateActorMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateActorMutation, UpdateActorMutationVariables>(UpdateActorDocument, baseOptions);
+      }
+export type UpdateActorMutationHookResult = ReturnType<typeof useUpdateActorMutation>;
+export type UpdateActorMutationResult = ApolloReactCommon.MutationResult<UpdateActorMutation>;
+export type UpdateActorMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateActorMutation, UpdateActorMutationVariables>;
+export const DeleteActorDocument = gql`
+    mutation DeleteActor($id: ID!) {
+  deleteActor(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteActorMutationFn = ApolloReactCommon.MutationFunction<DeleteActorMutation, DeleteActorMutationVariables>;
+
+/**
+ * __useDeleteActorMutation__
+ *
+ * To run a mutation, you first call `useDeleteActorMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteActorMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteActorMutation, { data, loading, error }] = useDeleteActorMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteActorMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteActorMutation, DeleteActorMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteActorMutation, DeleteActorMutationVariables>(DeleteActorDocument, baseOptions);
+      }
+export type DeleteActorMutationHookResult = ReturnType<typeof useDeleteActorMutation>;
+export type DeleteActorMutationResult = ApolloReactCommon.MutationResult<DeleteActorMutation>;
+export type DeleteActorMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteActorMutation, DeleteActorMutationVariables>;
+export const ActorListDocument = gql`
+    query ActorList($input: FilterInput) {
+  actors(input: $input) {
+    nodes {
+      ...Root
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${RootFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useActorListQuery__
+ *
+ * To run a query within a React component, call `useActorListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActorListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActorListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useActorListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ActorListQuery, ActorListQueryVariables>) {
+        return ApolloReactHooks.useQuery<ActorListQuery, ActorListQueryVariables>(ActorListDocument, baseOptions);
+      }
+export function useActorListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ActorListQuery, ActorListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ActorListQuery, ActorListQueryVariables>(ActorListDocument, baseOptions);
+        }
+export type ActorListQueryHookResult = ReturnType<typeof useActorListQuery>;
+export type ActorListLazyQueryHookResult = ReturnType<typeof useActorListLazyQuery>;
+export type ActorListQueryResult = ApolloReactCommon.QueryResult<ActorListQuery, ActorListQueryVariables>;
+export const ActorDocument = gql`
+    query Actor($id: ID!) {
+  node(id: $id) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+
+/**
+ * __useActorQuery__
+ *
+ * To run a query within a React component, call `useActorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActorQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useActorQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ActorQuery, ActorQueryVariables>) {
+        return ApolloReactHooks.useQuery<ActorQuery, ActorQueryVariables>(ActorDocument, baseOptions);
+      }
+export function useActorLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ActorQuery, ActorQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ActorQuery, ActorQueryVariables>(ActorDocument, baseOptions);
+        }
+export type ActorQueryHookResult = ReturnType<typeof useActorQuery>;
+export type ActorLazyQueryHookResult = ReturnType<typeof useActorLazyQuery>;
+export type ActorQueryResult = ApolloReactCommon.QueryResult<ActorQuery, ActorQueryVariables>;
 export const SearchInputDocument = gql`
     query SearchInput($input: FilterInput) {
   search(input: $input) {

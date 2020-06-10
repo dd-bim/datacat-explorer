@@ -90,7 +90,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                 />
                 <AppDrawerItem
                     addRoute={'/objects/actors/new'}
-                    disabled
                     icon={<ActorIcon/>}
                     onClick={onClose}
                     route={"/objects/actors"}

@@ -8,6 +8,7 @@ import {useGraphiQLFetcher} from "../../hooks";
 import ExternalDocumentViews from "../ExternalDocument/ExternalDocumentViews";
 import SubjectViews from "../Subject/SubjectViews";
 import ActivityViews from "../Activity/ActivityViews";
+import ActorViews from "../Actor/ActorViews";
 
 export default function Router() {
     const graphiqlFetcher = useGraphiQLFetcher();
@@ -23,11 +24,11 @@ export default function Router() {
             <Route path="/externalDocuments">
                 <ExternalDocumentViews/>
             </Route>
-            {/*<Route path="/objects/actors">*/}
-            {/*    <ActorRoutes/>*/}
-            {/*</Route>*/}
             <Route path="/objects/activities">
                 <ActivityViews/>
+            </Route>
+            <Route path="/objects/actors">
+                <ActorViews/>
             </Route>
             <Route path="/objects/subjects">
                 <SubjectViews/>

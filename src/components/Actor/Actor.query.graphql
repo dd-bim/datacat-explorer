@@ -1,0 +1,17 @@
+query ActorList($input: FilterInput) {
+    actors(input: $input) {
+        nodes {
+            ...Root
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Actor($id: ID!) {
+    node(id: $id) {
+        ...RootDetails
+    }
+}

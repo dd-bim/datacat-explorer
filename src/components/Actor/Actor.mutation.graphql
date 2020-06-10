@@ -1,0 +1,17 @@
+mutation CreateActor($input: RootInput!) {
+    createActor(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation UpdateActor($input: RootUpdateInput!) {
+    updateActor(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation DeleteActor($id: ID!) {
+    deleteActor(id: $id) {
+        id
+    }
+}
