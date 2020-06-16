@@ -1,8 +1,9 @@
 import React from "react";
+import {Column} from "react-table";
 
 type UseTableRowsOptions<T> = {
     items?: T[],
-    columnsFactory(): object[]
+    columnsFactory(): Column<object>[]
     rowFactory(item: T): object
 }
 

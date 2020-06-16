@@ -8,6 +8,7 @@ import React from "react";
 import LabelCell from "../components/table/LabelCell";
 import PropertyCell from "../components/table/PropertyCell";
 import useTableRows from "./useTableRows";
+import dateUtil from "../dateUtil";
 
 const columnsFactory = () => [
     {id: 'icon', Header: '', accessor: 'icon'},
@@ -31,13 +32,13 @@ const rowFactory = (item: RootFragment) => ({
     ),
     created: (
         <PropertyCell
-            primary={item.created}
+            primary={dateUtil(item.created).format('lll')}
             secondary={item.createdBy}
         />
     ),
     lastModified: (
         <PropertyCell
-            primary={item.lastModified}
+            primary={dateUtil(item.lastModified).format('lll')}
             secondary={item.lastModifiedBy}
         />
     ),
