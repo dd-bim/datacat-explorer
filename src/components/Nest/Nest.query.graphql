@@ -1,0 +1,17 @@
+query NestList($input: FilterInput) {
+    nests(input: $input) {
+        nodes {
+            ...Nest
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Nest($id: ID!) {
+    node(id: $id) {
+        ...NestDetails
+    }
+}

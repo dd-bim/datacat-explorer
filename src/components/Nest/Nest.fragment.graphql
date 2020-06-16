@@ -1,0 +1,4 @@
+fragment Nest on XtdNest {
+    ...CatalogItem
+    ...Root
+}

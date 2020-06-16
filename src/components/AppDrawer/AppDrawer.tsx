@@ -148,7 +148,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                 />
                 <AppDrawerItem
                     addRoute={'/collections/nests/new'}
-                    disabled
                     icon={<NestIcon/>}
                     onClick={onClose}
                     route="/collections/nests"

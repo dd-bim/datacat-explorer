@@ -38,7 +38,7 @@ export type CollectsInput = {
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
   names: Array<TextInput>;
-  descriptions?: Maybe<Array<TextInput>>;
+  descriptions: Array<TextInput>;
   relatingCollection: Scalars['ID'];
   relatedThings: Array<Scalars['ID']>;
 };
@@ -48,7 +48,7 @@ export type CollectsUpdateInput = {
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
   names: Array<TextInput>;
-  descriptions?: Maybe<Array<TextInput>>;
+  descriptions: Array<TextInput>;
   relatingCollection: Scalars['ID'];
   relatedThings: Array<Scalars['ID']>;
 };
@@ -723,6 +723,180 @@ export type CatalogItemSelectQuery = { __typename: 'Query', search: { __typename
       & PageInfoFragment
     ) } };
 
+export type CollectsFragment = (
+  { __typename: 'XtdRelCollects', relatingCollection: (
+    { __typename: 'XtdBag' }
+    & Root_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & Root_XtdNest_Fragment
+  ), relatedThings: Array<(
+    { __typename: 'XtdRelDocuments' }
+    & Root_XtdRelDocuments_Fragment
+  ) | (
+    { __typename: 'XtdRelActsUpon' }
+    & Root_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & Root_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & Root_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & Root_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & Root_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & Root_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & Root_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & Root_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & Root_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & Root_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & Root_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & Root_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & Root_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & Root_XtdNest_Fragment
+  )> }
+  & Root_XtdRelCollects_Fragment
+);
+
+export type CreateCollectsMutationVariables = {
+  input: CollectsInput;
+};
+
+
+export type CreateCollectsMutation = { __typename: 'Mutation', createCollectsRelation?: Maybe<(
+    { __typename: 'XtdRelCollects' }
+    & CollectsDetailsFragment
+  )> };
+
+export type UpdateCollectsMutationVariables = {
+  input: CollectsUpdateInput;
+};
+
+
+export type UpdateCollectsMutation = { __typename: 'Mutation', updateCollectsRelation?: Maybe<(
+    { __typename: 'XtdRelCollects' }
+    & CollectsDetailsFragment
+  )> };
+
+export type DeleteCollectsMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type DeleteCollectsMutation = { __typename: 'Mutation', deleteCollectsRelation?: Maybe<{ __typename: 'XtdRelCollects', id: string }> };
+
+export type CollectsListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
+
+
+export type CollectsListQuery = { __typename: 'Query', collectsRelations: { __typename: 'XtdRelCollectsConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdRelCollects' }
+      & CollectsFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type CollectsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type CollectsQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | (
+    { __typename: 'XtdRelCollects' }
+    & CollectsDetailsFragment
+  ) | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+
+export type CollectsDetailsFragment = (
+  { __typename: 'XtdRelCollects', relatingCollection: (
+    { __typename: 'XtdBag' }
+    & Root_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & Root_XtdNest_Fragment
+  ), relatedThings: Array<(
+    { __typename: 'XtdRelDocuments' }
+    & Root_XtdRelDocuments_Fragment
+  ) | (
+    { __typename: 'XtdRelActsUpon' }
+    & Root_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & Root_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & Root_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & Root_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & Root_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & Root_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & Root_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & Root_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & Root_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & Root_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & Root_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & Root_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & Root_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & Root_XtdNest_Fragment
+  )> }
+  & RootDetails_XtdRelCollects_Fragment
+);
+
 export type CreateExternalDocumentMutationVariables = {
   input: EntityInput;
 };
@@ -822,6 +996,68 @@ export type MeasureQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'Xt
     { __typename: 'XtdMeasureWithUnit' }
     & MeasureDetailsFragment
   ) | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+
+export type NestFragment = (
+  { __typename: 'XtdNest' }
+  & CatalogItem_XtdNest_Fragment
+  & Root_XtdNest_Fragment
+);
+
+export type CreateNestMutationVariables = {
+  input: RootInput;
+};
+
+
+export type CreateNestMutation = { __typename: 'Mutation', createNest?: Maybe<(
+    { __typename: 'XtdNest' }
+    & RootDetails_XtdNest_Fragment
+  )> };
+
+export type UpdateNestMutationVariables = {
+  input: RootUpdateInput;
+};
+
+
+export type UpdateNestMutation = { __typename: 'Mutation', updateNest?: Maybe<(
+    { __typename: 'XtdNest' }
+    & RootDetails_XtdNest_Fragment
+  )> };
+
+export type DeleteNestMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type DeleteNestMutation = { __typename: 'Mutation', deleteNest?: Maybe<{ __typename: 'XtdNest', id: string }> };
+
+export type NestListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
+
+
+export type NestListQuery = { __typename: 'Query', nests: { __typename: 'XtdNestConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdNest' }
+      & NestFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type NestQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type NestQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | (
+    { __typename: 'XtdNest' }
+    & NestDetailsFragment
+  )> };
+
+export type NestDetailsFragment = (
+  { __typename: 'XtdNest' }
+  & CatalogItem_XtdNest_Fragment
+  & RootDetails_XtdNest_Fragment
+);
 
 export type CreatePropertyMutationVariables = {
   input: RootInput;
@@ -1322,6 +1558,18 @@ type CatalogItem_XtdNest_Fragment = { __typename: 'XtdNest', id: string, label: 
   )> };
 
 export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment;
+
+type Collection_XtdBag_Fragment = (
+  { __typename: 'XtdBag' }
+  & Root_XtdBag_Fragment
+);
+
+type Collection_XtdNest_Fragment = (
+  { __typename: 'XtdNest' }
+  & Root_XtdNest_Fragment
+);
+
+export type CollectionFragment = Collection_XtdBag_Fragment | Collection_XtdNest_Fragment;
 
 export type ExternalDocumentFragment = (
   { __typename: 'XtdExternalDocument', documents: { __typename: 'XtdRelDocumentsConnection', totalElements: number } }
@@ -1831,6 +2079,48 @@ export const BagDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${RootDetailsFragmentDoc}`;
+export const CollectsFragmentDoc = gql`
+    fragment Collects on XtdRelCollects {
+  ...Root
+  relatingCollection {
+    ...Root
+  }
+  relatedThings {
+    ...Root
+  }
+}
+    ${RootFragmentDoc}`;
+export const CollectsDetailsFragmentDoc = gql`
+    fragment CollectsDetails on XtdRelCollects {
+  ...RootDetails
+  relatingCollection {
+    ...Root
+  }
+  relatedThings {
+    ...Root
+  }
+}
+    ${RootDetailsFragmentDoc}
+${RootFragmentDoc}`;
+export const NestFragmentDoc = gql`
+    fragment Nest on XtdNest {
+  ...CatalogItem
+  ...Root
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}`;
+export const NestDetailsFragmentDoc = gql`
+    fragment NestDetails on XtdNest {
+  ...CatalogItem
+  ...RootDetails
+}
+    ${CatalogItemFragmentDoc}
+${RootDetailsFragmentDoc}`;
+export const CollectionFragmentDoc = gql`
+    fragment Collection on XtdCollection {
+  ...Root
+}
+    ${RootFragmentDoc}`;
 export const ExternalDocumentFragmentDoc = gql`
     fragment ExternalDocument on XtdExternalDocument {
   ...CatalogItem
@@ -2613,6 +2903,175 @@ export function useCatalogItemSelectLazyQuery(baseOptions?: ApolloReactHooks.Laz
 export type CatalogItemSelectQueryHookResult = ReturnType<typeof useCatalogItemSelectQuery>;
 export type CatalogItemSelectLazyQueryHookResult = ReturnType<typeof useCatalogItemSelectLazyQuery>;
 export type CatalogItemSelectQueryResult = ApolloReactCommon.QueryResult<CatalogItemSelectQuery, CatalogItemSelectQueryVariables>;
+export const CreateCollectsDocument = gql`
+    mutation CreateCollects($input: CollectsInput!) {
+  createCollectsRelation(input: $input) {
+    ...CollectsDetails
+  }
+}
+    ${CollectsDetailsFragmentDoc}`;
+export type CreateCollectsMutationFn = ApolloReactCommon.MutationFunction<CreateCollectsMutation, CreateCollectsMutationVariables>;
+
+/**
+ * __useCreateCollectsMutation__
+ *
+ * To run a mutation, you first call `useCreateCollectsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCollectsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCollectsMutation, { data, loading, error }] = useCreateCollectsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateCollectsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateCollectsMutation, CreateCollectsMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateCollectsMutation, CreateCollectsMutationVariables>(CreateCollectsDocument, baseOptions);
+      }
+export type CreateCollectsMutationHookResult = ReturnType<typeof useCreateCollectsMutation>;
+export type CreateCollectsMutationResult = ApolloReactCommon.MutationResult<CreateCollectsMutation>;
+export type CreateCollectsMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateCollectsMutation, CreateCollectsMutationVariables>;
+export const UpdateCollectsDocument = gql`
+    mutation UpdateCollects($input: CollectsUpdateInput!) {
+  updateCollectsRelation(input: $input) {
+    ...CollectsDetails
+  }
+}
+    ${CollectsDetailsFragmentDoc}`;
+export type UpdateCollectsMutationFn = ApolloReactCommon.MutationFunction<UpdateCollectsMutation, UpdateCollectsMutationVariables>;
+
+/**
+ * __useUpdateCollectsMutation__
+ *
+ * To run a mutation, you first call `useUpdateCollectsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateCollectsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateCollectsMutation, { data, loading, error }] = useUpdateCollectsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateCollectsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateCollectsMutation, UpdateCollectsMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateCollectsMutation, UpdateCollectsMutationVariables>(UpdateCollectsDocument, baseOptions);
+      }
+export type UpdateCollectsMutationHookResult = ReturnType<typeof useUpdateCollectsMutation>;
+export type UpdateCollectsMutationResult = ApolloReactCommon.MutationResult<UpdateCollectsMutation>;
+export type UpdateCollectsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateCollectsMutation, UpdateCollectsMutationVariables>;
+export const DeleteCollectsDocument = gql`
+    mutation DeleteCollects($id: ID!) {
+  deleteCollectsRelation(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteCollectsMutationFn = ApolloReactCommon.MutationFunction<DeleteCollectsMutation, DeleteCollectsMutationVariables>;
+
+/**
+ * __useDeleteCollectsMutation__
+ *
+ * To run a mutation, you first call `useDeleteCollectsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCollectsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCollectsMutation, { data, loading, error }] = useDeleteCollectsMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteCollectsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteCollectsMutation, DeleteCollectsMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteCollectsMutation, DeleteCollectsMutationVariables>(DeleteCollectsDocument, baseOptions);
+      }
+export type DeleteCollectsMutationHookResult = ReturnType<typeof useDeleteCollectsMutation>;
+export type DeleteCollectsMutationResult = ApolloReactCommon.MutationResult<DeleteCollectsMutation>;
+export type DeleteCollectsMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteCollectsMutation, DeleteCollectsMutationVariables>;
+export const CollectsListDocument = gql`
+    query CollectsList($input: FilterInput) {
+  collectsRelations(input: $input) {
+    nodes {
+      ...Collects
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${CollectsFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useCollectsListQuery__
+ *
+ * To run a query within a React component, call `useCollectsListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectsListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCollectsListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CollectsListQuery, CollectsListQueryVariables>) {
+        return ApolloReactHooks.useQuery<CollectsListQuery, CollectsListQueryVariables>(CollectsListDocument, baseOptions);
+      }
+export function useCollectsListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CollectsListQuery, CollectsListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CollectsListQuery, CollectsListQueryVariables>(CollectsListDocument, baseOptions);
+        }
+export type CollectsListQueryHookResult = ReturnType<typeof useCollectsListQuery>;
+export type CollectsListLazyQueryHookResult = ReturnType<typeof useCollectsListLazyQuery>;
+export type CollectsListQueryResult = ApolloReactCommon.QueryResult<CollectsListQuery, CollectsListQueryVariables>;
+export const CollectsDocument = gql`
+    query Collects($id: ID!) {
+  node(id: $id) {
+    ...CollectsDetails
+  }
+}
+    ${CollectsDetailsFragmentDoc}`;
+
+/**
+ * __useCollectsQuery__
+ *
+ * To run a query within a React component, call `useCollectsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCollectsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CollectsQuery, CollectsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CollectsQuery, CollectsQueryVariables>(CollectsDocument, baseOptions);
+      }
+export function useCollectsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CollectsQuery, CollectsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CollectsQuery, CollectsQueryVariables>(CollectsDocument, baseOptions);
+        }
+export type CollectsQueryHookResult = ReturnType<typeof useCollectsQuery>;
+export type CollectsLazyQueryHookResult = ReturnType<typeof useCollectsLazyQuery>;
+export type CollectsQueryResult = ApolloReactCommon.QueryResult<CollectsQuery, CollectsQueryVariables>;
 export const CreateExternalDocumentDocument = gql`
     mutation CreateExternalDocument($input: EntityInput!) {
   createExternalDocument(input: $input) {
@@ -2951,6 +3410,175 @@ export function useMeasureLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type MeasureQueryHookResult = ReturnType<typeof useMeasureQuery>;
 export type MeasureLazyQueryHookResult = ReturnType<typeof useMeasureLazyQuery>;
 export type MeasureQueryResult = ApolloReactCommon.QueryResult<MeasureQuery, MeasureQueryVariables>;
+export const CreateNestDocument = gql`
+    mutation CreateNest($input: RootInput!) {
+  createNest(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type CreateNestMutationFn = ApolloReactCommon.MutationFunction<CreateNestMutation, CreateNestMutationVariables>;
+
+/**
+ * __useCreateNestMutation__
+ *
+ * To run a mutation, you first call `useCreateNestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNestMutation, { data, loading, error }] = useCreateNestMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateNestMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateNestMutation, CreateNestMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateNestMutation, CreateNestMutationVariables>(CreateNestDocument, baseOptions);
+      }
+export type CreateNestMutationHookResult = ReturnType<typeof useCreateNestMutation>;
+export type CreateNestMutationResult = ApolloReactCommon.MutationResult<CreateNestMutation>;
+export type CreateNestMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateNestMutation, CreateNestMutationVariables>;
+export const UpdateNestDocument = gql`
+    mutation UpdateNest($input: RootUpdateInput!) {
+  updateNest(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type UpdateNestMutationFn = ApolloReactCommon.MutationFunction<UpdateNestMutation, UpdateNestMutationVariables>;
+
+/**
+ * __useUpdateNestMutation__
+ *
+ * To run a mutation, you first call `useUpdateNestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNestMutation, { data, loading, error }] = useUpdateNestMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateNestMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateNestMutation, UpdateNestMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateNestMutation, UpdateNestMutationVariables>(UpdateNestDocument, baseOptions);
+      }
+export type UpdateNestMutationHookResult = ReturnType<typeof useUpdateNestMutation>;
+export type UpdateNestMutationResult = ApolloReactCommon.MutationResult<UpdateNestMutation>;
+export type UpdateNestMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateNestMutation, UpdateNestMutationVariables>;
+export const DeleteNestDocument = gql`
+    mutation DeleteNest($id: ID!) {
+  deleteNest(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteNestMutationFn = ApolloReactCommon.MutationFunction<DeleteNestMutation, DeleteNestMutationVariables>;
+
+/**
+ * __useDeleteNestMutation__
+ *
+ * To run a mutation, you first call `useDeleteNestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteNestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteNestMutation, { data, loading, error }] = useDeleteNestMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteNestMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteNestMutation, DeleteNestMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteNestMutation, DeleteNestMutationVariables>(DeleteNestDocument, baseOptions);
+      }
+export type DeleteNestMutationHookResult = ReturnType<typeof useDeleteNestMutation>;
+export type DeleteNestMutationResult = ApolloReactCommon.MutationResult<DeleteNestMutation>;
+export type DeleteNestMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteNestMutation, DeleteNestMutationVariables>;
+export const NestListDocument = gql`
+    query NestList($input: FilterInput) {
+  nests(input: $input) {
+    nodes {
+      ...Nest
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${NestFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useNestListQuery__
+ *
+ * To run a query within a React component, call `useNestListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNestListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNestListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useNestListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NestListQuery, NestListQueryVariables>) {
+        return ApolloReactHooks.useQuery<NestListQuery, NestListQueryVariables>(NestListDocument, baseOptions);
+      }
+export function useNestListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NestListQuery, NestListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<NestListQuery, NestListQueryVariables>(NestListDocument, baseOptions);
+        }
+export type NestListQueryHookResult = ReturnType<typeof useNestListQuery>;
+export type NestListLazyQueryHookResult = ReturnType<typeof useNestListLazyQuery>;
+export type NestListQueryResult = ApolloReactCommon.QueryResult<NestListQuery, NestListQueryVariables>;
+export const NestDocument = gql`
+    query Nest($id: ID!) {
+  node(id: $id) {
+    ...NestDetails
+  }
+}
+    ${NestDetailsFragmentDoc}`;
+
+/**
+ * __useNestQuery__
+ *
+ * To run a query within a React component, call `useNestQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNestQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNestQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useNestQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<NestQuery, NestQueryVariables>) {
+        return ApolloReactHooks.useQuery<NestQuery, NestQueryVariables>(NestDocument, baseOptions);
+      }
+export function useNestLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<NestQuery, NestQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<NestQuery, NestQueryVariables>(NestDocument, baseOptions);
+        }
+export type NestQueryHookResult = ReturnType<typeof useNestQuery>;
+export type NestLazyQueryHookResult = ReturnType<typeof useNestLazyQuery>;
+export type NestQueryResult = ApolloReactCommon.QueryResult<NestQuery, NestQueryVariables>;
 export const CreatePropertyDocument = gql`
     mutation CreateProperty($input: RootInput!) {
   createProperty(input: $input) {

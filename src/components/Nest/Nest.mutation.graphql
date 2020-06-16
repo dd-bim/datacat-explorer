@@ -1,0 +1,17 @@
+mutation CreateNest($input: RootInput!) {
+    createNest(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation UpdateNest($input: RootUpdateInput!) {
+    updateNest(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation DeleteNest($id: ID!) {
+    deleteNest(id: $id) {
+        id
+    }
+}
