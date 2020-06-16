@@ -33,7 +33,7 @@ function ListView() {
 
     return (
         <Table
-            title="Units"
+            title="Properties"
             createPath={createPath}
             query={query}
             onQueryChange={setQuery}
