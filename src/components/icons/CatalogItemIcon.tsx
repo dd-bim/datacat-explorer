@@ -12,42 +12,45 @@ import PropertyIcon from "./PropertyIcon";
 import AssociatesIcon from "./AssociatesIcon";
 import DocumentsIcon from "./DocumentsIcon";
 import CollectsIcon from "./CollectsIcon";
+import ValueIcon from "./ValueIcon";
 
 interface CatalogItemProps {
-  itemType?: string;
+    itemType?: string;
 }
 
 export default function CatalogItemIcon(props: CatalogItemProps & SvgIconProps) {
-  const {
-    itemType,
-    ...otherProps
-  } = props;
-  switch (itemType) {
-    case 'XtdExternalDocument':
-      return <ExternalDocumentIcon {...otherProps} />;
-    case 'XtdActivity':
-      return <ActivityIcon {...otherProps} />;
-    case 'XtdActor':
-      return <ActorIcon {...otherProps} />;
-    case 'XtdSubject':
-      return <SubjectIcon {...otherProps} />;
-    case 'XtdUnit':
-      return <UnitIcon {...otherProps} />
-    case 'XtdProperty':
-      return <PropertyIcon {...otherProps} />;
-    case 'XtdBag':
-      return <BagIcon {...otherProps} />;
-    case 'XtdNest':
-      return <NestIcon {...otherProps} />;
-    case 'XtdRelDocuments':
-      return <DocumentsIcon {...otherProps} />;
-    case 'XtdRelCollects':
-      return <CollectsIcon {...otherProps} />;
-    case 'XtdRelAssociates':
-      return <AssociatesIcon {...otherProps} />;
-    case 'XtdRelGroups':
-      return <GroupsIcon {...otherProps} />;
-    default:
-      return <SubjectIcon {...otherProps} />;
-  }
+    const {
+        itemType,
+        ...otherProps
+    } = props;
+    switch (itemType) {
+        case 'XtdExternalDocument':
+            return <ExternalDocumentIcon {...otherProps} />;
+        case 'XtdActivity':
+            return <ActivityIcon {...otherProps} />;
+        case 'XtdActor':
+            return <ActorIcon {...otherProps} />;
+        case 'XtdSubject':
+            return <SubjectIcon {...otherProps} />;
+        case 'XtdUnit':
+            return <UnitIcon {...otherProps} />;
+        case 'XtdValue':
+            return <ValueIcon {...otherProps} />;
+        case 'XtdProperty':
+            return <PropertyIcon {...otherProps} />;
+        case 'XtdBag':
+            return <BagIcon {...otherProps} />;
+        case 'XtdNest':
+            return <NestIcon {...otherProps} />;
+        case 'XtdRelDocuments':
+            return <DocumentsIcon {...otherProps} />;
+        case 'XtdRelCollects':
+            return <CollectsIcon {...otherProps} />;
+        case 'XtdRelAssociates':
+            return <AssociatesIcon {...otherProps} />;
+        case 'XtdRelGroups':
+            return <GroupsIcon {...otherProps} />;
+        default:
+            return <SubjectIcon {...otherProps} />;
+    }
 }
