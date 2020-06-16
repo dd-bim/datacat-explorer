@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.up('sm')]: {
             width: '12ch',
             '&:focus': {
-                width: '20ch',
+                width: '30ch',
             },
         },
     },
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     searchContent: {
         'margin-top': theme.spacing(1),
         'min-width': '150px',
-        'max-width': '400px',
+        'max-width': '75vw',
         'padding': theme.spacing(2)
     },
     entityIcon: {
