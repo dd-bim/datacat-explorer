@@ -1,0 +1,10 @@
+fragment MeasureDetails on XtdMeasureWithUnit {
+    ...CatalogItem
+    ...RootDetails
+    unitComponent {
+        ...UnitDetails
+    }
+    valueDomain {
+        ...ValueDetails
+    }
+}
