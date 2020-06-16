@@ -1,0 +1,17 @@
+query BagList($input: FilterInput) {
+    bags(input: $input) {
+        nodes {
+            ...Root
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Bag($id: ID!) {
+    node(id: $id) {
+        ...RootDetails
+    }
+}

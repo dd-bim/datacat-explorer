@@ -1,0 +1,4 @@
+fragment Bag on XtdBag {
+    ...CatalogItem
+    ...Root
+}

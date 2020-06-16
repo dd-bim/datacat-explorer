@@ -1,0 +1,17 @@
+mutation CreateBag($input: RootInput!) {
+    createBag(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation UpdateBag($input: RootUpdateInput!) {
+    updateBag(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation DeleteBag($id: ID!) {
+    deleteBag(id: $id) {
+        id
+    }
+}

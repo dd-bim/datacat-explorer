@@ -583,6 +583,116 @@ export type SearchInputQuery = { __typename: 'Query', search: { __typename: 'Sea
       & PageInfoFragment
     ) } };
 
+export type BagFragment = (
+  { __typename: 'XtdBag' }
+  & CatalogItem_XtdBag_Fragment
+  & Root_XtdBag_Fragment
+);
+
+export type CreateBagMutationVariables = {
+  input: RootInput;
+};
+
+
+export type CreateBagMutation = { __typename: 'Mutation', createBag?: Maybe<(
+    { __typename: 'XtdBag' }
+    & RootDetails_XtdBag_Fragment
+  )> };
+
+export type UpdateBagMutationVariables = {
+  input: RootUpdateInput;
+};
+
+
+export type UpdateBagMutation = { __typename: 'Mutation', updateBag?: Maybe<(
+    { __typename: 'XtdBag' }
+    & RootDetails_XtdBag_Fragment
+  )> };
+
+export type DeleteBagMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type DeleteBagMutation = { __typename: 'Mutation', deleteBag?: Maybe<{ __typename: 'XtdBag', id: string }> };
+
+export type BagListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
+
+
+export type BagListQuery = { __typename: 'Query', bags: { __typename: 'XtdBagConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdBag' }
+      & Root_XtdBag_Fragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type BagQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type BagQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
+    { __typename: 'XtdRelDocuments' }
+    & RootDetails_XtdRelDocuments_Fragment
+  ) | { __typename: 'XtdDescription' } | (
+    { __typename: 'XtdRelActsUpon' }
+    & RootDetails_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & RootDetails_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & RootDetails_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & RootDetails_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & RootDetails_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & RootDetails_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & RootDetails_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & RootDetails_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & RootDetails_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & RootDetails_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & RootDetails_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & RootDetails_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & RootDetails_XtdNest_Fragment
+  )> };
+
+export type BagDetailsFragment = (
+  { __typename: 'XtdBag' }
+  & CatalogItem_XtdBag_Fragment
+  & RootDetails_XtdBag_Fragment
+);
+
 export type LoginFormMutationVariables = {
   credentials: LoginInput;
 };
@@ -1619,45 +1729,6 @@ export const CatalogItemFragmentDoc = gql`
   }
 }
     ${TextFragmentDoc}`;
-export const ExternalDocumentFragmentDoc = gql`
-    fragment ExternalDocument on XtdExternalDocument {
-  ...CatalogItem
-  documents {
-    totalElements
-  }
-}
-    ${CatalogItemFragmentDoc}`;
-export const PageInfoFragmentDoc = gql`
-    fragment PageInfo on PageInfo {
-  pageSize
-  pageNumber
-  totalPages
-}
-    `;
-export const ExternalDocumentDetailsFragmentDoc = gql`
-    fragment ExternalDocumentDetails on XtdExternalDocument {
-  ...CatalogItem
-  documents {
-    nodes {
-      ...CatalogItem
-      relatedObjects {
-        nodes {
-          ...CatalogItem
-        }
-        pageInfo {
-          ...PageInfo
-        }
-        totalElements
-      }
-    }
-    pageInfo {
-      ...PageInfo
-    }
-    totalElements
-  }
-}
-    ${CatalogItemFragmentDoc}
-${PageInfoFragmentDoc}`;
 export const RootFragmentDoc = gql`
     fragment Root on XtdRoot {
   ...CatalogItem
@@ -1702,41 +1773,13 @@ export const RootFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${TextFragmentDoc}`;
-export const UnitFragmentDoc = gql`
-    fragment Unit on XtdUnit {
+export const BagFragmentDoc = gql`
+    fragment Bag on XtdBag {
   ...CatalogItem
   ...Root
 }
     ${CatalogItemFragmentDoc}
 ${RootFragmentDoc}`;
-export const ValueFragmentDoc = gql`
-    fragment Value on XtdValue {
-  ...CatalogItem
-  ...Root
-  valueType
-  valueRole
-  nominalValue
-  toleranceType
-  lowerTolerance
-  upperTolerance
-}
-    ${CatalogItemFragmentDoc}
-${RootFragmentDoc}`;
-export const MeasureFragmentDoc = gql`
-    fragment Measure on XtdMeasureWithUnit {
-  ...CatalogItem
-  ...Root
-  unitComponent {
-    ...Unit
-  }
-  valueDomain {
-    ...Value
-  }
-}
-    ${CatalogItemFragmentDoc}
-${RootFragmentDoc}
-${UnitFragmentDoc}
-${ValueFragmentDoc}`;
 export const RootDetailsFragmentDoc = gql`
     fragment RootDetails on XtdRoot {
   ...CatalogItem
@@ -1781,6 +1824,87 @@ export const RootDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${TextFragmentDoc}`;
+export const BagDetailsFragmentDoc = gql`
+    fragment BagDetails on XtdBag {
+  ...CatalogItem
+  ...RootDetails
+}
+    ${CatalogItemFragmentDoc}
+${RootDetailsFragmentDoc}`;
+export const ExternalDocumentFragmentDoc = gql`
+    fragment ExternalDocument on XtdExternalDocument {
+  ...CatalogItem
+  documents {
+    totalElements
+  }
+}
+    ${CatalogItemFragmentDoc}`;
+export const PageInfoFragmentDoc = gql`
+    fragment PageInfo on PageInfo {
+  pageSize
+  pageNumber
+  totalPages
+}
+    `;
+export const ExternalDocumentDetailsFragmentDoc = gql`
+    fragment ExternalDocumentDetails on XtdExternalDocument {
+  ...CatalogItem
+  documents {
+    nodes {
+      ...CatalogItem
+      relatedObjects {
+        nodes {
+          ...CatalogItem
+        }
+        pageInfo {
+          ...PageInfo
+        }
+        totalElements
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${CatalogItemFragmentDoc}
+${PageInfoFragmentDoc}`;
+export const UnitFragmentDoc = gql`
+    fragment Unit on XtdUnit {
+  ...CatalogItem
+  ...Root
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}`;
+export const ValueFragmentDoc = gql`
+    fragment Value on XtdValue {
+  ...CatalogItem
+  ...Root
+  valueType
+  valueRole
+  nominalValue
+  toleranceType
+  lowerTolerance
+  upperTolerance
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}`;
+export const MeasureFragmentDoc = gql`
+    fragment Measure on XtdMeasureWithUnit {
+  ...CatalogItem
+  ...Root
+  unitComponent {
+    ...Unit
+  }
+  valueDomain {
+    ...Value
+  }
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}
+${UnitFragmentDoc}
+${ValueFragmentDoc}`;
 export const UnitDetailsFragmentDoc = gql`
     fragment UnitDetails on XtdUnit {
   ...CatalogItem
@@ -2213,6 +2337,175 @@ export function useSearchInputLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type SearchInputQueryHookResult = ReturnType<typeof useSearchInputQuery>;
 export type SearchInputLazyQueryHookResult = ReturnType<typeof useSearchInputLazyQuery>;
 export type SearchInputQueryResult = ApolloReactCommon.QueryResult<SearchInputQuery, SearchInputQueryVariables>;
+export const CreateBagDocument = gql`
+    mutation CreateBag($input: RootInput!) {
+  createBag(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type CreateBagMutationFn = ApolloReactCommon.MutationFunction<CreateBagMutation, CreateBagMutationVariables>;
+
+/**
+ * __useCreateBagMutation__
+ *
+ * To run a mutation, you first call `useCreateBagMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBagMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBagMutation, { data, loading, error }] = useCreateBagMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateBagMutation, CreateBagMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateBagMutation, CreateBagMutationVariables>(CreateBagDocument, baseOptions);
+      }
+export type CreateBagMutationHookResult = ReturnType<typeof useCreateBagMutation>;
+export type CreateBagMutationResult = ApolloReactCommon.MutationResult<CreateBagMutation>;
+export type CreateBagMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateBagMutation, CreateBagMutationVariables>;
+export const UpdateBagDocument = gql`
+    mutation UpdateBag($input: RootUpdateInput!) {
+  updateBag(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type UpdateBagMutationFn = ApolloReactCommon.MutationFunction<UpdateBagMutation, UpdateBagMutationVariables>;
+
+/**
+ * __useUpdateBagMutation__
+ *
+ * To run a mutation, you first call `useUpdateBagMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBagMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBagMutation, { data, loading, error }] = useUpdateBagMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateBagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateBagMutation, UpdateBagMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateBagMutation, UpdateBagMutationVariables>(UpdateBagDocument, baseOptions);
+      }
+export type UpdateBagMutationHookResult = ReturnType<typeof useUpdateBagMutation>;
+export type UpdateBagMutationResult = ApolloReactCommon.MutationResult<UpdateBagMutation>;
+export type UpdateBagMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateBagMutation, UpdateBagMutationVariables>;
+export const DeleteBagDocument = gql`
+    mutation DeleteBag($id: ID!) {
+  deleteBag(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteBagMutationFn = ApolloReactCommon.MutationFunction<DeleteBagMutation, DeleteBagMutationVariables>;
+
+/**
+ * __useDeleteBagMutation__
+ *
+ * To run a mutation, you first call `useDeleteBagMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBagMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteBagMutation, { data, loading, error }] = useDeleteBagMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteBagMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteBagMutation, DeleteBagMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteBagMutation, DeleteBagMutationVariables>(DeleteBagDocument, baseOptions);
+      }
+export type DeleteBagMutationHookResult = ReturnType<typeof useDeleteBagMutation>;
+export type DeleteBagMutationResult = ApolloReactCommon.MutationResult<DeleteBagMutation>;
+export type DeleteBagMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteBagMutation, DeleteBagMutationVariables>;
+export const BagListDocument = gql`
+    query BagList($input: FilterInput) {
+  bags(input: $input) {
+    nodes {
+      ...Root
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${RootFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useBagListQuery__
+ *
+ * To run a query within a React component, call `useBagListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBagListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBagListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useBagListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<BagListQuery, BagListQueryVariables>) {
+        return ApolloReactHooks.useQuery<BagListQuery, BagListQueryVariables>(BagListDocument, baseOptions);
+      }
+export function useBagListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BagListQuery, BagListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<BagListQuery, BagListQueryVariables>(BagListDocument, baseOptions);
+        }
+export type BagListQueryHookResult = ReturnType<typeof useBagListQuery>;
+export type BagListLazyQueryHookResult = ReturnType<typeof useBagListLazyQuery>;
+export type BagListQueryResult = ApolloReactCommon.QueryResult<BagListQuery, BagListQueryVariables>;
+export const BagDocument = gql`
+    query Bag($id: ID!) {
+  node(id: $id) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+
+/**
+ * __useBagQuery__
+ *
+ * To run a query within a React component, call `useBagQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBagQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBagQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useBagQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<BagQuery, BagQueryVariables>) {
+        return ApolloReactHooks.useQuery<BagQuery, BagQueryVariables>(BagDocument, baseOptions);
+      }
+export function useBagLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BagQuery, BagQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<BagQuery, BagQueryVariables>(BagDocument, baseOptions);
+        }
+export type BagQueryHookResult = ReturnType<typeof useBagQuery>;
+export type BagLazyQueryHookResult = ReturnType<typeof useBagLazyQuery>;
+export type BagQueryResult = ApolloReactCommon.QueryResult<BagQuery, BagQueryVariables>;
 export const LoginFormDocument = gql`
     mutation LoginForm($credentials: LoginInput!) {
   login(input: $credentials) {

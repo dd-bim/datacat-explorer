@@ -140,7 +140,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                 <ListSubheader disableSticky>Sammlungen</ListSubheader>
                 <AppDrawerItem
                     addRoute='/collections/bags/new'
-                    disabled
                     icon={<BagIcon/>}
                     onClick={onClose}
                     route="/collections/bags"
