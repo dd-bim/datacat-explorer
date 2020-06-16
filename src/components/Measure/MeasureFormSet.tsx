@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import TextInputGridItems from "./TextInputGridItems";
-import {CatalogItemFormSetProps} from "./CatalogItemFormSet";
+import TextInputGridItems from "../form/TextInputGridItems";
+import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
-import FormCaption from "./FormCaption";
-import TextFieldOptions from "./TextFieldOptions";
+import FormCaption from "../form/FormCaption";
+import TextFieldOptions from "../form/TextFieldOptions";
 import {CatalogItemFragment, MeasureFragment} from "../../generated/types";
 import ValueSearchListView from "../Value/ValueSearchListView";
 import SelectionList, {SelectionListItem, SelectionListItemState} from "../Search/SelectionList";

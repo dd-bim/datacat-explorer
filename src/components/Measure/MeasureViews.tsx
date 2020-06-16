@@ -20,7 +20,7 @@ import {
     useUpdateMeasureMutation
 } from "../../generated/types";
 import {sanitizeMeasureInput} from "../../utils";
-import MeasureFormSet from "../form/MeasureFormSet";
+import MeasureFormSet from "./MeasureFormSet";
 
 function ListView() {
     const { createPath } = useContext(ViewContext);

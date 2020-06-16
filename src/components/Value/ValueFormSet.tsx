@@ -1,14 +1,14 @@
 import React from "react";
-import TextInputGridItems from "./TextInputGridItems";
-import {CatalogItemFormSetProps} from "./CatalogItemFormSet";
+import TextInputGridItems from "../form/TextInputGridItems";
+import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {Controller, useFormContext} from "react-hook-form";
-import FormCaption from "./FormCaption";
-import TextFieldOptions from "./TextFieldOptions";
-import ToleranceTypeSelect from "./ToleranceTypeSelect";
-import ValueTypeSelect from "./ValueTypeSelect";
-import ValueRoleSelect from "./ValueRoleSelect";
+import FormCaption from "../form/FormCaption";
+import TextFieldOptions from "../form/TextFieldOptions";
+import ToleranceTypeSelect from "../form/ToleranceTypeSelect";
+import ValueTypeSelect from "../form/ValueTypeSelect";
+import ValueRoleSelect from "../form/ValueRoleSelect";
 import {XtdValueTypeEnum} from "../../generated/types";
 
 export type ValueFormSetProps = CatalogItemFormSetProps;

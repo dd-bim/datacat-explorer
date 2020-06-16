@@ -20,7 +20,7 @@ import CatalogItemForm from "../form/CatalogItemForm";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
-import ValueFormSet from "../form/ValueFormSet";
+import ValueFormSet from "./ValueFormSet";
 
 function ListView() {
     const { createPath } = useContext(ViewContext);
