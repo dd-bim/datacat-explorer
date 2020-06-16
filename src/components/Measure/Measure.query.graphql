@@ -1,0 +1,17 @@
+query MeasureList($input: FilterInput) {
+    measures(input: $input) {
+        nodes {
+            ...Measure
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Measure($id: ID!) {
+    node(id: $id) {
+        ...MeasureDetails
+    }
+}

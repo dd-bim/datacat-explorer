@@ -2,6 +2,8 @@ import * as React from "react";
 import {
     EntityInput,
     EntityUpdateInput,
+    MeasureInput,
+    MeasureUpdateInput,
     RootInput,
     RootUpdateInput,
     TextInput,
@@ -18,6 +20,8 @@ export const route = (typename: string): string => {
             return '/objects/activities';
         case 'XtdActor':
             return '/objects/actors';
+        case 'XtdMeasureWithUnit':
+            return '/objects/measures';
         case 'XtdSubject':
             return '/objects/subjects';
         case 'XtdUnit':
@@ -109,3 +113,10 @@ export const sanitizeValueInput = (input: ValueInput | ValueUpdateInput) => {
         delete input.nominalValue;
     }
 };
+
+export const sanitizeMeasureInput = (input: MeasureInput | MeasureUpdateInput) => {
+    sanitizeRootInput(input);
+    if (!input.unitComponent) {
+        delete input.unitComponent;
+    }
+}

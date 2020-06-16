@@ -121,11 +121,10 @@ export default function AppDrawer(props: AppDrawerProps) {
                     title="Merkmale"
                 />
                 <AppDrawerItem
-                    addRoute='/objects/properties/new'
-                    disabled
+                    addRoute='/objects/measures/new'
                     icon={<MeasureWithUnitIcon/>}
                     onClick={onClose}
-                    route="/objects/measuresWithUnit"
+                    route="/objects/measures"
                     subtitle="Macht Merkmale messbar, indem Werte mit Einheiten in Bezug gebracht werden"
                     title="Bemaßung"
                 />
@@ -141,6 +140,7 @@ export default function AppDrawer(props: AppDrawerProps) {
                 <ListSubheader disableSticky>Sammlungen</ListSubheader>
                 <AppDrawerItem
                     addRoute='/collections/bags/new'
+                    disabled
                     icon={<BagIcon/>}
                     onClick={onClose}
                     route="/collections/bags"

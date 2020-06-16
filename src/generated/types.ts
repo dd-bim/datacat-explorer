@@ -78,6 +78,26 @@ export type LoginInput = {
   password: Scalars['String'];
 };
 
+export type MeasureInput = {
+  id?: Maybe<Scalars['ID']>;
+  versionId: Scalars['String'];
+  versionDate: Scalars['String'];
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
+  unitComponent?: Maybe<Scalars['ID']>;
+  valueDomain: Array<Scalars['ID']>;
+};
+
+export type MeasureUpdateInput = {
+  id: Scalars['ID'];
+  versionId: Scalars['String'];
+  versionDate: Scalars['String'];
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
+  unitComponent?: Maybe<Scalars['ID']>;
+  valueDomain: Array<Scalars['ID']>;
+};
+
 
 
 export type PagingInput = {
@@ -365,17 +385,17 @@ export type ActivityQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'X
     { __typename: 'XtdMeasureWithUnit' }
     & RootDetails_XtdMeasureWithUnit_Fragment
   ) | (
-    { __typename: 'XtdProperty' }
-    & RootDetails_XtdProperty_Fragment
-  ) | (
-    { __typename: 'XtdSubject' }
-    & RootDetails_XtdSubject_Fragment
-  ) | (
     { __typename: 'XtdUnit' }
     & RootDetails_XtdUnit_Fragment
   ) | (
     { __typename: 'XtdValue' }
     & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
   ) | (
     { __typename: 'XtdBag' }
     & RootDetails_XtdBag_Fragment
@@ -463,17 +483,17 @@ export type ActorQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdN
     { __typename: 'XtdMeasureWithUnit' }
     & RootDetails_XtdMeasureWithUnit_Fragment
   ) | (
-    { __typename: 'XtdProperty' }
-    & RootDetails_XtdProperty_Fragment
-  ) | (
-    { __typename: 'XtdSubject' }
-    & RootDetails_XtdSubject_Fragment
-  ) | (
     { __typename: 'XtdUnit' }
     & RootDetails_XtdUnit_Fragment
   ) | (
     { __typename: 'XtdValue' }
     & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
   ) | (
     { __typename: 'XtdBag' }
     & RootDetails_XtdBag_Fragment
@@ -535,14 +555,6 @@ export type SearchInputQuery = { __typename: 'Query', search: { __typename: 'Sea
       & CatalogItem_XtdMeasureWithUnit_Fragment
       & Root_XtdMeasureWithUnit_Fragment
     ) | (
-      { __typename: 'XtdProperty' }
-      & CatalogItem_XtdProperty_Fragment
-      & Root_XtdProperty_Fragment
-    ) | (
-      { __typename: 'XtdSubject' }
-      & CatalogItem_XtdSubject_Fragment
-      & Root_XtdSubject_Fragment
-    ) | (
       { __typename: 'XtdUnit' }
       & CatalogItem_XtdUnit_Fragment
       & Root_XtdUnit_Fragment
@@ -550,6 +562,14 @@ export type SearchInputQuery = { __typename: 'Query', search: { __typename: 'Sea
       { __typename: 'XtdValue' }
       & CatalogItem_XtdValue_Fragment
       & Root_XtdValue_Fragment
+    ) | (
+      { __typename: 'XtdProperty' }
+      & CatalogItem_XtdProperty_Fragment
+      & Root_XtdProperty_Fragment
+    ) | (
+      { __typename: 'XtdSubject' }
+      & CatalogItem_XtdSubject_Fragment
+      & Root_XtdSubject_Fragment
     ) | (
       { __typename: 'XtdBag' }
       & CatalogItem_XtdBag_Fragment
@@ -588,7 +608,7 @@ export type CatalogItemSelectQueryVariables = {
 };
 
 
-export type CatalogItemSelectQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<{ __typename: 'XtdExternalDocument', id: string, label: string } | { __typename: 'XtdRelDocuments', id: string, label: string } | { __typename: 'XtdRelActsUpon', id: string, label: string } | { __typename: 'XtdRelAssociates', id: string, label: string } | { __typename: 'XtdRelCollects', id: string, label: string } | { __typename: 'XtdRelComposes', id: string, label: string } | { __typename: 'XtdRelGroups', id: string, label: string } | { __typename: 'XtdRelSpecializes', id: string, label: string } | { __typename: 'XtdActor', id: string, label: string } | { __typename: 'XtdActivity', id: string, label: string } | { __typename: 'XtdClassification', id: string, label: string } | { __typename: 'XtdMeasureWithUnit', id: string, label: string } | { __typename: 'XtdProperty', id: string, label: string } | { __typename: 'XtdSubject', id: string, label: string } | { __typename: 'XtdUnit', id: string, label: string } | { __typename: 'XtdValue', id: string, label: string } | { __typename: 'XtdBag', id: string, label: string } | { __typename: 'XtdNest', id: string, label: string }>, pageInfo: (
+export type CatalogItemSelectQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<{ __typename: 'XtdExternalDocument', id: string, label: string } | { __typename: 'XtdRelDocuments', id: string, label: string } | { __typename: 'XtdRelActsUpon', id: string, label: string } | { __typename: 'XtdRelAssociates', id: string, label: string } | { __typename: 'XtdRelCollects', id: string, label: string } | { __typename: 'XtdRelComposes', id: string, label: string } | { __typename: 'XtdRelGroups', id: string, label: string } | { __typename: 'XtdRelSpecializes', id: string, label: string } | { __typename: 'XtdActor', id: string, label: string } | { __typename: 'XtdActivity', id: string, label: string } | { __typename: 'XtdClassification', id: string, label: string } | { __typename: 'XtdMeasureWithUnit', id: string, label: string } | { __typename: 'XtdUnit', id: string, label: string } | { __typename: 'XtdValue', id: string, label: string } | { __typename: 'XtdProperty', id: string, label: string } | { __typename: 'XtdSubject', id: string, label: string } | { __typename: 'XtdBag', id: string, label: string } | { __typename: 'XtdNest', id: string, label: string }>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
     ) } };
@@ -641,7 +661,57 @@ export type ExternalDocumentQueryVariables = {
 export type ExternalDocumentQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | (
     { __typename: 'XtdExternalDocument' }
     & ExternalDocumentDetailsFragment
-  ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+  ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+
+export type CreateMeasureMutationVariables = {
+  input: MeasureInput;
+};
+
+
+export type CreateMeasureMutation = { __typename: 'Mutation', createMeasure?: Maybe<(
+    { __typename: 'XtdMeasureWithUnit' }
+    & MeasureDetailsFragment
+  )> };
+
+export type UpdateMeasureMutationVariables = {
+  input: MeasureUpdateInput;
+};
+
+
+export type UpdateMeasureMutation = { __typename: 'Mutation', updateMeasure?: Maybe<(
+    { __typename: 'XtdMeasureWithUnit' }
+    & MeasureDetailsFragment
+  )> };
+
+export type DeleteMeasureMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type DeleteMeasureMutation = { __typename: 'Mutation', deleteMeasure?: Maybe<{ __typename: 'XtdMeasureWithUnit', id: string }> };
+
+export type MeasureListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
+
+
+export type MeasureListQuery = { __typename: 'Query', measures: { __typename: 'XtdMeasureWithUnitConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdMeasureWithUnit' }
+      & MeasureFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type MeasureQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type MeasureQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & MeasureDetailsFragment
+  ) | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
 
 export type CreatePropertyMutationVariables = {
   input: RootInput;
@@ -722,17 +792,17 @@ export type PropertyQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'X
     { __typename: 'XtdMeasureWithUnit' }
     & RootDetails_XtdMeasureWithUnit_Fragment
   ) | (
-    { __typename: 'XtdProperty' }
-    & RootDetails_XtdProperty_Fragment
-  ) | (
-    { __typename: 'XtdSubject' }
-    & RootDetails_XtdSubject_Fragment
-  ) | (
     { __typename: 'XtdUnit' }
     & RootDetails_XtdUnit_Fragment
   ) | (
     { __typename: 'XtdValue' }
     & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
   ) | (
     { __typename: 'XtdBag' }
     & RootDetails_XtdBag_Fragment
@@ -783,17 +853,17 @@ export type SearchViewQuery = { __typename: 'Query', search: { __typename: 'Sear
       { __typename: 'XtdMeasureWithUnit' }
       & CatalogItem_XtdMeasureWithUnit_Fragment
     ) | (
-      { __typename: 'XtdProperty' }
-      & CatalogItem_XtdProperty_Fragment
-    ) | (
-      { __typename: 'XtdSubject' }
-      & CatalogItem_XtdSubject_Fragment
-    ) | (
       { __typename: 'XtdUnit' }
       & CatalogItem_XtdUnit_Fragment
     ) | (
       { __typename: 'XtdValue' }
       & CatalogItem_XtdValue_Fragment
+    ) | (
+      { __typename: 'XtdProperty' }
+      & CatalogItem_XtdProperty_Fragment
+    ) | (
+      { __typename: 'XtdSubject' }
+      & CatalogItem_XtdSubject_Fragment
     ) | (
       { __typename: 'XtdBag' }
       & CatalogItem_XtdBag_Fragment
@@ -884,17 +954,17 @@ export type SubjectQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'Xt
     { __typename: 'XtdMeasureWithUnit' }
     & RootDetails_XtdMeasureWithUnit_Fragment
   ) | (
-    { __typename: 'XtdProperty' }
-    & RootDetails_XtdProperty_Fragment
-  ) | (
-    { __typename: 'XtdSubject' }
-    & RootDetails_XtdSubject_Fragment
-  ) | (
     { __typename: 'XtdUnit' }
     & RootDetails_XtdUnit_Fragment
   ) | (
     { __typename: 'XtdValue' }
     & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
   ) | (
     { __typename: 'XtdBag' }
     & RootDetails_XtdBag_Fragment
@@ -982,17 +1052,17 @@ export type UnitQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdNa
     { __typename: 'XtdMeasureWithUnit' }
     & RootDetails_XtdMeasureWithUnit_Fragment
   ) | (
-    { __typename: 'XtdProperty' }
-    & RootDetails_XtdProperty_Fragment
-  ) | (
-    { __typename: 'XtdSubject' }
-    & RootDetails_XtdSubject_Fragment
-  ) | (
     { __typename: 'XtdUnit' }
     & RootDetails_XtdUnit_Fragment
   ) | (
     { __typename: 'XtdValue' }
     & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
   ) | (
     { __typename: 'XtdBag' }
     & RootDetails_XtdBag_Fragment
@@ -1008,7 +1078,7 @@ export type CreateValueMutationVariables = {
 
 export type CreateValueMutation = { __typename: 'Mutation', createValue?: Maybe<(
     { __typename: 'XtdValue' }
-    & RootDetails_XtdValue_Fragment
+    & ValueDetailsFragment
   )> };
 
 export type UpdateValueMutationVariables = {
@@ -1018,7 +1088,7 @@ export type UpdateValueMutationVariables = {
 
 export type UpdateValueMutation = { __typename: 'Mutation', updateValue?: Maybe<(
     { __typename: 'XtdValue' }
-    & RootDetails_XtdValue_Fragment
+    & ValueDetailsFragment
   )> };
 
 export type DeleteValueMutationVariables = {
@@ -1046,10 +1116,10 @@ export type ValueQueryVariables = {
 };
 
 
-export type ValueQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdUnit' } | (
+export type ValueQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | (
     { __typename: 'XtdValue' }
     & ValueDetailsFragment
-  ) | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+  ) | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
 
 type CatalogItem_XtdExternalDocument_Fragment = { __typename: 'XtdExternalDocument', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
@@ -1111,22 +1181,22 @@ type CatalogItem_XtdMeasureWithUnit_Fragment = { __typename: 'XtdMeasureWithUnit
     & Text_XtdName_Fragment
   )> };
 
-type CatalogItem_XtdProperty_Fragment = { __typename: 'XtdProperty', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )> };
-
-type CatalogItem_XtdSubject_Fragment = { __typename: 'XtdSubject', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'XtdName' }
-    & Text_XtdName_Fragment
-  )> };
-
 type CatalogItem_XtdUnit_Fragment = { __typename: 'XtdUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
   )> };
 
 type CatalogItem_XtdValue_Fragment = { __typename: 'XtdValue', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+    { __typename: 'XtdName' }
+    & Text_XtdName_Fragment
+  )> };
+
+type CatalogItem_XtdProperty_Fragment = { __typename: 'XtdProperty', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+    { __typename: 'XtdName' }
+    & Text_XtdName_Fragment
+  )> };
+
+type CatalogItem_XtdSubject_Fragment = { __typename: 'XtdSubject', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
     & Text_XtdName_Fragment
   )> };
@@ -1141,7 +1211,7 @@ type CatalogItem_XtdNest_Fragment = { __typename: 'XtdNest', id: string, label: 
     & Text_XtdName_Fragment
   )> };
 
-export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment;
+export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment;
 
 export type ExternalDocumentFragment = (
   { __typename: 'XtdExternalDocument', documents: { __typename: 'XtdRelDocumentsConnection', totalElements: number } }
@@ -1163,17 +1233,17 @@ export type ExternalDocumentDetailsFragment = (
           { __typename: 'XtdMeasureWithUnit' }
           & CatalogItem_XtdMeasureWithUnit_Fragment
         ) | (
-          { __typename: 'XtdProperty' }
-          & CatalogItem_XtdProperty_Fragment
-        ) | (
-          { __typename: 'XtdSubject' }
-          & CatalogItem_XtdSubject_Fragment
-        ) | (
           { __typename: 'XtdUnit' }
           & CatalogItem_XtdUnit_Fragment
         ) | (
           { __typename: 'XtdValue' }
           & CatalogItem_XtdValue_Fragment
+        ) | (
+          { __typename: 'XtdProperty' }
+          & CatalogItem_XtdProperty_Fragment
+        ) | (
+          { __typename: 'XtdSubject' }
+          & CatalogItem_XtdSubject_Fragment
         )>, pageInfo: (
           { __typename: 'PageInfo' }
           & PageInfoFragment
@@ -1184,6 +1254,30 @@ export type ExternalDocumentDetailsFragment = (
       & PageInfoFragment
     ) } }
   & CatalogItem_XtdExternalDocument_Fragment
+);
+
+export type MeasureFragment = (
+  { __typename: 'XtdMeasureWithUnit', unitComponent?: Maybe<(
+    { __typename: 'XtdUnit' }
+    & UnitFragment
+  )>, valueDomain: Array<(
+    { __typename: 'XtdValue' }
+    & ValueFragment
+  )> }
+  & CatalogItem_XtdMeasureWithUnit_Fragment
+  & Root_XtdMeasureWithUnit_Fragment
+);
+
+export type MeasureDetailsFragment = (
+  { __typename: 'XtdMeasureWithUnit', unitComponent?: Maybe<(
+    { __typename: 'XtdUnit' }
+    & UnitDetailsFragment
+  )>, valueDomain: Array<(
+    { __typename: 'XtdValue' }
+    & ValueDetailsFragment
+  )> }
+  & CatalogItem_XtdMeasureWithUnit_Fragment
+  & RootDetails_XtdMeasureWithUnit_Fragment
 );
 
 export type PageInfoFragment = { __typename: 'PageInfo', pageSize: number, pageNumber: number, totalPages: number };
@@ -1276,22 +1370,6 @@ type Root_XtdMeasureWithUnit_Fragment = (
   & CatalogItem_XtdMeasureWithUnit_Fragment
 );
 
-type Root_XtdProperty_Fragment = (
-  { __typename: 'XtdProperty', versionId: string, versionDate: string, descriptions: Array<(
-    { __typename: 'XtdDescription' }
-    & Text_XtdDescription_Fragment
-  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
-  & CatalogItem_XtdProperty_Fragment
-);
-
-type Root_XtdSubject_Fragment = (
-  { __typename: 'XtdSubject', versionId: string, versionDate: string, descriptions: Array<(
-    { __typename: 'XtdDescription' }
-    & Text_XtdDescription_Fragment
-  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
-  & CatalogItem_XtdSubject_Fragment
-);
-
 type Root_XtdUnit_Fragment = (
   { __typename: 'XtdUnit', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
@@ -1306,6 +1384,22 @@ type Root_XtdValue_Fragment = (
     & Text_XtdDescription_Fragment
   )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
   & CatalogItem_XtdValue_Fragment
+);
+
+type Root_XtdProperty_Fragment = (
+  { __typename: 'XtdProperty', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
+  & CatalogItem_XtdProperty_Fragment
+);
+
+type Root_XtdSubject_Fragment = (
+  { __typename: 'XtdSubject', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
+  & CatalogItem_XtdSubject_Fragment
 );
 
 type Root_XtdBag_Fragment = (
@@ -1324,7 +1418,7 @@ type Root_XtdNest_Fragment = (
   & CatalogItem_XtdNest_Fragment
 );
 
-export type RootFragment = Root_XtdRelDocuments_Fragment | Root_XtdRelActsUpon_Fragment | Root_XtdRelAssociates_Fragment | Root_XtdRelCollects_Fragment | Root_XtdRelComposes_Fragment | Root_XtdRelGroups_Fragment | Root_XtdRelSpecializes_Fragment | Root_XtdActor_Fragment | Root_XtdActivity_Fragment | Root_XtdClassification_Fragment | Root_XtdMeasureWithUnit_Fragment | Root_XtdProperty_Fragment | Root_XtdSubject_Fragment | Root_XtdUnit_Fragment | Root_XtdValue_Fragment | Root_XtdBag_Fragment | Root_XtdNest_Fragment;
+export type RootFragment = Root_XtdRelDocuments_Fragment | Root_XtdRelActsUpon_Fragment | Root_XtdRelAssociates_Fragment | Root_XtdRelCollects_Fragment | Root_XtdRelComposes_Fragment | Root_XtdRelGroups_Fragment | Root_XtdRelSpecializes_Fragment | Root_XtdActor_Fragment | Root_XtdActivity_Fragment | Root_XtdClassification_Fragment | Root_XtdMeasureWithUnit_Fragment | Root_XtdUnit_Fragment | Root_XtdValue_Fragment | Root_XtdProperty_Fragment | Root_XtdSubject_Fragment | Root_XtdBag_Fragment | Root_XtdNest_Fragment;
 
 type RootDetails_XtdRelDocuments_Fragment = (
   { __typename: 'XtdRelDocuments', versionId: string, versionDate: string, descriptions: Array<(
@@ -1414,22 +1508,6 @@ type RootDetails_XtdMeasureWithUnit_Fragment = (
   & CatalogItem_XtdMeasureWithUnit_Fragment
 );
 
-type RootDetails_XtdProperty_Fragment = (
-  { __typename: 'XtdProperty', versionId: string, versionDate: string, descriptions: Array<(
-    { __typename: 'XtdDescription' }
-    & Text_XtdDescription_Fragment
-  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
-  & CatalogItem_XtdProperty_Fragment
-);
-
-type RootDetails_XtdSubject_Fragment = (
-  { __typename: 'XtdSubject', versionId: string, versionDate: string, descriptions: Array<(
-    { __typename: 'XtdDescription' }
-    & Text_XtdDescription_Fragment
-  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
-  & CatalogItem_XtdSubject_Fragment
-);
-
 type RootDetails_XtdUnit_Fragment = (
   { __typename: 'XtdUnit', versionId: string, versionDate: string, descriptions: Array<(
     { __typename: 'XtdDescription' }
@@ -1444,6 +1522,22 @@ type RootDetails_XtdValue_Fragment = (
     & Text_XtdDescription_Fragment
   )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
   & CatalogItem_XtdValue_Fragment
+);
+
+type RootDetails_XtdProperty_Fragment = (
+  { __typename: 'XtdProperty', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
+  & CatalogItem_XtdProperty_Fragment
+);
+
+type RootDetails_XtdSubject_Fragment = (
+  { __typename: 'XtdSubject', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
+  & CatalogItem_XtdSubject_Fragment
 );
 
 type RootDetails_XtdBag_Fragment = (
@@ -1462,13 +1556,25 @@ type RootDetails_XtdNest_Fragment = (
   & CatalogItem_XtdNest_Fragment
 );
 
-export type RootDetailsFragment = RootDetails_XtdRelDocuments_Fragment | RootDetails_XtdRelActsUpon_Fragment | RootDetails_XtdRelAssociates_Fragment | RootDetails_XtdRelCollects_Fragment | RootDetails_XtdRelComposes_Fragment | RootDetails_XtdRelGroups_Fragment | RootDetails_XtdRelSpecializes_Fragment | RootDetails_XtdActor_Fragment | RootDetails_XtdActivity_Fragment | RootDetails_XtdClassification_Fragment | RootDetails_XtdMeasureWithUnit_Fragment | RootDetails_XtdProperty_Fragment | RootDetails_XtdSubject_Fragment | RootDetails_XtdUnit_Fragment | RootDetails_XtdValue_Fragment | RootDetails_XtdBag_Fragment | RootDetails_XtdNest_Fragment;
+export type RootDetailsFragment = RootDetails_XtdRelDocuments_Fragment | RootDetails_XtdRelActsUpon_Fragment | RootDetails_XtdRelAssociates_Fragment | RootDetails_XtdRelCollects_Fragment | RootDetails_XtdRelComposes_Fragment | RootDetails_XtdRelGroups_Fragment | RootDetails_XtdRelSpecializes_Fragment | RootDetails_XtdActor_Fragment | RootDetails_XtdActivity_Fragment | RootDetails_XtdClassification_Fragment | RootDetails_XtdMeasureWithUnit_Fragment | RootDetails_XtdUnit_Fragment | RootDetails_XtdValue_Fragment | RootDetails_XtdProperty_Fragment | RootDetails_XtdSubject_Fragment | RootDetails_XtdBag_Fragment | RootDetails_XtdNest_Fragment;
 
 type Text_XtdName_Fragment = { __typename: 'XtdName', id: string, value: string, language: { __typename: 'XtdLanguage', id: string, languageNameInEnglish: string, languageNameInSelf: string } };
 
 type Text_XtdDescription_Fragment = { __typename: 'XtdDescription', id: string, value: string, language: { __typename: 'XtdLanguage', id: string, languageNameInEnglish: string, languageNameInSelf: string } };
 
 export type TextFragment = Text_XtdName_Fragment | Text_XtdDescription_Fragment;
+
+export type UnitFragment = (
+  { __typename: 'XtdUnit' }
+  & CatalogItem_XtdUnit_Fragment
+  & Root_XtdUnit_Fragment
+);
+
+export type UnitDetailsFragment = (
+  { __typename: 'XtdUnit' }
+  & CatalogItem_XtdUnit_Fragment
+  & RootDetails_XtdUnit_Fragment
+);
 
 export type UserProfileFragment = { __typename: 'UserProfile', username: string, firstName: string, lastName: string, email: string, organization: string };
 
@@ -1552,23 +1658,6 @@ export const ExternalDocumentDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${PageInfoFragmentDoc}`;
-export const UserProfileFragmentDoc = gql`
-    fragment UserProfile on UserProfile {
-  username
-  firstName
-  lastName
-  email
-  organization
-}
-    `;
-export const UserSessionFragmentDoc = gql`
-    fragment UserSession on UserSession {
-  token
-  user {
-    ...UserProfile
-  }
-}
-    ${UserProfileFragmentDoc}`;
 export const RootFragmentDoc = gql`
     fragment Root on XtdRoot {
   ...CatalogItem
@@ -1613,6 +1702,13 @@ export const RootFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${TextFragmentDoc}`;
+export const UnitFragmentDoc = gql`
+    fragment Unit on XtdUnit {
+  ...CatalogItem
+  ...Root
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}`;
 export const ValueFragmentDoc = gql`
     fragment Value on XtdValue {
   ...CatalogItem
@@ -1626,6 +1722,21 @@ export const ValueFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${RootFragmentDoc}`;
+export const MeasureFragmentDoc = gql`
+    fragment Measure on XtdMeasureWithUnit {
+  ...CatalogItem
+  ...Root
+  unitComponent {
+    ...Unit
+  }
+  valueDomain {
+    ...Value
+  }
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}
+${UnitFragmentDoc}
+${ValueFragmentDoc}`;
 export const RootDetailsFragmentDoc = gql`
     fragment RootDetails on XtdRoot {
   ...CatalogItem
@@ -1670,6 +1781,13 @@ export const RootDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${TextFragmentDoc}`;
+export const UnitDetailsFragmentDoc = gql`
+    fragment UnitDetails on XtdUnit {
+  ...CatalogItem
+  ...RootDetails
+}
+    ${CatalogItemFragmentDoc}
+${RootDetailsFragmentDoc}`;
 export const ValueDetailsFragmentDoc = gql`
     fragment ValueDetails on XtdValue {
   ...CatalogItem
@@ -1683,6 +1801,38 @@ export const ValueDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${RootDetailsFragmentDoc}`;
+export const MeasureDetailsFragmentDoc = gql`
+    fragment MeasureDetails on XtdMeasureWithUnit {
+  ...CatalogItem
+  ...RootDetails
+  unitComponent {
+    ...UnitDetails
+  }
+  valueDomain {
+    ...ValueDetails
+  }
+}
+    ${CatalogItemFragmentDoc}
+${RootDetailsFragmentDoc}
+${UnitDetailsFragmentDoc}
+${ValueDetailsFragmentDoc}`;
+export const UserProfileFragmentDoc = gql`
+    fragment UserProfile on UserProfile {
+  username
+  firstName
+  lastName
+  email
+  organization
+}
+    `;
+export const UserSessionFragmentDoc = gql`
+    fragment UserSession on UserSession {
+  token
+  user {
+    ...UserProfile
+  }
+}
+    ${UserProfileFragmentDoc}`;
 export const CreateActivityDocument = gql`
     mutation CreateActivity($input: RootInput!) {
   createActivity(input: $input) {
@@ -2339,6 +2489,175 @@ export function useExternalDocumentLazyQuery(baseOptions?: ApolloReactHooks.Lazy
 export type ExternalDocumentQueryHookResult = ReturnType<typeof useExternalDocumentQuery>;
 export type ExternalDocumentLazyQueryHookResult = ReturnType<typeof useExternalDocumentLazyQuery>;
 export type ExternalDocumentQueryResult = ApolloReactCommon.QueryResult<ExternalDocumentQuery, ExternalDocumentQueryVariables>;
+export const CreateMeasureDocument = gql`
+    mutation CreateMeasure($input: MeasureInput!) {
+  createMeasure(input: $input) {
+    ...MeasureDetails
+  }
+}
+    ${MeasureDetailsFragmentDoc}`;
+export type CreateMeasureMutationFn = ApolloReactCommon.MutationFunction<CreateMeasureMutation, CreateMeasureMutationVariables>;
+
+/**
+ * __useCreateMeasureMutation__
+ *
+ * To run a mutation, you first call `useCreateMeasureMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMeasureMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMeasureMutation, { data, loading, error }] = useCreateMeasureMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateMeasureMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateMeasureMutation, CreateMeasureMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateMeasureMutation, CreateMeasureMutationVariables>(CreateMeasureDocument, baseOptions);
+      }
+export type CreateMeasureMutationHookResult = ReturnType<typeof useCreateMeasureMutation>;
+export type CreateMeasureMutationResult = ApolloReactCommon.MutationResult<CreateMeasureMutation>;
+export type CreateMeasureMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateMeasureMutation, CreateMeasureMutationVariables>;
+export const UpdateMeasureDocument = gql`
+    mutation UpdateMeasure($input: MeasureUpdateInput!) {
+  updateMeasure(input: $input) {
+    ...MeasureDetails
+  }
+}
+    ${MeasureDetailsFragmentDoc}`;
+export type UpdateMeasureMutationFn = ApolloReactCommon.MutationFunction<UpdateMeasureMutation, UpdateMeasureMutationVariables>;
+
+/**
+ * __useUpdateMeasureMutation__
+ *
+ * To run a mutation, you first call `useUpdateMeasureMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMeasureMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMeasureMutation, { data, loading, error }] = useUpdateMeasureMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateMeasureMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateMeasureMutation, UpdateMeasureMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateMeasureMutation, UpdateMeasureMutationVariables>(UpdateMeasureDocument, baseOptions);
+      }
+export type UpdateMeasureMutationHookResult = ReturnType<typeof useUpdateMeasureMutation>;
+export type UpdateMeasureMutationResult = ApolloReactCommon.MutationResult<UpdateMeasureMutation>;
+export type UpdateMeasureMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateMeasureMutation, UpdateMeasureMutationVariables>;
+export const DeleteMeasureDocument = gql`
+    mutation DeleteMeasure($id: ID!) {
+  deleteMeasure(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteMeasureMutationFn = ApolloReactCommon.MutationFunction<DeleteMeasureMutation, DeleteMeasureMutationVariables>;
+
+/**
+ * __useDeleteMeasureMutation__
+ *
+ * To run a mutation, you first call `useDeleteMeasureMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMeasureMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMeasureMutation, { data, loading, error }] = useDeleteMeasureMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteMeasureMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteMeasureMutation, DeleteMeasureMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteMeasureMutation, DeleteMeasureMutationVariables>(DeleteMeasureDocument, baseOptions);
+      }
+export type DeleteMeasureMutationHookResult = ReturnType<typeof useDeleteMeasureMutation>;
+export type DeleteMeasureMutationResult = ApolloReactCommon.MutationResult<DeleteMeasureMutation>;
+export type DeleteMeasureMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteMeasureMutation, DeleteMeasureMutationVariables>;
+export const MeasureListDocument = gql`
+    query MeasureList($input: FilterInput) {
+  measures(input: $input) {
+    nodes {
+      ...Measure
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${MeasureFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useMeasureListQuery__
+ *
+ * To run a query within a React component, call `useMeasureListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeasureListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeasureListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useMeasureListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MeasureListQuery, MeasureListQueryVariables>) {
+        return ApolloReactHooks.useQuery<MeasureListQuery, MeasureListQueryVariables>(MeasureListDocument, baseOptions);
+      }
+export function useMeasureListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MeasureListQuery, MeasureListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<MeasureListQuery, MeasureListQueryVariables>(MeasureListDocument, baseOptions);
+        }
+export type MeasureListQueryHookResult = ReturnType<typeof useMeasureListQuery>;
+export type MeasureListLazyQueryHookResult = ReturnType<typeof useMeasureListLazyQuery>;
+export type MeasureListQueryResult = ApolloReactCommon.QueryResult<MeasureListQuery, MeasureListQueryVariables>;
+export const MeasureDocument = gql`
+    query Measure($id: ID!) {
+  node(id: $id) {
+    ...MeasureDetails
+  }
+}
+    ${MeasureDetailsFragmentDoc}`;
+
+/**
+ * __useMeasureQuery__
+ *
+ * To run a query within a React component, call `useMeasureQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeasureQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeasureQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useMeasureQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<MeasureQuery, MeasureQueryVariables>) {
+        return ApolloReactHooks.useQuery<MeasureQuery, MeasureQueryVariables>(MeasureDocument, baseOptions);
+      }
+export function useMeasureLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MeasureQuery, MeasureQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<MeasureQuery, MeasureQueryVariables>(MeasureDocument, baseOptions);
+        }
+export type MeasureQueryHookResult = ReturnType<typeof useMeasureQuery>;
+export type MeasureLazyQueryHookResult = ReturnType<typeof useMeasureLazyQuery>;
+export type MeasureQueryResult = ApolloReactCommon.QueryResult<MeasureQuery, MeasureQueryVariables>;
 export const CreatePropertyDocument = gql`
     mutation CreateProperty($input: RootInput!) {
   createProperty(input: $input) {
@@ -2889,10 +3208,10 @@ export type UnitQueryResult = ApolloReactCommon.QueryResult<UnitQuery, UnitQuery
 export const CreateValueDocument = gql`
     mutation CreateValue($input: ValueInput!) {
   createValue(input: $input) {
-    ...RootDetails
+    ...ValueDetails
   }
 }
-    ${RootDetailsFragmentDoc}`;
+    ${ValueDetailsFragmentDoc}`;
 export type CreateValueMutationFn = ApolloReactCommon.MutationFunction<CreateValueMutation, CreateValueMutationVariables>;
 
 /**
@@ -2921,10 +3240,10 @@ export type CreateValueMutationOptions = ApolloReactCommon.BaseMutationOptions<C
 export const UpdateValueDocument = gql`
     mutation UpdateValue($input: ValueUpdateInput!) {
   updateValue(input: $input) {
-    ...RootDetails
+    ...ValueDetails
   }
 }
-    ${RootDetailsFragmentDoc}`;
+    ${ValueDetailsFragmentDoc}`;
 export type UpdateValueMutationFn = ApolloReactCommon.MutationFunction<UpdateValueMutation, UpdateValueMutationVariables>;
 
 /**

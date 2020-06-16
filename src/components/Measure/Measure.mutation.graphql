@@ -1,0 +1,17 @@
+mutation CreateMeasure($input: MeasureInput!) {
+    createMeasure(input: $input) {
+        ...MeasureDetails
+    }
+}
+
+mutation UpdateMeasure($input: MeasureUpdateInput!) {
+    updateMeasure(input: $input) {
+        ...MeasureDetails
+    }
+}
+
+mutation DeleteMeasure($id: ID!) {
+    deleteMeasure(id: $id) {
+        id
+    }
+}

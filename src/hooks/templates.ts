@@ -1,6 +1,9 @@
 import {
     CatalogItemFragment,
     EntityUpdateInput,
+    MeasureFragment,
+    MeasureInput,
+    MeasureUpdateInput,
     RootFragment,
     RootUpdateInput,
     TextFragment,
@@ -97,11 +100,55 @@ export const useValueInputTemplate = (): (item?: ValueFragment) => ValueUpdateIn
                 nominalValue: ''
             };
         } else {
-            const { names, descriptions, ...otherProps } = item;
+            const {
+                id,
+                versionId,
+                versionDate,
+                names,
+                descriptions,
+                valueType,
+                valueRole,
+                nominalValue,
+                toleranceType,
+                upperTolerance,
+                lowerTolerance
+            } = item;
             return {
+                id,
+                versionId,
+                versionDate,
                 names: mapTextFragmentToTextInput(names, textInputTemplate()),
                 descriptions: mapTextFragmentToTextInput(descriptions, textInputTemplate()),
-                ...otherProps
+                valueType, valueRole, nominalValue,
+                toleranceType, upperTolerance, lowerTolerance
+
+            };
+        }
+    };
+}
+
+export const useMeasureInputTemplate = (): (item?: MeasureFragment) => MeasureInput | MeasureUpdateInput => {
+    const textInputTemplate = useTextInputTemplate();
+    return (item) => {
+        if (!item) {
+            return {
+                id: '',
+                versionId: '',
+                versionDate: '',
+                names: textInputTemplate(),
+                descriptions: textInputTemplate(),
+                unitComponent: '',
+                valueDomain: []
+            }
+        } else {
+            const {id, versionId, versionDate, names, descriptions, unitComponent, valueDomain, ...otherProps} = item;
+            const defaultValueDomain = valueDomain?.map(value => value.id) || [];
+            return {
+                id, versionId, versionDate,
+                names: mapTextFragmentToTextInput(names, textInputTemplate()),
+                descriptions: mapTextFragmentToTextInput(descriptions, textInputTemplate()),
+                unitComponent: unitComponent?.id || '',
+                valueDomain: defaultValueDomain
             };
         }
     };
