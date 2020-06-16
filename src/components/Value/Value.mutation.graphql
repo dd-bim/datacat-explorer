@@ -1,12 +1,12 @@
 mutation CreateValue($input: ValueInput!) {
     createValue(input: $input) {
-        ...RootDetails
+        ...ValueDetails
     }
 }
 
 mutation UpdateValue($input: ValueUpdateInput!) {
     updateValue(input: $input) {
-        ...RootDetails
+        ...ValueDetails
     }
 }
 
