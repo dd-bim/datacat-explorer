@@ -3,9 +3,9 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import {ApolloError} from "@apollo/client";
 
 type AsyncViewProps = {
-    loading: boolean
+    loading?: boolean
     loadingComponent?: React.ReactNode
-    error?: ApolloError
+    error?: ApolloError | boolean
     errorComponent?: React.ReactNode
     children?: React.ReactNode
 }
