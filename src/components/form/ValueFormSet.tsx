@@ -37,64 +37,72 @@ export default function ValueFormSet(props: ValueFormSetProps) {
                 rows={3}
             />
 
-            <Grid item xs={12}>
-                <FormCaption>Value</FormCaption>
-            </Grid>
+            <Grid container spacing={3} item xs={12}>
 
-            <Grid item xs={12}>
-                <Controller
-                    as={<ValueTypeSelect/>}
-                    label="Value type"
-                    name="valueType"
-                />
-            </Grid>
+                <Grid container item xs={6}>
+                    <Grid item xs={12}>
+                        <FormCaption>Value</FormCaption>
+                    </Grid>
 
-            <Grid item xs={12}>
-                <Controller
-                    as={<ValueRoleSelect/>}
-                    label="Value role"
-                    name="valueRole"
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Controller
+                            as={<ValueTypeSelect/>}
+                            label="Value type"
+                            name="valueType"
+                        />
+                    </Grid>
 
-            <Grid item xs={12}>
-                <TextField
-                    inputRef={register({ required: valueType !== XtdValueTypeEnum.Nil })}
-                    label="Nominal value"
-                    name="nominalValue"
-                    required={valueType !== XtdValueTypeEnum.Nil}
-                    {...TextFieldOptions}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Controller
+                            as={<ValueRoleSelect/>}
+                            label="Value role"
+                            name="valueRole"
+                        />
+                    </Grid>
 
-            <Grid item xs={12}>
-                <FormCaption>Tolerance</FormCaption>
-            </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            inputRef={register({ required: valueType !== XtdValueTypeEnum.Nil })}
+                            label="Nominal value"
+                            name="nominalValue"
+                            required={valueType !== XtdValueTypeEnum.Nil}
+                            {...TextFieldOptions}
+                        />
+                    </Grid>
+                </Grid>
 
-            <Grid item xs={12}>
-                <Controller
-                    as={<ToleranceTypeSelect/>}
-                    label="Tolerance type"
-                    name="toleranceType"
-                />
-            </Grid>
+                <Grid container item xs={6}>
+                    <Grid item xs={12}>
+                        <FormCaption>Tolerance</FormCaption>
+                    </Grid>
 
-            <Grid item xs={12}>
-                <TextField
-                    inputRef={register}
-                    label="Lower tolerance"
-                    name="lowerTolerance"
-                    {...TextFieldOptions}
-                />
-            </Grid>
+                    <Grid item xs={12}>
+                        <Controller
+                            as={<ToleranceTypeSelect/>}
+                            label="Tolerance type"
+                            name="toleranceType"
+                        />
+                    </Grid>
 
-            <Grid item xs={12}>
-                <TextField
-                    inputRef={register}
-                    label="Upper tolerance"
-                    name="upperTolerance"
-                    {...TextFieldOptions}
-                />
+                    <Grid item xs={12}>
+                        <TextField
+                            inputRef={register}
+                            label="Lower tolerance"
+                            name="lowerTolerance"
+                            {...TextFieldOptions}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <TextField
+                            inputRef={register}
+                            label="Upper tolerance"
+                            name="upperTolerance"
+                            {...TextFieldOptions}
+                        />
+                    </Grid>
+                </Grid>
+
             </Grid>
 
             <Grid item xs={12}>
