@@ -1,4 +1,4 @@
-query CatalogItemSelect($input: FilterInput) {
+query CatalogItemSelect($input: SearchInput) {
     search(input: $input) {
         nodes {
             id

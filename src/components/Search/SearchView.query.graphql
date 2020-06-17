@@ -1,4 +1,4 @@
-query SearchView($input: FilterInput) {
+query SearchView($input: SearchInput) {
     search(input: $input) {
         nodes {
             ...CatalogItem

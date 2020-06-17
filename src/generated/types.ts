@@ -59,6 +59,40 @@ export type EntityInput = {
   names: Array<TextInput>;
 };
 
+/**  inputs */
+export enum EntityTypes {
+  XtdExternalDocument = 'XtdExternalDocument',
+  XtdRoot = 'XtdRoot',
+  XtdObject = 'XtdObject',
+  XtdActivity = 'XtdActivity',
+  XtdActor = 'XtdActor',
+  XtdClassification = 'XtdClassification',
+  XtdMeasureWithUnit = 'XtdMeasureWithUnit',
+  XtdProperty = 'XtdProperty',
+  XtdSubject = 'XtdSubject',
+  XtdUnit = 'XtdUnit',
+  XtdValue = 'XtdValue',
+  XtdCollection = 'XtdCollection',
+  XtdBag = 'XtdBag',
+  XtdNest = 'XtdNest',
+  XtdRelationship = 'XtdRelationship',
+  XtdRelActsUpon = 'XtdRelActsUpon',
+  XtdRelAssignsCollections = 'XtdRelAssignsCollections',
+  XtdRelAssignsMeasures = 'XtdRelAssignsMeasures',
+  XtdRelAssignsProperties = 'XtdRelAssignsProperties',
+  XtdRelAssignsPropertyWithValues = 'XtdRelAssignsPropertyWithValues',
+  XtdRelAssignsUnit = 'XtdRelAssignsUnit',
+  XtdRelAssignsValues = 'XtdRelAssignsValues',
+  XtdRelAssociates = 'XtdRelAssociates',
+  XtdRelClassifies = 'XtdRelClassifies',
+  XtdRelCollects = 'XtdRelCollects',
+  XtdRelComposes = 'XtdRelComposes',
+  XtdRelDocuments = 'XtdRelDocuments',
+  XtdRelGroups = 'XtdRelGroups',
+  XtdRelSequences = 'XtdRelSequences',
+  XtdRelSpecializes = 'XtdRelSpecializes'
+}
+
 export type EntityUpdateInput = {
   id: Scalars['ID'];
   names: Array<TextInput>;
@@ -106,47 +140,6 @@ export type PagingInput = {
 };
 
 
-/**
- * enum EntityTypes {
- *     XtdActivity
- *     XtdActor
- *     XtdBag
- *     XtdClassification
- *     XtdExternalDocument
- *     XtdMeasureWithUnit
- *     XtdNest
- *     XtdProperty
- *     XtdRelActsUpon
- *     XtdRelAssignsCollections
- *     XtdRelAssignsMeasures
- *     XtdRelAssignsProperties
- *     XtdRelAssignsPropertyWithValues
- *     XtdRelAssignsUnit
- *     XtdRelAssignsValues
- *     XtdRelAssociates
- *     XtdRelClassifies
- *     XtdRelCollects
- *     XtdRelComposes
- *     XtdRelDocuments
- *     XtdRelGroups
- *     XtdRelSequences
- *     XtdRelSpecializes
- *     XtdSubject
- *     XtdUnit
- *     XtdValue
- * }
- * input SearchInput {
- *     query: String
- *     queryScope: QueryScopes
- *     entityTypeIn: [EntityTypes!]
- *     entityTypeNotIn: [EntityTypes!]
- *     idIn: [String!]
- *     idNotIn: [String!]
- *     pageNumber: Int
- *     pageSize: Int
- * }
- *  inputs
- */
 export enum QueryScopes {
   All = 'ALL',
   Names = 'NAMES',
@@ -187,6 +180,17 @@ export type RootUpdateInput = {
   versionDate: Scalars['String'];
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
+};
+
+export type SearchInput = {
+  query?: Maybe<Scalars['String']>;
+  queryScope?: Maybe<QueryScopes>;
+  entityTypeIn?: Maybe<Array<EntityTypes>>;
+  entityTypeNotIn?: Maybe<Array<EntityTypes>>;
+  idIn?: Maybe<Array<Scalars['String']>>;
+  idNotIn?: Maybe<Array<Scalars['String']>>;
+  pageNumber?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
 };
 
 
@@ -503,7 +507,7 @@ export type ActorQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdN
   )> };
 
 export type SearchInputQueryVariables = {
-  input?: Maybe<FilterInput>;
+  input?: Maybe<SearchInput>;
 };
 
 
@@ -714,7 +718,7 @@ export type SignupFormMutation = { __typename: 'Mutation', signup: { __typename:
     ) } };
 
 export type CatalogItemSelectQueryVariables = {
-  input?: Maybe<FilterInput>;
+  input?: Maybe<SearchInput>;
 };
 
 
@@ -1158,7 +1162,7 @@ export type PropertyQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'X
   )> };
 
 export type SearchViewQueryVariables = {
-  input?: Maybe<FilterInput>;
+  input?: Maybe<SearchInput>;
 };
 
 
@@ -1417,6 +1421,12 @@ export type UnitQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdNa
     & RootDetails_XtdNest_Fragment
   )> };
 
+export type ValueFragment = (
+  { __typename: 'XtdValue', valueType: XtdValueTypeEnum, valueRole: XtdValueRoleEnum, nominalValue?: Maybe<string>, toleranceType: XtdToleranceTypeEnum, lowerTolerance?: Maybe<string>, upperTolerance?: Maybe<string> }
+  & CatalogItem_XtdValue_Fragment
+  & Root_XtdValue_Fragment
+);
+
 export type CreateValueMutationVariables = {
   input: ValueInput;
 };
@@ -1466,6 +1476,12 @@ export type ValueQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdN
     { __typename: 'XtdValue' }
     & ValueDetailsFragment
   ) | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+
+export type ValueDetailsFragment = (
+  { __typename: 'XtdValue', valueType: XtdValueTypeEnum, valueRole: XtdValueRoleEnum, nominalValue?: Maybe<string>, toleranceType: XtdToleranceTypeEnum, lowerTolerance?: Maybe<string>, upperTolerance?: Maybe<string> }
+  & CatalogItem_XtdValue_Fragment
+  & RootDetails_XtdValue_Fragment
+);
 
 type CatalogItem_XtdExternalDocument_Fragment = { __typename: 'XtdExternalDocument', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
     { __typename: 'XtdName' }
@@ -1940,18 +1956,6 @@ export type UserSessionFragment = { __typename: 'UserSession', token: string, us
     { __typename: 'UserProfile' }
     & UserProfileFragment
   ) };
-
-export type ValueFragment = (
-  { __typename: 'XtdValue', valueType: XtdValueTypeEnum, valueRole: XtdValueRoleEnum, nominalValue?: Maybe<string>, toleranceType: XtdToleranceTypeEnum, lowerTolerance?: Maybe<string>, upperTolerance?: Maybe<string> }
-  & CatalogItem_XtdValue_Fragment
-  & Root_XtdValue_Fragment
-);
-
-export type ValueDetailsFragment = (
-  { __typename: 'XtdValue', valueType: XtdValueTypeEnum, valueRole: XtdValueRoleEnum, nominalValue?: Maybe<string>, toleranceType: XtdToleranceTypeEnum, lowerTolerance?: Maybe<string>, upperTolerance?: Maybe<string> }
-  & CatalogItem_XtdValue_Fragment
-  & RootDetails_XtdValue_Fragment
-);
 
 export const TextFragmentDoc = gql`
     fragment Text on XtdLanguageRepresentation {
@@ -2586,7 +2590,7 @@ export type ActorQueryHookResult = ReturnType<typeof useActorQuery>;
 export type ActorLazyQueryHookResult = ReturnType<typeof useActorLazyQuery>;
 export type ActorQueryResult = ApolloReactCommon.QueryResult<ActorQuery, ActorQueryVariables>;
 export const SearchInputDocument = gql`
-    query SearchInput($input: FilterInput) {
+    query SearchInput($input: SearchInput) {
   search(input: $input) {
     nodes {
       ...CatalogItem
@@ -2864,7 +2868,7 @@ export type SignupFormMutationHookResult = ReturnType<typeof useSignupFormMutati
 export type SignupFormMutationResult = ApolloReactCommon.MutationResult<SignupFormMutation>;
 export type SignupFormMutationOptions = ApolloReactCommon.BaseMutationOptions<SignupFormMutation, SignupFormMutationVariables>;
 export const CatalogItemSelectDocument = gql`
-    query CatalogItemSelect($input: FilterInput) {
+    query CatalogItemSelect($input: SearchInput) {
   search(input: $input) {
     nodes {
       id
@@ -3749,7 +3753,7 @@ export type PropertyQueryHookResult = ReturnType<typeof usePropertyQuery>;
 export type PropertyLazyQueryHookResult = ReturnType<typeof usePropertyLazyQuery>;
 export type PropertyQueryResult = ApolloReactCommon.QueryResult<PropertyQuery, PropertyQueryVariables>;
 export const SearchViewDocument = gql`
-    query SearchView($input: FilterInput) {
+    query SearchView($input: SearchInput) {
   search(input: $input) {
     nodes {
       ...CatalogItem
