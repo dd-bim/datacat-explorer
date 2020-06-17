@@ -1,0 +1,3 @@
+fragment Collection on XtdCollection {
+    ...Root
+}

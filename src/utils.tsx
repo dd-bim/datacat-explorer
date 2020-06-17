@@ -1,5 +1,7 @@
 import * as React from "react";
 import {
+    CollectsInput,
+    CollectsUpdateInput,
     EntityInput,
     EntityUpdateInput,
     MeasureInput,
@@ -119,4 +121,8 @@ export const sanitizeMeasureInput = (input: MeasureInput | MeasureUpdateInput) =
     if (!input.unitComponent) {
         delete input.unitComponent;
     }
+}
+
+export const sanitizeCollectsInput = (input: CollectsInput | CollectsUpdateInput) => {
+    sanitizeRootInput(input);
 }

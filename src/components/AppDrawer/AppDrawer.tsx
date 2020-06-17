@@ -167,7 +167,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                 />
                 <AppDrawerItem
                     addRoute={'/relationships/collects/new'}
-                    disabled
                     icon={<CollectsIcon />}
                     onClick={onClose}
                     route="/relationships/collects"

@@ -1,0 +1,17 @@
+mutation CreateCollects($input: CollectsInput!) {
+    createCollectsRelation(input: $input) {
+        ...CollectsDetails
+    }
+}
+
+mutation UpdateCollects($input: CollectsUpdateInput!) {
+    updateCollectsRelation(input: $input) {
+        ...CollectsDetails
+    }
+}
+
+mutation DeleteCollects($id: ID!) {
+    deleteCollectsRelation(id: $id) {
+        id
+    }
+}

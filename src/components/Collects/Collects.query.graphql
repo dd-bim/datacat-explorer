@@ -1,0 +1,17 @@
+query CollectsList($input: FilterInput) {
+    collectsRelations(input: $input) {
+        nodes {
+            ...Collects
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Collects($id: ID!) {
+    node(id: $id) {
+        ...CollectsDetails
+    }
+}

@@ -1,0 +1,9 @@
+fragment Collects on XtdRelCollects {
+    ...Root
+    relatingCollection {
+        ...Root
+    }
+    relatedThings {
+        ...Root
+    }
+}

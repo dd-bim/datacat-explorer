@@ -31,7 +31,7 @@ export const useTextInputTemplate = (): () => TextInput[] => (
         }))
 );
 
-const mapTextFragmentToTextInput = (textFragments: TextFragment[], textInputs: TextInput[]): TextInput[] => {
+export const mapTextFragmentToTextInput = (textFragments: TextFragment[], textInputs: TextInput[]): TextInput[] => {
     return textInputs.map(text => {
         const sameLanguagePredicate = (x: TextFragment) => x.language.id === text.languageCode;
         const hit = textFragments.find(sameLanguagePredicate);
