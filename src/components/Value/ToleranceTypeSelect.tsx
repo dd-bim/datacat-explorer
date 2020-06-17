@@ -1,5 +1,5 @@
 import {TextField, TextFieldProps} from "@material-ui/core";
-import TextFieldOptions from "./TextFieldOptions";
+import TextFieldOptions from "../form/TextFieldOptions";
 import {XtdToleranceTypeEnum} from "../../generated/types";
 import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";

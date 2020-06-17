@@ -6,9 +6,9 @@ import TextField from "@material-ui/core/TextField";
 import {Controller, useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import ToleranceTypeSelect from "../form/ToleranceTypeSelect";
-import ValueTypeSelect from "../form/ValueTypeSelect";
-import ValueRoleSelect from "../form/ValueRoleSelect";
+import ToleranceTypeSelect from "./ToleranceTypeSelect";
+import ValueTypeSelect from "./ValueTypeSelect";
+import ValueRoleSelect from "./ValueRoleSelect";
 import {XtdValueTypeEnum} from "../../generated/types";
 
 export type ValueFormSetProps = CatalogItemFormSetProps;
