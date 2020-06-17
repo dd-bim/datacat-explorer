@@ -6,12 +6,9 @@ import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {EntityTypes, MeasureFragment, UnitFragment} from "../../generated/types";
-import SelectionFieldList from "../Selection/SelectionFieldList";
-import SelectionField from "../Selection/SelectionField";
-import useItemsSelection from "../Selection/useItemsSelection";
-import useItemSelection from "../Selection/useItemSelection";
-import SearchListView from "../Search/SearchListView";
+import {EntityTypes, MeasureFragment} from "../../generated/types";
+import ItemSelectionFormSet from "../Selection/ItemSelectionFormSet";
+import ItemsSelectionFormSet from "../Selection/ItemsSelectionFormSet";
 
 export type MeasureFormSetProps = {
     measure?: MeasureFragment
@@ -20,14 +17,6 @@ export type MeasureFormSetProps = {
 export default function MeasureFormSet(props: MeasureFormSetProps) {
     const {measure, isUpdate} = props;
     const {register} = useFormContext();
-    const {selection: unitComponent, setSelection: setUnitComponent} = useItemSelection({
-        name: 'unitComponent',
-        defaultValue: measure?.unitComponent ?? null
-    });
-    const {selection: valueDomain, add, remove} = useItemsSelection({
-        name: 'valueDomain',
-        defaultValues: measure?.valueDomain || []
-    });
 
     return (
         <React.Fragment>
@@ -52,60 +41,33 @@ export default function MeasureFormSet(props: MeasureFormSetProps) {
                 <FormCaption>Unit</FormCaption>
             </Grid>
 
-            <Grid container spacing={3} item xs={12} justify="center">
-
-                <Grid item xs={6}>
-                    <SelectionField
-                        item={unitComponent}
-                        noSelectionLabel="No unit component selected..."
-                        clearSelectionLabel="Remove unit component"
-                        onClear={() => setUnitComponent(null)}
-                    />
-                </Grid>
-
-                <Grid item xs={6}>
-                    <SearchListView
-                        onSelect={item => setUnitComponent(item as UnitFragment)}
-                        filter={{
-                            entityTypeIn: [EntityTypes.XtdUnit],
-                            idNotIn: unitComponent ? [unitComponent.id] : []
-                        }}
-                        SearchFieldProps={{
-                            label: 'Search all units in the catalog',
-                        }}
-                    />
-                </Grid>
-            </Grid>
+            <ItemSelectionFormSet
+                name="unitComponent"
+                defaultValue={measure?.unitComponent}
+                searchLabel="Search all units in the catalog"
+                emptyLabel="No unit component selected..."
+                clearLabel="Remove unit component"
+                filter={selection => ({
+                    entityTypeIn: [EntityTypes.XtdUnit],
+                    idNotIn: selection ? [selection.id] : []
+                })}
+            />
 
             <Grid item xs={12}>
                 <FormCaption>Value domain</FormCaption>
             </Grid>
 
-            <Grid container spacing={3} item xs={12} justify="center">
-
-                <Grid item xs={6}>
-                    <SelectionFieldList
-                        items={valueDomain}
-                        noSelectionLabel="No values selected..."
-                        onClear={remove}
-                    />
-                </Grid>
-
-                <Grid item xs={6}>
-                    <SearchListView
-                        onSelect={add}
-                        filter={{
-                            entityTypeIn: [EntityTypes.XtdValue],
-                            idNotIn: valueDomain.map(value => value.id)
-                        }}
-                        SearchFieldProps={{
-                            label: 'Search all values in the catalog',
-                            helperText: 'Add more values by selecting them from the result list.'
-                        }}
-                    />
-                </Grid>
-
-            </Grid>
+            <ItemsSelectionFormSet
+                name="valueDomain"
+                defaultValues={measure?.valueDomain}
+                searchLabel="Search all values in the catalog"
+                clearLabel="Remove value"
+                emptyLabel="No values selected..."
+                filter={selection => ({
+                    entityTypeIn: [EntityTypes.XtdValue],
+                    idNotIn: selection.map(value => value.id)
+                })}
+            />
 
             <Grid item xs={12}>
                 <FormCaption>Meta information</FormCaption>
