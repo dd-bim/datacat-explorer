@@ -7,13 +7,11 @@ import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
 import {CollectionFragment, CollectsDetailsFragment, EntityTypes} from "../../generated/types";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import ListItemText from "@material-ui/core/ListItemText";
 import SearchListView from "../Search/SearchListView";
 import SelectionFieldList from "../Selection/SelectionFieldList";
 import useItemsSelection from "../Selection/useItemsSelection";
 import useItemSelection from "../Selection/useItemSelection";
+import SelectionField from "../Selection/SelectionField";
 
 export type CollectsFormSetProps = {
     collects?: CollectsDetailsFragment
@@ -73,19 +71,10 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
             <Grid container spacing={3} item xs={12} justify="center">
 
                 <Grid item xs={6}>
-                    <List>
-                        <ListItem>
-                            {relatingCollection ? (
-                                <ListItemText
-                                    primary={relatingCollection.label}
-                                    secondary={relatingCollection.id}
-                                />
-                            ) : (
-                                <ListItemText primary="No collection selected."/>
-                            )}
-                        </ListItem>
-
-                    </List>
+                    <SelectionField
+                        item={relatingCollection}
+                        noSelectionLabel="No relating collection selected..."
+                    />
                 </Grid>
 
                 <Grid item xs={6}>
@@ -95,7 +84,7 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                             entityTypeIn: [EntityTypes.XtdBag, EntityTypes.XtdNest]
                         }}
                         SearchFieldProps={{
-                            label: 'Search all units in the catalog',
+                            label: 'Search all collections in the catalog',
                         }}
                     />
                 </Grid>
@@ -110,7 +99,8 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                 <Grid item xs={6}>
                     <SelectionFieldList
                         items={relatedThings}
-                        onSelect={remove}
+                        noSelectionLabel="No related things selected..."
+                        onClear={remove}
                     />
                 </Grid>
 
@@ -122,8 +112,8 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                             idNotIn
                         }}
                         SearchFieldProps={{
-                            label: 'Search all values in the catalog',
-                            helperText: 'Add more values by selecting them from the result list.'
+                            label: 'Search all things in the catalog',
+                            helperText: 'Add more things to this collection by selecting them from the result list.'
                         }}
                     />
                 </Grid>

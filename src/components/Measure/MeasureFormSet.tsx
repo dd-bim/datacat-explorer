@@ -55,7 +55,12 @@ export default function MeasureFormSet(props: MeasureFormSetProps) {
             <Grid container spacing={3} item xs={12} justify="center">
 
                 <Grid item xs={6}>
-                    <SelectionField item={unitComponent} onClear={() => setUnitComponent(null)}/>
+                    <SelectionField
+                        item={unitComponent}
+                        noSelectionLabel="No unit component selected..."
+                        clearSelectionLabel="Remove unit component"
+                        onClear={() => setUnitComponent(null)}
+                    />
                 </Grid>
 
                 <Grid item xs={6}>
@@ -76,12 +81,13 @@ export default function MeasureFormSet(props: MeasureFormSetProps) {
                 <FormCaption>Value domain</FormCaption>
             </Grid>
 
-            <Grid container spacing={3} item xs={12} justify="center" alignItems="center">
+            <Grid container spacing={3} item xs={12} justify="center">
 
                 <Grid item xs={6}>
                     <SelectionFieldList
                         items={valueDomain}
-                        onSelect={remove}
+                        noSelectionLabel="No values selected..."
+                        onClear={remove}
                     />
                 </Grid>
 

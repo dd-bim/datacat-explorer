@@ -25,15 +25,21 @@ const useStyles = makeStyles(theme => ({
 
 type SelectionListProps<T extends CatalogItemFragment> = {
     items: SelectionItem<T>[],
-    onSelect(item: SelectionItem<T>): void
+    noSelectionLabel?: string,
+    onClear(item: SelectionItem<T>): void
 }
 
 export default function SelectionFieldList<T extends CatalogItemFragment>(props: SelectionListProps<T>) {
-    const {items, onSelect} = props;
+    const {items, noSelectionLabel, onClear} = props;
     const classes = useStyles();
 
     return (
         <List dense disablePadding>
+            {!items.length && (
+                <ListItem key="empty" dense disableGutters>
+                    <ListItemText primary={noSelectionLabel ?? "No selection..."}/>
+                </ListItem>
+            )}
             {items.map(item => {
                 let extraClasses;
                 let icon = <ClearIcon/>;
@@ -64,8 +70,8 @@ export default function SelectionFieldList<T extends CatalogItemFragment>(props:
                         <ListItemSecondaryAction>
                             <IconButton
                                 edge="end"
-                                aria-label="delete"
-                                onClick={() => onSelect(item)}
+                                aria-label="Clear"
+                                onClick={() => onClear(item)}
                             >
                                 {icon}
                             </IconButton>

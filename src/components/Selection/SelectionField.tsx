@@ -12,14 +12,16 @@ import CatalogItemIcon from "../icons/CatalogItemIcon";
 
 type SelectionFieldProps<T extends CatalogItemFragment> = {
     item: SelectionItem<T> | null,
+    clearSelectionLabel?: string
+    noSelectionLabel?: string,
     onClear?(): void
 }
 
 export default function SelectionField<T extends CatalogItemFragment>(props: SelectionFieldProps<T>) {
-    const {item, onClear} = props;
+    const {item, clearSelectionLabel, noSelectionLabel, onClear} = props;
     return (
-        <List>
-            <ListItem>
+        <List dense disablePadding>
+            <ListItem dense disableGutters>
                 {item ? (
                     <React.Fragment>
                         <ListItemIcon>
@@ -30,7 +32,7 @@ export default function SelectionField<T extends CatalogItemFragment>(props: Sel
                             <ListItemSecondaryAction>
                                 <IconButton
                                     edge="end"
-                                    aria-label="clear selection"
+                                    aria-label={clearSelectionLabel ?? "Clear selection"}
                                     onClick={onClear}
                                 >
                                     <ClearIcon/>
@@ -39,7 +41,7 @@ export default function SelectionField<T extends CatalogItemFragment>(props: Sel
                         )}
                     </React.Fragment>
                 ) : (
-                    <ListItemText primary="No selection..."/>
+                    <ListItemText primary={noSelectionLabel ?? "No selection..."}/>
                 )}
             </ListItem>
 
