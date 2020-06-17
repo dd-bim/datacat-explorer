@@ -10,11 +10,9 @@ import {ApolloError} from "@apollo/client";
 import AsyncWrapper from "../View/AsyncWrapper";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import CatalogItemIcon from "../icons/CatalogItemIcon";
+import TextFieldOptions from "../form/TextFieldOptions";
 
 const useStyles = makeStyles(theme => ({
-    paper: {
-
-    },
     search: {
         padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`
     }
@@ -33,12 +31,10 @@ export default function SearchableList(props: SearchableListProps) {
     const classes = useStyles();
 
     return (
-        <Paper className={classes.paper}>
+        <Paper>
             <div className={classes.search}>
                 <SearchField
-                    variant="standard"
-                    size="small"
-                    fullWidth
+                    {...TextFieldOptions}
                     {...SearchFieldProps}/>
             </div>
             <List dense disablePadding>

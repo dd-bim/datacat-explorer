@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import TextInputGridItems from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
@@ -6,79 +6,29 @@ import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {CatalogItemFragment, MeasureFragment} from "../../generated/types";
+import {MeasureFragment} from "../../generated/types";
 import ValueSearchListView from "../Value/ValueSearchListView";
-import SelectionList, {SelectionListItem, SelectionListItemState} from "../Search/SelectionList";
+import SelectionFieldList from "../Selection/SelectionFieldList";
 import UnitSearchListView from "../Unit/UnitSearchListView";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ClearIcon from "@material-ui/icons/Clear";
+import SelectionField from "../Selection/SelectionField";
+import useItemsSelection from "../Selection/useItemsSelection";
+import useItemSelection from "../Selection/useItemSelection";
 
 export type MeasureFormSetProps = {
     measure?: MeasureFragment
 } & CatalogItemFormSetProps;
 
 export default function MeasureFormSet(props: MeasureFormSetProps) {
-    const { measure, isUpdate } = props;
-    const { register, unregister, setValue } = useFormContext();
-
-    const [unitComponent, setUnitComponent] = useState<CatalogItemFragment | null>(measure?.unitComponent || null);
-
-    React.useEffect(() => {
-        register('unitComponent');
-        register('valueDomain');
-    }, [register]);
-
-    const handleOnSetUnitComponent = (newUnitComponent: CatalogItemFragment | null) => {
-        setUnitComponent(newUnitComponent);
-        setValue('unitComponent', newUnitComponent ? newUnitComponent.id : '');
-    }
-
-    const [valueDomainQuery, setValueDomainQuery] = useState('');
-    const valueDomainState = (measure?.valueDomain || []).map(value => ({ state: SelectionListItemState.PERSISTENT, ...value }));
-    const [valueDomain, setValueDomain] = useState<SelectionListItem[]>(valueDomainState);
-    const filteredValueDomain = valueDomain.filter(value => {
-        const searchStr = valueDomainQuery.toLocaleLowerCase();
-        return (searchStr === ""
-            || value.id.toLocaleLowerCase().includes(searchStr)
-            || value.label.toLocaleLowerCase().includes(searchStr)
-        );
+    const {measure, isUpdate} = props;
+    const {register} = useFormContext();
+    const {selection: unitComponent, setSelection: setUnitComponent} = useItemSelection({
+        name: 'unitComponent',
+        defaultValue: measure?.unitComponent ?? null
     });
-
-    React.useEffect(() => {
-        const filteredList = valueDomain.filter(item => item.state !== SelectionListItemState.REMOVED);
-        filteredList.forEach((item, idx) => {
-            const name = `valueDomain[${idx}]`;
-            register(name);
-            setValue(name, item.id);
-        });
-        return () => filteredList.forEach((item, idx) => {
-            unregister(`valueDomain[${idx}]`);
-        });
-    }, [register, valueDomain]);
-
-    const handleOnAddDomainValue = (item: CatalogItemFragment) => {
-        setValueDomain([...valueDomain, {state: SelectionListItemState.NEW, ...item}]);
-    }
-
-    const handleOnRemoveDomainValue = ({id, state}: SelectionListItem) => {
-        let newState;
-        switch (state) {
-            case SelectionListItemState.NEW:
-                newState = valueDomain.filter(value => value.id !== id);
-                break;
-            case SelectionListItemState.PERSISTENT:
-                newState = valueDomain.map(value => value.id === id ? ({ ...value, state: SelectionListItemState.REMOVED }) : value);
-                break;
-            case SelectionListItemState.REMOVED:
-                newState = valueDomain.map(value => value.id === id ? ({ ...value, state: SelectionListItemState.PERSISTENT }) : value);
-                break;
-        }
-        setValueDomain(newState);
-    }
+    const {selection: valueDomain, add, remove} = useItemsSelection({
+        name: 'valueDomain',
+        defaultValues: measure?.valueDomain || []
+    });
 
     return (
         <React.Fragment>
@@ -103,35 +53,15 @@ export default function MeasureFormSet(props: MeasureFormSetProps) {
                 <FormCaption>Unit</FormCaption>
             </Grid>
 
-            <Grid container spacing={3} item xs={12} justify="center" alignItems="center">
+            <Grid container spacing={3} item xs={12} justify="center">
 
                 <Grid item xs={6}>
-                    <List>
-                        <ListItem>
-                        {unitComponent ? (
-                            <React.Fragment>
-                                <ListItemText primary={unitComponent.label} secondary={unitComponent.id}/>
-                                <ListItemSecondaryAction>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="remove unit"
-                                        onClick={() => handleOnSetUnitComponent(null)}
-                                    >
-                                        <ClearIcon/>
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            </React.Fragment>
-                        ) : (
-                            <ListItemText primary="No unit selected."/>
-                        )}
-                        </ListItem>
-
-                    </List>
+                    <SelectionField item={unitComponent} onClear={() => setUnitComponent(null)}/>
                 </Grid>
 
                 <Grid item xs={6}>
                     <UnitSearchListView
-                        onSelect={handleOnSetUnitComponent}
+                        onSelect={setUnitComponent}
                         filter={{
                             idNotIn: unitComponent ? [unitComponent.id] : []
                         }}
@@ -149,21 +79,15 @@ export default function MeasureFormSet(props: MeasureFormSetProps) {
             <Grid container spacing={3} item xs={12} justify="center" alignItems="center">
 
                 <Grid item xs={6}>
-                    <SelectionList
-                        items={filteredValueDomain}
-                        onSelect={handleOnRemoveDomainValue}
-                        SearchFieldProps={{
-                            label: 'Filter current value domain',
-                            helperText: 'Filtered values are only hidden temporarily.',
-                            value: valueDomainQuery,
-                            onChange: e => setValueDomainQuery(e.target.value)
-                        }}
+                    <SelectionFieldList
+                        items={valueDomain}
+                        onSelect={remove}
                     />
                 </Grid>
 
                 <Grid item xs={6}>
                     <ValueSearchListView
-                        onSelect={handleOnAddDomainValue}
+                        onSelect={add}
                         filter={{
                             idNotIn: valueDomain.map(value => value.id)
                         }}

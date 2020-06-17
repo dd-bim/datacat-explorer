@@ -1,27 +1,27 @@
 import React from "react";
-import {FilterInput, UnitFragment, useUnitListQuery} from "../../generated/types";
+import {CatalogItemFragment, FilterInput, useSearchViewQuery} from "../../generated/types";
 import {useQueryOptions} from "../../hooks";
 import SearchableList from "../Search/SearchableList";
-import {SearchFieldProps} from "../Search/SearchField";
+import {SearchFieldProps} from "./SearchField";
 
 type SearchListProps = {
-    onSelect(item: UnitFragment): void,
+    onSelect(item: CatalogItemFragment): void,
     filter: FilterInput,
     SearchFieldProps?: SearchFieldProps
 }
 
-export default function UnitSearchListView(props: SearchListProps) {
+export default function SearchListView(props: SearchListProps) {
     const {onSelect, filter = {}, SearchFieldProps} = props;
     const {query, setQuery} = useQueryOptions();
-    const {loading, error, data} = useUnitListQuery({
-        variables: {input: {query, ...filter}}
+    const {loading, error, data} = useSearchViewQuery({
+        variables: { input: {query, ...filter} }
     });
 
     return (
         <SearchableList
             loading={loading}
             error={error}
-            items={data?.units.nodes || []}
+            items={data?.search.nodes || []}
             onSelect={onSelect}
             SearchFieldProps={{
                 value: query,
