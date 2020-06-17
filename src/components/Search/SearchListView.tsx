@@ -1,12 +1,12 @@
 import React from "react";
-import {CatalogItemFragment, FilterInput, useSearchViewQuery} from "../../generated/types";
+import {CatalogItemFragment, SearchInput, useSearchViewQuery} from "../../generated/types";
 import {useQueryOptions} from "../../hooks";
 import SearchableList from "../Search/SearchableList";
 import {SearchFieldProps} from "./SearchField";
 
 type SearchListProps = {
     onSelect(item: CatalogItemFragment): void,
-    filter: FilterInput,
+    filter: SearchInput,
     SearchFieldProps?: SearchFieldProps
 }
 

@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {CollectionFragment, CollectsDetailsFragment} from "../../generated/types";
+import {CollectionFragment, CollectsDetailsFragment, EntityTypes} from "../../generated/types";
 import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -31,6 +31,21 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
         name: 'relatedThings',
         defaultValues: collects?.relatedThings || []
     });
+
+    const entityTypeIn: EntityTypes[] = [];
+    if (relatingCollection && relatingCollection.__typename === "XtdNest") {
+        if (relatedThings.length) {
+            const entityType = EntityTypes[relatedThings[0].__typename]
+            entityTypeIn.push(entityType);
+        }
+    }
+    if (!entityTypeIn.length) {
+        entityTypeIn.push(EntityTypes.XtdRoot);
+    }
+
+    const idNotIn = [];
+    if (collects) idNotIn.push(collects.id);
+    if (relatingCollection) idNotIn.push(relatingCollection.id);
 
     return (
         <React.Fragment>
@@ -77,7 +92,7 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                     <SearchListView
                         onSelect={(item) => setRelatingCollection(item as CollectionFragment)}
                         filter={{
-                            idNotIn: relatingCollection ? [relatingCollection.id] : []
+                            entityTypeIn: [EntityTypes.XtdBag, EntityTypes.XtdNest]
                         }}
                         SearchFieldProps={{
                             label: 'Search all units in the catalog',
@@ -103,7 +118,8 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                     <SearchListView
                         onSelect={add}
                         filter={{
-                            idNotIn: relatedThings.map(value => value.id)
+                            entityTypeIn,
+                            idNotIn
                         }}
                         SearchFieldProps={{
                             label: 'Search all values in the catalog',

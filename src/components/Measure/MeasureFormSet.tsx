@@ -6,13 +6,12 @@ import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {MeasureFragment} from "../../generated/types";
-import ValueSearchListView from "../Value/ValueSearchListView";
+import {EntityTypes, MeasureFragment, UnitFragment} from "../../generated/types";
 import SelectionFieldList from "../Selection/SelectionFieldList";
-import UnitSearchListView from "../Unit/UnitSearchListView";
 import SelectionField from "../Selection/SelectionField";
 import useItemsSelection from "../Selection/useItemsSelection";
 import useItemSelection from "../Selection/useItemSelection";
+import SearchListView from "../Search/SearchListView";
 
 export type MeasureFormSetProps = {
     measure?: MeasureFragment
@@ -60,9 +59,10 @@ export default function MeasureFormSet(props: MeasureFormSetProps) {
                 </Grid>
 
                 <Grid item xs={6}>
-                    <UnitSearchListView
-                        onSelect={setUnitComponent}
+                    <SearchListView
+                        onSelect={item => setUnitComponent(item as UnitFragment)}
                         filter={{
+                            entityTypeIn: [EntityTypes.XtdUnit],
                             idNotIn: unitComponent ? [unitComponent.id] : []
                         }}
                         SearchFieldProps={{
@@ -86,9 +86,10 @@ export default function MeasureFormSet(props: MeasureFormSetProps) {
                 </Grid>
 
                 <Grid item xs={6}>
-                    <ValueSearchListView
+                    <SearchListView
                         onSelect={add}
                         filter={{
+                            entityTypeIn: [EntityTypes.XtdValue],
                             idNotIn: valueDomain.map(value => value.id)
                         }}
                         SearchFieldProps={{
