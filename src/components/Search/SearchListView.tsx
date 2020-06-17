@@ -24,6 +24,7 @@ export default function SearchListView(props: SearchListProps) {
             items={data?.search.nodes || []}
             onSelect={onSelect}
             SearchFieldProps={{
+                loading,
                 value: query,
                 onChange: e => setQuery(e.target.value),
                 ...SearchFieldProps
