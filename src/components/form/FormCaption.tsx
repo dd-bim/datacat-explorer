@@ -17,7 +17,7 @@ export default function FormCaption(props: FormCaptionProps) {
     const classes = useStyles();
 
     return (
-        <Typography className={classes.root} variant="subtitle2">
+        <Typography className={classes.root} variant="subtitle1">
             {children}
         </Typography>
     );
