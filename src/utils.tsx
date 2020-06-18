@@ -1,5 +1,7 @@
 import * as React from "react";
 import {
+    AssignsCollectionsInput,
+    AssignsCollectionsUpdateInput,
     CollectsInput,
     CollectsUpdateInput,
     EntityInput,
@@ -13,44 +15,89 @@ import {
     ValueUpdateInput
 } from "./generated/types";
 
-export const route = (typename: string): string => {
+interface Properties {
+    title: string
+    description?: string
+    route: string
+}
 
-    switch (typename) {
-        case 'XtdExternalDocument':
-            return '/externalDocuments';
-        case 'XtdActivity':
-            return '/objects/activities';
-        case 'XtdActor':
-            return '/objects/actors';
-        case 'XtdMeasureWithUnit':
-            return '/objects/measures';
-        case 'XtdSubject':
-            return '/objects/subjects';
-        case 'XtdUnit':
-            return '/objects/units';
-        case 'XtdProperty':
-            return '/objects/properties';
-        case 'XtdValue':
-            return '/objects/values';
-        case 'XtdBag':
-            return '/collections/bags';
-        case 'XtdNest':
-            return '/collections/nests';
-        case 'XtdRelDocuments':
-            return '/relationships/documents';
-        case 'XtdRelCollects':
-            return '/relationships/collects';
-        case 'XtdRelAssociates':
-            return '/relationships/associates';
-        case 'XtdRelGroups':
-            return '/relationships/groups';
-        case 'XtdRelSpecializes':
-            return '/relationships/specializes';
-        case 'XtdRelActsUpon':
-            return '/relationships/actsUpon';
-        default:
-            throw new Error("Unknown type")
-    }
+type CatalogItems = {
+    [name: string]: Properties;
+};
+
+export const CatalogItems: CatalogItems = {
+    'XtdExternalDocument': {
+        title: 'External document',
+        route: '/externalDocuments'
+    },
+    'XtdActivity': {
+        title: 'Activity',
+        route: '/objects/activities'
+    },
+    'XtdActor': {
+        title: 'Actor',
+        route: '/objects/actors'
+    },
+    'XtdMeasureWithUnit': {
+        title: 'Measure',
+        route: '/objects/measures'
+    },
+    'XtdSubject': {
+        title: 'Subject',
+        route: '/objects/subjects'
+    },
+    'XtdUnit': {
+        title: 'Unit',
+        route: '/objects/units'
+    },
+    'XtdProperty': {
+        title: 'Property',
+        route: '/objects/properties'
+    },
+    'XtdValue': {
+        title: 'Value',
+        route: '/objects/values'
+    },
+    'XtdBag': {
+        title: 'Bag',
+        route: '/collections/bags'
+    },
+    'XtdNest': {
+        title: 'Nest',
+        route: '/collections/nests'
+    },
+    'XtdRelAssignsCollections': {
+        title: 'Assigns collections relationship',
+        route: '/relationships/assignsCollections'
+    },
+    'XtdRelDocuments': {
+        title: 'Documents relationship',
+        route: '/relationships/documents'
+    },
+    'XtdRelCollects': {
+        title: 'Collects relationship',
+        route: '/relationships/collects'
+    },
+    'XtdRelAssociates': {
+        title: 'Associates relationship',
+        route: '/relationships/associates'
+    },
+    'XtdRelGroups': {
+        title: 'Groups relationship',
+        route: '/relationships/groups'
+    },
+    'XtdRelSpecializes': {
+        title: 'Specializes relationship',
+        route: '/relationships/specializes'
+    },
+    'XtdRelActsUpon': {
+        title: 'Acts upon relationship',
+        route: '/relationships/actsUpon'
+    },
+}
+
+export const route = (typename: keyof CatalogItems): string => {
+    return CatalogItems[typename].route;
 };
 
 export const removeTypename = (obj: any) => {
@@ -124,5 +171,9 @@ export const sanitizeMeasureInput = (input: MeasureInput | MeasureUpdateInput) =
 }
 
 export const sanitizeCollectsInput = (input: CollectsInput | CollectsUpdateInput) => {
+    sanitizeRootInput(input);
+}
+
+export const sanitizeAssignsCollectionsInput = (input: AssignsCollectionsInput | AssignsCollectionsUpdateInput) => {
     sanitizeRootInput(input);
 }
