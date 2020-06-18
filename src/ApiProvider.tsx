@@ -1,5 +1,5 @@
 import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from "@apollo/client";
-import possibleTypes from "./possibleTypes.json";
+import possibleTypes from "./generated/possibleTypes.json";
 import React from "react";
 import useAuthContext from "./hooks/useAuthContext";
 
