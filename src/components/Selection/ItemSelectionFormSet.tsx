@@ -13,6 +13,7 @@ type ItemSelectionFormSetProps = {
     emptyLabel?: string,
     clearLabel?: string,
     filter(selection: CatalogItemFragment | null): SearchInput,
+    disabled?: boolean,
     validationOptions?: ValidationOptions
 }
 
@@ -24,13 +25,17 @@ export default function ItemSelectionFormSet(props: ItemSelectionFormSetProps) {
         emptyLabel,
         clearLabel,
         filter,
+        disabled,
         validationOptions
     } = props;
     const {selection, setSelection} = useItemSelection({name, defaultValue, validationOptions});
 
-    return (
+    return disabled ? (
+        <Grid item xs={12}>
+            <SelectionField item={selection}/>
+        </Grid>
+    ) : (
         <Grid container spacing={3} item xs={12} justify="center">
-
             <Grid item xs={6}>
                 <SelectionField
                     item={selection}

@@ -6,14 +6,12 @@ import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {CatalogItemFragment, CollectsDetailsFragment, EntityTypes} from "../../generated/types";
+import {CollectsDetailsFragment, EntityTypes} from "../../generated/types";
 import SearchListView from "../Search/SearchListView";
 import SelectionFieldList from "../Selection/SelectionFieldList";
 import useItemsSelection from "../Selection/useItemsSelection";
 import useItemSelection from "../Selection/useItemSelection";
-import SelectionField from "../Selection/SelectionField";
 import ItemSelectionFormSet from "../Selection/ItemSelectionFormSet";
-import {SelectionState} from "../Selection/types";
 
 export type CollectsFormSetProps = {
     collects?: CollectsDetailsFragment
@@ -23,7 +21,7 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
     const {collects, isUpdate} = props;
     const {register} = useFormContext();
 
-    const {selection: relatingCollection, setSelection: setRelatingCollection} = useItemSelection({
+    const {selection: relatingCollection} = useItemSelection({
         name: 'relatingCollection',
         defaultValue: collects?.relatingCollection ?? null
     });
@@ -70,24 +68,19 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                 <FormCaption>Relating collection</FormCaption>
             </Grid>
 
-            {isUpdate ? (
-                <SelectionField
-                    item={{...(collects?.relatingCollection as CatalogItemFragment), state: SelectionState.PERSISTENT}}
-                />
-            ) : (
-                <ItemSelectionFormSet
-                    name="relatingCollection"
-                    defaultValue={collects?.relatingCollection}
-                    searchLabel="Search all collections in the catalog"
-                    emptyLabel="No relating collection selected..."
-                    filter={() => ({
-                        entityTypeIn: [EntityTypes.XtdBag, EntityTypes.XtdNest]
-                    })}
-                    validationOptions={{
-                        required: true
-                    }}
-                />
-            )}
+            <ItemSelectionFormSet
+                name="relatingCollection"
+                defaultValue={collects?.relatingCollection}
+                searchLabel="Search all collections in the catalog"
+                emptyLabel="No relating collection selected..."
+                filter={() => ({
+                    entityTypeIn: [EntityTypes.XtdBag, EntityTypes.XtdNest]
+                })}
+                disabled={isUpdate}
+                validationOptions={{
+                    required: true
+                }}
+            />
 
             <Grid item xs={12}>
                 <FormCaption>Related things</FormCaption>

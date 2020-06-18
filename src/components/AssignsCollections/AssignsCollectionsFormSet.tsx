@@ -6,10 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {AssignsCollectionsDetailsFragment, CatalogItemFragment, EntityTypes} from "../../generated/types";
-import SelectionField from "../Selection/SelectionField";
+import {AssignsCollectionsDetailsFragment, EntityTypes} from "../../generated/types";
 import ItemSelectionFormSet from "../Selection/ItemSelectionFormSet";
-import {SelectionState} from "../Selection/types";
 import ItemsSelectionFormSet from "../Selection/ItemsSelectionFormSet";
 
 export type AssignsCollectionsFormSetProps = {
@@ -43,27 +41,19 @@ export default function AssignsCollectionsFormSet(props: AssignsCollectionsFormS
                 <FormCaption>Relating object</FormCaption>
             </Grid>
 
-            {isUpdate ? (
-                <SelectionField
-                    item={{
-                        ...(assignsCollections?.relatingObject as CatalogItemFragment),
-                        state: SelectionState.PERSISTENT
-                    }}
-                />
-            ) : (
-                <ItemSelectionFormSet
-                    name="relatingObject"
-                    defaultValue={assignsCollections?.relatingObject}
-                    searchLabel="Search all objects in the catalog"
-                    emptyLabel="No relating object selected..."
-                    filter={() => ({
-                        entityTypeIn: [EntityTypes.XtdObject]
-                    })}
-                    validationOptions={{
-                        required: true
-                    }}
-                />
-            )}
+            <ItemSelectionFormSet
+                name="relatingObject"
+                defaultValue={assignsCollections?.relatingObject}
+                searchLabel="Search all objects in the catalog"
+                emptyLabel="No relating object selected..."
+                filter={() => ({
+                    entityTypeIn: [EntityTypes.XtdObject]
+                })}
+                disabled={isUpdate}
+                validationOptions={{
+                    required: true
+                }}
+            />
 
             <Grid item xs={12}>
                 <FormCaption>Related collections</FormCaption>
