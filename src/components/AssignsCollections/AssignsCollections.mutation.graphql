@@ -1,0 +1,17 @@
+mutation CreateAssignsCollections($input: AssignsCollectionsInput!) {
+    createAssignsCollectionsRelation(input: $input) {
+        ...AssignsCollectionsDetails
+    }
+}
+
+mutation UpdateAssignsCollections($input: AssignsCollectionsUpdateInput!) {
+    updateAssignsCollectionsRelation(input: $input) {
+        ...AssignsCollectionsDetails
+    }
+}
+
+mutation DeleteAssignsCollections($id: ID!) {
+    deleteAssignsCollectionsRelation(id: $id) {
+        id
+    }
+}

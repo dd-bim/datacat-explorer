@@ -16,6 +16,7 @@ import MeasureViews from "../Measure/MeasureViews";
 import BagViews from "../Bag/BagViews";
 import NestViews from "../Nest/NestViews";
 import CollectsViews from "../Collects/CollectsViews";
+import AssignsCollectionsViews from "../AssignsCollections/AssignsCollectionsViews";
 
 export default function Router() {
     const graphiqlFetcher = useGraphiQLFetcher();
@@ -63,6 +64,9 @@ export default function Router() {
             {/*</Route>*/}
             <Route path="/relationships/collects">
                 <CollectsViews/>
+            </Route>
+            <Route path="/relationships/assignsCollections">
+                <AssignsCollectionsViews/>
             </Route>
             {/*<Route path="/relationships/associates">*/}
             {/*    <RelAssociatesRoutes/>*/}

@@ -175,7 +175,6 @@ export default function AppDrawer(props: AppDrawerProps) {
                 />
                 <AppDrawerItem
                     addRoute='/relationships/assignsCollections/new'
-                    disabled
                     route="/relationships/assignsCollections"
                     subtitle="Zuweisung von Sammlungen zu einem Objekt"
                     title="Sammlungszuweisungen"

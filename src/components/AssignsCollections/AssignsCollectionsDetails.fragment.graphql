@@ -1,0 +1,9 @@
+fragment AssignsCollectionsDetails on XtdRelAssignsCollections {
+    ...RootDetails
+    relatingObject {
+        ...Root
+    }
+    relatedCollections {
+        ...Root
+    }
+}

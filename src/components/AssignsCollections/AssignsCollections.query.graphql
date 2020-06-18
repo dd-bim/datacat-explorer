@@ -1,0 +1,17 @@
+query AssignsCollectionsList($input: FilterInput) {
+    assignsCollectionsRelations(input: $input) {
+        nodes {
+            ...AssignsCollections
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query AssignsCollections($id: ID!) {
+    node(id: $id) {
+        ...AssignsCollectionsDetails
+    }
+}
