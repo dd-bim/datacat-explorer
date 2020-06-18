@@ -12,6 +12,26 @@ export type Scalars = {
   Float: number;
 };
 
+export type AssignsCollectionsInput = {
+  id?: Maybe<Scalars['ID']>;
+  versionId: Scalars['String'];
+  versionDate: Scalars['String'];
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
+  relatingObject: Scalars['ID'];
+  relatedCollections: Array<Scalars['ID']>;
+};
+
+export type AssignsCollectionsUpdateInput = {
+  id: Scalars['ID'];
+  versionId: Scalars['String'];
+  versionDate: Scalars['String'];
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
+  relatingObject: Scalars['ID'];
+  relatedCollections: Array<Scalars['ID']>;
+};
+
 export type AssociationInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
@@ -283,6 +303,8 @@ export type ValueUpdateInput = {
 
 
 
+
+
 export enum XtdToleranceTypeEnum {
   Nil = 'Nil',
   Realvalue = 'Realvalue',
@@ -406,6 +428,9 @@ export type ActivityQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'X
   ) | (
     { __typename: 'XtdNest' }
     & RootDetails_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & RootDetails_XtdRelAssignsCollections_Fragment
   )> };
 
 export type CreateActorMutationVariables = {
@@ -504,6 +529,9 @@ export type ActorQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdN
   ) | (
     { __typename: 'XtdNest' }
     & RootDetails_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & RootDetails_XtdRelAssignsCollections_Fragment
   )> };
 
 export type SearchInputQueryVariables = {
@@ -582,10 +610,134 @@ export type SearchInputQuery = { __typename: 'Query', search: { __typename: 'Sea
       { __typename: 'XtdNest' }
       & CatalogItem_XtdNest_Fragment
       & Root_XtdNest_Fragment
+    ) | (
+      { __typename: 'XtdRelAssignsCollections' }
+      & CatalogItem_XtdRelAssignsCollections_Fragment
+      & Root_XtdRelAssignsCollections_Fragment
     )>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
     ) } };
+
+export type AssignsCollectionsFragment = (
+  { __typename: 'XtdRelAssignsCollections', relatingObject: (
+    { __typename: 'XtdActor' }
+    & Root_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & Root_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & Root_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & Root_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & Root_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & Root_XtdSubject_Fragment
+  ), relatedCollections: Array<(
+    { __typename: 'XtdBag' }
+    & Root_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & Root_XtdNest_Fragment
+  )> }
+  & Root_XtdRelAssignsCollections_Fragment
+);
+
+export type CreateAssignsCollectionsMutationVariables = {
+  input: AssignsCollectionsInput;
+};
+
+
+export type CreateAssignsCollectionsMutation = { __typename: 'Mutation', createAssignsCollectionsRelation?: Maybe<(
+    { __typename: 'XtdRelAssignsCollections' }
+    & AssignsCollectionsDetailsFragment
+  )> };
+
+export type UpdateAssignsCollectionsMutationVariables = {
+  input: AssignsCollectionsUpdateInput;
+};
+
+
+export type UpdateAssignsCollectionsMutation = { __typename: 'Mutation', updateAssignsCollectionsRelation?: Maybe<(
+    { __typename: 'XtdRelAssignsCollections' }
+    & AssignsCollectionsDetailsFragment
+  )> };
+
+export type DeleteAssignsCollectionsMutationVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type DeleteAssignsCollectionsMutation = { __typename: 'Mutation', deleteAssignsCollectionsRelation?: Maybe<{ __typename: 'XtdRelAssignsCollections', id: string }> };
+
+export type AssignsCollectionsListQueryVariables = {
+  input?: Maybe<FilterInput>;
+};
+
+
+export type AssignsCollectionsListQuery = { __typename: 'Query', assignsCollectionsRelations: { __typename: 'XtdRelAssignsCollectionsConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdRelAssignsCollections' }
+      & AssignsCollectionsFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type AssignsCollectionsQueryVariables = {
+  id: Scalars['ID'];
+};
+
+
+export type AssignsCollectionsQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & AssignsCollectionsDetailsFragment
+  )> };
+
+export type AssignsCollectionsDetailsFragment = (
+  { __typename: 'XtdRelAssignsCollections', relatingObject: (
+    { __typename: 'XtdActor' }
+    & Root_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & Root_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & Root_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & Root_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & Root_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & Root_XtdSubject_Fragment
+  ), relatedCollections: Array<(
+    { __typename: 'XtdBag' }
+    & Root_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & Root_XtdNest_Fragment
+  )> }
+  & RootDetails_XtdRelAssignsCollections_Fragment
+);
 
 export type BagFragment = (
   { __typename: 'XtdBag' }
@@ -689,6 +841,9 @@ export type BagQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdNam
   ) | (
     { __typename: 'XtdNest' }
     & RootDetails_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & RootDetails_XtdRelAssignsCollections_Fragment
   )> };
 
 export type BagDetailsFragment = (
@@ -715,16 +870,6 @@ export type SignupFormMutationVariables = {
 export type SignupFormMutation = { __typename: 'Mutation', signup: { __typename: 'UserSession', token: string, user: (
       { __typename: 'UserProfile' }
       & UserProfileFragment
-    ) } };
-
-export type CatalogItemSelectQueryVariables = {
-  input?: Maybe<SearchInput>;
-};
-
-
-export type CatalogItemSelectQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<{ __typename: 'XtdExternalDocument', id: string, label: string } | { __typename: 'XtdRelDocuments', id: string, label: string } | { __typename: 'XtdRelActsUpon', id: string, label: string } | { __typename: 'XtdRelAssociates', id: string, label: string } | { __typename: 'XtdRelCollects', id: string, label: string } | { __typename: 'XtdRelComposes', id: string, label: string } | { __typename: 'XtdRelGroups', id: string, label: string } | { __typename: 'XtdRelSpecializes', id: string, label: string } | { __typename: 'XtdActor', id: string, label: string } | { __typename: 'XtdActivity', id: string, label: string } | { __typename: 'XtdClassification', id: string, label: string } | { __typename: 'XtdMeasureWithUnit', id: string, label: string } | { __typename: 'XtdUnit', id: string, label: string } | { __typename: 'XtdValue', id: string, label: string } | { __typename: 'XtdProperty', id: string, label: string } | { __typename: 'XtdSubject', id: string, label: string } | { __typename: 'XtdBag', id: string, label: string } | { __typename: 'XtdNest', id: string, label: string }>, pageInfo: (
-      { __typename: 'PageInfo' }
-      & PageInfoFragment
     ) } };
 
 export type CollectsFragment = (
@@ -785,6 +930,9 @@ export type CollectsFragment = (
   ) | (
     { __typename: 'XtdNest' }
     & Root_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & Root_XtdRelAssignsCollections_Fragment
   )> }
   & Root_XtdRelCollects_Fragment
 );
@@ -837,7 +985,7 @@ export type CollectsQueryVariables = {
 export type CollectsQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | (
     { __typename: 'XtdRelCollects' }
     & CollectsDetailsFragment
-  ) | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+  ) | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' }> };
 
 export type CollectsDetailsFragment = (
   { __typename: 'XtdRelCollects', relatingCollection: (
@@ -897,6 +1045,9 @@ export type CollectsDetailsFragment = (
   ) | (
     { __typename: 'XtdNest' }
     & Root_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & Root_XtdRelAssignsCollections_Fragment
   )> }
   & RootDetails_XtdRelCollects_Fragment
 );
@@ -949,7 +1100,7 @@ export type ExternalDocumentQueryVariables = {
 export type ExternalDocumentQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | (
     { __typename: 'XtdExternalDocument' }
     & ExternalDocumentDetailsFragment
-  ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+  ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' }> };
 
 export type CreateMeasureMutationVariables = {
   input: MeasureInput;
@@ -999,7 +1150,7 @@ export type MeasureQueryVariables = {
 export type MeasureQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | (
     { __typename: 'XtdMeasureWithUnit' }
     & MeasureDetailsFragment
-  ) | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+  ) | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' }> };
 
 export type NestFragment = (
   { __typename: 'XtdNest' }
@@ -1055,7 +1206,7 @@ export type NestQueryVariables = {
 export type NestQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | (
     { __typename: 'XtdNest' }
     & NestDetailsFragment
-  )> };
+  ) | { __typename: 'XtdRelAssignsCollections' }> };
 
 export type NestDetailsFragment = (
   { __typename: 'XtdNest' }
@@ -1159,6 +1310,9 @@ export type PropertyQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'X
   ) | (
     { __typename: 'XtdNest' }
     & RootDetails_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & RootDetails_XtdRelAssignsCollections_Fragment
   )> };
 
 export type SearchViewQueryVariables = {
@@ -1220,6 +1374,9 @@ export type SearchViewQuery = { __typename: 'Query', search: { __typename: 'Sear
     ) | (
       { __typename: 'XtdNest' }
       & CatalogItem_XtdNest_Fragment
+    ) | (
+      { __typename: 'XtdRelAssignsCollections' }
+      & CatalogItem_XtdRelAssignsCollections_Fragment
     )>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
@@ -1321,6 +1478,9 @@ export type SubjectQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'Xt
   ) | (
     { __typename: 'XtdNest' }
     & RootDetails_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & RootDetails_XtdRelAssignsCollections_Fragment
   )> };
 
 export type CreateUnitMutationVariables = {
@@ -1419,6 +1579,9 @@ export type UnitQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdNa
   ) | (
     { __typename: 'XtdNest' }
     & RootDetails_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & RootDetails_XtdRelAssignsCollections_Fragment
   )> };
 
 export type ValueFragment = (
@@ -1475,7 +1638,7 @@ export type ValueQueryVariables = {
 export type ValueQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | (
     { __typename: 'XtdValue' }
     & ValueDetailsFragment
-  ) | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' }> };
+  ) | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' }> };
 
 export type ValueDetailsFragment = (
   { __typename: 'XtdValue', valueType: XtdValueTypeEnum, valueRole: XtdValueRoleEnum, nominalValue?: Maybe<string>, toleranceType: XtdToleranceTypeEnum, lowerTolerance?: Maybe<string>, upperTolerance?: Maybe<string> }
@@ -1573,7 +1736,12 @@ type CatalogItem_XtdNest_Fragment = { __typename: 'XtdNest', id: string, label: 
     & Text_XtdName_Fragment
   )> };
 
-export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment;
+type CatalogItem_XtdRelAssignsCollections_Fragment = { __typename: 'XtdRelAssignsCollections', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+    { __typename: 'XtdName' }
+    & Text_XtdName_Fragment
+  )> };
+
+export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment | CatalogItem_XtdRelAssignsCollections_Fragment;
 
 type Collection_XtdBag_Fragment = (
   { __typename: 'XtdBag' }
@@ -1792,7 +1960,15 @@ type Root_XtdNest_Fragment = (
   & CatalogItem_XtdNest_Fragment
 );
 
-export type RootFragment = Root_XtdRelDocuments_Fragment | Root_XtdRelActsUpon_Fragment | Root_XtdRelAssociates_Fragment | Root_XtdRelCollects_Fragment | Root_XtdRelComposes_Fragment | Root_XtdRelGroups_Fragment | Root_XtdRelSpecializes_Fragment | Root_XtdActor_Fragment | Root_XtdActivity_Fragment | Root_XtdClassification_Fragment | Root_XtdMeasureWithUnit_Fragment | Root_XtdUnit_Fragment | Root_XtdValue_Fragment | Root_XtdProperty_Fragment | Root_XtdSubject_Fragment | Root_XtdBag_Fragment | Root_XtdNest_Fragment;
+type Root_XtdRelAssignsCollections_Fragment = (
+  { __typename: 'XtdRelAssignsCollections', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
+  & CatalogItem_XtdRelAssignsCollections_Fragment
+);
+
+export type RootFragment = Root_XtdRelDocuments_Fragment | Root_XtdRelActsUpon_Fragment | Root_XtdRelAssociates_Fragment | Root_XtdRelCollects_Fragment | Root_XtdRelComposes_Fragment | Root_XtdRelGroups_Fragment | Root_XtdRelSpecializes_Fragment | Root_XtdActor_Fragment | Root_XtdActivity_Fragment | Root_XtdClassification_Fragment | Root_XtdMeasureWithUnit_Fragment | Root_XtdUnit_Fragment | Root_XtdValue_Fragment | Root_XtdProperty_Fragment | Root_XtdSubject_Fragment | Root_XtdBag_Fragment | Root_XtdNest_Fragment | Root_XtdRelAssignsCollections_Fragment;
 
 type RootDetails_XtdRelDocuments_Fragment = (
   { __typename: 'XtdRelDocuments', versionId: string, versionDate: string, descriptions: Array<(
@@ -1930,7 +2106,15 @@ type RootDetails_XtdNest_Fragment = (
   & CatalogItem_XtdNest_Fragment
 );
 
-export type RootDetailsFragment = RootDetails_XtdRelDocuments_Fragment | RootDetails_XtdRelActsUpon_Fragment | RootDetails_XtdRelAssociates_Fragment | RootDetails_XtdRelCollects_Fragment | RootDetails_XtdRelComposes_Fragment | RootDetails_XtdRelGroups_Fragment | RootDetails_XtdRelSpecializes_Fragment | RootDetails_XtdActor_Fragment | RootDetails_XtdActivity_Fragment | RootDetails_XtdClassification_Fragment | RootDetails_XtdMeasureWithUnit_Fragment | RootDetails_XtdUnit_Fragment | RootDetails_XtdValue_Fragment | RootDetails_XtdProperty_Fragment | RootDetails_XtdSubject_Fragment | RootDetails_XtdBag_Fragment | RootDetails_XtdNest_Fragment;
+type RootDetails_XtdRelAssignsCollections_Fragment = (
+  { __typename: 'XtdRelAssignsCollections', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
+  & CatalogItem_XtdRelAssignsCollections_Fragment
+);
+
+export type RootDetailsFragment = RootDetails_XtdRelDocuments_Fragment | RootDetails_XtdRelActsUpon_Fragment | RootDetails_XtdRelAssociates_Fragment | RootDetails_XtdRelCollects_Fragment | RootDetails_XtdRelComposes_Fragment | RootDetails_XtdRelGroups_Fragment | RootDetails_XtdRelSpecializes_Fragment | RootDetails_XtdActor_Fragment | RootDetails_XtdActivity_Fragment | RootDetails_XtdClassification_Fragment | RootDetails_XtdMeasureWithUnit_Fragment | RootDetails_XtdUnit_Fragment | RootDetails_XtdValue_Fragment | RootDetails_XtdProperty_Fragment | RootDetails_XtdSubject_Fragment | RootDetails_XtdBag_Fragment | RootDetails_XtdNest_Fragment | RootDetails_XtdRelAssignsCollections_Fragment;
 
 type Text_XtdName_Fragment = { __typename: 'XtdName', id: string, value: string, language: { __typename: 'XtdLanguage', id: string, languageNameInEnglish: string, languageNameInSelf: string } };
 
@@ -2025,13 +2209,17 @@ export const RootFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${TextFragmentDoc}`;
-export const BagFragmentDoc = gql`
-    fragment Bag on XtdBag {
-  ...CatalogItem
+export const AssignsCollectionsFragmentDoc = gql`
+    fragment AssignsCollections on XtdRelAssignsCollections {
   ...Root
+  relatingObject {
+    ...Root
+  }
+  relatedCollections {
+    ...Root
+  }
 }
-    ${CatalogItemFragmentDoc}
-${RootFragmentDoc}`;
+    ${RootFragmentDoc}`;
 export const RootDetailsFragmentDoc = gql`
     fragment RootDetails on XtdRoot {
   ...CatalogItem
@@ -2076,6 +2264,25 @@ export const RootDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${TextFragmentDoc}`;
+export const AssignsCollectionsDetailsFragmentDoc = gql`
+    fragment AssignsCollectionsDetails on XtdRelAssignsCollections {
+  ...RootDetails
+  relatingObject {
+    ...Root
+  }
+  relatedCollections {
+    ...Root
+  }
+}
+    ${RootDetailsFragmentDoc}
+${RootFragmentDoc}`;
+export const BagFragmentDoc = gql`
+    fragment Bag on XtdBag {
+  ...CatalogItem
+  ...Root
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}`;
 export const BagDetailsFragmentDoc = gql`
     fragment BagDetails on XtdBag {
   ...CatalogItem
@@ -2631,6 +2838,175 @@ export function useSearchInputLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type SearchInputQueryHookResult = ReturnType<typeof useSearchInputQuery>;
 export type SearchInputLazyQueryHookResult = ReturnType<typeof useSearchInputLazyQuery>;
 export type SearchInputQueryResult = ApolloReactCommon.QueryResult<SearchInputQuery, SearchInputQueryVariables>;
+export const CreateAssignsCollectionsDocument = gql`
+    mutation CreateAssignsCollections($input: AssignsCollectionsInput!) {
+  createAssignsCollectionsRelation(input: $input) {
+    ...AssignsCollectionsDetails
+  }
+}
+    ${AssignsCollectionsDetailsFragmentDoc}`;
+export type CreateAssignsCollectionsMutationFn = ApolloReactCommon.MutationFunction<CreateAssignsCollectionsMutation, CreateAssignsCollectionsMutationVariables>;
+
+/**
+ * __useCreateAssignsCollectionsMutation__
+ *
+ * To run a mutation, you first call `useCreateAssignsCollectionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAssignsCollectionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAssignsCollectionsMutation, { data, loading, error }] = useCreateAssignsCollectionsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAssignsCollectionsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateAssignsCollectionsMutation, CreateAssignsCollectionsMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateAssignsCollectionsMutation, CreateAssignsCollectionsMutationVariables>(CreateAssignsCollectionsDocument, baseOptions);
+      }
+export type CreateAssignsCollectionsMutationHookResult = ReturnType<typeof useCreateAssignsCollectionsMutation>;
+export type CreateAssignsCollectionsMutationResult = ApolloReactCommon.MutationResult<CreateAssignsCollectionsMutation>;
+export type CreateAssignsCollectionsMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAssignsCollectionsMutation, CreateAssignsCollectionsMutationVariables>;
+export const UpdateAssignsCollectionsDocument = gql`
+    mutation UpdateAssignsCollections($input: AssignsCollectionsUpdateInput!) {
+  updateAssignsCollectionsRelation(input: $input) {
+    ...AssignsCollectionsDetails
+  }
+}
+    ${AssignsCollectionsDetailsFragmentDoc}`;
+export type UpdateAssignsCollectionsMutationFn = ApolloReactCommon.MutationFunction<UpdateAssignsCollectionsMutation, UpdateAssignsCollectionsMutationVariables>;
+
+/**
+ * __useUpdateAssignsCollectionsMutation__
+ *
+ * To run a mutation, you first call `useUpdateAssignsCollectionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAssignsCollectionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAssignsCollectionsMutation, { data, loading, error }] = useUpdateAssignsCollectionsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAssignsCollectionsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAssignsCollectionsMutation, UpdateAssignsCollectionsMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateAssignsCollectionsMutation, UpdateAssignsCollectionsMutationVariables>(UpdateAssignsCollectionsDocument, baseOptions);
+      }
+export type UpdateAssignsCollectionsMutationHookResult = ReturnType<typeof useUpdateAssignsCollectionsMutation>;
+export type UpdateAssignsCollectionsMutationResult = ApolloReactCommon.MutationResult<UpdateAssignsCollectionsMutation>;
+export type UpdateAssignsCollectionsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAssignsCollectionsMutation, UpdateAssignsCollectionsMutationVariables>;
+export const DeleteAssignsCollectionsDocument = gql`
+    mutation DeleteAssignsCollections($id: ID!) {
+  deleteAssignsCollectionsRelation(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteAssignsCollectionsMutationFn = ApolloReactCommon.MutationFunction<DeleteAssignsCollectionsMutation, DeleteAssignsCollectionsMutationVariables>;
+
+/**
+ * __useDeleteAssignsCollectionsMutation__
+ *
+ * To run a mutation, you first call `useDeleteAssignsCollectionsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAssignsCollectionsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAssignsCollectionsMutation, { data, loading, error }] = useDeleteAssignsCollectionsMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteAssignsCollectionsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteAssignsCollectionsMutation, DeleteAssignsCollectionsMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteAssignsCollectionsMutation, DeleteAssignsCollectionsMutationVariables>(DeleteAssignsCollectionsDocument, baseOptions);
+      }
+export type DeleteAssignsCollectionsMutationHookResult = ReturnType<typeof useDeleteAssignsCollectionsMutation>;
+export type DeleteAssignsCollectionsMutationResult = ApolloReactCommon.MutationResult<DeleteAssignsCollectionsMutation>;
+export type DeleteAssignsCollectionsMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteAssignsCollectionsMutation, DeleteAssignsCollectionsMutationVariables>;
+export const AssignsCollectionsListDocument = gql`
+    query AssignsCollectionsList($input: FilterInput) {
+  assignsCollectionsRelations(input: $input) {
+    nodes {
+      ...AssignsCollections
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${AssignsCollectionsFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useAssignsCollectionsListQuery__
+ *
+ * To run a query within a React component, call `useAssignsCollectionsListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAssignsCollectionsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAssignsCollectionsListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAssignsCollectionsListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AssignsCollectionsListQuery, AssignsCollectionsListQueryVariables>) {
+        return ApolloReactHooks.useQuery<AssignsCollectionsListQuery, AssignsCollectionsListQueryVariables>(AssignsCollectionsListDocument, baseOptions);
+      }
+export function useAssignsCollectionsListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AssignsCollectionsListQuery, AssignsCollectionsListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AssignsCollectionsListQuery, AssignsCollectionsListQueryVariables>(AssignsCollectionsListDocument, baseOptions);
+        }
+export type AssignsCollectionsListQueryHookResult = ReturnType<typeof useAssignsCollectionsListQuery>;
+export type AssignsCollectionsListLazyQueryHookResult = ReturnType<typeof useAssignsCollectionsListLazyQuery>;
+export type AssignsCollectionsListQueryResult = ApolloReactCommon.QueryResult<AssignsCollectionsListQuery, AssignsCollectionsListQueryVariables>;
+export const AssignsCollectionsDocument = gql`
+    query AssignsCollections($id: ID!) {
+  node(id: $id) {
+    ...AssignsCollectionsDetails
+  }
+}
+    ${AssignsCollectionsDetailsFragmentDoc}`;
+
+/**
+ * __useAssignsCollectionsQuery__
+ *
+ * To run a query within a React component, call `useAssignsCollectionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAssignsCollectionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAssignsCollectionsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useAssignsCollectionsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AssignsCollectionsQuery, AssignsCollectionsQueryVariables>) {
+        return ApolloReactHooks.useQuery<AssignsCollectionsQuery, AssignsCollectionsQueryVariables>(AssignsCollectionsDocument, baseOptions);
+      }
+export function useAssignsCollectionsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AssignsCollectionsQuery, AssignsCollectionsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AssignsCollectionsQuery, AssignsCollectionsQueryVariables>(AssignsCollectionsDocument, baseOptions);
+        }
+export type AssignsCollectionsQueryHookResult = ReturnType<typeof useAssignsCollectionsQuery>;
+export type AssignsCollectionsLazyQueryHookResult = ReturnType<typeof useAssignsCollectionsLazyQuery>;
+export type AssignsCollectionsQueryResult = ApolloReactCommon.QueryResult<AssignsCollectionsQuery, AssignsCollectionsQueryVariables>;
 export const CreateBagDocument = gql`
     mutation CreateBag($input: RootInput!) {
   createBag(input: $input) {
@@ -2867,46 +3243,6 @@ export function useSignupFormMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type SignupFormMutationHookResult = ReturnType<typeof useSignupFormMutation>;
 export type SignupFormMutationResult = ApolloReactCommon.MutationResult<SignupFormMutation>;
 export type SignupFormMutationOptions = ApolloReactCommon.BaseMutationOptions<SignupFormMutation, SignupFormMutationVariables>;
-export const CatalogItemSelectDocument = gql`
-    query CatalogItemSelect($input: SearchInput) {
-  search(input: $input) {
-    nodes {
-      id
-      label
-    }
-    pageInfo {
-      ...PageInfo
-    }
-    totalElements
-  }
-}
-    ${PageInfoFragmentDoc}`;
-
-/**
- * __useCatalogItemSelectQuery__
- *
- * To run a query within a React component, call `useCatalogItemSelectQuery` and pass it any options that fit your needs.
- * When your component renders, `useCatalogItemSelectQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCatalogItemSelectQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCatalogItemSelectQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CatalogItemSelectQuery, CatalogItemSelectQueryVariables>) {
-        return ApolloReactHooks.useQuery<CatalogItemSelectQuery, CatalogItemSelectQueryVariables>(CatalogItemSelectDocument, baseOptions);
-      }
-export function useCatalogItemSelectLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CatalogItemSelectQuery, CatalogItemSelectQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<CatalogItemSelectQuery, CatalogItemSelectQueryVariables>(CatalogItemSelectDocument, baseOptions);
-        }
-export type CatalogItemSelectQueryHookResult = ReturnType<typeof useCatalogItemSelectQuery>;
-export type CatalogItemSelectLazyQueryHookResult = ReturnType<typeof useCatalogItemSelectLazyQuery>;
-export type CatalogItemSelectQueryResult = ApolloReactCommon.QueryResult<CatalogItemSelectQuery, CatalogItemSelectQueryVariables>;
 export const CreateCollectsDocument = gql`
     mutation CreateCollects($input: CollectsInput!) {
   createCollectsRelation(input: $input) {
