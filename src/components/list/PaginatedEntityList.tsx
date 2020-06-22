@@ -5,19 +5,14 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import CatalogItemIcon from "../icons/CatalogItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
-export interface EntityItem {
-    entityType: string;
-    id: string;
-    label: string;
-}
+import {CatalogItemFragment} from "../../generated/types";
 
 export interface PaginatedEntityListProps {
     label: string
-    items?: EntityItem[];
+    items?: CatalogItemFragment[];
     pageNumber?: number;
     totalPages?: number;
-    onSelectItem?: (item: EntityItem) => void;
+    onSelectItem?: (item: CatalogItemFragment) => void;
     onChangePage?: (page: number) => void;
 }
 
@@ -39,7 +34,7 @@ export default function PaginatedEntityList(props: PaginatedEntityListProps) {
             onClick={onSelectItem ? () => onSelectItem(item) : undefined}
         >
             <ListItemIcon>
-                <CatalogItemIcon itemType={item.entityType} />
+                <CatalogItemIcon itemType={item.__typename} />
             </ListItemIcon>
             <ListItemText
                 primary={item.label}

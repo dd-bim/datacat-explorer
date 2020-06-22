@@ -1,56 +1,40 @@
-import {Link as RouterLink, useHistory} from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItem from "@material-ui/core/ListItem";
+import ListItem, {ListItemProps} from "@material-ui/core/ListItem";
 import * as React from "react";
-import AddIconButton from "../buttons/AddIconButton";
+import Tooltip from "@material-ui/core/Tooltip";
 
 type AppDrawerItemProps = {
     icon?: React.ReactNode
-    title: string
-    subtitle?: string
-    route: string
-    disabled?: boolean
-    addRoute?: string
-    onClick?(): void
+    primary: string
+    secondary?: string
+    tooltip?: string,
+    to: string
 }
 
-export default function AppDrawerItem(props: AppDrawerItemProps) {
-    const {icon, title, subtitle, route, addRoute, onClick, disabled} = props;
-    const history = useHistory();
+export default function AppDrawerItem(props: AppDrawerItemProps & ListItemProps) {
+    const {icon, primary, secondary, tooltip = '', to, disabled} = props
 
     return (
-        <ListItem
-            button
-            component={RouterLink}
-            to={route}
-            onClick={onClick}
-            disabled={disabled}
-        >
-            {icon && (
-                <ListItemIcon>
-                    {icon}
-                </ListItemIcon>
-            )}
-            <ListItemText
-                inset={!icon}
-                primary={title}
-                secondary={subtitle}
-            />
-            {addRoute && (
-                <ListItemSecondaryAction>
-                    <AddIconButton
-                        aria-label={"add new"}
-                        edge="end"
-                        disabled={disabled}
-                        onClick={() => {
-                            history.push(addRoute)
-                            onClick && onClick();
-                        }}
-                    />
-                </ListItemSecondaryAction>
-            )}
-        </ListItem>
+        <Tooltip title={tooltip} aria-label={tooltip} arrow enterDelay={500}>
+            <ListItem
+                button
+                component={RouterLink}
+                to={to}
+                disabled={disabled}
+            >
+                {icon && (
+                    <ListItemIcon>
+                        {icon}
+                    </ListItemIcon>
+                )}
+                <ListItemText
+                    inset={!icon}
+                    primary={primary}
+                    secondary={secondary}
+                />
+            </ListItem>
+        </Tooltip>
     );
 }

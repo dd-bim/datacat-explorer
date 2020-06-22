@@ -1,4 +1,4 @@
-import {Link as ReactRouterLink} from "react-router-dom";
+import {Link as ReactRouterLink, useHistory} from "react-router-dom";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import React, {useRef, useState} from "react";
 import {Popper} from "@material-ui/core";
@@ -10,10 +10,10 @@ import ListItemText from "@material-ui/core/ListItemText";
 import CatalogItemIcon from "../icons/CatalogItemIcon";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Typography from "@material-ui/core/Typography";
-import useEntityRoute from "../../hooks/useEntityRoute";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import {RootFragment, useSearchInputQuery} from "../../generated/types";
 import SearchField from "./SearchField";
+import {getUpdatePath} from "../../Routes";
 
 const useStyles = makeStyles((theme: Theme) => ({
     searchResults: {
@@ -36,6 +36,7 @@ interface QuickSearchWidgetProps {
 
 export function QuickSearchWidget(props: QuickSearchWidgetProps) {
     const classes = useStyles();
+    const history = useHistory();
     const searchInput = useRef(null);
     const [query, setQuery] = useState("");
     const {loading, error, data} = useSearchInputQuery({
@@ -45,7 +46,6 @@ export function QuickSearchWidget(props: QuickSearchWidgetProps) {
             input: {query}
         }
     });
-    const onClick = useEntityRoute();
     const open = Boolean(!error && !loading && query);
     const id = open ? 'transitions-popper' : undefined;
 
@@ -72,9 +72,10 @@ export function QuickSearchWidget(props: QuickSearchWidgetProps) {
                                 <List dense disablePadding>
                                     {data?.search.nodes.map(item => {
                                         const handleOnClick = () => {
-                                            onClick(item);
+                                            const path = getUpdatePath(item.__typename, item.id);
+                                            history.push(path);
                                             setQuery("");
-                                        }
+                                        };
                                         const description = (item as RootFragment).descriptions?.reduce((acc, {value}, index) => {
                                             if (index > 0) {
                                                 acc += " | ";

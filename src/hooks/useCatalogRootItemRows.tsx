@@ -2,13 +2,13 @@ import {CatalogItemFragment, RootFragment} from "../generated/types";
 import CatalogItemIcon from "../components/icons/CatalogItemIcon";
 import Link from "@material-ui/core/Link";
 import {Link as RouterLink} from "react-router-dom";
-import {route} from "../utils";
 import EditIcon from "@material-ui/icons/Edit";
 import React from "react";
 import LabelCell from "../components/table/LabelCell";
 import PropertyCell from "../components/table/PropertyCell";
 import useTableRows from "./useTableRows";
 import dateUtil from "../dateUtil";
+import {getUpdatePath} from "../Routes";
 
 const columnsFactory = () => [
     {id: 'icon', Header: '', accessor: 'icon'},
@@ -19,42 +19,55 @@ const columnsFactory = () => [
     {id: 'actions', Header: 'Actions', accessor: 'actions'}
 ];
 
-const rowFactory = (item: RootFragment) => ({
-    icon: <CatalogItemIcon itemType={item.__typename} fontSize={'small'}/>,
-    label: (
-        <LabelCell id={item.id} label={item.label} />
-    ),
-    version: (
-        <PropertyCell
-            primary={item.versionId}
-            secondary={item.versionDate}
-        />
-    ),
-    created: (
-        <PropertyCell
-            primary={dateUtil(item.created).format('lll')}
-            secondary={item.createdBy}
-        />
-    ),
-    lastModified: (
-        <PropertyCell
-            primary={dateUtil(item.lastModified).format('lll')}
-            secondary={item.lastModifiedBy}
-        />
-    ),
-    actions: (
-        <Link
-            component={RouterLink}
-            to={`${route(item.__typename)}/${item.id}`}
-        >
-            <EditIcon
-                fontSize="small"
-                aria-label="edit item"
+const rowFactory = (item: RootFragment) => {
+    const {
+        __typename,
+        id,
+        label,
+        created,
+        createdBy,
+        lastModified,
+        lastModifiedBy,
+        versionId,
+        versionDate
+    } = item;
+
+    return {
+        icon: <CatalogItemIcon itemType={__typename} fontSize={'small'}/>,
+        label: (
+            <LabelCell id={id} label={label}/>
+        ),
+        version: (
+            <PropertyCell
+                primary={versionId}
+                secondary={versionDate}
             />
-        </Link>
-    )
-});
+        ),
+        created: (
+            <PropertyCell
+                primary={dateUtil(created).fromNow()}
+                secondary={createdBy}
+                tooltip={dateUtil(created).format('lll')}
+            />
+        ),
+        lastModified: (
+            <PropertyCell
+                primary={dateUtil(lastModified).fromNow()}
+                secondary={lastModifiedBy}
+                tooltip={dateUtil(lastModified).format('lll')}
+            />
+        ),
+        actions: (
+            <Link component={RouterLink} to={getUpdatePath(__typename, id)}>
+                <EditIcon
+                    fontSize="small"
+                    aria-label="edit item"
+                />
+            </Link>
+        )
+    }
+};
 
 export default function useCatalogRootItemRows(items?: RootFragment[]) {
-    return useTableRows<CatalogItemFragment>({items, columnsFactory, rowFactory });
+    return useTableRows<CatalogItemFragment>({items, columnsFactory, rowFactory});
 }

@@ -88,7 +88,7 @@ export default function Table(props: TableProps) {
                 createPath={createPath}
                 SearchProps={{
                     size: "small",
-                    label: "Search id, name and description",
+                    label: "Search id, name and secondary",
                     placeholder: "Bau*",
                     helperText: "Wildcard characters '?' and '*' are supported. Enabled fuzzy search mode by appending '~'.",
                     value: query,

@@ -1,6 +1,4 @@
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import {Menu} from "@material-ui/icons";
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -26,8 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     title: {
-        'flex-grow': 1,
-        'margin-left': theme.spacing(1),
+        'flex-grow': 1
     },
     searchInput: {
         'margin-left': theme.spacing(1)
@@ -63,29 +60,21 @@ export function AppBar(props: AppBarProps) {
     }
 
     return (
-        <MaterialUIAppBar position="static" className={classes.appBar}>
+        <MaterialUIAppBar position="fixed" className={classes.appBar}>
             <Toolbar className={classes.toolbar}>
-                <IconButton
-                    color="inherit"
-                    onClick={toggleDrawer}
-                    aria-label="menu"
-                    disabled={!user}
-                >
-                    <Menu/>
-                </IconButton>
-                <Typography
-                    className={classes.title}
-                    variant="h6"
-                    component="h1"
-                >
-                    {process.env.REACT_APP_TITLE} {process.env.REACT_APP_VERSION}
-                </Typography>
-                {restrictedContent}
                 <Avatar
                     variant="rounded"
                     src="/logo-building-smart-sm.svg"
                     alt="buidlingSMART Logo"
                 />
+                    <Typography
+                        className={classes.title}
+                        variant="h6"
+                        component="h1"
+                    >
+                        {process.env.REACT_APP_TITLE}
+                    </Typography>
+                {restrictedContent}
             </Toolbar>
         </MaterialUIAppBar>
     );

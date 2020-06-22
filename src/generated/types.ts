@@ -3,6 +3,7 @@ import * as ApolloReactCommon from '@apollo/client';
 import * as ApolloReactHooks from '@apollo/client';
 
 export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -51,6 +52,8 @@ export type AssociationUpdateInput = {
   relatingThing: Scalars['ID'];
   relatedThings: Array<Scalars['ID']>;
 };
+
+
 
 
 export type CollectsInput = {
@@ -305,6 +308,7 @@ export type ValueUpdateInput = {
 
 
 
+
 export enum XtdToleranceTypeEnum {
   Nil = 'Nil',
   Realvalue = 'Realvalue',
@@ -332,9 +336,9 @@ export enum XtdValueTypeEnum {
   XtdLogical = 'XtdLogical'
 }
 
-export type CreateActivityMutationVariables = {
+export type CreateActivityMutationVariables = Exact<{
   input: RootInput;
-};
+}>;
 
 
 export type CreateActivityMutation = { __typename: 'Mutation', createActivity?: Maybe<(
@@ -342,9 +346,9 @@ export type CreateActivityMutation = { __typename: 'Mutation', createActivity?: 
     & RootDetails_XtdActivity_Fragment
   )> };
 
-export type UpdateActivityMutationVariables = {
+export type UpdateActivityMutationVariables = Exact<{
   input: RootUpdateInput;
-};
+}>;
 
 
 export type UpdateActivityMutation = { __typename: 'Mutation', updateActivity?: Maybe<(
@@ -352,16 +356,16 @@ export type UpdateActivityMutation = { __typename: 'Mutation', updateActivity?: 
     & RootDetails_XtdActivity_Fragment
   )> };
 
-export type DeleteActivityMutationVariables = {
+export type DeleteActivityMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteActivityMutation = { __typename: 'Mutation', deleteActivity?: Maybe<{ __typename: 'XtdActivity', id: string }> };
 
-export type ActivityListQueryVariables = {
+export type ActivityListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type ActivityListQuery = { __typename: 'Query', activities: { __typename: 'XtdActivityConnection', totalElements: number, nodes: Array<(
@@ -372,9 +376,9 @@ export type ActivityListQuery = { __typename: 'Query', activities: { __typename:
       & PageInfoFragment
     ) } };
 
-export type ActivityQueryVariables = {
+export type ActivityQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type ActivityQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
@@ -431,11 +435,14 @@ export type ActivityQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'X
   ) | (
     { __typename: 'XtdRelAssignsCollections' }
     & RootDetails_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & RootDetails_XtdRelAssignsPropertyWithValues_Fragment
   )> };
 
-export type CreateActorMutationVariables = {
+export type CreateActorMutationVariables = Exact<{
   input: RootInput;
-};
+}>;
 
 
 export type CreateActorMutation = { __typename: 'Mutation', createActor?: Maybe<(
@@ -443,9 +450,9 @@ export type CreateActorMutation = { __typename: 'Mutation', createActor?: Maybe<
     & RootDetails_XtdActor_Fragment
   )> };
 
-export type UpdateActorMutationVariables = {
+export type UpdateActorMutationVariables = Exact<{
   input: RootUpdateInput;
-};
+}>;
 
 
 export type UpdateActorMutation = { __typename: 'Mutation', updateActor?: Maybe<(
@@ -453,16 +460,16 @@ export type UpdateActorMutation = { __typename: 'Mutation', updateActor?: Maybe<
     & RootDetails_XtdActor_Fragment
   )> };
 
-export type DeleteActorMutationVariables = {
+export type DeleteActorMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteActorMutation = { __typename: 'Mutation', deleteActor?: Maybe<{ __typename: 'XtdActor', id: string }> };
 
-export type ActorListQueryVariables = {
+export type ActorListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type ActorListQuery = { __typename: 'Query', actors: { __typename: 'XtdActorConnection', totalElements: number, nodes: Array<(
@@ -473,9 +480,9 @@ export type ActorListQuery = { __typename: 'Query', actors: { __typename: 'XtdAc
       & PageInfoFragment
     ) } };
 
-export type ActorQueryVariables = {
+export type ActorQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type ActorQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
@@ -532,11 +539,14 @@ export type ActorQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdN
   ) | (
     { __typename: 'XtdRelAssignsCollections' }
     & RootDetails_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & RootDetails_XtdRelAssignsPropertyWithValues_Fragment
   )> };
 
-export type SearchInputQueryVariables = {
+export type SearchInputQueryVariables = Exact<{
   input?: Maybe<SearchInput>;
-};
+}>;
 
 
 export type SearchInputQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<(
@@ -614,6 +624,10 @@ export type SearchInputQuery = { __typename: 'Query', search: { __typename: 'Sea
       { __typename: 'XtdRelAssignsCollections' }
       & CatalogItem_XtdRelAssignsCollections_Fragment
       & Root_XtdRelAssignsCollections_Fragment
+    ) | (
+      { __typename: 'XtdRelAssignsPropertyWithValues' }
+      & CatalogItem_XtdRelAssignsPropertyWithValues_Fragment
+      & Root_XtdRelAssignsPropertyWithValues_Fragment
     )>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
@@ -654,9 +668,9 @@ export type AssignsCollectionsFragment = (
   & Root_XtdRelAssignsCollections_Fragment
 );
 
-export type CreateAssignsCollectionsMutationVariables = {
+export type CreateAssignsCollectionsMutationVariables = Exact<{
   input: AssignsCollectionsInput;
-};
+}>;
 
 
 export type CreateAssignsCollectionsMutation = { __typename: 'Mutation', createAssignsCollectionsRelation?: Maybe<(
@@ -664,9 +678,9 @@ export type CreateAssignsCollectionsMutation = { __typename: 'Mutation', createA
     & AssignsCollectionsDetailsFragment
   )> };
 
-export type UpdateAssignsCollectionsMutationVariables = {
+export type UpdateAssignsCollectionsMutationVariables = Exact<{
   input: AssignsCollectionsUpdateInput;
-};
+}>;
 
 
 export type UpdateAssignsCollectionsMutation = { __typename: 'Mutation', updateAssignsCollectionsRelation?: Maybe<(
@@ -674,16 +688,16 @@ export type UpdateAssignsCollectionsMutation = { __typename: 'Mutation', updateA
     & AssignsCollectionsDetailsFragment
   )> };
 
-export type DeleteAssignsCollectionsMutationVariables = {
+export type DeleteAssignsCollectionsMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteAssignsCollectionsMutation = { __typename: 'Mutation', deleteAssignsCollectionsRelation?: Maybe<{ __typename: 'XtdRelAssignsCollections', id: string }> };
 
-export type AssignsCollectionsListQueryVariables = {
+export type AssignsCollectionsListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type AssignsCollectionsListQuery = { __typename: 'Query', assignsCollectionsRelations: { __typename: 'XtdRelAssignsCollectionsConnection', totalElements: number, nodes: Array<(
@@ -694,15 +708,15 @@ export type AssignsCollectionsListQuery = { __typename: 'Query', assignsCollecti
       & PageInfoFragment
     ) } };
 
-export type AssignsCollectionsQueryVariables = {
+export type AssignsCollectionsQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type AssignsCollectionsQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | (
     { __typename: 'XtdRelAssignsCollections' }
     & AssignsCollectionsDetailsFragment
-  )> };
+  ) | { __typename: 'XtdRelAssignsPropertyWithValues' }> };
 
 export type AssignsCollectionsDetailsFragment = (
   { __typename: 'XtdRelAssignsCollections', relatingObject: (
@@ -745,9 +759,9 @@ export type BagFragment = (
   & Root_XtdBag_Fragment
 );
 
-export type CreateBagMutationVariables = {
+export type CreateBagMutationVariables = Exact<{
   input: RootInput;
-};
+}>;
 
 
 export type CreateBagMutation = { __typename: 'Mutation', createBag?: Maybe<(
@@ -755,9 +769,9 @@ export type CreateBagMutation = { __typename: 'Mutation', createBag?: Maybe<(
     & RootDetails_XtdBag_Fragment
   )> };
 
-export type UpdateBagMutationVariables = {
+export type UpdateBagMutationVariables = Exact<{
   input: RootUpdateInput;
-};
+}>;
 
 
 export type UpdateBagMutation = { __typename: 'Mutation', updateBag?: Maybe<(
@@ -765,16 +779,16 @@ export type UpdateBagMutation = { __typename: 'Mutation', updateBag?: Maybe<(
     & RootDetails_XtdBag_Fragment
   )> };
 
-export type DeleteBagMutationVariables = {
+export type DeleteBagMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteBagMutation = { __typename: 'Mutation', deleteBag?: Maybe<{ __typename: 'XtdBag', id: string }> };
 
-export type BagListQueryVariables = {
+export type BagListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type BagListQuery = { __typename: 'Query', bags: { __typename: 'XtdBagConnection', totalElements: number, nodes: Array<(
@@ -785,9 +799,9 @@ export type BagListQuery = { __typename: 'Query', bags: { __typename: 'XtdBagCon
       & PageInfoFragment
     ) } };
 
-export type BagQueryVariables = {
+export type BagQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type BagQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
@@ -844,6 +858,9 @@ export type BagQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdNam
   ) | (
     { __typename: 'XtdRelAssignsCollections' }
     & RootDetails_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & RootDetails_XtdRelAssignsPropertyWithValues_Fragment
   )> };
 
 export type BagDetailsFragment = (
@@ -852,9 +869,9 @@ export type BagDetailsFragment = (
   & RootDetails_XtdBag_Fragment
 );
 
-export type LoginFormMutationVariables = {
+export type LoginFormMutationVariables = Exact<{
   credentials: LoginInput;
-};
+}>;
 
 
 export type LoginFormMutation = { __typename: 'Mutation', login: (
@@ -862,15 +879,25 @@ export type LoginFormMutation = { __typename: 'Mutation', login: (
     & UserSessionFragment
   ) };
 
-export type SignupFormMutationVariables = {
+export type SignupFormMutationVariables = Exact<{
   profile: SignupInput;
-};
+}>;
 
 
 export type SignupFormMutation = { __typename: 'Mutation', signup: { __typename: 'UserSession', token: string, user: (
       { __typename: 'UserProfile' }
       & UserProfileFragment
     ) } };
+
+export type CatalogItemStatisticsFragment = { __typename: 'CatalogItemStatistics', id: string, count: number };
+
+export type CatalogStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CatalogStatisticsQuery = { __typename: 'Query', statistics: { __typename: 'CatalogStatistics', items: Array<(
+      { __typename: 'CatalogItemStatistics' }
+      & CatalogItemStatisticsFragment
+    )> } };
 
 export type CollectsFragment = (
   { __typename: 'XtdRelCollects', relatingCollection: (
@@ -933,13 +960,16 @@ export type CollectsFragment = (
   ) | (
     { __typename: 'XtdRelAssignsCollections' }
     & Root_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & Root_XtdRelAssignsPropertyWithValues_Fragment
   )> }
   & Root_XtdRelCollects_Fragment
 );
 
-export type CreateCollectsMutationVariables = {
+export type CreateCollectsMutationVariables = Exact<{
   input: CollectsInput;
-};
+}>;
 
 
 export type CreateCollectsMutation = { __typename: 'Mutation', createCollectsRelation?: Maybe<(
@@ -947,9 +977,9 @@ export type CreateCollectsMutation = { __typename: 'Mutation', createCollectsRel
     & CollectsDetailsFragment
   )> };
 
-export type UpdateCollectsMutationVariables = {
+export type UpdateCollectsMutationVariables = Exact<{
   input: CollectsUpdateInput;
-};
+}>;
 
 
 export type UpdateCollectsMutation = { __typename: 'Mutation', updateCollectsRelation?: Maybe<(
@@ -957,16 +987,16 @@ export type UpdateCollectsMutation = { __typename: 'Mutation', updateCollectsRel
     & CollectsDetailsFragment
   )> };
 
-export type DeleteCollectsMutationVariables = {
+export type DeleteCollectsMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteCollectsMutation = { __typename: 'Mutation', deleteCollectsRelation?: Maybe<{ __typename: 'XtdRelCollects', id: string }> };
 
-export type CollectsListQueryVariables = {
+export type CollectsListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type CollectsListQuery = { __typename: 'Query', collectsRelations: { __typename: 'XtdRelCollectsConnection', totalElements: number, nodes: Array<(
@@ -977,15 +1007,15 @@ export type CollectsListQuery = { __typename: 'Query', collectsRelations: { __ty
       & PageInfoFragment
     ) } };
 
-export type CollectsQueryVariables = {
+export type CollectsQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type CollectsQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | (
     { __typename: 'XtdRelCollects' }
     & CollectsDetailsFragment
-  ) | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' }> };
+  ) | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' } | { __typename: 'XtdRelAssignsPropertyWithValues' }> };
 
 export type CollectsDetailsFragment = (
   { __typename: 'XtdRelCollects', relatingCollection: (
@@ -1048,13 +1078,16 @@ export type CollectsDetailsFragment = (
   ) | (
     { __typename: 'XtdRelAssignsCollections' }
     & Root_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & Root_XtdRelAssignsPropertyWithValues_Fragment
   )> }
   & RootDetails_XtdRelCollects_Fragment
 );
 
-export type CreateExternalDocumentMutationVariables = {
+export type CreateExternalDocumentMutationVariables = Exact<{
   input: EntityInput;
-};
+}>;
 
 
 export type CreateExternalDocumentMutation = { __typename: 'Mutation', createExternalDocument?: Maybe<(
@@ -1062,9 +1095,9 @@ export type CreateExternalDocumentMutation = { __typename: 'Mutation', createExt
     & ExternalDocumentDetailsFragment
   )> };
 
-export type UpdateExternalDocumentMutationVariables = {
+export type UpdateExternalDocumentMutationVariables = Exact<{
   input: EntityUpdateInput;
-};
+}>;
 
 
 export type UpdateExternalDocumentMutation = { __typename: 'Mutation', updateExternalDocument?: Maybe<(
@@ -1072,16 +1105,16 @@ export type UpdateExternalDocumentMutation = { __typename: 'Mutation', updateExt
     & ExternalDocumentDetailsFragment
   )> };
 
-export type DeleteExternalDocumentMutationVariables = {
+export type DeleteExternalDocumentMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteExternalDocumentMutation = { __typename: 'Mutation', deleteExternalDocument?: Maybe<{ __typename: 'XtdExternalDocument', id: string }> };
 
-export type ExternalDocumentListQueryVariables = {
+export type ExternalDocumentListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type ExternalDocumentListQuery = { __typename: 'Query', externalDocuments: { __typename: 'XtdExternalDocumentConnection', totalElements: number, nodes: Array<(
@@ -1092,19 +1125,19 @@ export type ExternalDocumentListQuery = { __typename: 'Query', externalDocuments
       & PageInfoFragment
     ) } };
 
-export type ExternalDocumentQueryVariables = {
+export type ExternalDocumentQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type ExternalDocumentQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | (
     { __typename: 'XtdExternalDocument' }
     & ExternalDocumentDetailsFragment
-  ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' }> };
+  ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' } | { __typename: 'XtdRelAssignsPropertyWithValues' }> };
 
-export type CreateMeasureMutationVariables = {
+export type CreateMeasureMutationVariables = Exact<{
   input: MeasureInput;
-};
+}>;
 
 
 export type CreateMeasureMutation = { __typename: 'Mutation', createMeasure?: Maybe<(
@@ -1112,9 +1145,9 @@ export type CreateMeasureMutation = { __typename: 'Mutation', createMeasure?: Ma
     & MeasureDetailsFragment
   )> };
 
-export type UpdateMeasureMutationVariables = {
+export type UpdateMeasureMutationVariables = Exact<{
   input: MeasureUpdateInput;
-};
+}>;
 
 
 export type UpdateMeasureMutation = { __typename: 'Mutation', updateMeasure?: Maybe<(
@@ -1122,16 +1155,16 @@ export type UpdateMeasureMutation = { __typename: 'Mutation', updateMeasure?: Ma
     & MeasureDetailsFragment
   )> };
 
-export type DeleteMeasureMutationVariables = {
+export type DeleteMeasureMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteMeasureMutation = { __typename: 'Mutation', deleteMeasure?: Maybe<{ __typename: 'XtdMeasureWithUnit', id: string }> };
 
-export type MeasureListQueryVariables = {
+export type MeasureListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type MeasureListQuery = { __typename: 'Query', measures: { __typename: 'XtdMeasureWithUnitConnection', totalElements: number, nodes: Array<(
@@ -1142,15 +1175,15 @@ export type MeasureListQuery = { __typename: 'Query', measures: { __typename: 'X
       & PageInfoFragment
     ) } };
 
-export type MeasureQueryVariables = {
+export type MeasureQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type MeasureQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | (
     { __typename: 'XtdMeasureWithUnit' }
     & MeasureDetailsFragment
-  ) | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' }> };
+  ) | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' } | { __typename: 'XtdRelAssignsPropertyWithValues' }> };
 
 export type NestFragment = (
   { __typename: 'XtdNest' }
@@ -1158,9 +1191,9 @@ export type NestFragment = (
   & Root_XtdNest_Fragment
 );
 
-export type CreateNestMutationVariables = {
+export type CreateNestMutationVariables = Exact<{
   input: RootInput;
-};
+}>;
 
 
 export type CreateNestMutation = { __typename: 'Mutation', createNest?: Maybe<(
@@ -1168,9 +1201,9 @@ export type CreateNestMutation = { __typename: 'Mutation', createNest?: Maybe<(
     & RootDetails_XtdNest_Fragment
   )> };
 
-export type UpdateNestMutationVariables = {
+export type UpdateNestMutationVariables = Exact<{
   input: RootUpdateInput;
-};
+}>;
 
 
 export type UpdateNestMutation = { __typename: 'Mutation', updateNest?: Maybe<(
@@ -1178,16 +1211,16 @@ export type UpdateNestMutation = { __typename: 'Mutation', updateNest?: Maybe<(
     & RootDetails_XtdNest_Fragment
   )> };
 
-export type DeleteNestMutationVariables = {
+export type DeleteNestMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteNestMutation = { __typename: 'Mutation', deleteNest?: Maybe<{ __typename: 'XtdNest', id: string }> };
 
-export type NestListQueryVariables = {
+export type NestListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type NestListQuery = { __typename: 'Query', nests: { __typename: 'XtdNestConnection', totalElements: number, nodes: Array<(
@@ -1198,15 +1231,15 @@ export type NestListQuery = { __typename: 'Query', nests: { __typename: 'XtdNest
       & PageInfoFragment
     ) } };
 
-export type NestQueryVariables = {
+export type NestQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type NestQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | (
     { __typename: 'XtdNest' }
     & NestDetailsFragment
-  ) | { __typename: 'XtdRelAssignsCollections' }> };
+  ) | { __typename: 'XtdRelAssignsCollections' } | { __typename: 'XtdRelAssignsPropertyWithValues' }> };
 
 export type NestDetailsFragment = (
   { __typename: 'XtdNest' }
@@ -1214,9 +1247,9 @@ export type NestDetailsFragment = (
   & RootDetails_XtdNest_Fragment
 );
 
-export type CreatePropertyMutationVariables = {
+export type CreatePropertyMutationVariables = Exact<{
   input: RootInput;
-};
+}>;
 
 
 export type CreatePropertyMutation = { __typename: 'Mutation', createProperty?: Maybe<(
@@ -1224,9 +1257,9 @@ export type CreatePropertyMutation = { __typename: 'Mutation', createProperty?: 
     & RootDetails_XtdProperty_Fragment
   )> };
 
-export type UpdatePropertyMutationVariables = {
+export type UpdatePropertyMutationVariables = Exact<{
   input: RootUpdateInput;
-};
+}>;
 
 
 export type UpdatePropertyMutation = { __typename: 'Mutation', updateProperty?: Maybe<(
@@ -1234,16 +1267,16 @@ export type UpdatePropertyMutation = { __typename: 'Mutation', updateProperty?: 
     & RootDetails_XtdProperty_Fragment
   )> };
 
-export type DeletePropertyMutationVariables = {
+export type DeletePropertyMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeletePropertyMutation = { __typename: 'Mutation', deleteProperty?: Maybe<{ __typename: 'XtdProperty', id: string }> };
 
-export type PropertyListQueryVariables = {
+export type PropertyListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type PropertyListQuery = { __typename: 'Query', properties: { __typename: 'XtdPropertyConnection', totalElements: number, nodes: Array<(
@@ -1254,9 +1287,9 @@ export type PropertyListQuery = { __typename: 'Query', properties: { __typename:
       & PageInfoFragment
     ) } };
 
-export type PropertyQueryVariables = {
+export type PropertyQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type PropertyQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
@@ -1313,11 +1346,14 @@ export type PropertyQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'X
   ) | (
     { __typename: 'XtdRelAssignsCollections' }
     & RootDetails_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & RootDetails_XtdRelAssignsPropertyWithValues_Fragment
   )> };
 
-export type SearchViewQueryVariables = {
+export type SearchViewQueryVariables = Exact<{
   input?: Maybe<SearchInput>;
-};
+}>;
 
 
 export type SearchViewQuery = { __typename: 'Query', search: { __typename: 'SearchResultConnection', totalElements: number, nodes: Array<(
@@ -1377,14 +1413,17 @@ export type SearchViewQuery = { __typename: 'Query', search: { __typename: 'Sear
     ) | (
       { __typename: 'XtdRelAssignsCollections' }
       & CatalogItem_XtdRelAssignsCollections_Fragment
+    ) | (
+      { __typename: 'XtdRelAssignsPropertyWithValues' }
+      & CatalogItem_XtdRelAssignsPropertyWithValues_Fragment
     )>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
     ) } };
 
-export type CreateSubjectMutationVariables = {
+export type CreateSubjectMutationVariables = Exact<{
   input: RootInput;
-};
+}>;
 
 
 export type CreateSubjectMutation = { __typename: 'Mutation', createSubject?: Maybe<(
@@ -1392,9 +1431,9 @@ export type CreateSubjectMutation = { __typename: 'Mutation', createSubject?: Ma
     & RootDetails_XtdSubject_Fragment
   )> };
 
-export type UpdateSubjectMutationVariables = {
+export type UpdateSubjectMutationVariables = Exact<{
   input: RootUpdateInput;
-};
+}>;
 
 
 export type UpdateSubjectMutation = { __typename: 'Mutation', updateSubject?: Maybe<(
@@ -1402,16 +1441,16 @@ export type UpdateSubjectMutation = { __typename: 'Mutation', updateSubject?: Ma
     & RootDetails_XtdSubject_Fragment
   )> };
 
-export type DeleteSubjectMutationVariables = {
+export type DeleteSubjectMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteSubjectMutation = { __typename: 'Mutation', deleteSubject?: Maybe<{ __typename: 'XtdSubject', id: string }> };
 
-export type SubjectListQueryVariables = {
+export type SubjectListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type SubjectListQuery = { __typename: 'Query', subjects: { __typename: 'XtdSubjectConnection', totalElements: number, nodes: Array<(
@@ -1422,9 +1461,9 @@ export type SubjectListQuery = { __typename: 'Query', subjects: { __typename: 'X
       & PageInfoFragment
     ) } };
 
-export type SubjectQueryVariables = {
+export type SubjectQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type SubjectQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
@@ -1481,11 +1520,14 @@ export type SubjectQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'Xt
   ) | (
     { __typename: 'XtdRelAssignsCollections' }
     & RootDetails_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & RootDetails_XtdRelAssignsPropertyWithValues_Fragment
   )> };
 
-export type CreateUnitMutationVariables = {
+export type CreateUnitMutationVariables = Exact<{
   input: RootInput;
-};
+}>;
 
 
 export type CreateUnitMutation = { __typename: 'Mutation', createUnit?: Maybe<(
@@ -1493,9 +1535,9 @@ export type CreateUnitMutation = { __typename: 'Mutation', createUnit?: Maybe<(
     & RootDetails_XtdUnit_Fragment
   )> };
 
-export type UpdateUnitMutationVariables = {
+export type UpdateUnitMutationVariables = Exact<{
   input: RootUpdateInput;
-};
+}>;
 
 
 export type UpdateUnitMutation = { __typename: 'Mutation', updateUnit?: Maybe<(
@@ -1503,16 +1545,16 @@ export type UpdateUnitMutation = { __typename: 'Mutation', updateUnit?: Maybe<(
     & RootDetails_XtdUnit_Fragment
   )> };
 
-export type DeleteUnitMutationVariables = {
+export type DeleteUnitMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteUnitMutation = { __typename: 'Mutation', deleteUnit?: Maybe<{ __typename: 'XtdUnit', id: string }> };
 
-export type UnitListQueryVariables = {
+export type UnitListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type UnitListQuery = { __typename: 'Query', units: { __typename: 'XtdUnitConnection', totalElements: number, nodes: Array<(
@@ -1523,9 +1565,9 @@ export type UnitListQuery = { __typename: 'Query', units: { __typename: 'XtdUnit
       & PageInfoFragment
     ) } };
 
-export type UnitQueryVariables = {
+export type UnitQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type UnitQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
@@ -1582,6 +1624,9 @@ export type UnitQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdNa
   ) | (
     { __typename: 'XtdRelAssignsCollections' }
     & RootDetails_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & RootDetails_XtdRelAssignsPropertyWithValues_Fragment
   )> };
 
 export type ValueFragment = (
@@ -1590,9 +1635,9 @@ export type ValueFragment = (
   & Root_XtdValue_Fragment
 );
 
-export type CreateValueMutationVariables = {
+export type CreateValueMutationVariables = Exact<{
   input: ValueInput;
-};
+}>;
 
 
 export type CreateValueMutation = { __typename: 'Mutation', createValue?: Maybe<(
@@ -1600,9 +1645,9 @@ export type CreateValueMutation = { __typename: 'Mutation', createValue?: Maybe<
     & ValueDetailsFragment
   )> };
 
-export type UpdateValueMutationVariables = {
+export type UpdateValueMutationVariables = Exact<{
   input: ValueUpdateInput;
-};
+}>;
 
 
 export type UpdateValueMutation = { __typename: 'Mutation', updateValue?: Maybe<(
@@ -1610,16 +1655,16 @@ export type UpdateValueMutation = { __typename: 'Mutation', updateValue?: Maybe<
     & ValueDetailsFragment
   )> };
 
-export type DeleteValueMutationVariables = {
+export type DeleteValueMutationVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type DeleteValueMutation = { __typename: 'Mutation', deleteValue?: Maybe<{ __typename: 'XtdValue', id: string }> };
 
-export type ValueListQueryVariables = {
+export type ValueListQueryVariables = Exact<{
   input?: Maybe<FilterInput>;
-};
+}>;
 
 
 export type ValueListQuery = { __typename: 'Query', values: { __typename: 'XtdValueConnection', totalElements: number, nodes: Array<(
@@ -1630,15 +1675,15 @@ export type ValueListQuery = { __typename: 'Query', values: { __typename: 'XtdVa
       & PageInfoFragment
     ) } };
 
-export type ValueQueryVariables = {
+export type ValueQueryVariables = Exact<{
   id: Scalars['ID'];
-};
+}>;
 
 
 export type ValueQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | (
     { __typename: 'XtdValue' }
     & ValueDetailsFragment
-  ) | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' }> };
+  ) | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' } | { __typename: 'XtdRelAssignsPropertyWithValues' }> };
 
 export type ValueDetailsFragment = (
   { __typename: 'XtdValue', valueType: XtdValueTypeEnum, valueRole: XtdValueRoleEnum, nominalValue?: Maybe<string>, toleranceType: XtdToleranceTypeEnum, lowerTolerance?: Maybe<string>, upperTolerance?: Maybe<string> }
@@ -1741,7 +1786,12 @@ type CatalogItem_XtdRelAssignsCollections_Fragment = { __typename: 'XtdRelAssign
     & Text_XtdName_Fragment
   )> };
 
-export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment | CatalogItem_XtdRelAssignsCollections_Fragment;
+type CatalogItem_XtdRelAssignsPropertyWithValues_Fragment = { __typename: 'XtdRelAssignsPropertyWithValues', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
+    { __typename: 'XtdName' }
+    & Text_XtdName_Fragment
+  )> };
+
+export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment | CatalogItem_XtdRelAssignsCollections_Fragment | CatalogItem_XtdRelAssignsPropertyWithValues_Fragment;
 
 type Collection_XtdBag_Fragment = (
   { __typename: 'XtdBag' }
@@ -1968,7 +2018,15 @@ type Root_XtdRelAssignsCollections_Fragment = (
   & CatalogItem_XtdRelAssignsCollections_Fragment
 );
 
-export type RootFragment = Root_XtdRelDocuments_Fragment | Root_XtdRelActsUpon_Fragment | Root_XtdRelAssociates_Fragment | Root_XtdRelCollects_Fragment | Root_XtdRelComposes_Fragment | Root_XtdRelGroups_Fragment | Root_XtdRelSpecializes_Fragment | Root_XtdActor_Fragment | Root_XtdActivity_Fragment | Root_XtdClassification_Fragment | Root_XtdMeasureWithUnit_Fragment | Root_XtdUnit_Fragment | Root_XtdValue_Fragment | Root_XtdProperty_Fragment | Root_XtdSubject_Fragment | Root_XtdBag_Fragment | Root_XtdNest_Fragment | Root_XtdRelAssignsCollections_Fragment;
+type Root_XtdRelAssignsPropertyWithValues_Fragment = (
+  { __typename: 'XtdRelAssignsPropertyWithValues', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
+  & CatalogItem_XtdRelAssignsPropertyWithValues_Fragment
+);
+
+export type RootFragment = Root_XtdRelDocuments_Fragment | Root_XtdRelActsUpon_Fragment | Root_XtdRelAssociates_Fragment | Root_XtdRelCollects_Fragment | Root_XtdRelComposes_Fragment | Root_XtdRelGroups_Fragment | Root_XtdRelSpecializes_Fragment | Root_XtdActor_Fragment | Root_XtdActivity_Fragment | Root_XtdClassification_Fragment | Root_XtdMeasureWithUnit_Fragment | Root_XtdUnit_Fragment | Root_XtdValue_Fragment | Root_XtdProperty_Fragment | Root_XtdSubject_Fragment | Root_XtdBag_Fragment | Root_XtdNest_Fragment | Root_XtdRelAssignsCollections_Fragment | Root_XtdRelAssignsPropertyWithValues_Fragment;
 
 type RootDetails_XtdRelDocuments_Fragment = (
   { __typename: 'XtdRelDocuments', versionId: string, versionDate: string, descriptions: Array<(
@@ -2114,7 +2172,15 @@ type RootDetails_XtdRelAssignsCollections_Fragment = (
   & CatalogItem_XtdRelAssignsCollections_Fragment
 );
 
-export type RootDetailsFragment = RootDetails_XtdRelDocuments_Fragment | RootDetails_XtdRelActsUpon_Fragment | RootDetails_XtdRelAssociates_Fragment | RootDetails_XtdRelCollects_Fragment | RootDetails_XtdRelComposes_Fragment | RootDetails_XtdRelGroups_Fragment | RootDetails_XtdRelSpecializes_Fragment | RootDetails_XtdActor_Fragment | RootDetails_XtdActivity_Fragment | RootDetails_XtdClassification_Fragment | RootDetails_XtdMeasureWithUnit_Fragment | RootDetails_XtdUnit_Fragment | RootDetails_XtdValue_Fragment | RootDetails_XtdProperty_Fragment | RootDetails_XtdSubject_Fragment | RootDetails_XtdBag_Fragment | RootDetails_XtdNest_Fragment | RootDetails_XtdRelAssignsCollections_Fragment;
+type RootDetails_XtdRelAssignsPropertyWithValues_Fragment = (
+  { __typename: 'XtdRelAssignsPropertyWithValues', versionId: string, versionDate: string, descriptions: Array<(
+    { __typename: 'XtdDescription' }
+    & Text_XtdDescription_Fragment
+  )>, actedUponBy: { __typename: 'XtdRelActsUponConnection', totalElements: number }, actsUpon: { __typename: 'XtdRelActsUponConnection', totalElements: number }, associatedBy: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, associates: { __typename: 'XtdRelAssociatesConnection', totalElements: number }, collectedBy: { __typename: 'XtdRelCollectsConnection', totalElements: number }, composedBy: { __typename: 'XtdRelComposesConnection', totalElements: number }, composes: { __typename: 'XtdRelComposesConnection', totalElements: number }, groupedBy: { __typename: 'XtdRelGroupsConnection', totalElements: number }, groups: { __typename: 'XtdRelGroupsConnection', totalElements: number }, specializedBy: { __typename: 'XtdRelSpecializesConnection', totalElements: number }, specializes: { __typename: 'XtdRelSpecializesConnection', totalElements: number } }
+  & CatalogItem_XtdRelAssignsPropertyWithValues_Fragment
+);
+
+export type RootDetailsFragment = RootDetails_XtdRelDocuments_Fragment | RootDetails_XtdRelActsUpon_Fragment | RootDetails_XtdRelAssociates_Fragment | RootDetails_XtdRelCollects_Fragment | RootDetails_XtdRelComposes_Fragment | RootDetails_XtdRelGroups_Fragment | RootDetails_XtdRelSpecializes_Fragment | RootDetails_XtdActor_Fragment | RootDetails_XtdActivity_Fragment | RootDetails_XtdClassification_Fragment | RootDetails_XtdMeasureWithUnit_Fragment | RootDetails_XtdUnit_Fragment | RootDetails_XtdValue_Fragment | RootDetails_XtdProperty_Fragment | RootDetails_XtdSubject_Fragment | RootDetails_XtdBag_Fragment | RootDetails_XtdNest_Fragment | RootDetails_XtdRelAssignsCollections_Fragment | RootDetails_XtdRelAssignsPropertyWithValues_Fragment;
 
 type Text_XtdName_Fragment = { __typename: 'XtdName', id: string, value: string, language: { __typename: 'XtdLanguage', id: string, languageNameInEnglish: string, languageNameInSelf: string } };
 
@@ -2290,6 +2356,12 @@ export const BagDetailsFragmentDoc = gql`
 }
     ${CatalogItemFragmentDoc}
 ${RootDetailsFragmentDoc}`;
+export const CatalogItemStatisticsFragmentDoc = gql`
+    fragment CatalogItemStatistics on CatalogItemStatistics {
+  id
+  count
+}
+    `;
 export const CollectsFragmentDoc = gql`
     fragment Collects on XtdRelCollects {
   ...Root
@@ -3243,6 +3315,40 @@ export function useSignupFormMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type SignupFormMutationHookResult = ReturnType<typeof useSignupFormMutation>;
 export type SignupFormMutationResult = ApolloReactCommon.MutationResult<SignupFormMutation>;
 export type SignupFormMutationOptions = ApolloReactCommon.BaseMutationOptions<SignupFormMutation, SignupFormMutationVariables>;
+export const CatalogStatisticsDocument = gql`
+    query CatalogStatistics {
+  statistics {
+    items {
+      ...CatalogItemStatistics
+    }
+  }
+}
+    ${CatalogItemStatisticsFragmentDoc}`;
+
+/**
+ * __useCatalogStatisticsQuery__
+ *
+ * To run a query within a React component, call `useCatalogStatisticsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCatalogStatisticsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCatalogStatisticsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCatalogStatisticsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CatalogStatisticsQuery, CatalogStatisticsQueryVariables>) {
+        return ApolloReactHooks.useQuery<CatalogStatisticsQuery, CatalogStatisticsQueryVariables>(CatalogStatisticsDocument, baseOptions);
+      }
+export function useCatalogStatisticsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CatalogStatisticsQuery, CatalogStatisticsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<CatalogStatisticsQuery, CatalogStatisticsQueryVariables>(CatalogStatisticsDocument, baseOptions);
+        }
+export type CatalogStatisticsQueryHookResult = ReturnType<typeof useCatalogStatisticsQuery>;
+export type CatalogStatisticsLazyQueryHookResult = ReturnType<typeof useCatalogStatisticsLazyQuery>;
+export type CatalogStatisticsQueryResult = ApolloReactCommon.QueryResult<CatalogStatisticsQuery, CatalogStatisticsQueryVariables>;
 export const CreateCollectsDocument = gql`
     mutation CreateCollects($input: CollectsInput!) {
   createCollectsRelation(input: $input) {
