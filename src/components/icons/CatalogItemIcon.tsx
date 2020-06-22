@@ -1,28 +1,32 @@
-import {SvgIconProps} from "@material-ui/core";
-import SubjectIcon from "./SubjectIcon";
 import React from "react";
-import ActivityIcon from "./ActivityIcon";
-import ActorIcon from "./ActorIcon";
-import BagIcon from "./BagIcon";
-import NestIcon from "./NestIcon";
-import GroupsIcon from "./GroupsIcon";
-import ExternalDocumentIcon from "./ExternalDocumentIcon";
-import UnitIcon from "./UnitIcon";
-import PropertyIcon from "./PropertyIcon";
-import AssociatesIcon from "./AssociatesIcon";
-import DocumentsIcon from "./DocumentsIcon";
-import CollectsIcon from "./CollectsIcon";
-import ValueIcon from "./ValueIcon";
+import {
+    ActivityIcon,
+    ActorIcon,
+    AssociatesIcon,
+    BagIcon,
+    ClassificationIcon,
+    CollectsIcon,
+    DocumentsIcon,
+    ExternalDocumentIcon,
+    GroupsIcon,
+    MeasureWithUnitIcon,
+    NestIcon,
+    PropertyIcon,
+    SubjectIcon,
+    UnitIcon,
+    ValueIcon
+} from "./icons";
+import {SvgIconProps} from "@material-ui/core";
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import {EntityTypes} from "../../generated/types";
 
-interface CatalogItemProps {
-    itemType?: string;
+interface CatalogItemIconProps {
+    itemType?: keyof typeof EntityTypes;
 }
 
-export default function CatalogItemIcon(props: CatalogItemProps & SvgIconProps) {
-    const {
-        itemType,
-        ...otherProps
-    } = props;
+export default function CatalogItemIcon(props: CatalogItemIconProps & SvgIconProps) {
+    const {itemType, ...otherProps} = props;
+
     switch (itemType) {
         case 'XtdExternalDocument':
             return <ExternalDocumentIcon {...otherProps} />;
@@ -30,6 +34,10 @@ export default function CatalogItemIcon(props: CatalogItemProps & SvgIconProps) 
             return <ActivityIcon {...otherProps} />;
         case 'XtdActor':
             return <ActorIcon {...otherProps} />;
+        case 'XtdClassification':
+            return <ClassificationIcon {...otherProps} />;
+        case "XtdMeasureWithUnit":
+            return <MeasureWithUnitIcon {...otherProps} />;
         case 'XtdSubject':
             return <SubjectIcon {...otherProps} />;
         case 'XtdUnit':
@@ -51,6 +59,6 @@ export default function CatalogItemIcon(props: CatalogItemProps & SvgIconProps) 
         case 'XtdRelGroups':
             return <GroupsIcon {...otherProps} />;
         default:
-            return <SubjectIcon {...otherProps} />;
+            return <ErrorOutlineIcon {...otherProps} />;
     }
 }
