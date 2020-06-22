@@ -110,8 +110,7 @@ const Routes: RoutesMap = {
         icon: <ClassificationIcon/>,
         category: RouteCategory.Object,
         title: 'Classification',
-        path: 'classifications',
-        disabled: true
+        path: 'classifications'
     },
     'XtdMeasureWithUnit': {
         icon: <MeasureWithUnitIcon/>,

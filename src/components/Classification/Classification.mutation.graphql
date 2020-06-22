@@ -1,0 +1,17 @@
+mutation CreateClassification($input: RootInput!) {
+    createClassification(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation UpdateClassification($input: RootUpdateInput!) {
+    updateClassification(input: $input) {
+        ...RootDetails
+    }
+}
+
+mutation DeleteClassification($id: ID!) {
+    deleteClassification(id: $id) {
+        id
+    }
+}

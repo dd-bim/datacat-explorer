@@ -1,0 +1,17 @@
+query ClassificationList($input: FilterInput) {
+    classifications(input: $input) {
+        nodes {
+            ...Root
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Classification($id: ID!) {
+    node(id: $id) {
+        ...RootDetails
+    }
+}

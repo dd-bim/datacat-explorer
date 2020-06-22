@@ -20,6 +20,7 @@ import AssignsCollectionsViews from "../AssignsCollections/AssignsCollectionsVie
 import StatisticsView from "../Catalog/StatisticsView";
 import ViewWrapper from "../View/ViewWrapper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import ClassificationViews from "../Classification/ClassificationViews";
 
 const useStyles = makeStyles(theme => ({
     graphiql: {
@@ -55,6 +56,9 @@ export default function Router() {
             </Route>
             <Route path="/objects/subjects">
                 <SubjectViews/>
+            </Route>
+            <Route path="/objects/classifications">
+                <ClassificationViews/>
             </Route>
             <Route path="/objects/units">
                 <UnitViews/>

@@ -899,6 +899,110 @@ export type CatalogStatisticsQuery = { __typename: 'Query', statistics: { __type
       & CatalogItemStatisticsFragment
     )> } };
 
+export type CreateClassificationMutationVariables = Exact<{
+  input: RootInput;
+}>;
+
+
+export type CreateClassificationMutation = { __typename: 'Mutation', createClassification?: Maybe<(
+    { __typename: 'XtdClassification' }
+    & RootDetails_XtdClassification_Fragment
+  )> };
+
+export type UpdateClassificationMutationVariables = Exact<{
+  input: RootUpdateInput;
+}>;
+
+
+export type UpdateClassificationMutation = { __typename: 'Mutation', updateClassification?: Maybe<(
+    { __typename: 'XtdClassification' }
+    & RootDetails_XtdClassification_Fragment
+  )> };
+
+export type DeleteClassificationMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteClassificationMutation = { __typename: 'Mutation', deleteClassification?: Maybe<{ __typename: 'XtdClassification', id: string }> };
+
+export type ClassificationListQueryVariables = Exact<{
+  input?: Maybe<FilterInput>;
+}>;
+
+
+export type ClassificationListQuery = { __typename: 'Query', classifications: { __typename: 'XtdClassificationConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdClassification' }
+      & Root_XtdClassification_Fragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type ClassificationQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ClassificationQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
+    { __typename: 'XtdRelDocuments' }
+    & RootDetails_XtdRelDocuments_Fragment
+  ) | { __typename: 'XtdDescription' } | (
+    { __typename: 'XtdRelActsUpon' }
+    & RootDetails_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & RootDetails_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & RootDetails_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & RootDetails_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & RootDetails_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & RootDetails_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & RootDetails_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & RootDetails_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & RootDetails_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & RootDetails_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & RootDetails_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & RootDetails_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & RootDetails_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & RootDetails_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & RootDetails_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & RootDetails_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & RootDetails_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & RootDetails_XtdRelAssignsPropertyWithValues_Fragment
+  )> };
+
 export type CollectsFragment = (
   { __typename: 'XtdRelCollects', relatingCollection: (
     { __typename: 'XtdBag' }
@@ -3349,6 +3453,175 @@ export function useCatalogStatisticsLazyQuery(baseOptions?: ApolloReactHooks.Laz
 export type CatalogStatisticsQueryHookResult = ReturnType<typeof useCatalogStatisticsQuery>;
 export type CatalogStatisticsLazyQueryHookResult = ReturnType<typeof useCatalogStatisticsLazyQuery>;
 export type CatalogStatisticsQueryResult = ApolloReactCommon.QueryResult<CatalogStatisticsQuery, CatalogStatisticsQueryVariables>;
+export const CreateClassificationDocument = gql`
+    mutation CreateClassification($input: RootInput!) {
+  createClassification(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type CreateClassificationMutationFn = ApolloReactCommon.MutationFunction<CreateClassificationMutation, CreateClassificationMutationVariables>;
+
+/**
+ * __useCreateClassificationMutation__
+ *
+ * To run a mutation, you first call `useCreateClassificationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateClassificationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createClassificationMutation, { data, loading, error }] = useCreateClassificationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateClassificationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateClassificationMutation, CreateClassificationMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateClassificationMutation, CreateClassificationMutationVariables>(CreateClassificationDocument, baseOptions);
+      }
+export type CreateClassificationMutationHookResult = ReturnType<typeof useCreateClassificationMutation>;
+export type CreateClassificationMutationResult = ApolloReactCommon.MutationResult<CreateClassificationMutation>;
+export type CreateClassificationMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateClassificationMutation, CreateClassificationMutationVariables>;
+export const UpdateClassificationDocument = gql`
+    mutation UpdateClassification($input: RootUpdateInput!) {
+  updateClassification(input: $input) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+export type UpdateClassificationMutationFn = ApolloReactCommon.MutationFunction<UpdateClassificationMutation, UpdateClassificationMutationVariables>;
+
+/**
+ * __useUpdateClassificationMutation__
+ *
+ * To run a mutation, you first call `useUpdateClassificationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateClassificationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateClassificationMutation, { data, loading, error }] = useUpdateClassificationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateClassificationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateClassificationMutation, UpdateClassificationMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateClassificationMutation, UpdateClassificationMutationVariables>(UpdateClassificationDocument, baseOptions);
+      }
+export type UpdateClassificationMutationHookResult = ReturnType<typeof useUpdateClassificationMutation>;
+export type UpdateClassificationMutationResult = ApolloReactCommon.MutationResult<UpdateClassificationMutation>;
+export type UpdateClassificationMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateClassificationMutation, UpdateClassificationMutationVariables>;
+export const DeleteClassificationDocument = gql`
+    mutation DeleteClassification($id: ID!) {
+  deleteClassification(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteClassificationMutationFn = ApolloReactCommon.MutationFunction<DeleteClassificationMutation, DeleteClassificationMutationVariables>;
+
+/**
+ * __useDeleteClassificationMutation__
+ *
+ * To run a mutation, you first call `useDeleteClassificationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteClassificationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteClassificationMutation, { data, loading, error }] = useDeleteClassificationMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteClassificationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteClassificationMutation, DeleteClassificationMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteClassificationMutation, DeleteClassificationMutationVariables>(DeleteClassificationDocument, baseOptions);
+      }
+export type DeleteClassificationMutationHookResult = ReturnType<typeof useDeleteClassificationMutation>;
+export type DeleteClassificationMutationResult = ApolloReactCommon.MutationResult<DeleteClassificationMutation>;
+export type DeleteClassificationMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteClassificationMutation, DeleteClassificationMutationVariables>;
+export const ClassificationListDocument = gql`
+    query ClassificationList($input: FilterInput) {
+  classifications(input: $input) {
+    nodes {
+      ...Root
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${RootFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useClassificationListQuery__
+ *
+ * To run a query within a React component, call `useClassificationListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useClassificationListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useClassificationListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useClassificationListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ClassificationListQuery, ClassificationListQueryVariables>) {
+        return ApolloReactHooks.useQuery<ClassificationListQuery, ClassificationListQueryVariables>(ClassificationListDocument, baseOptions);
+      }
+export function useClassificationListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ClassificationListQuery, ClassificationListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ClassificationListQuery, ClassificationListQueryVariables>(ClassificationListDocument, baseOptions);
+        }
+export type ClassificationListQueryHookResult = ReturnType<typeof useClassificationListQuery>;
+export type ClassificationListLazyQueryHookResult = ReturnType<typeof useClassificationListLazyQuery>;
+export type ClassificationListQueryResult = ApolloReactCommon.QueryResult<ClassificationListQuery, ClassificationListQueryVariables>;
+export const ClassificationDocument = gql`
+    query Classification($id: ID!) {
+  node(id: $id) {
+    ...RootDetails
+  }
+}
+    ${RootDetailsFragmentDoc}`;
+
+/**
+ * __useClassificationQuery__
+ *
+ * To run a query within a React component, call `useClassificationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useClassificationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useClassificationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useClassificationQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ClassificationQuery, ClassificationQueryVariables>) {
+        return ApolloReactHooks.useQuery<ClassificationQuery, ClassificationQueryVariables>(ClassificationDocument, baseOptions);
+      }
+export function useClassificationLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ClassificationQuery, ClassificationQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ClassificationQuery, ClassificationQueryVariables>(ClassificationDocument, baseOptions);
+        }
+export type ClassificationQueryHookResult = ReturnType<typeof useClassificationQuery>;
+export type ClassificationLazyQueryHookResult = ReturnType<typeof useClassificationLazyQuery>;
+export type ClassificationQueryResult = ApolloReactCommon.QueryResult<ClassificationQuery, ClassificationQueryVariables>;
 export const CreateCollectsDocument = gql`
     mutation CreateCollects($input: CollectsInput!) {
   createCollectsRelation(input: $input) {
