@@ -1,0 +1,4 @@
+fragment CatalogItemStatistics on CatalogItemStatistics {
+    id
+    count
+}
