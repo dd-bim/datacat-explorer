@@ -21,6 +21,7 @@ import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
 import useCollectsInputTemplate from "./useCollectsInputTemplate";
 import CollectsFormSet from "./CollectsFormSet";
+import {CollectsIcon} from "../icons/icons";
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
@@ -33,6 +34,7 @@ function ListView() {
 
     return (
         <Table
+            icon={<CollectsIcon/>}
             title="Collects relationships"
             createPath={createPath}
             query={query}

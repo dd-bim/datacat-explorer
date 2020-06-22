@@ -21,6 +21,7 @@ import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
 import useAssignsCollectionsInputTemplate from "./useAssignsCollectionsInputTemplate";
 import AssignsCollectionsFormSet from "./AssignsCollectionsFormSet";
+import {AssignsIcon} from "../icons/icons";
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
@@ -33,6 +34,7 @@ function ListView() {
 
     return (
         <Table
+            icon={<AssignsIcon/>}
             title="'Assigns collections' relationships"
             createPath={createPath}
             query={query}

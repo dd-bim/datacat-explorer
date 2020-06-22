@@ -21,6 +21,7 @@ import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
 import ValueFormSet from "./ValueFormSet";
+import {ValueIcon} from "../icons/icons";
 
 function ListView() {
     const { createPath } = useContext(ViewContext);
@@ -33,6 +34,7 @@ function ListView() {
 
     return (
         <Table
+            icon={<ValueIcon/>}
             title="Values"
             createPath={createPath}
             query={query}

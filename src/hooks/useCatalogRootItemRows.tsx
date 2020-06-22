@@ -1,5 +1,4 @@
 import {CatalogItemFragment, RootFragment} from "../generated/types";
-import CatalogItemIcon from "../components/icons/CatalogItemIcon";
 import Link from "@material-ui/core/Link";
 import {Link as RouterLink} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
@@ -11,7 +10,6 @@ import dateUtil from "../dateUtil";
 import {getUpdatePath} from "../Routes";
 
 const columnsFactory = () => [
-    {id: 'icon', Header: '', accessor: 'icon'},
     {id: 'label', Header: 'Name', accessor: 'label'},
     {id: 'version', Header: 'Version', accessor: 'version'},
     {id: 'created', Header: 'Created', accessor: 'created'},
@@ -33,7 +31,6 @@ const rowFactory = (item: RootFragment) => {
     } = item;
 
     return {
-        icon: <CatalogItemIcon itemType={__typename} fontSize={'small'}/>,
         label: (
             <LabelCell id={id} label={label}/>
         ),

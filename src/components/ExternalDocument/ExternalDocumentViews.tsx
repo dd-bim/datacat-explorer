@@ -22,6 +22,7 @@ import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import {useWriteAccess} from "../../hooks/useAuthContext";
 import useListView from "../View/useListView";
+import {ExternalDocumentIcon} from "../icons/icons";
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
@@ -34,6 +35,7 @@ function ListView() {
 
     return (
         <Table
+            icon={<ExternalDocumentIcon/>}
             title="External documents"
             createPath={createPath}
             query={query}

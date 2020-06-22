@@ -16,25 +16,34 @@ const useStyles = makeStyles(theme => ({
         'margin-bottom': theme.spacing(2),
         'justify-content': 'space-between'
     },
+    icon: {
+        'margin-right': theme.spacing(.5),
+        '& > svg': {
+            'vertical-align': 'text-bottom'
+        }
+    },
     addButton: {
         'vertical-align': 'text-bottom',
-        'margin-right': theme.spacing(.5)
+        'margin-left': theme.spacing(1)
     }
 }))
 
 type TableToolbarProps = {
+    icon?: React.ReactNode,
     title: string
     SearchProps?: TextFieldProps
     createPath?: string
 }
 
 export default function TableToolbar(props: TableToolbarProps) {
-    const { title, SearchProps, createPath } = props;
+    const { icon, title, SearchProps, createPath } = props;
     const classes = useStyles();
 
     return (
         <Toolbar className={classes.root} disableGutters>
             <Typography variant="h6">
+                {icon && <span className={classes.icon}>{icon}</span>}
+                <span>{title}</span>
                 {createPath && (
                     <Link component={RouterLink} to={createPath}>
                         <AddCircleIcon
@@ -43,7 +52,6 @@ export default function TableToolbar(props: TableToolbarProps) {
                         />
                     </Link>
                 )}
-                {title}
             </Typography>
             <TextField
                 variant="outlined"

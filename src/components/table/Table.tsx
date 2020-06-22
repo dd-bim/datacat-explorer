@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import MUITable from "@material-ui/core/Table"
 import TableContainer from "@material-ui/core/TableContainer";
 import TableToolbar from "./TableToolbar";
@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import TablePagination from "@material-ui/core/TablePagination";
 
 export type TableProps = {
+    icon?: ReactNode,
     title: string
     createPath?: string
     query: string
@@ -25,6 +26,7 @@ export type TableProps = {
 
 export default function Table(props: TableProps) {
     const {
+        icon,
         title,
         createPath,
         query,
@@ -84,6 +86,7 @@ export default function Table(props: TableProps) {
     return (
         <TableContainer>
             <TableToolbar
+                icon={icon}
                 title={title}
                 createPath={createPath}
                 SearchProps={{

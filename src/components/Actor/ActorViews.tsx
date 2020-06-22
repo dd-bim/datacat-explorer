@@ -21,6 +21,7 @@ import CatalogItemForm from "../form/CatalogItemForm";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
+import {ActorIcon} from "../icons/icons";
 
 function ListView() {
     const {
@@ -33,6 +34,7 @@ function ListView() {
 
     return (
         <Table
+            icon={<ActorIcon/>}
             title="Actors"
             createPath={createPath}
             query={query}

@@ -5,6 +5,7 @@ import {useSearchViewQuery} from "../../generated/types";
 import Table from "../table/Table";
 import ViewWrapper from "../View/ViewWrapper";
 import useCatalogItemRows from "../../hooks/useCatalogItemRows";
+import SearchIcon from "@material-ui/icons/Search";
 
 export default function SearchView() {
     const q = useLocationQueryParam("q", "");
@@ -19,6 +20,7 @@ export default function SearchView() {
     return (
         <ViewWrapper>
             <Table
+                icon={<SearchIcon/>}
                 title="Search catalog"
                 query={query}
                 onQueryChange={setQuery}

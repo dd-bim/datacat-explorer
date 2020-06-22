@@ -21,6 +21,7 @@ import {
 } from "../../generated/types";
 import {sanitizeMeasureInput} from "../../utils";
 import MeasureFormSet from "./MeasureFormSet";
+import {MeasureWithUnitIcon} from "../icons/icons";
 
 function ListView() {
     const { createPath } = useContext(ViewContext);
@@ -33,6 +34,7 @@ function ListView() {
 
     return (
         <Table
+            icon={<MeasureWithUnitIcon/>}
             title="Measures"
             createPath={createPath}
             query={query}
