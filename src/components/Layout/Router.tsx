@@ -21,6 +21,7 @@ import StatisticsView from "../Catalog/StatisticsView";
 import ViewWrapper from "../View/ViewWrapper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import ClassificationViews from "../Classification/ClassificationViews";
+import DocumentsViews from "../Documents/DocumentsViews";
 
 const useStyles = makeStyles(theme => ({
     graphiql: {
@@ -78,9 +79,9 @@ export default function Router() {
             <Route path="/collections/nests">
                 <NestViews/>
             </Route>
-            {/*<Route path="/relationships/documents">*/}
-            {/*    <RelDocumentsRoutes/>*/}
-            {/*</Route>*/}
+            <Route path="/relationships/documents">
+                <DocumentsViews/>
+            </Route>
             <Route path="/relationships/collects">
                 <CollectsViews/>
             </Route>

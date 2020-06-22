@@ -1,0 +1,17 @@
+mutation CreateDocuments($input: DocumentsInput!) {
+    createDocumentsRelation(input: $input) {
+        ...DocumentsDetails
+    }
+}
+
+mutation UpdateDocuments($input: DocumentsUpdateInput!) {
+    updateDocumentsRelation(input: $input) {
+        ...DocumentsDetails
+    }
+}
+
+mutation DeleteDocuments($id: ID!) {
+    deleteDocumentsRelation(id: $id) {
+        id
+    }
+}

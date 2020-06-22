@@ -1,0 +1,9 @@
+fragment Documents on XtdRelDocuments {
+    ...Root
+    relatingDocument {
+        ...ExternalDocument
+    }
+    relatedThings {
+        ...Root
+    }
+}

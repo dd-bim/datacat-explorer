@@ -4,6 +4,8 @@ import {
     AssignsCollectionsUpdateInput,
     CollectsInput,
     CollectsUpdateInput,
+    DocumentsInput,
+    DocumentsUpdateInput,
     EntityInput,
     EntityUpdateInput,
     MeasureInput,
@@ -90,5 +92,9 @@ export const sanitizeCollectsInput = (input: CollectsInput | CollectsUpdateInput
 }
 
 export const sanitizeAssignsCollectionsInput = (input: AssignsCollectionsInput | AssignsCollectionsUpdateInput) => {
+    sanitizeRootInput(input);
+}
+
+export const sanitizeDocumentsInput = (input: DocumentsInput | DocumentsUpdateInput) => {
     sanitizeRootInput(input);
 }

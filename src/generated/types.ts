@@ -76,6 +76,26 @@ export type CollectsUpdateInput = {
   relatedThings: Array<Scalars['ID']>;
 };
 
+export type DocumentsInput = {
+  id?: Maybe<Scalars['ID']>;
+  versionId: Scalars['String'];
+  versionDate: Scalars['String'];
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
+  relatingDocument: Scalars['ID'];
+  relatedThings: Array<Scalars['ID']>;
+};
+
+export type DocumentsUpdateInput = {
+  id: Scalars['ID'];
+  versionId: Scalars['String'];
+  versionDate: Scalars['String'];
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
+  relatingDocument: Scalars['ID'];
+  relatedThings: Array<Scalars['ID']>;
+};
+
 
 export type EntityInput = {
   id?: Maybe<Scalars['ID']>;
@@ -168,26 +188,6 @@ export enum QueryScopes {
   Names = 'NAMES',
   Descriptions = 'DESCRIPTIONS'
 }
-
-export type RelDocumentsInput = {
-  id?: Maybe<Scalars['ID']>;
-  versionId: Scalars['String'];
-  versionDate: Scalars['String'];
-  names: Array<TextInput>;
-  descriptions?: Maybe<Array<TextInput>>;
-  relatingDocument: Scalars['ID'];
-  relatedObjects: Array<Scalars['ID']>;
-};
-
-export type RelDocumentsUpdateInput = {
-  id: Scalars['ID'];
-  versionId: Scalars['String'];
-  versionDate: Scalars['String'];
-  names: Array<TextInput>;
-  descriptions?: Maybe<Array<TextInput>>;
-  relatingDocument: Scalars['ID'];
-  relatedObjects: Array<Scalars['ID']>;
-};
 
 export type RootInput = {
   id?: Maybe<Scalars['ID']>;
@@ -1189,6 +1189,186 @@ export type CollectsDetailsFragment = (
   & RootDetails_XtdRelCollects_Fragment
 );
 
+export type DocumentsFragment = (
+  { __typename: 'XtdRelDocuments', relatingDocument: (
+    { __typename: 'XtdExternalDocument' }
+    & ExternalDocumentFragment
+  ), relatedThings: Array<(
+    { __typename: 'XtdRelDocuments' }
+    & Root_XtdRelDocuments_Fragment
+  ) | (
+    { __typename: 'XtdRelActsUpon' }
+    & Root_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & Root_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & Root_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & Root_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & Root_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & Root_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & Root_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & Root_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & Root_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & Root_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & Root_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & Root_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & Root_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & Root_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & Root_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & Root_XtdRelAssignsPropertyWithValues_Fragment
+  )> }
+  & Root_XtdRelDocuments_Fragment
+);
+
+export type CreateDocumentsMutationVariables = Exact<{
+  input: DocumentsInput;
+}>;
+
+
+export type CreateDocumentsMutation = { __typename: 'Mutation', createDocumentsRelation?: Maybe<(
+    { __typename: 'XtdRelDocuments' }
+    & DocumentsDetailsFragment
+  )> };
+
+export type UpdateDocumentsMutationVariables = Exact<{
+  input: DocumentsUpdateInput;
+}>;
+
+
+export type UpdateDocumentsMutation = { __typename: 'Mutation', updateDocumentsRelation?: Maybe<(
+    { __typename: 'XtdRelDocuments' }
+    & DocumentsDetailsFragment
+  )> };
+
+export type DeleteDocumentsMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteDocumentsMutation = { __typename: 'Mutation', deleteDocumentsRelation?: Maybe<{ __typename: 'XtdRelDocuments', id: string }> };
+
+export type DocumentsListQueryVariables = Exact<{
+  input?: Maybe<FilterInput>;
+}>;
+
+
+export type DocumentsListQuery = { __typename: 'Query', documentsRelations: { __typename: 'XtdRelDocumentsConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdRelDocuments' }
+      & DocumentsFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type DocumentsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DocumentsQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | (
+    { __typename: 'XtdRelDocuments' }
+    & DocumentsDetailsFragment
+  ) | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' } | { __typename: 'XtdRelAssignsPropertyWithValues' }> };
+
+export type DocumentsDetailsFragment = (
+  { __typename: 'XtdRelDocuments', relatingDocument: (
+    { __typename: 'XtdExternalDocument' }
+    & ExternalDocumentDetailsFragment
+  ), relatedThings: Array<(
+    { __typename: 'XtdRelDocuments' }
+    & Root_XtdRelDocuments_Fragment
+  ) | (
+    { __typename: 'XtdRelActsUpon' }
+    & Root_XtdRelActsUpon_Fragment
+  ) | (
+    { __typename: 'XtdRelAssociates' }
+    & Root_XtdRelAssociates_Fragment
+  ) | (
+    { __typename: 'XtdRelCollects' }
+    & Root_XtdRelCollects_Fragment
+  ) | (
+    { __typename: 'XtdRelComposes' }
+    & Root_XtdRelComposes_Fragment
+  ) | (
+    { __typename: 'XtdRelGroups' }
+    & Root_XtdRelGroups_Fragment
+  ) | (
+    { __typename: 'XtdRelSpecializes' }
+    & Root_XtdRelSpecializes_Fragment
+  ) | (
+    { __typename: 'XtdActor' }
+    & Root_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & Root_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & Root_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & Root_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & Root_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & Root_XtdSubject_Fragment
+  ) | (
+    { __typename: 'XtdBag' }
+    & Root_XtdBag_Fragment
+  ) | (
+    { __typename: 'XtdNest' }
+    & Root_XtdNest_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsCollections' }
+    & Root_XtdRelAssignsCollections_Fragment
+  ) | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & Root_XtdRelAssignsPropertyWithValues_Fragment
+  )> }
+  & RootDetails_XtdRelDocuments_Fragment
+);
+
 export type CreateExternalDocumentMutationVariables = Exact<{
   input: EntityInput;
 }>;
@@ -1916,35 +2096,65 @@ export type ExternalDocumentFragment = (
 
 export type ExternalDocumentDetailsFragment = (
   { __typename: 'XtdExternalDocument', documents: { __typename: 'XtdRelDocumentsConnection', totalElements: number, nodes: Array<(
-      { __typename: 'XtdRelDocuments', relatedObjects: { __typename: 'XtdObjectConnection', totalElements: number, nodes: Array<(
-          { __typename: 'XtdActor' }
-          & CatalogItem_XtdActor_Fragment
-        ) | (
-          { __typename: 'XtdActivity' }
-          & CatalogItem_XtdActivity_Fragment
-        ) | (
-          { __typename: 'XtdClassification' }
-          & CatalogItem_XtdClassification_Fragment
-        ) | (
-          { __typename: 'XtdMeasureWithUnit' }
-          & CatalogItem_XtdMeasureWithUnit_Fragment
-        ) | (
-          { __typename: 'XtdUnit' }
-          & CatalogItem_XtdUnit_Fragment
-        ) | (
-          { __typename: 'XtdValue' }
-          & CatalogItem_XtdValue_Fragment
-        ) | (
-          { __typename: 'XtdProperty' }
-          & CatalogItem_XtdProperty_Fragment
-        ) | (
-          { __typename: 'XtdSubject' }
-          & CatalogItem_XtdSubject_Fragment
-        )>, pageInfo: (
-          { __typename: 'PageInfo' }
-          & PageInfoFragment
-        ) } }
-      & CatalogItem_XtdRelDocuments_Fragment
+      { __typename: 'XtdRelDocuments', relatedThings: Array<(
+        { __typename: 'XtdRelDocuments' }
+        & Root_XtdRelDocuments_Fragment
+      ) | (
+        { __typename: 'XtdRelActsUpon' }
+        & Root_XtdRelActsUpon_Fragment
+      ) | (
+        { __typename: 'XtdRelAssociates' }
+        & Root_XtdRelAssociates_Fragment
+      ) | (
+        { __typename: 'XtdRelCollects' }
+        & Root_XtdRelCollects_Fragment
+      ) | (
+        { __typename: 'XtdRelComposes' }
+        & Root_XtdRelComposes_Fragment
+      ) | (
+        { __typename: 'XtdRelGroups' }
+        & Root_XtdRelGroups_Fragment
+      ) | (
+        { __typename: 'XtdRelSpecializes' }
+        & Root_XtdRelSpecializes_Fragment
+      ) | (
+        { __typename: 'XtdActor' }
+        & Root_XtdActor_Fragment
+      ) | (
+        { __typename: 'XtdActivity' }
+        & Root_XtdActivity_Fragment
+      ) | (
+        { __typename: 'XtdClassification' }
+        & Root_XtdClassification_Fragment
+      ) | (
+        { __typename: 'XtdMeasureWithUnit' }
+        & Root_XtdMeasureWithUnit_Fragment
+      ) | (
+        { __typename: 'XtdUnit' }
+        & Root_XtdUnit_Fragment
+      ) | (
+        { __typename: 'XtdValue' }
+        & Root_XtdValue_Fragment
+      ) | (
+        { __typename: 'XtdProperty' }
+        & Root_XtdProperty_Fragment
+      ) | (
+        { __typename: 'XtdSubject' }
+        & Root_XtdSubject_Fragment
+      ) | (
+        { __typename: 'XtdBag' }
+        & Root_XtdBag_Fragment
+      ) | (
+        { __typename: 'XtdNest' }
+        & Root_XtdNest_Fragment
+      ) | (
+        { __typename: 'XtdRelAssignsCollections' }
+        & Root_XtdRelAssignsCollections_Fragment
+      ) | (
+        { __typename: 'XtdRelAssignsPropertyWithValues' }
+        & Root_XtdRelAssignsPropertyWithValues_Fragment
+      )> }
+      & Root_XtdRelDocuments_Fragment
     )>, pageInfo: (
       { __typename: 'PageInfo' }
       & PageInfoFragment
@@ -2489,6 +2699,65 @@ export const CollectsDetailsFragmentDoc = gql`
 }
     ${RootDetailsFragmentDoc}
 ${RootFragmentDoc}`;
+export const ExternalDocumentFragmentDoc = gql`
+    fragment ExternalDocument on XtdExternalDocument {
+  ...CatalogItem
+  documents {
+    totalElements
+  }
+}
+    ${CatalogItemFragmentDoc}`;
+export const DocumentsFragmentDoc = gql`
+    fragment Documents on XtdRelDocuments {
+  ...Root
+  relatingDocument {
+    ...ExternalDocument
+  }
+  relatedThings {
+    ...Root
+  }
+}
+    ${RootFragmentDoc}
+${ExternalDocumentFragmentDoc}`;
+export const PageInfoFragmentDoc = gql`
+    fragment PageInfo on PageInfo {
+  pageSize
+  pageNumber
+  totalPages
+}
+    `;
+export const ExternalDocumentDetailsFragmentDoc = gql`
+    fragment ExternalDocumentDetails on XtdExternalDocument {
+  ...CatalogItem
+  documents {
+    nodes {
+      ...Root
+      relatedThings {
+        ...Root
+      }
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${CatalogItemFragmentDoc}
+${RootFragmentDoc}
+${PageInfoFragmentDoc}`;
+export const DocumentsDetailsFragmentDoc = gql`
+    fragment DocumentsDetails on XtdRelDocuments {
+  ...RootDetails
+  relatingDocument {
+    ...ExternalDocumentDetails
+  }
+  relatedThings {
+    ...Root
+  }
+}
+    ${RootDetailsFragmentDoc}
+${ExternalDocumentDetailsFragmentDoc}
+${RootFragmentDoc}`;
 export const NestFragmentDoc = gql`
     fragment Nest on XtdNest {
   ...CatalogItem
@@ -2508,45 +2777,6 @@ export const CollectionFragmentDoc = gql`
   ...Root
 }
     ${RootFragmentDoc}`;
-export const ExternalDocumentFragmentDoc = gql`
-    fragment ExternalDocument on XtdExternalDocument {
-  ...CatalogItem
-  documents {
-    totalElements
-  }
-}
-    ${CatalogItemFragmentDoc}`;
-export const PageInfoFragmentDoc = gql`
-    fragment PageInfo on PageInfo {
-  pageSize
-  pageNumber
-  totalPages
-}
-    `;
-export const ExternalDocumentDetailsFragmentDoc = gql`
-    fragment ExternalDocumentDetails on XtdExternalDocument {
-  ...CatalogItem
-  documents {
-    nodes {
-      ...CatalogItem
-      relatedObjects {
-        nodes {
-          ...CatalogItem
-        }
-        pageInfo {
-          ...PageInfo
-        }
-        totalElements
-      }
-    }
-    pageInfo {
-      ...PageInfo
-    }
-    totalElements
-  }
-}
-    ${CatalogItemFragmentDoc}
-${PageInfoFragmentDoc}`;
 export const UnitFragmentDoc = gql`
     fragment Unit on XtdUnit {
   ...CatalogItem
@@ -3791,6 +4021,175 @@ export function useCollectsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type CollectsQueryHookResult = ReturnType<typeof useCollectsQuery>;
 export type CollectsLazyQueryHookResult = ReturnType<typeof useCollectsLazyQuery>;
 export type CollectsQueryResult = ApolloReactCommon.QueryResult<CollectsQuery, CollectsQueryVariables>;
+export const CreateDocumentsDocument = gql`
+    mutation CreateDocuments($input: DocumentsInput!) {
+  createDocumentsRelation(input: $input) {
+    ...DocumentsDetails
+  }
+}
+    ${DocumentsDetailsFragmentDoc}`;
+export type CreateDocumentsMutationFn = ApolloReactCommon.MutationFunction<CreateDocumentsMutation, CreateDocumentsMutationVariables>;
+
+/**
+ * __useCreateDocumentsMutation__
+ *
+ * To run a mutation, you first call `useCreateDocumentsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDocumentsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDocumentsMutation, { data, loading, error }] = useCreateDocumentsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateDocumentsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateDocumentsMutation, CreateDocumentsMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateDocumentsMutation, CreateDocumentsMutationVariables>(CreateDocumentsDocument, baseOptions);
+      }
+export type CreateDocumentsMutationHookResult = ReturnType<typeof useCreateDocumentsMutation>;
+export type CreateDocumentsMutationResult = ApolloReactCommon.MutationResult<CreateDocumentsMutation>;
+export type CreateDocumentsMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateDocumentsMutation, CreateDocumentsMutationVariables>;
+export const UpdateDocumentsDocument = gql`
+    mutation UpdateDocuments($input: DocumentsUpdateInput!) {
+  updateDocumentsRelation(input: $input) {
+    ...DocumentsDetails
+  }
+}
+    ${DocumentsDetailsFragmentDoc}`;
+export type UpdateDocumentsMutationFn = ApolloReactCommon.MutationFunction<UpdateDocumentsMutation, UpdateDocumentsMutationVariables>;
+
+/**
+ * __useUpdateDocumentsMutation__
+ *
+ * To run a mutation, you first call `useUpdateDocumentsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateDocumentsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateDocumentsMutation, { data, loading, error }] = useUpdateDocumentsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateDocumentsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateDocumentsMutation, UpdateDocumentsMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateDocumentsMutation, UpdateDocumentsMutationVariables>(UpdateDocumentsDocument, baseOptions);
+      }
+export type UpdateDocumentsMutationHookResult = ReturnType<typeof useUpdateDocumentsMutation>;
+export type UpdateDocumentsMutationResult = ApolloReactCommon.MutationResult<UpdateDocumentsMutation>;
+export type UpdateDocumentsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateDocumentsMutation, UpdateDocumentsMutationVariables>;
+export const DeleteDocumentsDocument = gql`
+    mutation DeleteDocuments($id: ID!) {
+  deleteDocumentsRelation(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteDocumentsMutationFn = ApolloReactCommon.MutationFunction<DeleteDocumentsMutation, DeleteDocumentsMutationVariables>;
+
+/**
+ * __useDeleteDocumentsMutation__
+ *
+ * To run a mutation, you first call `useDeleteDocumentsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteDocumentsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteDocumentsMutation, { data, loading, error }] = useDeleteDocumentsMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteDocumentsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteDocumentsMutation, DeleteDocumentsMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteDocumentsMutation, DeleteDocumentsMutationVariables>(DeleteDocumentsDocument, baseOptions);
+      }
+export type DeleteDocumentsMutationHookResult = ReturnType<typeof useDeleteDocumentsMutation>;
+export type DeleteDocumentsMutationResult = ApolloReactCommon.MutationResult<DeleteDocumentsMutation>;
+export type DeleteDocumentsMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteDocumentsMutation, DeleteDocumentsMutationVariables>;
+export const DocumentsListDocument = gql`
+    query DocumentsList($input: FilterInput) {
+  documentsRelations(input: $input) {
+    nodes {
+      ...Documents
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${DocumentsFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useDocumentsListQuery__
+ *
+ * To run a query within a React component, call `useDocumentsListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDocumentsListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDocumentsListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDocumentsListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<DocumentsListQuery, DocumentsListQueryVariables>) {
+        return ApolloReactHooks.useQuery<DocumentsListQuery, DocumentsListQueryVariables>(DocumentsListDocument, baseOptions);
+      }
+export function useDocumentsListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<DocumentsListQuery, DocumentsListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<DocumentsListQuery, DocumentsListQueryVariables>(DocumentsListDocument, baseOptions);
+        }
+export type DocumentsListQueryHookResult = ReturnType<typeof useDocumentsListQuery>;
+export type DocumentsListLazyQueryHookResult = ReturnType<typeof useDocumentsListLazyQuery>;
+export type DocumentsListQueryResult = ApolloReactCommon.QueryResult<DocumentsListQuery, DocumentsListQueryVariables>;
+export const DocumentsDocument = gql`
+    query Documents($id: ID!) {
+  node(id: $id) {
+    ...DocumentsDetails
+  }
+}
+    ${DocumentsDetailsFragmentDoc}`;
+
+/**
+ * __useDocumentsQuery__
+ *
+ * To run a query within a React component, call `useDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDocumentsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDocumentsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<DocumentsQuery, DocumentsQueryVariables>) {
+        return ApolloReactHooks.useQuery<DocumentsQuery, DocumentsQueryVariables>(DocumentsDocument, baseOptions);
+      }
+export function useDocumentsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<DocumentsQuery, DocumentsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<DocumentsQuery, DocumentsQueryVariables>(DocumentsDocument, baseOptions);
+        }
+export type DocumentsQueryHookResult = ReturnType<typeof useDocumentsQuery>;
+export type DocumentsLazyQueryHookResult = ReturnType<typeof useDocumentsLazyQuery>;
+export type DocumentsQueryResult = ApolloReactCommon.QueryResult<DocumentsQuery, DocumentsQueryVariables>;
 export const CreateExternalDocumentDocument = gql`
     mutation CreateExternalDocument($input: EntityInput!) {
   createExternalDocument(input: $input) {

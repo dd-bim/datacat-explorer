@@ -171,7 +171,6 @@ const Routes: RoutesMap = {
         category: RouteCategory.Relationship,
         title: 'Documents',
         path: 'documents',
-        disabled: true
     },
     'XtdRelCollects': {
         icon: <CollectsIcon/>,

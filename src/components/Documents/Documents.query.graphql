@@ -1,0 +1,17 @@
+query DocumentsList($input: FilterInput) {
+    documentsRelations(input: $input) {
+        nodes {
+            ...Documents
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query Documents($id: ID!) {
+    node(id: $id) {
+        ...DocumentsDetails
+    }
+}
