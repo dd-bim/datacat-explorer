@@ -17,17 +17,32 @@ import BagViews from "../Bag/BagViews";
 import NestViews from "../Nest/NestViews";
 import CollectsViews from "../Collects/CollectsViews";
 import AssignsCollectionsViews from "../AssignsCollections/AssignsCollectionsViews";
+import StatisticsView from "../Catalog/StatisticsView";
+import ViewWrapper from "../View/ViewWrapper";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+
+const useStyles = makeStyles(theme => ({
+    graphiql: {
+        minHeight: `calc(100vh - ${64 + (theme.spacing(3) * 2) }px)`
+    }
+}));
 
 export default function Router() {
+    const classes = useStyles();
     const graphiqlFetcher = useGraphiQLFetcher();
 
     return (
         <Switch>
             <Route path="/" exact>
+                <StatisticsView/>
+            </Route>
+            <Route path="/search" exact>
                 <SearchView/>
             </Route>
             <Route path="/graphiql" exact>
-                <GraphiQL fetcher={graphiqlFetcher}/>
+                <ViewWrapper className={classes.graphiql}>
+                    <GraphiQL fetcher={graphiqlFetcher}/>
+                </ViewWrapper>
             </Route>
             <Route path="/externalDocuments">
                 <ExternalDocumentViews/>

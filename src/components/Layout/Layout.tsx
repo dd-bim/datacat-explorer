@@ -7,13 +7,26 @@ import {AppBar} from "../AppBar/AppBar";
 import Router from "./Router";
 import useAuthContext from "../../hooks/useAuthContext";
 import {useRouteMatch} from "react-router-dom";
+import {Toolbar} from "@material-ui/core";
 
-const drawerWidth = 400;
+const drawerWidth = 250;
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+    },
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
     content: {
-        height: (props: {graphiql: boolean}) => props.graphiql ? `calc(100vh - 64px)` : undefined,
-        padding: (props: {graphiql: boolean}) => props.graphiql ? 0 : theme.spacing(2),
+        display: "flex",
+        flexDirection: "column",
+        flexGrow: 1,
+        padding: theme.spacing(3)
     }
 }));
 
@@ -24,21 +37,24 @@ export default function Layout() {
     const {token, login} = useAuthContext();
 
     return (
-        <React.Fragment>
+        <div className={classes.root}>
             <CssBaseline/>
             <AppBar toggleDrawer={() => setDrawerOpen(!drawerOpen)}/>
             <AppDrawer
-                open={drawerOpen}
-                onClose={() => setDrawerOpen(false)}
-                drawerWidth={drawerWidth}
+                variant="permanent"
+                className={classes.drawer}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
             />
             <main className={classes.content}>
+                <Toolbar/>
                 {
                     !token
                     ? <BoardingView onLogin={login} onSignup={login}/>
                     : <Router />
                 }
             </main>
-        </React.Fragment>
+        </div>
     );
 }
