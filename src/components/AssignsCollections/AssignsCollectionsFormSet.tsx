@@ -6,9 +6,13 @@ import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {AssignsCollectionsDetailsFragment, EntityTypes} from "../../generated/types";
-import ItemSelectionFormSet from "../Selection/ItemSelectionFormSet";
-import ItemsSelectionFormSet from "../Selection/ItemsSelectionFormSet";
+import {AssignsCollectionsDetailsFragment, CollectionFragment, EntityTypes, RootFragment} from "../../generated/types";
+import useItemSelection from "../Selection/useItemSelection";
+import useItemsSelection from "../Selection/useItemsSelection";
+import SelectionCard from "../Selection/SelectionCard";
+import EmptySelectionCard from "../Selection/EmptySelectionCard";
+import SearchListView from "../Search/SearchListView";
+import SelectionFieldList from "../Selection/SelectionFieldList";
 
 export type AssignsCollectionsFormSetProps = {
     assignsCollections?: AssignsCollectionsDetailsFragment
@@ -17,6 +21,21 @@ export type AssignsCollectionsFormSetProps = {
 export default function AssignsCollectionsFormSet(props: AssignsCollectionsFormSetProps) {
     const {assignsCollections, isUpdate} = props;
     const {register} = useFormContext();
+    const {
+        selection: relatingObject,
+        setSelection: setRelatingObject
+    } = useItemSelection<RootFragment>({
+        name: 'relatingObject',
+        defaultValue: assignsCollections?.relatingObject ?? null
+    });
+    const {
+        selection: relatedCollections,
+        add: addRelatedCollection,
+        remove: removeRelatedCollection
+    } = useItemsSelection<CollectionFragment>({
+        name: 'relatedCollections',
+        defaultValues: assignsCollections?.relatedCollections ?? []
+    });
 
     return (
         <React.Fragment>
@@ -41,35 +60,53 @@ export default function AssignsCollectionsFormSet(props: AssignsCollectionsFormS
                 <FormCaption>Relating object</FormCaption>
             </Grid>
 
-            <ItemSelectionFormSet
-                name="relatingObject"
-                defaultValue={assignsCollections?.relatingObject}
-                searchLabel="Search all objects in the catalog"
-                emptyLabel="No relating object selected..."
-                filter={() => ({
-                    entityTypeIn: [EntityTypes.XtdObject]
-                })}
-                disabled={isUpdate}
-                validationOptions={{
-                    required: true
-                }}
-            />
+            <Grid container spacing={3} item xs={12} justify="center">
+                <Grid item xs={6}>
+                    {relatingObject ? (
+                        <SelectionCard item={relatingObject}/>
+                    ) : (
+                        <EmptySelectionCard/>
+                    )}
+                </Grid>
+
+                <Grid item xs={6}>
+                    <SearchListView<RootFragment>
+                        onSelect={setRelatingObject}
+                        filter={{
+                            entityTypeIn: [EntityTypes.XtdObject],
+                            idNotIn: relatingObject ? [relatingObject.id] : []
+                        }}
+                        SearchFieldProps={{
+                            label: 'Search for objects'
+                        }}
+                    />
+                </Grid>
+            </Grid>
 
             <Grid item xs={12}>
                 <FormCaption>Related collections</FormCaption>
             </Grid>
 
-            <ItemsSelectionFormSet
-                name="relatedCollections"
-                defaultValues={assignsCollections?.relatedCollections}
-                searchLabel="Search all collections in the catalog"
-                emptyLabel="No relatedCollections selected..."
-                clearLabel="Remove from relationship"
-                filter={selection => ({
-                    entityTypeIn: [EntityTypes.XtdCollection],
-                    idNotIn: selection.map(collection => collection.id)
-                })}
-            />
+            <Grid container spacing={3} item xs={12} justify="center">
+                <Grid item xs={6}>
+                    <SelectionFieldList
+                        items={relatedCollections}
+                        onClear={removeRelatedCollection}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <SearchListView
+                        onSelect={addRelatedCollection}
+                        filter={{
+                            entityTypeIn: [EntityTypes.XtdCollection],
+                            idNotIn: relatedCollections.map(x => x.id)
+                        }}
+                        SearchFieldProps={{
+                            label: 'Search for values'
+                        }}
+                    />
+                </Grid>
+            </Grid>
 
             <Grid item xs={12}>
                 <FormCaption>Meta information</FormCaption>

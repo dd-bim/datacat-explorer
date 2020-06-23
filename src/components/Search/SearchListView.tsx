@@ -4,17 +4,17 @@ import {useQueryOptions} from "../../hooks";
 import SearchableList from "../Search/SearchableList";
 import {SearchFieldProps} from "./SearchField";
 
-type SearchListProps = {
-    onSelect(item: CatalogItemFragment): void,
+type SearchListProps<T extends CatalogItemFragment> = {
+    onSelect(item: T): void,
     filter: SearchInput,
     SearchFieldProps?: SearchFieldProps
 }
 
-export default function SearchListView(props: SearchListProps) {
+export default function SearchListView<T extends CatalogItemFragment>(props: SearchListProps<T>) {
     const {onSelect, filter = {}, SearchFieldProps} = props;
     const {query, setQuery} = useQueryOptions();
     const {loading, error, data} = useSearchViewQuery({
-        variables: { input: {query, ...filter} }
+        variables: { input: {query, pageSize: 5, ...filter} }
     });
 
     return (

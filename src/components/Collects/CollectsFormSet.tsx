@@ -6,12 +6,14 @@ import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {CollectsDetailsFragment, EntityTypes} from "../../generated/types";
+import {CatalogItemFragment, CollectionFragment, CollectsDetailsFragment, EntityTypes} from "../../generated/types";
 import SearchListView from "../Search/SearchListView";
 import SelectionFieldList from "../Selection/SelectionFieldList";
 import useItemsSelection from "../Selection/useItemsSelection";
 import useItemSelection from "../Selection/useItemSelection";
-import ItemSelectionFormSet from "../Selection/ItemSelectionFormSet";
+import SelectionCard from "../Selection/SelectionCard";
+import {SelectionItem} from "../Selection/types";
+import EmptySelectionCard from "../Selection/EmptySelectionCard";
 
 export type CollectsFormSetProps = {
     collects?: CollectsDetailsFragment
@@ -21,17 +23,22 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
     const {collects, isUpdate} = props;
     const {register} = useFormContext();
 
-    const {selection: relatingCollection} = useItemSelection({
+    const {
+        selection: relatingCollection,
+        setSelection: setRelatingCollection
+    } = useItemSelection<CollectionFragment>({
         name: 'relatingCollection',
         defaultValue: collects?.relatingCollection ?? null
     });
     const {selection: relatedThings, add, remove} = useItemsSelection({
         name: 'relatedThings',
-        defaultValues: collects?.relatedThings || []
+        defaultValues: collects?.relatedThings ?? []
     });
-
+    const handleSetRelatingCollection = (item: CatalogItemFragment) => {
+        setRelatingCollection(item as SelectionItem<CollectionFragment>);
+    };
     const entityTypeIn: EntityTypes[] = [];
-    if (relatingCollection && relatingCollection.__typename === "XtdNest") {
+    if (relatingCollection?.__typename === "XtdNest") {
         if (relatedThings.length) {
             const entityType = EntityTypes[relatedThings[0].__typename]
             entityTypeIn.push(entityType);
@@ -68,34 +75,39 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                 <FormCaption>Relating collection</FormCaption>
             </Grid>
 
-            <ItemSelectionFormSet
-                name="relatingCollection"
-                defaultValue={collects?.relatingCollection}
-                searchLabel="Search all collections in the catalog"
-                emptyLabel="No relating collection selected..."
-                filter={() => ({
-                    entityTypeIn: [EntityTypes.XtdBag, EntityTypes.XtdNest]
-                })}
-                disabled={isUpdate}
-                validationOptions={{
-                    required: true
-                }}
-            />
+            <Grid container spacing={3} item xs={12} justify="center">
+                <Grid item xs={6}>
+                    {relatingCollection ? (
+                        <SelectionCard item={relatingCollection}/>
+                    ) : (
+                        <EmptySelectionCard/>
+                    )}
+                </Grid>
+                <Grid item xs={6}>
+                    <SearchListView
+                        onSelect={handleSetRelatingCollection}
+                        filter={{
+                            entityTypeIn: [EntityTypes.XtdBag, EntityTypes.XtdNest],
+                            idNotIn: relatingCollection ? [relatingCollection.id] : []
+                        }}
+                        SearchFieldProps={{
+                            label: 'Search for external documents'
+                        }}
+                    />
+                </Grid>
+            </Grid>
 
             <Grid item xs={12}>
                 <FormCaption>Related things</FormCaption>
             </Grid>
 
             <Grid container spacing={3} item xs={12} justify="center">
-
                 <Grid item xs={6}>
                     <SelectionFieldList
                         items={relatedThings}
-                        noSelectionLabel="No related things selected..."
                         onClear={remove}
                     />
                 </Grid>
-
                 <Grid item xs={6}>
                     <SearchListView
                         onSelect={add}
@@ -109,7 +121,6 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                         }}
                     />
                 </Grid>
-
             </Grid>
 
             <Grid item xs={12}>

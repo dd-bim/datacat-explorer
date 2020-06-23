@@ -13,6 +13,9 @@ import CatalogItemIcon from "../icons/CatalogItemIcon";
 import TextFieldOptions from "../form/TextFieldOptions";
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        minHeight: '400px'
+    },
     search: {
         padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`
     }
@@ -31,7 +34,7 @@ export default function SearchableList(props: SearchableListProps) {
     const classes = useStyles();
 
     return (
-        <Paper>
+        <Paper className={classes.root}>
             <div className={classes.search}>
                 <SearchField
                     {...TextFieldOptions}
