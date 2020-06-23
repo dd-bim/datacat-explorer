@@ -1,0 +1,17 @@
+query AssignsPropertyWithValuesList($input: FilterInput) {
+    assignsPropertyWithValues(input: $input) {
+        nodes {
+            ...AssignsPropertyWithValues
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+query AssignsPropertyWithValues($id: ID!) {
+    node(id: $id) {
+        ...AssignsPropertyWithValuesDetails
+    }
+}

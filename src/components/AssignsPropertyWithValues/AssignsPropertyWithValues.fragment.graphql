@@ -1,0 +1,25 @@
+fragment AssignsPropertyWithValues on XtdRelAssignsPropertyWithValues {
+    ...Root
+    relatingObject {
+        ...Root
+    }
+    relatedProperty {
+        ...Root
+    }
+    relatedValues {
+        ...Root
+    }
+}
+
+fragment AssignsPropertyWithValuesDetails on XtdRelAssignsPropertyWithValues {
+    ...RootDetails
+    relatingObject {
+        ...Root
+    }
+    relatedProperty {
+        ...Root
+    }
+    relatedValues {
+        ...Root
+    }
+}

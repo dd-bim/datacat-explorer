@@ -33,6 +33,28 @@ export type AssignsCollectionsUpdateInput = {
   relatedCollections: Array<Scalars['ID']>;
 };
 
+export type AssignsPropertyWithValuesInput = {
+  id?: Maybe<Scalars['ID']>;
+  versionId: Scalars['String'];
+  versionDate: Scalars['String'];
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
+  relatingObject: Scalars['ID'];
+  relatedProperty: Scalars['ID'];
+  relatedValues: Array<Scalars['ID']>;
+};
+
+export type AssignsPropertyWithValuesUpdateInput = {
+  id: Scalars['ID'];
+  versionId: Scalars['String'];
+  versionDate: Scalars['String'];
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
+  relatingObject: Scalars['ID'];
+  relatedProperty: Scalars['ID'];
+  relatedValues: Array<Scalars['ID']>;
+};
+
 export type AssociationInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
@@ -261,6 +283,7 @@ export type ValueUpdateInput = {
   valueType: XtdValueTypeEnum;
   nominalValue?: Maybe<Scalars['String']>;
 };
+
 
 
 
@@ -752,6 +775,126 @@ export type AssignsCollectionsDetailsFragment = (
   )> }
   & RootDetails_XtdRelAssignsCollections_Fragment
 );
+
+export type AssignsPropertyWithValuesFragment = (
+  { __typename: 'XtdRelAssignsPropertyWithValues', relatingObject: (
+    { __typename: 'XtdActor' }
+    & Root_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & Root_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & Root_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & Root_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & Root_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & Root_XtdSubject_Fragment
+  ), relatedProperty: (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ), relatedValues: Array<(
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  )> }
+  & Root_XtdRelAssignsPropertyWithValues_Fragment
+);
+
+export type AssignsPropertyWithValuesDetailsFragment = (
+  { __typename: 'XtdRelAssignsPropertyWithValues', relatingObject: (
+    { __typename: 'XtdActor' }
+    & Root_XtdActor_Fragment
+  ) | (
+    { __typename: 'XtdActivity' }
+    & Root_XtdActivity_Fragment
+  ) | (
+    { __typename: 'XtdClassification' }
+    & Root_XtdClassification_Fragment
+  ) | (
+    { __typename: 'XtdMeasureWithUnit' }
+    & Root_XtdMeasureWithUnit_Fragment
+  ) | (
+    { __typename: 'XtdUnit' }
+    & Root_XtdUnit_Fragment
+  ) | (
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  ) | (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ) | (
+    { __typename: 'XtdSubject' }
+    & Root_XtdSubject_Fragment
+  ), relatedProperty: (
+    { __typename: 'XtdProperty' }
+    & Root_XtdProperty_Fragment
+  ), relatedValues: Array<(
+    { __typename: 'XtdValue' }
+    & Root_XtdValue_Fragment
+  )> }
+  & RootDetails_XtdRelAssignsPropertyWithValues_Fragment
+);
+
+export type CreateAssignsPropertyWithValuesMutationVariables = Exact<{
+  input: AssignsPropertyWithValuesInput;
+}>;
+
+
+export type CreateAssignsPropertyWithValuesMutation = { __typename: 'Mutation', createAssignsPropertyWithValues?: Maybe<(
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & AssignsPropertyWithValuesDetailsFragment
+  )> };
+
+export type UpdateAssignsPropertyWithValuesMutationVariables = Exact<{
+  input: AssignsPropertyWithValuesUpdateInput;
+}>;
+
+
+export type UpdateAssignsPropertyWithValuesMutation = { __typename: 'Mutation', updateAssignsPropertyWithValues?: Maybe<(
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & AssignsPropertyWithValuesDetailsFragment
+  )> };
+
+export type DeleteAssignsPropertyWithValuesMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteAssignsPropertyWithValuesMutation = { __typename: 'Mutation', deleteAssignsPropertyWithValues?: Maybe<{ __typename: 'XtdRelAssignsPropertyWithValues', id: string }> };
+
+export type AssignsPropertyWithValuesListQueryVariables = Exact<{
+  input?: Maybe<FilterInput>;
+}>;
+
+
+export type AssignsPropertyWithValuesListQuery = { __typename: 'Query', assignsPropertyWithValues: { __typename: 'XtdRelAssignsPropertyWithValuesConnection', totalElements: number, nodes: Array<(
+      { __typename: 'XtdRelAssignsPropertyWithValues' }
+      & AssignsPropertyWithValuesFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type AssignsPropertyWithValuesQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type AssignsPropertyWithValuesQuery = { __typename: 'Query', node?: Maybe<{ __typename: 'XtdName' } | { __typename: 'XtdExternalDocument' } | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdDescription' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' } | (
+    { __typename: 'XtdRelAssignsPropertyWithValues' }
+    & AssignsPropertyWithValuesDetailsFragment
+  )> };
 
 export type BagFragment = (
   { __typename: 'XtdBag' }
@@ -2656,6 +2799,35 @@ export const AssignsCollectionsDetailsFragmentDoc = gql`
 }
     ${RootDetailsFragmentDoc}
 ${RootFragmentDoc}`;
+export const AssignsPropertyWithValuesFragmentDoc = gql`
+    fragment AssignsPropertyWithValues on XtdRelAssignsPropertyWithValues {
+  ...Root
+  relatingObject {
+    ...Root
+  }
+  relatedProperty {
+    ...Root
+  }
+  relatedValues {
+    ...Root
+  }
+}
+    ${RootFragmentDoc}`;
+export const AssignsPropertyWithValuesDetailsFragmentDoc = gql`
+    fragment AssignsPropertyWithValuesDetails on XtdRelAssignsPropertyWithValues {
+  ...RootDetails
+  relatingObject {
+    ...Root
+  }
+  relatedProperty {
+    ...Root
+  }
+  relatedValues {
+    ...Root
+  }
+}
+    ${RootDetailsFragmentDoc}
+${RootFragmentDoc}`;
 export const BagFragmentDoc = gql`
     fragment Bag on XtdBag {
   ...CatalogItem
@@ -3413,6 +3585,175 @@ export function useAssignsCollectionsLazyQuery(baseOptions?: ApolloReactHooks.La
 export type AssignsCollectionsQueryHookResult = ReturnType<typeof useAssignsCollectionsQuery>;
 export type AssignsCollectionsLazyQueryHookResult = ReturnType<typeof useAssignsCollectionsLazyQuery>;
 export type AssignsCollectionsQueryResult = ApolloReactCommon.QueryResult<AssignsCollectionsQuery, AssignsCollectionsQueryVariables>;
+export const CreateAssignsPropertyWithValuesDocument = gql`
+    mutation CreateAssignsPropertyWithValues($input: AssignsPropertyWithValuesInput!) {
+  createAssignsPropertyWithValues(input: $input) {
+    ...AssignsPropertyWithValuesDetails
+  }
+}
+    ${AssignsPropertyWithValuesDetailsFragmentDoc}`;
+export type CreateAssignsPropertyWithValuesMutationFn = ApolloReactCommon.MutationFunction<CreateAssignsPropertyWithValuesMutation, CreateAssignsPropertyWithValuesMutationVariables>;
+
+/**
+ * __useCreateAssignsPropertyWithValuesMutation__
+ *
+ * To run a mutation, you first call `useCreateAssignsPropertyWithValuesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAssignsPropertyWithValuesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAssignsPropertyWithValuesMutation, { data, loading, error }] = useCreateAssignsPropertyWithValuesMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAssignsPropertyWithValuesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateAssignsPropertyWithValuesMutation, CreateAssignsPropertyWithValuesMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateAssignsPropertyWithValuesMutation, CreateAssignsPropertyWithValuesMutationVariables>(CreateAssignsPropertyWithValuesDocument, baseOptions);
+      }
+export type CreateAssignsPropertyWithValuesMutationHookResult = ReturnType<typeof useCreateAssignsPropertyWithValuesMutation>;
+export type CreateAssignsPropertyWithValuesMutationResult = ApolloReactCommon.MutationResult<CreateAssignsPropertyWithValuesMutation>;
+export type CreateAssignsPropertyWithValuesMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateAssignsPropertyWithValuesMutation, CreateAssignsPropertyWithValuesMutationVariables>;
+export const UpdateAssignsPropertyWithValuesDocument = gql`
+    mutation UpdateAssignsPropertyWithValues($input: AssignsPropertyWithValuesUpdateInput!) {
+  updateAssignsPropertyWithValues(input: $input) {
+    ...AssignsPropertyWithValuesDetails
+  }
+}
+    ${AssignsPropertyWithValuesDetailsFragmentDoc}`;
+export type UpdateAssignsPropertyWithValuesMutationFn = ApolloReactCommon.MutationFunction<UpdateAssignsPropertyWithValuesMutation, UpdateAssignsPropertyWithValuesMutationVariables>;
+
+/**
+ * __useUpdateAssignsPropertyWithValuesMutation__
+ *
+ * To run a mutation, you first call `useUpdateAssignsPropertyWithValuesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAssignsPropertyWithValuesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAssignsPropertyWithValuesMutation, { data, loading, error }] = useUpdateAssignsPropertyWithValuesMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAssignsPropertyWithValuesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAssignsPropertyWithValuesMutation, UpdateAssignsPropertyWithValuesMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateAssignsPropertyWithValuesMutation, UpdateAssignsPropertyWithValuesMutationVariables>(UpdateAssignsPropertyWithValuesDocument, baseOptions);
+      }
+export type UpdateAssignsPropertyWithValuesMutationHookResult = ReturnType<typeof useUpdateAssignsPropertyWithValuesMutation>;
+export type UpdateAssignsPropertyWithValuesMutationResult = ApolloReactCommon.MutationResult<UpdateAssignsPropertyWithValuesMutation>;
+export type UpdateAssignsPropertyWithValuesMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAssignsPropertyWithValuesMutation, UpdateAssignsPropertyWithValuesMutationVariables>;
+export const DeleteAssignsPropertyWithValuesDocument = gql`
+    mutation DeleteAssignsPropertyWithValues($id: ID!) {
+  deleteAssignsPropertyWithValues(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteAssignsPropertyWithValuesMutationFn = ApolloReactCommon.MutationFunction<DeleteAssignsPropertyWithValuesMutation, DeleteAssignsPropertyWithValuesMutationVariables>;
+
+/**
+ * __useDeleteAssignsPropertyWithValuesMutation__
+ *
+ * To run a mutation, you first call `useDeleteAssignsPropertyWithValuesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAssignsPropertyWithValuesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAssignsPropertyWithValuesMutation, { data, loading, error }] = useDeleteAssignsPropertyWithValuesMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteAssignsPropertyWithValuesMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteAssignsPropertyWithValuesMutation, DeleteAssignsPropertyWithValuesMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteAssignsPropertyWithValuesMutation, DeleteAssignsPropertyWithValuesMutationVariables>(DeleteAssignsPropertyWithValuesDocument, baseOptions);
+      }
+export type DeleteAssignsPropertyWithValuesMutationHookResult = ReturnType<typeof useDeleteAssignsPropertyWithValuesMutation>;
+export type DeleteAssignsPropertyWithValuesMutationResult = ApolloReactCommon.MutationResult<DeleteAssignsPropertyWithValuesMutation>;
+export type DeleteAssignsPropertyWithValuesMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteAssignsPropertyWithValuesMutation, DeleteAssignsPropertyWithValuesMutationVariables>;
+export const AssignsPropertyWithValuesListDocument = gql`
+    query AssignsPropertyWithValuesList($input: FilterInput) {
+  assignsPropertyWithValues(input: $input) {
+    nodes {
+      ...AssignsPropertyWithValues
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${AssignsPropertyWithValuesFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useAssignsPropertyWithValuesListQuery__
+ *
+ * To run a query within a React component, call `useAssignsPropertyWithValuesListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAssignsPropertyWithValuesListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAssignsPropertyWithValuesListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAssignsPropertyWithValuesListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AssignsPropertyWithValuesListQuery, AssignsPropertyWithValuesListQueryVariables>) {
+        return ApolloReactHooks.useQuery<AssignsPropertyWithValuesListQuery, AssignsPropertyWithValuesListQueryVariables>(AssignsPropertyWithValuesListDocument, baseOptions);
+      }
+export function useAssignsPropertyWithValuesListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AssignsPropertyWithValuesListQuery, AssignsPropertyWithValuesListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AssignsPropertyWithValuesListQuery, AssignsPropertyWithValuesListQueryVariables>(AssignsPropertyWithValuesListDocument, baseOptions);
+        }
+export type AssignsPropertyWithValuesListQueryHookResult = ReturnType<typeof useAssignsPropertyWithValuesListQuery>;
+export type AssignsPropertyWithValuesListLazyQueryHookResult = ReturnType<typeof useAssignsPropertyWithValuesListLazyQuery>;
+export type AssignsPropertyWithValuesListQueryResult = ApolloReactCommon.QueryResult<AssignsPropertyWithValuesListQuery, AssignsPropertyWithValuesListQueryVariables>;
+export const AssignsPropertyWithValuesDocument = gql`
+    query AssignsPropertyWithValues($id: ID!) {
+  node(id: $id) {
+    ...AssignsPropertyWithValuesDetails
+  }
+}
+    ${AssignsPropertyWithValuesDetailsFragmentDoc}`;
+
+/**
+ * __useAssignsPropertyWithValuesQuery__
+ *
+ * To run a query within a React component, call `useAssignsPropertyWithValuesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAssignsPropertyWithValuesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAssignsPropertyWithValuesQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useAssignsPropertyWithValuesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AssignsPropertyWithValuesQuery, AssignsPropertyWithValuesQueryVariables>) {
+        return ApolloReactHooks.useQuery<AssignsPropertyWithValuesQuery, AssignsPropertyWithValuesQueryVariables>(AssignsPropertyWithValuesDocument, baseOptions);
+      }
+export function useAssignsPropertyWithValuesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AssignsPropertyWithValuesQuery, AssignsPropertyWithValuesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AssignsPropertyWithValuesQuery, AssignsPropertyWithValuesQueryVariables>(AssignsPropertyWithValuesDocument, baseOptions);
+        }
+export type AssignsPropertyWithValuesQueryHookResult = ReturnType<typeof useAssignsPropertyWithValuesQuery>;
+export type AssignsPropertyWithValuesLazyQueryHookResult = ReturnType<typeof useAssignsPropertyWithValuesLazyQuery>;
+export type AssignsPropertyWithValuesQueryResult = ApolloReactCommon.QueryResult<AssignsPropertyWithValuesQuery, AssignsPropertyWithValuesQueryVariables>;
 export const CreateBagDocument = gql`
     mutation CreateBag($input: RootInput!) {
   createBag(input: $input) {

@@ -202,8 +202,7 @@ const Routes: RoutesMap = {
         icon: <AssignsIcon/>,
         category: RouteCategory.Assignment,
         title: 'Property with values',
-        path: 'assignsPropertyWithValues',
-        disabled: true
+        path: 'assignsPropertyWithValues'
     },
     'XtdRelAssignsUnit': {
         icon: <AssignsIcon/>,

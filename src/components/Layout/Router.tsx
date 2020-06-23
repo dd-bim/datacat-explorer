@@ -22,6 +22,7 @@ import ViewWrapper from "../View/ViewWrapper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import ClassificationViews from "../Classification/ClassificationViews";
 import DocumentsViews from "../Documents/DocumentsViews";
+import AssignsPropertyWithValuesViews from "../AssignsPropertyWithValues/AssignsPropertyWithValuesViews";
 
 const useStyles = makeStyles(theme => ({
     graphiql: {
@@ -87,6 +88,9 @@ export default function Router() {
             </Route>
             <Route path="/relationships/assignsCollections">
                 <AssignsCollectionsViews/>
+            </Route>
+            <Route path="/relationships/assignsPropertyWithValues">
+                <AssignsPropertyWithValuesViews/>
             </Route>
             {/*<Route path="/relationships/associates">*/}
             {/*    <RelAssociatesRoutes/>*/}

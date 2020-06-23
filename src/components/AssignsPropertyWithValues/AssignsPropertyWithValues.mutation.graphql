@@ -1,0 +1,17 @@
+mutation CreateAssignsPropertyWithValues($input: AssignsPropertyWithValuesInput!) {
+    createAssignsPropertyWithValues(input: $input) {
+        ...AssignsPropertyWithValuesDetails
+    }
+}
+
+mutation UpdateAssignsPropertyWithValues($input: AssignsPropertyWithValuesUpdateInput!) {
+    updateAssignsPropertyWithValues(input: $input) {
+        ...AssignsPropertyWithValuesDetails
+    }
+}
+
+mutation DeleteAssignsPropertyWithValues($id: ID!) {
+    deleteAssignsPropertyWithValues(id: $id) {
+        id
+    }
+}
