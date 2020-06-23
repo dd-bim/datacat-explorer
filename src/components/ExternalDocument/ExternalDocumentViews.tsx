@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import CrudSwitch, {ViewContext} from "../View/CrudSwitch";
 import {
+    CatalogItemFragment,
     EntityInput,
     EntityUpdateInput,
     ExternalDocumentDetailsFragment,
@@ -10,28 +11,86 @@ import {
     useExternalDocumentQuery,
     useUpdateExternalDocumentMutation
 } from "../../generated/types";
-import useCatalogItemRows from "../../hooks/useCatalogItemRows";
 import Table from "../table/Table";
 import {useEntityInputTemplate} from "../../hooks/templates";
 import {sanitizeEntityInput} from "../../utils";
 import {Typography} from "@material-ui/core";
 import CatalogItemForm from "../form/CatalogItemForm";
 import CatalogItemFormSet from "../form/CatalogItemFormSet";
-import {useParams} from "react-router-dom";
+import {Link as RouterLink, useParams} from "react-router-dom";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import {useWriteAccess} from "../../hooks/useAuthContext";
 import useListView from "../View/useListView";
 import {ExternalDocumentIcon} from "../icons/icons";
+import LabelCell from "../table/LabelCell";
+import PropertyCell from "../table/PropertyCell";
+import dateUtil from "../../dateUtil";
+import {getUpdatePath} from "../../Routes";
+import Link from "@material-ui/core/Link";
+import EditIcon from "@material-ui/icons/Edit";
+import useTableRows from "../../hooks/useTableRows";
+
+const columnsFactory = () => [
+    {id: 'label', Header: 'Name', accessor: 'label'},
+    {id: 'created', Header: 'Created', accessor: 'created'},
+    {id: 'lastModified', Header: 'Last modified', accessor: 'lastModified'},
+    {id: 'actions', Header: 'Actions', accessor: 'actions'}
+];
+
+const rowFactory = (item: CatalogItemFragment) => {
+    const {
+        __typename,
+        id,
+        label,
+        created,
+        createdBy,
+        lastModified,
+        lastModifiedBy
+    } = item;
+
+    return {
+        label: (
+            <LabelCell id={id} label={label}/>
+        ),
+        created: (
+            <PropertyCell
+                primary={dateUtil(created).fromNow()}
+                secondary={createdBy}
+                tooltip={dateUtil(created).format('lll')}
+            />
+        ),
+        lastModified: (
+            <PropertyCell
+                primary={dateUtil(lastModified).fromNow()}
+                secondary={lastModifiedBy}
+                tooltip={dateUtil(lastModified).format('lll')}
+            />
+        ),
+        actions: (
+            <Link component={RouterLink} to={getUpdatePath(__typename, id)}>
+                <EditIcon
+                    fontSize="small"
+                    aria-label="edit item"
+                />
+            </Link>
+        ),
+    };
+};
+
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
     const {
-        queryOptions: { query, setQuery },
-        result: { loading, error, data },
+        queryOptions: {query, setQuery},
+        result: {loading, error, data},
         pagingOptions
     } = useListView(useExternalDocumentListQuery);
-    const {columns, rows} = useCatalogItemRows(data?.externalDocuments.nodes)
+    const {columns, rows} = useTableRows<CatalogItemFragment>({
+        items: data?.externalDocuments.nodes,
+        columnsFactory,
+        rowFactory
+    });
 
     return (
         <Table
