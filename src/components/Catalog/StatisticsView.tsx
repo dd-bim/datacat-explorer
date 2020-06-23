@@ -33,7 +33,7 @@ export default function StatisticsView() {
                                 {getRoutes({categories: arr}).map(([id, route]) => {
                                     const statistics = data?.statistics.items.find(item => item.id === id);
                                     return (
-                                        <ListItem button component={RouterLink} to={getAbsPath(route)}
+                                        <ListItem key={id} button component={RouterLink} to={getAbsPath(route)}
                                                   disabled={route.disabled}>
                                             <ListItemIcon>
                                                 <CatalogItemIcon itemType={(id as EntityTypes)}/>
