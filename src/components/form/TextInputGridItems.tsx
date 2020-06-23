@@ -44,7 +44,7 @@ export default function TextInputGridItems(props: NameInputProps & TextFieldProp
                     />
                     <TextField
                         defaultValue={field.value}
-                        error={error}
+                        error={!!error}
                         helperText={error && "This field is required and may not be empty."}
                         id={`${accessor}.value`}
                         inputRef={register({required: required && language.required})}
