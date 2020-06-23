@@ -1,11 +1,10 @@
-import {EntityTypes, useCatalogStatisticsQuery} from "../../generated/types";
+import {useCatalogStatisticsQuery} from "../../generated/types";
 import AsyncWrapper from "../View/AsyncWrapper";
 import React from "react";
 import {List} from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import CatalogItemIcon from "../icons/CatalogItemIcon";
 import {getAbsPath, getRoutes, RouteCategory} from "../../Routes";
 import Grid from "@material-ui/core/Grid";
 import ViewHeader from "../View/ViewHeader";
@@ -21,7 +20,7 @@ export default function StatisticsView() {
     ];
     return (
         <ViewWrapper>
-            <ViewHeader title="Statistic"/>
+            <ViewHeader title="Catalog statistics"/>
             <AsyncWrapper
                 loading={loading}
                 error={error}
@@ -31,14 +30,20 @@ export default function StatisticsView() {
                         <Grid key={idx} item xs={4}>
                             <List>
                                 {getRoutes({categories: arr}).map(([id, route]) => {
+                                    const { icon, title, path, disabled } = route;
                                     const statistics = data?.statistics.items.find(item => item.id === id);
+                                    const label = `${id}: ${statistics?.count || 0}`;
+
                                     return (
-                                        <ListItem key={id} button component={RouterLink} to={getAbsPath(route)}
-                                                  disabled={route.disabled}>
+                                        <ListItem key={id}
+                                                  button
+                                                  component={RouterLink}
+                                                  to={getAbsPath(route)}
+                                                  disabled={disabled}>
                                             <ListItemIcon>
-                                                <CatalogItemIcon itemType={(id as EntityTypes)}/>
+                                                {icon}
                                             </ListItemIcon>
-                                            <ListItemText primary={id} secondary={statistics?.count || 0}/>
+                                            <ListItemText primary={title} secondary={label}/>
                                         </ListItem>
                                     );
                                 })}
