@@ -3,11 +3,11 @@ import {TranslationFormValues} from "./TextInputGridItems";
 import {CatalogItemFormValues} from "./CatalogItemFormSet";
 import {RootFormValues} from "./RootFormSet";
 
-function isValidId(id?: string | null) {
+export function isValidId(id?: string | null) {
     return id && id.trim();
 }
 
-const isValidTranslation = (text: TextInput) => {
+export const isValidTranslation = (text: TextInput) => {
     return (text.languageCode && text.languageCode.trim())
         && (text.value && text.value.trim());
 };

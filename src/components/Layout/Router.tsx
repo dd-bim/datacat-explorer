@@ -23,6 +23,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import ClassificationViews from "../Classification/ClassificationViews";
 import DocumentsViews from "../Documents/DocumentsViews";
 import AssignsPropertyWithValuesViews from "../AssignsPropertyWithValues/AssignsPropertyWithValuesViews";
+import FacetViews from "../Facet/FacetViews";
 
 const useStyles = makeStyles(theme => ({
     graphiql: {
@@ -46,6 +47,9 @@ export default function Router() {
                 <ViewWrapper className={classes.graphiql}>
                     <GraphiQL fetcher={graphiqlFetcher}/>
                 </ViewWrapper>
+            </Route>
+            <Route path="/facets">
+                <FacetViews/>
             </Route>
             <Route path="/externalDocuments">
                 <ExternalDocumentViews/>

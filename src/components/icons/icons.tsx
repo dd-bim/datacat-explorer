@@ -20,6 +20,7 @@ import Star from "@material-ui/icons/Star";
 import Comment from '@material-ui/icons/Comment';
 import AccountTree from '@material-ui/icons/AccountTree';
 import React from "react";
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 export {
     Rowing as ActivityIcon,
@@ -43,4 +44,5 @@ export {
     MoneyIcon as ValueIcon,
     CallMerge as AssignsIcon,
     AccountTree as ClassifiesIcon,
+    LocalOfferIcon as FacetIcon,
 }

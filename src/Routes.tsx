@@ -15,6 +15,7 @@ import {
     ComposesIcon,
     DocumentsIcon,
     ExternalDocumentIcon,
+    FacetIcon,
     GroupsIcon,
     MeasureWithUnitIcon,
     NestIcon,
@@ -51,7 +52,8 @@ export type EntityTypesMap = { [key in EntityTypesKeys]: RouteProperties };
 export interface RoutesMap extends EntityTypesMap {
     home: RouteProperties,
     search: RouteProperties,
-    graphiql: RouteProperties
+    graphiql: RouteProperties,
+    Facet: RouteProperties,
 }
 
 const Routes: RoutesMap = {
@@ -74,6 +76,13 @@ const Routes: RoutesMap = {
         title: 'GraphiQL',
         description: 'Interact with the datacat API via an in-browser IDE',
         path: 'graphiql'
+    },
+    'Facet': {
+        icon: <FacetIcon/>,
+        category: RouteCategory.General,
+        title: 'Facet',
+        description: 'Allow to tag catalog items',
+        path: 'facets'
     },
     'XtdExternalDocument': {
         icon: <ExternalDocumentIcon/>,
@@ -300,10 +309,10 @@ export function getAbsPath(x: keyof RoutesMap | RouteProperties): string {
     }
 }
 
-export function getCreatePath(x: keyof EntityTypesMap | RouteProperties): string {
+export function getCreatePath(x: keyof RoutesMap | RouteProperties): string {
     return `${getAbsPath(x)}/new`;
 }
 
-export function getUpdatePath(x: keyof EntityTypesMap | RouteProperties, id: string): string {
+export function getUpdatePath(x: keyof RoutesMap | RouteProperties, id: string): string {
     return `${getAbsPath(x)}/${id}`;
 }
