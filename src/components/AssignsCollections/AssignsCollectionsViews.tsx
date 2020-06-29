@@ -11,7 +11,6 @@ import {
     useUpdateAssignsCollectionsMutation
 } from "../../generated/types";
 import Table from "../table/Table";
-import {sanitizeAssignsCollectionsInput} from "../../utils";
 import {useParams} from "react-router-dom";
 import useCatalogRootItemRows from "../../hooks/useCatalogRootItemRows";
 import {useWriteAccess} from "../../hooks/useAuthContext";
@@ -19,9 +18,28 @@ import CatalogItemForm from "../form/CatalogItemForm";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
-import useAssignsCollectionsInputTemplate from "./useAssignsCollectionsInputTemplate";
-import AssignsCollectionsFormSet from "./AssignsCollectionsFormSet";
+import AssignsCollectionsFormSet, {useFormValues} from "./AssignsCollectionsFormSet";
 import {AssignsIcon} from "../icons/icons";
+import {BinaryRelationshipFormValues} from "../form/types";
+import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
+
+const toInput = (formValues: BinaryRelationshipFormValues): AssignsCollectionsInput => {
+    const {related, relating} = formValues;
+    return {
+        ...toRootInput(formValues),
+        relatingObject: relating,
+        relatedCollections: related.split(","),
+    };
+}
+
+const toUpdateInput = (formValues: BinaryRelationshipFormValues): AssignsCollectionsUpdateInput => {
+    const {related, relating} = formValues;
+    return {
+        ...toRootUpdateInput(formValues),
+        relatingObject: relating,
+        relatedCollections: related.split(","),
+    };
+}
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
@@ -54,18 +72,18 @@ function ListView() {
 function CreateView() {
     const hasWriteAccess = useWriteAccess();
     const {onCompleted, onCancel} = useContext(ViewContext);
-    const templateFn = useAssignsCollectionsInputTemplate()
+    const tmpl = useFormValues()
     const [createMutation] = useCreateAssignsCollectionsMutation({onCompleted});
-    const handleSubmit = (data: AssignsCollectionsInput) => {
-        sanitizeAssignsCollectionsInput(data);
-        return createMutation({variables: {input: data}});
+    const handleSubmit = (formValues: BinaryRelationshipFormValues) => {
+        const input = toInput(formValues);
+        return createMutation({variables: {input}});
     };
 
     return (
         <React.Fragment>
             <ViewHeader title="Create new 'Assigns collections' relationship"/>
-            <CatalogItemForm<AssignsCollectionsInput | AssignsCollectionsUpdateInput>
-                defaultValues={templateFn()}
+            <CatalogItemForm
+                defaultValues={tmpl()}
                 onSubmit={hasWriteAccess ? handleSubmit : undefined}
                 onCancel={onCancel}
             >
@@ -81,13 +99,13 @@ function UpdateView() {
     const {onCompleted, onCancel} = useContext(ViewContext);
 
     const {loading, error, data} = useAssignsCollectionsQuery({variables: {id}});
-    const templateFn = useAssignsCollectionsInputTemplate();
+    const tmpl = useFormValues();
     const node = data?.node as AssignsCollectionsDetailsFragment | undefined;
-    const defaultValues = templateFn(node);
+    const defaultValues = tmpl(node);
 
     const [updateMutation] = useUpdateAssignsCollectionsMutation({onCompleted});
-    const handleUpdate = async (input: AssignsCollectionsUpdateInput) => {
-        sanitizeAssignsCollectionsInput(input);
+    const handleUpdate = async (formValues: BinaryRelationshipFormValues) => {
+        const input = toUpdateInput(formValues);
         return await updateMutation({variables: {input}});
     };
 
@@ -103,13 +121,13 @@ function UpdateView() {
                 subtitle={node?.id}
             />
             <AsyncWrapper loading={loading} error={error}>
-                <CatalogItemForm<AssignsCollectionsInput | AssignsCollectionsUpdateInput>
+                <CatalogItemForm
                     defaultValues={defaultValues}
                     onSubmit={hasWriteAccess ? handleUpdate : undefined}
                     onDelete={hasWriteAccess ? handleDelete : undefined}
                     onCancel={onCancel}
                 >
-                    <AssignsCollectionsFormSet assignsCollections={node} isUpdate/>
+                    <AssignsCollectionsFormSet item={node} isUpdate/>
                 </CatalogItemForm>
             </AsyncWrapper>
         </React.Fragment>

@@ -3,7 +3,7 @@ fragment Root on XtdRoot {
     versionId
     versionDate
     descriptions {
-        ...Text
+        ...Translation
     }
     actedUponBy { totalElements }
     actsUpon { totalElements }

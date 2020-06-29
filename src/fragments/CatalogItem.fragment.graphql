@@ -6,6 +6,9 @@ fragment CatalogItem on CatalogItem {
     lastModified
     lastModifiedBy
     names {
-        ...Text
+        ...Translation
+    }
+    facets {
+        ...Facet
     }
 }

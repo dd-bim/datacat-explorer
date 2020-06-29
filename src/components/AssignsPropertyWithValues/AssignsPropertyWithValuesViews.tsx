@@ -11,7 +11,6 @@ import {
     useUpdateAssignsPropertyWithValuesMutation
 } from "../../generated/types";
 import Table from "../table/Table";
-import {sanitizeRootInput} from "../../utils";
 import {useParams} from "react-router-dom";
 import useCatalogRootItemRows from "../../hooks/useCatalogRootItemRows";
 import {useWriteAccess} from "../../hooks/useAuthContext";
@@ -20,8 +19,31 @@ import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
 import {AssignsIcon} from "../icons/icons";
-import useAssignsPropertyWithValuesInput from "./useAssignsPropertyWithValuesInput";
-import AssignsPropertyWithValuesFormSet from "./AssignsPropertyWithValuesFormSet";
+import AssignsPropertyWithValuesFormSet, {
+    AssignsPropertyWithValuesFormValues,
+    useFormValues
+} from "./AssignsPropertyWithValuesFormSet";
+import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
+
+export const toAssignsPropertyWithValuesInput = (formValues: AssignsPropertyWithValuesFormValues): AssignsPropertyWithValuesInput => {
+    const {relatingObject, relatedProperty, relatedValues} = formValues;
+    return {
+        ...toRootInput(formValues),
+        relatingObject,
+        relatedProperty,
+        relatedValues: relatedValues.split(","),
+    };
+}
+
+export const toAssignsPropertyWithValuesUpdateInput = (formValues: AssignsPropertyWithValuesFormValues): AssignsPropertyWithValuesUpdateInput => {
+    const {relatingObject, relatedProperty, relatedValues} = formValues;
+    return {
+        ...toRootUpdateInput(formValues),
+        relatingObject,
+        relatedProperty,
+        relatedValues: relatedValues.split(","),
+    };
+}
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
@@ -54,17 +76,17 @@ function ListView() {
 function CreateView() {
     const hasWriteAccess = useWriteAccess();
     const {onCompleted, onCancel} = useContext(ViewContext);
-    const templateFn = useAssignsPropertyWithValuesInput()
+    const templateFn = useFormValues()
     const [createMutation] = useCreateAssignsPropertyWithValuesMutation({onCompleted});
-    const handleSubmit = (data: AssignsPropertyWithValuesInput) => {
-        sanitizeRootInput(data);
-        return createMutation({variables: {input: data}});
+    const handleSubmit = (formValues: AssignsPropertyWithValuesFormValues) => {
+        const input = toAssignsPropertyWithValuesInput(formValues);
+        return createMutation({variables: {input}});
     };
 
     return (
         <React.Fragment>
             <ViewHeader title="Create new 'Assigns property with values' relationship"/>
-            <CatalogItemForm<AssignsPropertyWithValuesInput | AssignsPropertyWithValuesUpdateInput>
+            <CatalogItemForm
                 defaultValues={templateFn()}
                 onSubmit={hasWriteAccess ? handleSubmit : undefined}
                 onCancel={onCancel}
@@ -81,13 +103,13 @@ function UpdateView() {
     const {onCompleted, onCancel} = useContext(ViewContext);
 
     const {loading, error, data} = useAssignsPropertyWithValuesQuery({variables: {id}});
-    const templateFn = useAssignsPropertyWithValuesInput();
+    const templateFn = useFormValues();
     const node = data?.node as AssignsPropertyWithValuesDetailsFragment | undefined;
     const defaultValues = templateFn(node);
 
     const [updateMutation] = useUpdateAssignsPropertyWithValuesMutation({onCompleted});
-    const handleUpdate = async (input: AssignsPropertyWithValuesUpdateInput) => {
-        sanitizeRootInput(input);
+    const handleUpdate = async (formValues: AssignsPropertyWithValuesFormValues) => {
+        const input = toAssignsPropertyWithValuesUpdateInput(formValues);
         return await updateMutation({variables: {input}});
     };
 
@@ -103,7 +125,7 @@ function UpdateView() {
                 subtitle={node?.id}
             />
             <AsyncWrapper loading={loading} error={error}>
-                <CatalogItemForm<AssignsPropertyWithValuesInput | AssignsPropertyWithValuesUpdateInput>
+                <CatalogItemForm
                     defaultValues={defaultValues}
                     onSubmit={hasWriteAccess ? handleUpdate : undefined}
                     onDelete={hasWriteAccess ? handleDelete : undefined}

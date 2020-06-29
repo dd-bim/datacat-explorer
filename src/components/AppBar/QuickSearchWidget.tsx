@@ -76,11 +76,11 @@ export function QuickSearchWidget(props: QuickSearchWidgetProps) {
                                             history.push(path);
                                             setQuery("");
                                         };
-                                        const description = (item as RootFragment).descriptions?.reduce((acc, {value}, index) => {
+                                        const description = (item as RootFragment).descriptions?.reduce((acc, {label}, index) => {
                                             if (index > 0) {
                                                 acc += " | ";
                                             }
-                                            acc += value;
+                                            acc += label;
                                             if (acc.length > 120) {
                                                 return acc.substr(0, 120) + "…";
                                             }

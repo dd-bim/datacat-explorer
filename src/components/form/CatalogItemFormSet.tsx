@@ -1,25 +1,44 @@
 import {useFormContext} from "react-hook-form";
 import React from "react";
-import TextInputGridItems from "./TextInputGridItems";
+import TextInputGridItems, {
+    TranslationFormValues,
+    useFormValues as useTranslationFormValues
+} from "./TextInputGridItems";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import FormCaption from "./FormCaption";
 import TextFieldOptions from "./TextFieldOptions";
+import {CatalogItemFragment} from "../../generated/types";
+
+export type CatalogItemFormValues = {
+    id: string,
+    names: TranslationFormValues[]
+};
+
+export function useFormValues(): (item?: CatalogItemFragment) => CatalogItemFormValues {
+    const tmpl = useTranslationFormValues();
+    return (item) => {
+        return {
+            id: item?.id ?? '',
+            names: tmpl(item?.names)
+        };
+    };
+}
 
 export type CatalogItemFormSetProps = {
     isUpdate?: boolean
-}
+};
 
 export default function CatalogItemFormSet(props: CatalogItemFormSetProps) {
-    const { isUpdate } = props;
-    const { register } = useFormContext();
+    const {isUpdate} = props;
+    const {register} = useFormContext();
 
     return (
         <React.Fragment>
             <Grid item xs={12}>
                 <FormCaption>Name</FormCaption>
             </Grid>
-            <TextInputGridItems name="names" required />
+            <TextInputGridItems name="names" required/>
             <Grid item xs={12}>
                 <FormCaption>General information</FormCaption>
             </Grid>

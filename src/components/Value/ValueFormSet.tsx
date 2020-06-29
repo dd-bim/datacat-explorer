@@ -1,5 +1,5 @@
 import React from "react";
-import TextInputGridItems from "../form/TextInputGridItems";
+import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -9,7 +9,34 @@ import TextFieldOptions from "../form/TextFieldOptions";
 import ToleranceTypeSelect from "./ToleranceTypeSelect";
 import ValueTypeSelect from "./ValueTypeSelect";
 import ValueRoleSelect from "./ValueRoleSelect";
-import {XtdValueTypeEnum} from "../../generated/types";
+import {ValueFragment, XtdToleranceTypeEnum, XtdValueRoleEnum, XtdValueTypeEnum} from "../../generated/types";
+import {RootFormValues} from "../form/RootFormSet";
+
+export type ValueFormValues = RootFormValues & {
+    toleranceType: XtdToleranceTypeEnum,
+    lowerTolerance: string,
+    upperTolerance: string,
+    valueType: XtdValueTypeEnum,
+    valueRole: XtdValueRoleEnum,
+    nominalValue: string
+}
+
+export const useFormValues = (): (item?: ValueFragment) => ValueFormValues => {
+    const tmpl = useTranslationFormValues();
+    return (item) => ({
+        id: item?.id ?? '',
+        versionId: item?.versionId ?? '',
+        versionDate: item?.versionDate ?? '',
+        names: tmpl(item?.names),
+        descriptions: tmpl(item?.descriptions),
+        toleranceType: item?.toleranceType ?? XtdToleranceTypeEnum.Nil,
+        lowerTolerance: item?.lowerTolerance ?? '',
+        upperTolerance: item?.upperTolerance ?? '',
+        valueType: item?.valueType ?? XtdValueTypeEnum.Nil,
+        valueRole: item?.valueRole ?? XtdValueRoleEnum.Nil,
+        nominalValue: item?.nominalValue ?? ''
+    });
+}
 
 export type ValueFormSetProps = CatalogItemFormSetProps;
 

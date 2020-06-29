@@ -1,4 +1,0 @@
-fragment UnitDetails on XtdUnit {
-    ...CatalogItem
-    ...RootDetails
-}

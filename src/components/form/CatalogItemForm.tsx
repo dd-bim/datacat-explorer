@@ -13,9 +13,9 @@ type FormProps<T> = {
 }
 
 export default function CatalogItemForm<T>(props: FormProps<T>) {
-    const { children, defaultValues, onCancel, onSubmit, onDelete } = props;
-    const formMethods = useForm<T>({ defaultValues });
-    const { handleSubmit } = formMethods;
+    const {children, defaultValues, onCancel, onSubmit, onDelete} = props;
+    const formMethods = useForm<T>({defaultValues});
+    const {handleSubmit} = formMethods;
     const stubOnSubmit = (input: T) => onSubmit?.(input);
 
     return (

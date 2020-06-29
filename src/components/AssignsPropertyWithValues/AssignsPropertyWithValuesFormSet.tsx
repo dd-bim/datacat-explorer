@@ -1,5 +1,5 @@
 import React from "react";
-import TextInputGridItems from "../form/TextInputGridItems";
+import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -8,17 +8,39 @@ import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
 import {
     AssignsPropertyWithValuesDetailsFragment,
+    AssignsPropertyWithValuesFragment,
     CatalogItemFragment,
     EntityTypes,
-    RootFragment
 } from "../../generated/types";
 import useItemSelection from "../Selection/useItemSelection";
 import useItemsSelection from "../Selection/useItemsSelection";
 import SelectionCard from "../Selection/SelectionCard";
 import SearchListView from "../Search/SearchListView";
-import {SelectionItem} from "../Selection/types";
 import SelectionFieldList from "../Selection/SelectionFieldList";
 import EmptySelectionCard from "../Selection/EmptySelectionCard";
+import {RootFormValues} from "../form/RootFormSet";
+
+export type AssignsPropertyWithValuesFormValues = RootFormValues & {
+    relatingObject: string,
+    relatedProperty: string,
+    relatedValues: string
+}
+
+export const useFormValues = (): (item?: AssignsPropertyWithValuesFragment) => AssignsPropertyWithValuesFormValues => {
+    const tmpl = useTranslationFormValues();
+    return (item) => {
+        return {
+            id: item?.id ?? '',
+            versionId: item?.versionId ?? '',
+            versionDate: item?.versionDate ?? '',
+            names: tmpl(item?.names),
+            descriptions: tmpl(item?.descriptions),
+            relatingObject: item?.relatingObject.id ?? '',
+            relatedProperty: item?.relatedProperty.id ?? '',
+            relatedValues: item?.relatedValues.map(({id}) => id).join(",") ?? ''
+        }
+    };
+}
 
 export type AssignsPropertyWithValuesFormSetProps = {
     assignsPropertyWithValues?: AssignsPropertyWithValuesDetailsFragment
@@ -30,14 +52,14 @@ export default function AssignsPropertyWithValuesFormSet(props: AssignsPropertyW
     const {
         selection: relatingObject,
         setSelection: setRelatingObject
-    } = useItemSelection<RootFragment>({
+    } = useItemSelection<CatalogItemFragment>({
         name: 'relatingObject',
         defaultValue: assignsPropertyWithValues?.relatingObject ?? null
     });
     const {
         selection: relatedProperty,
         setSelection: setRelatedProperty
-    } = useItemSelection<RootFragment>({
+    } = useItemSelection<CatalogItemFragment>({
         name: 'relatedProperty',
         defaultValue: assignsPropertyWithValues?.relatedProperty ?? null
     });
@@ -45,16 +67,10 @@ export default function AssignsPropertyWithValuesFormSet(props: AssignsPropertyW
         selection: relatedValues,
         add: addRelatedValue,
         remove: removeRelatedValue
-    } = useItemsSelection<RootFragment>({
+    } = useItemsSelection<CatalogItemFragment>({
         name: 'relatedValues',
         defaultValues: assignsPropertyWithValues?.relatedValues ?? []
     });
-    const handleOnSetRelatingObject = (item: CatalogItemFragment) => {
-        setRelatingObject(item as SelectionItem<RootFragment>);
-    }
-    const handleOnSetRelatedProperty = (item: CatalogItemFragment) => {
-        setRelatedProperty(item as SelectionItem<RootFragment>)
-    }
 
     return (
         <React.Fragment>
@@ -90,7 +106,7 @@ export default function AssignsPropertyWithValuesFormSet(props: AssignsPropertyW
 
                 <Grid item xs={6}>
                     <SearchListView
-                        onSelect={handleOnSetRelatingObject}
+                        onSelect={setRelatingObject}
                         filter={{
                             entityTypeIn: [EntityTypes.XtdObject],
                             idNotIn: relatingObject ? [relatingObject.id] : []
@@ -116,7 +132,7 @@ export default function AssignsPropertyWithValuesFormSet(props: AssignsPropertyW
                 </Grid>
                 <Grid item xs={6}>
                     <SearchListView
-                        onSelect={handleOnSetRelatedProperty}
+                        onSelect={setRelatedProperty}
                         filter={{
                             entityTypeIn: [EntityTypes.XtdProperty],
                             idNotIn: relatedProperty ? [relatedProperty.id] : []
@@ -143,7 +159,7 @@ export default function AssignsPropertyWithValuesFormSet(props: AssignsPropertyW
                     <SearchListView
                         onSelect={addRelatedValue}
                         filter={{
-                            entityTypeIn: [EntityTypes.XtdRoot],
+                            entityTypeIn: [EntityTypes.XtdValue],
                             idNotIn: relatedValues.map(x => x.id)
                         }}
                         SearchFieldProps={{

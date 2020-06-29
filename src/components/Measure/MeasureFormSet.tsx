@@ -1,5 +1,5 @@
 import React from "react";
-import TextInputGridItems from "../form/TextInputGridItems";
+import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -13,6 +13,25 @@ import EmptySelectionCard from "../Selection/EmptySelectionCard";
 import SearchListView from "../Search/SearchListView";
 import useItemsSelection from "../Selection/useItemsSelection";
 import SelectionFieldList from "../Selection/SelectionFieldList";
+import {RootFormValues} from "../form/RootFormSet";
+
+export type MeasureFormValues = RootFormValues & {
+    unitComponent: string,
+    valueDomain: string
+}
+
+export const useFormValues = (): (item?: MeasureFragment) => MeasureFormValues => {
+    const tmpl = useTranslationFormValues();
+    return (item) => ({
+        id: item?.id ?? '',
+        versionId: item?.versionId ?? '',
+        versionDate: item?.versionDate ?? '',
+        names: tmpl(item?.names),
+        descriptions: tmpl(item?.descriptions),
+        unitComponent: item?.unitComponent?.id ?? '',
+        valueDomain: item?.valueDomain.map(value => value.id).join(",") ?? ''
+    });
+}
 
 export type MeasureFormSetProps = {
     measure?: MeasureFragment

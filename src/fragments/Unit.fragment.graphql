@@ -1,4 +1,0 @@
-fragment Unit on XtdUnit {
-    ...CatalogItem
-    ...Root
-}

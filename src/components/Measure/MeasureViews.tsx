@@ -2,7 +2,6 @@ import React, {useContext} from "react";
 import CrudSwitch, {ViewContext} from "../View/CrudSwitch";
 import Table from "../table/Table";
 import {useParams} from "react-router-dom";
-import {useMeasureInputTemplate} from "../../hooks/templates";
 import useCatalogRootItemRows from "../../hooks/useCatalogRootItemRows";
 import {useWriteAccess} from "../../hooks/useAuthContext";
 import CatalogItemForm from "../form/CatalogItemForm";
@@ -19,9 +18,27 @@ import {
     useMeasureQuery,
     useUpdateMeasureMutation
 } from "../../generated/types";
-import {sanitizeMeasureInput} from "../../utils";
-import MeasureFormSet from "./MeasureFormSet";
+import MeasureFormSet, {MeasureFormValues, useFormValues} from "./MeasureFormSet";
 import {MeasureWithUnitIcon} from "../icons/icons";
+import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
+
+export const toInput = (formValues: MeasureFormValues): MeasureInput => {
+    const {unitComponent, valueDomain} = formValues;
+    return {
+        ...toRootInput(formValues),
+        unitComponent: unitComponent ?? undefined,
+        valueDomain: valueDomain.split(','),
+    };
+}
+
+export const toUpdateInput = (formValues: MeasureFormValues): MeasureUpdateInput => {
+    const {unitComponent, valueDomain} = formValues;
+    return {
+        ...toRootUpdateInput(formValues),
+        unitComponent: unitComponent ?? undefined,
+        valueDomain: valueDomain.split(','),
+    };
+}
 
 function ListView() {
     const { createPath } = useContext(ViewContext);
@@ -54,18 +71,18 @@ function ListView() {
 function CreateView() {
     const hasWriteAccess = useWriteAccess();
     const { onCompleted, onCancel } = useContext(ViewContext);
-    const templateFn = useMeasureInputTemplate();
+    const tmpl = useFormValues();
     const [createMutation] = useCreateMeasureMutation({onCompleted});
-    const handleSubmit = (data: MeasureInput) => {
-        sanitizeMeasureInput(data);
-        return createMutation({variables: {input: data}});
+    const handleSubmit = (formValues: MeasureFormValues) => {
+        const input = toInput(formValues);
+        return createMutation({variables: {input}});
     };
 
     return (
         <React.Fragment>
             <ViewHeader title="Create new measure" />
-            <CatalogItemForm<MeasureInput | MeasureUpdateInput>
-                defaultValues={templateFn()}
+            <CatalogItemForm
+                defaultValues={tmpl()}
                 onSubmit={hasWriteAccess ? handleSubmit : undefined}
                 onCancel={onCancel}
             >
@@ -81,13 +98,13 @@ function UpdateView() {
     const { onCompleted, onCancel } = useContext(ViewContext);
 
     const {loading, error, data} = useMeasureQuery({variables: {id}});
-    const templateFn = useMeasureInputTemplate();
+    const tmpl = useFormValues();
     const node = data?.node as MeasureFragment | undefined;
-    const defaultValues = templateFn(node);
+    const defaultValues = tmpl(node);
 
     const [updateMutation] = useUpdateMeasureMutation({onCompleted});
-    const handleUpdate = async (input: MeasureUpdateInput) => {
-        sanitizeMeasureInput(input);
+    const handleUpdate = async (formValues: MeasureFormValues) => {
+        const input = toUpdateInput(formValues);
         return await updateMutation({variables: {input}});
     };
 
@@ -103,7 +120,7 @@ function UpdateView() {
                 subtitle={node?.id}
             />
             <AsyncWrapper loading={loading} error={error}>
-                <CatalogItemForm<MeasureInput | MeasureUpdateInput>
+                <CatalogItemForm
                     defaultValues={defaultValues}
                     onSubmit={hasWriteAccess ? handleUpdate : undefined}
                     onDelete={hasWriteAccess ? handleDelete : undefined}

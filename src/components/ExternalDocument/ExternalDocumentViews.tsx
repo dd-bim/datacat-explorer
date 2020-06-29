@@ -2,8 +2,6 @@ import React, {useContext} from 'react';
 import CrudSwitch, {ViewContext} from "../View/CrudSwitch";
 import {
     CatalogItemFragment,
-    EntityInput,
-    EntityUpdateInput,
     ExternalDocumentDetailsFragment,
     useCreateExternalDocumentMutation,
     useDeleteExternalDocumentMutation,
@@ -12,11 +10,9 @@ import {
     useUpdateExternalDocumentMutation
 } from "../../generated/types";
 import Table from "../table/Table";
-import {useEntityInputTemplate} from "../../hooks/templates";
-import {sanitizeEntityInput} from "../../utils";
 import {Typography} from "@material-ui/core";
 import CatalogItemForm from "../form/CatalogItemForm";
-import CatalogItemFormSet from "../form/CatalogItemFormSet";
+import CatalogItemFormSet, {CatalogItemFormValues, useFormValues} from "../form/CatalogItemFormSet";
 import {Link as RouterLink, useParams} from "react-router-dom";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
@@ -30,6 +26,7 @@ import {getUpdatePath} from "../../Routes";
 import Link from "@material-ui/core/Link";
 import EditIcon from "@material-ui/icons/Edit";
 import useTableRows from "../../hooks/useTableRows";
+import {toEntityInput, toEntityUpdateInput} from "../form/inputMappers";
 
 const columnsFactory = () => [
     {id: 'label', Header: 'Name', accessor: 'label'},
@@ -113,18 +110,18 @@ function ListView() {
 
 function CreateView() {
     const {onCompleted, onCancel} = useContext(ViewContext);
-    const templateFn = useEntityInputTemplate();
+    const tmpl = useFormValues();
     const [createExternalDocument] = useCreateExternalDocumentMutation({onCompleted});
-    const handleSubmit = (data: EntityInput) => {
-        sanitizeEntityInput(data);
-        return createExternalDocument({variables: {input: data}});
+    const handleSubmit = (formValues: CatalogItemFormValues) => {
+        const input = toEntityInput(formValues);
+        return createExternalDocument({variables: {input}});
     };
 
     return (
         <React.Fragment>
             <Typography variant="h5" gutterBottom>Create external document</Typography>
-            <CatalogItemForm<EntityInput | EntityUpdateInput>
-                defaultValues={templateFn()}
+            <CatalogItemForm
+                defaultValues={tmpl()}
                 onSubmit={handleSubmit}
                 onCancel={onCancel}
             >
@@ -138,15 +135,15 @@ function UpdateView() {
     const {id} = useParams();
     const {onCompleted, onCancel} = useContext(ViewContext);
     const hasWriteAccess = useWriteAccess();
-    const templateFn = useEntityInputTemplate();
+    const tmpl = useFormValues();
 
     const {loading, error, data} = useExternalDocumentQuery({variables: {id}});
     const node = data?.node as ExternalDocumentDetailsFragment | undefined;
-    const defaultValues: EntityUpdateInput = templateFn(node);
+    const defaultValues = tmpl(node);
 
     const [updateExternalDocument] = useUpdateExternalDocumentMutation({onCompleted});
-    const handleUpdate = async (input: EntityUpdateInput) => {
-        sanitizeEntityInput(input);
+    const handleUpdate = async (formValues: CatalogItemFormValues) => {
+        const input = toEntityUpdateInput(formValues);
         return await updateExternalDocument({variables: {input}});
     };
 
@@ -162,7 +159,7 @@ function UpdateView() {
                 loading={loading}
                 error={error}
             >
-                <CatalogItemForm<EntityInput | EntityUpdateInput>
+                <CatalogItemForm
                     defaultValues={defaultValues}
                     onSubmit={hasWriteAccess ? handleUpdate : undefined}
                     onDelete={hasWriteAccess ? handleDelete : undefined}

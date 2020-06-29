@@ -22,14 +22,14 @@
         "XtdValue"
     ],
     "Entity": [
+        "Facet",
+        "Translation",
         "XtdActivity",
         "XtdActor",
         "XtdBag",
         "XtdClassification",
-        "XtdDescription",
         "XtdExternalDocument",
         "XtdMeasureWithUnit",
-        "XtdName",
         "XtdNest",
         "XtdProperty",
         "XtdRelActsUpon",
@@ -48,10 +48,6 @@
     "XtdCollection": [
         "XtdBag",
         "XtdNest"
-    ],
-    "XtdLanguageRepresentation": [
-        "XtdDescription",
-        "XtdName"
     ],
     "XtdObject": [
         "XtdActivity",

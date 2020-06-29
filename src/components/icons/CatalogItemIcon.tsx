@@ -2,6 +2,7 @@ import React from "react";
 import {
     ActivityIcon,
     ActorIcon,
+    AssignsIcon,
     AssociatesIcon,
     BagIcon,
     ClassificationIcon,
@@ -58,6 +59,10 @@ export default function CatalogItemIcon(props: CatalogItemIconProps & SvgIconPro
             return <AssociatesIcon {...otherProps} />;
         case 'XtdRelGroups':
             return <GroupsIcon {...otherProps} />;
+        case "XtdRelAssignsCollections":
+            return <AssignsIcon {...otherProps}/>;
+        case "XtdRelAssignsPropertyWithValues":
+            return <AssignsIcon {...otherProps}/>;
         default:
             return <ErrorOutlineIcon {...otherProps} />;
     }

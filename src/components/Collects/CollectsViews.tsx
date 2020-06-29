@@ -11,7 +11,6 @@ import {
     useUpdateCollectsMutation
 } from "../../generated/types";
 import Table from "../table/Table";
-import {sanitizeCollectsInput} from "../../utils";
 import {useParams} from "react-router-dom";
 import useCatalogRootItemRows from "../../hooks/useCatalogRootItemRows";
 import {useWriteAccess} from "../../hooks/useAuthContext";
@@ -19,9 +18,28 @@ import CatalogItemForm from "../form/CatalogItemForm";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
-import useCollectsInputTemplate from "./useCollectsInputTemplate";
-import CollectsFormSet from "./CollectsFormSet";
+import CollectsFormSet, {useFormValues} from "./CollectsFormSet";
 import {CollectsIcon} from "../icons/icons";
+import {BinaryRelationshipFormValues} from "../form/types";
+import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
+
+export const toInput = (formValues: BinaryRelationshipFormValues): CollectsInput => {
+    const {related, relating} = formValues;
+    return {
+        ...toRootInput(formValues),
+        relatingCollection: relating,
+        relatedThings: related.split(","),
+    };
+}
+
+export const toUpdateInput = (formValues: BinaryRelationshipFormValues): CollectsUpdateInput => {
+    const {related, relating} = formValues;
+    return {
+        ...toRootUpdateInput(formValues),
+        relatingCollection: relating,
+        relatedThings: related.split(","),
+    };
+}
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
@@ -54,18 +72,18 @@ function ListView() {
 function CreateView() {
     const hasWriteAccess = useWriteAccess();
     const {onCompleted, onCancel} = useContext(ViewContext);
-    const templateFn = useCollectsInputTemplate()
+    const tmpl = useFormValues()
     const [createMutation] = useCreateCollectsMutation({onCompleted});
-    const handleSubmit = (data: CollectsInput) => {
-        sanitizeCollectsInput(data);
-        return createMutation({variables: {input: data}});
+    const handleSubmit = (formValues: BinaryRelationshipFormValues) => {
+        const input = toInput(formValues);
+        return createMutation({variables: {input}});
     };
 
     return (
         <React.Fragment>
             <ViewHeader title="Create new collects relationship"/>
-            <CatalogItemForm<CollectsInput | CollectsUpdateInput>
-                defaultValues={templateFn()}
+            <CatalogItemForm
+                defaultValues={tmpl()}
                 onSubmit={hasWriteAccess ? handleSubmit : undefined}
                 onCancel={onCancel}
             >
@@ -81,13 +99,13 @@ function UpdateView() {
     const {onCompleted, onCancel} = useContext(ViewContext);
 
     const {loading, error, data} = useCollectsQuery({variables: {id}});
-    const templateFn = useCollectsInputTemplate();
+    const tmpl = useFormValues();
     const node = data?.node as CollectsDetailsFragment | undefined;
-    const defaultValues = templateFn(node);
+    const defaultValues = tmpl(node);
 
     const [updateMutation] = useUpdateCollectsMutation({onCompleted});
-    const handleUpdate = async (input: CollectsUpdateInput) => {
-        sanitizeCollectsInput(input);
+    const handleUpdate = async (formValues: BinaryRelationshipFormValues) => {
+        const input = toUpdateInput(formValues);
         return await updateMutation({variables: {input}});
     };
 
@@ -103,7 +121,7 @@ function UpdateView() {
                 subtitle={node?.id}
             />
             <AsyncWrapper loading={loading} error={error}>
-                <CatalogItemForm<CollectsInput | CollectsUpdateInput>
+                <CatalogItemForm
                     defaultValues={defaultValues}
                     onSubmit={hasWriteAccess ? handleUpdate : undefined}
                     onDelete={hasWriteAccess ? handleDelete : undefined}

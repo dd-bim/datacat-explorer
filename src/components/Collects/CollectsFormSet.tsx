@@ -1,12 +1,18 @@
 import React from "react";
-import TextInputGridItems from "../form/TextInputGridItems";
+import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {CatalogItemFragment, CollectionFragment, CollectsDetailsFragment, EntityTypes} from "../../generated/types";
+import {
+    CatalogItemFragment,
+    CollectionFragment,
+    CollectsDetailsFragment,
+    CollectsFragment,
+    EntityTypes
+} from "../../generated/types";
 import SearchListView from "../Search/SearchListView";
 import SelectionFieldList from "../Selection/SelectionFieldList";
 import useItemsSelection from "../Selection/useItemsSelection";
@@ -14,6 +20,20 @@ import useItemSelection from "../Selection/useItemSelection";
 import SelectionCard from "../Selection/SelectionCard";
 import {SelectionItem} from "../Selection/types";
 import EmptySelectionCard from "../Selection/EmptySelectionCard";
+import {BinaryRelationshipFormValues} from "../form/types";
+
+export const useFormValues = (): (item?: CollectsFragment) => BinaryRelationshipFormValues => {
+    const tmpl = useTranslationFormValues();
+    return (item) => ({
+        id: item?.id ?? '',
+        versionId: item?.versionId ?? '',
+        versionDate: item?.versionDate ?? '',
+        names: tmpl(item?.names),
+        descriptions: tmpl(item?.descriptions),
+        relating: item?.relatingCollection.id ?? '',
+        related: item?.relatedThings.map(x => x.id).join(',') ?? ''
+    });
+}
 
 export type CollectsFormSetProps = {
     collects?: CollectsDetailsFragment
@@ -27,11 +47,11 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
         selection: relatingCollection,
         setSelection: setRelatingCollection
     } = useItemSelection<CollectionFragment>({
-        name: 'relatingCollection',
+        name: 'relating',
         defaultValue: collects?.relatingCollection ?? null
     });
     const {selection: relatedThings, add, remove} = useItemsSelection({
-        name: 'relatedThings',
+        name: 'related',
         defaultValues: collects?.relatedThings ?? []
     });
     const handleSetRelatingCollection = (item: CatalogItemFragment) => {
@@ -48,7 +68,7 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
         entityTypeIn.push(EntityTypes.XtdRoot);
     }
 
-    const idNotIn = [];
+    const idNotIn = relatedThings.map(x => x.id);
     if (collects) idNotIn.push(collects.id);
     if (relatingCollection) idNotIn.push(relatingCollection.id);
 
@@ -88,7 +108,7 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
                         onSelect={handleSetRelatingCollection}
                         filter={{
                             entityTypeIn: [EntityTypes.XtdBag, EntityTypes.XtdNest],
-                            idNotIn: relatingCollection ? [relatingCollection.id] : []
+                            idNotIn: relatingCollection ? [relatingCollection.id] : undefined
                         }}
                         SearchFieldProps={{
                             label: 'Search for external documents'

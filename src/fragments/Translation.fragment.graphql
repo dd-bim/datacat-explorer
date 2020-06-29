@@ -1,9 +1,10 @@
-fragment Text on XtdLanguageRepresentation {
+fragment Translation on Translation {
     id
     language {
         id
         languageNameInEnglish
         languageNameInSelf
     }
-    value
+    label
+    values
 }

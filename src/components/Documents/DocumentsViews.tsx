@@ -11,7 +11,6 @@ import {
     useUpdateDocumentsMutation
 } from "../../generated/types";
 import Table from "../table/Table";
-import {sanitizeDocumentsInput} from "../../utils";
 import {useParams} from "react-router-dom";
 import useCatalogRootItemRows from "../../hooks/useCatalogRootItemRows";
 import {useWriteAccess} from "../../hooks/useAuthContext";
@@ -20,8 +19,27 @@ import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
 import {DocumentsIcon} from "../icons/icons";
-import useDocumentsInputTemplate from "./useDocumentsInputTemplate";
-import DocumentsFormSet from "./DocumentsFormSet";
+import DocumentsFormSet, {useFormValues} from "./DocumentsFormSet";
+import {BinaryRelationshipFormValues} from "../form/types";
+import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
+
+export const toInput = (formValues: BinaryRelationshipFormValues): DocumentsInput => {
+    const {related, relating} = formValues;
+    return {
+        ...toRootInput(formValues),
+        relatingDocument: relating,
+        relatedThings: related.split(","),
+    };
+}
+
+export const toUpdateInput = (formValues: BinaryRelationshipFormValues): DocumentsUpdateInput => {
+    const {related, relating} = formValues;
+    return {
+        ...toRootUpdateInput(formValues),
+        relatingDocument: relating,
+        relatedThings: related.split(","),
+    };
+}
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
@@ -54,18 +72,18 @@ function ListView() {
 function CreateView() {
     const hasWriteAccess = useWriteAccess();
     const {onCompleted, onCancel} = useContext(ViewContext);
-    const templateFn = useDocumentsInputTemplate()
+    const tmpl = useFormValues();
     const [createMutation] = useCreateDocumentsMutation({onCompleted});
-    const handleSubmit = (data: DocumentsInput) => {
-        sanitizeDocumentsInput(data);
-        return createMutation({variables: {input: data}});
+    const handleSubmit = (formValues: BinaryRelationshipFormValues) => {
+        const input = toInput(formValues);
+        return createMutation({variables: {input}});
     };
 
     return (
         <React.Fragment>
             <ViewHeader title="Create new 'Documents' relationship"/>
-            <CatalogItemForm<DocumentsInput | DocumentsUpdateInput>
-                defaultValues={templateFn()}
+            <CatalogItemForm
+                defaultValues={tmpl()}
                 onSubmit={hasWriteAccess ? handleSubmit : undefined}
                 onCancel={onCancel}
             >
@@ -81,13 +99,13 @@ function UpdateView() {
     const {onCompleted, onCancel} = useContext(ViewContext);
 
     const {loading, error, data} = useDocumentsQuery({variables: {id}});
-    const templateFn = useDocumentsInputTemplate();
+    const tmpl = useFormValues();
     const node = data?.node as DocumentsDetailsFragment | undefined;
-    const defaultValues = templateFn(node);
+    const defaultValues = tmpl(node);
 
     const [updateMutation] = useUpdateDocumentsMutation({onCompleted});
-    const handleUpdate = async (input: DocumentsUpdateInput) => {
-        sanitizeDocumentsInput(input);
+    const handleUpdate = async (formValues: BinaryRelationshipFormValues) => {
+        const input = toUpdateInput(formValues);
         return await updateMutation({variables: {input}});
     };
 
@@ -103,7 +121,7 @@ function UpdateView() {
                 subtitle={node?.id}
             />
             <AsyncWrapper loading={loading} error={error}>
-                <CatalogItemForm<DocumentsInput | DocumentsUpdateInput>
+                <CatalogItemForm
                     defaultValues={defaultValues}
                     onSubmit={hasWriteAccess ? handleUpdate : undefined}
                     onDelete={hasWriteAccess ? handleDelete : undefined}

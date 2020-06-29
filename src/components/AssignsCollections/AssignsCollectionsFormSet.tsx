@@ -1,40 +1,54 @@
 import React from "react";
-import TextInputGridItems from "../form/TextInputGridItems";
+import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {AssignsCollectionsDetailsFragment, CollectionFragment, EntityTypes, RootFragment} from "../../generated/types";
+import {AssignsCollectionsFragment, CollectionFragment, EntityTypes, RootFragment} from "../../generated/types";
 import useItemSelection from "../Selection/useItemSelection";
 import useItemsSelection from "../Selection/useItemsSelection";
 import SelectionCard from "../Selection/SelectionCard";
 import EmptySelectionCard from "../Selection/EmptySelectionCard";
 import SearchListView from "../Search/SearchListView";
 import SelectionFieldList from "../Selection/SelectionFieldList";
+import {BinaryRelationshipFormValues} from "../form/types";
+
+export const useFormValues = (): (item?: AssignsCollectionsFragment) => BinaryRelationshipFormValues => {
+    const tmpl = useTranslationFormValues();
+    return (item) => ({
+        id: item?.id ?? '',
+        versionId: item?.versionId ?? '',
+        versionDate: item?.versionDate ?? '',
+        names: tmpl(item?.names),
+        descriptions: tmpl(item?.descriptions),
+        relating: item?.relatingObject.id ?? '',
+        related: item?.relatedCollections.map(x => x.id).join(",") ?? ''
+    });
+}
 
 export type AssignsCollectionsFormSetProps = {
-    assignsCollections?: AssignsCollectionsDetailsFragment
+    item?: AssignsCollectionsFragment
 } & CatalogItemFormSetProps;
 
 export default function AssignsCollectionsFormSet(props: AssignsCollectionsFormSetProps) {
-    const {assignsCollections, isUpdate} = props;
+    const {item, isUpdate} = props;
     const {register} = useFormContext();
     const {
         selection: relatingObject,
         setSelection: setRelatingObject
     } = useItemSelection<RootFragment>({
-        name: 'relatingObject',
-        defaultValue: assignsCollections?.relatingObject ?? null
+        name: 'relating',
+        defaultValue: item?.relatingObject ?? null
     });
     const {
         selection: relatedCollections,
         add: addRelatedCollection,
         remove: removeRelatedCollection
     } = useItemsSelection<CollectionFragment>({
-        name: 'relatedCollections',
-        defaultValues: assignsCollections?.relatedCollections ?? []
+        name: 'related',
+        defaultValues: item?.relatedCollections ?? []
     });
 
     return (

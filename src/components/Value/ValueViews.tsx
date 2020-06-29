@@ -11,17 +11,30 @@ import {
     ValueUpdateInput
 } from "../../generated/types";
 import Table from "../table/Table";
-import {sanitizeValueInput} from "../../utils";
 import {useParams} from "react-router-dom";
-import {useValueInputTemplate} from "../../hooks/templates";
 import useCatalogRootItemRows from "../../hooks/useCatalogRootItemRows";
 import {useWriteAccess} from "../../hooks/useAuthContext";
 import CatalogItemForm from "../form/CatalogItemForm";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
-import ValueFormSet from "./ValueFormSet";
+import ValueFormSet, {useFormValues, ValueFormValues} from "./ValueFormSet";
 import {ValueIcon} from "../icons/icons";
+import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
+
+export const toInput = (formValues: ValueFormValues): ValueInput => {
+    return {
+        ...formValues,
+        ...toRootInput(formValues),
+    };
+}
+
+export const toUpdateInput = (formValues: ValueFormValues): ValueUpdateInput => {
+    return {
+        ...formValues,
+        ...toRootUpdateInput(formValues),
+    };
+}
 
 function ListView() {
     const { createPath } = useContext(ViewContext);
@@ -54,18 +67,18 @@ function ListView() {
 function CreateView() {
     const hasWriteAccess = useWriteAccess();
     const { onCompleted, onCancel } = useContext(ViewContext);
-    const templateFn = useValueInputTemplate()
+    const tmpl = useFormValues()
     const [createMutation] = useCreateValueMutation({onCompleted});
-    const handleSubmit = (data: ValueInput) => {
-        sanitizeValueInput(data);
-        return createMutation({variables: {input: data}});
+    const handleSubmit = (formValues: ValueFormValues) => {
+        const input = toInput(formValues);
+        return createMutation({variables: {input}});
     };
 
     return (
         <React.Fragment>
             <ViewHeader title="Create new value object" />
-            <CatalogItemForm<ValueInput | ValueUpdateInput>
-                defaultValues={templateFn()}
+            <CatalogItemForm
+                defaultValues={tmpl()}
                 onSubmit={hasWriteAccess ? handleSubmit : undefined}
                 onCancel={onCancel}
             >
@@ -81,13 +94,13 @@ function UpdateView() {
     const { onCompleted, onCancel } = useContext(ViewContext);
 
     const {loading, error, data} = useValueQuery({variables: {id}});
-    const templateFn = useValueInputTemplate();
+    const tmpl = useFormValues();
     const node = data?.node as ValueDetailsFragment | undefined;
-    const defaultValues = templateFn(node);
+    const defaultValues = tmpl(node);
 
     const [updateMutation] = useUpdateValueMutation({onCompleted});
-    const handleUpdate = async (input: ValueUpdateInput) => {
-        sanitizeValueInput(input);
+    const handleUpdate = async (formValues: ValueFormValues) => {
+        const input = toUpdateInput(formValues);
         return await updateMutation({variables: {input}});
     };
 
@@ -103,7 +116,7 @@ function UpdateView() {
                 subtitle={node?.id}
             />
             <AsyncWrapper loading={loading} error={error}>
-                <CatalogItemForm<ValueInput | ValueUpdateInput>
+                <CatalogItemForm
                     defaultValues={defaultValues}
                     onSubmit={hasWriteAccess ? handleUpdate : undefined}
                     onDelete={hasWriteAccess ? handleDelete : undefined}

@@ -1,17 +1,40 @@
 import React from "react";
-import TextInputGridItems from "./TextInputGridItems";
-import {CatalogItemFormSetProps} from "./CatalogItemFormSet";
+import TextInputGridItems, {
+    TranslationFormValues,
+    useFormValues as useTranslationFormValues
+} from "./TextInputGridItems";
+import {CatalogItemFormSetProps, CatalogItemFormValues} from "./CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "./FormCaption";
 import TextFieldOptions from "./TextFieldOptions";
+import {RootFragment} from "../../generated/types";
 
-export type CatalogObjectFormSetProps = CatalogItemFormSetProps;
+export type RootFormValues = CatalogItemFormValues & {
+    versionId: string,
+    versionDate: string,
+    descriptions: TranslationFormValues[],
+}
 
-export default function CatalogObjectFormSet(props: CatalogObjectFormSetProps) {
-    const { isUpdate } = props;
-    const { register } = useFormContext();
+export const useFormValues = (): (item?: RootFragment) => RootFormValues => {
+    const tmpl = useTranslationFormValues();
+    return (item) => {
+        return {
+            id: item?.id ?? '',
+            versionId: item?.versionId ?? '',
+            versionDate: item?.versionDate ?? '',
+            names: tmpl(item?.names),
+            descriptions: tmpl(item?.descriptions)
+        };
+    };
+};
+
+export type RootFormSetProps = CatalogItemFormSetProps;
+
+export default function RootFormSet(props: RootFormSetProps) {
+    const {isUpdate} = props;
+    const {register} = useFormContext();
 
     return (
         <React.Fragment>

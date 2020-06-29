@@ -2,8 +2,6 @@ import React, {useContext} from "react";
 import CrudSwitch, {ViewContext} from "../View/CrudSwitch";
 import {
     RootDetailsFragment,
-    RootInput,
-    RootUpdateInput,
     useCreateNestMutation,
     useDeleteNestMutation,
     useNestListQuery,
@@ -11,17 +9,16 @@ import {
     useUpdateNestMutation
 } from "../../generated/types";
 import Table from "../table/Table";
-import {sanitizeRootInput} from "../../utils";
 import {useParams} from "react-router-dom";
-import {useRootInputTemplate} from "../../hooks/templates";
 import useCatalogRootItemRows from "../../hooks/useCatalogRootItemRows";
 import {useWriteAccess} from "../../hooks/useAuthContext";
-import CatalogObjectFormSet from "../form/CatalogObjectFormSet";
+import RootFormSet, {RootFormValues, useFormValues} from "../form/RootFormSet";
 import CatalogItemForm from "../form/CatalogItemForm";
 import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
 import {NestIcon} from "../icons/icons";
+import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
 
 function ListView() {
     const {createPath} = useContext(ViewContext);
@@ -54,22 +51,22 @@ function ListView() {
 function CreateView() {
     const hasWriteAccess = useWriteAccess();
     const {onCompleted, onCancel} = useContext(ViewContext);
-    const templateFn = useRootInputTemplate()
+    const tmpl = useFormValues()
     const [createMutation] = useCreateNestMutation({onCompleted});
-    const handleSubmit = (data: RootInput) => {
-        sanitizeRootInput(data);
-        return createMutation({variables: {input: data}});
+    const handleSubmit = (formValues: RootFormValues) => {
+        const input = toRootInput(formValues);
+        return createMutation({variables: {input}});
     };
 
     return (
         <React.Fragment>
             <ViewHeader title="Create new nest"/>
-            <CatalogItemForm<RootInput | RootUpdateInput>
-                defaultValues={templateFn()}
+            <CatalogItemForm
+                defaultValues={tmpl()}
                 onSubmit={hasWriteAccess ? handleSubmit : undefined}
                 onCancel={onCancel}
             >
-                <CatalogObjectFormSet/>
+                <RootFormSet/>
             </CatalogItemForm>
         </React.Fragment>
     )
@@ -81,13 +78,13 @@ function UpdateView() {
     const {onCompleted, onCancel} = useContext(ViewContext);
 
     const {loading, error, data} = useNestQuery({variables: {id}});
-    const templateFn = useRootInputTemplate();
+    const tmpl = useFormValues();
     const node = data?.node as RootDetailsFragment | undefined;
-    const defaultValues = templateFn(node);
+    const defaultValues = tmpl(node);
 
     const [updateMutation] = useUpdateNestMutation({onCompleted});
-    const handleUpdate = async (input: RootUpdateInput) => {
-        sanitizeRootInput(input);
+    const handleUpdate = async (formValues: RootFormValues) => {
+        const input = toRootUpdateInput(formValues);
         return await updateMutation({variables: {input}});
     };
 
@@ -103,13 +100,13 @@ function UpdateView() {
                 subtitle={node?.id}
             />
             <AsyncWrapper loading={loading} error={error}>
-                <CatalogItemForm<RootInput | RootUpdateInput>
+                <CatalogItemForm
                     defaultValues={defaultValues}
                     onSubmit={hasWriteAccess ? handleUpdate : undefined}
                     onDelete={hasWriteAccess ? handleDelete : undefined}
                     onCancel={onCancel}
                 >
-                    <CatalogObjectFormSet isUpdate/>
+                    <RootFormSet isUpdate/>
                 </CatalogItemForm>
             </AsyncWrapper>
         </React.Fragment>

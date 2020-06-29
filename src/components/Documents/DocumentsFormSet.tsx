@@ -1,12 +1,18 @@
 import React from "react";
-import TextInputGridItems from "../form/TextInputGridItems";
+import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import TextFieldOptions from "../form/TextFieldOptions";
-import {DocumentsDetailsFragment, EntityTypes, ExternalDocumentFragment, RootFragment} from "../../generated/types";
+import {
+    DocumentsDetailsFragment,
+    DocumentsFragment,
+    EntityTypes,
+    ExternalDocumentFragment,
+    RootFragment
+} from "../../generated/types";
 import useItemsSelection from "../Selection/useItemsSelection";
 import useItemSelection from "../Selection/useItemSelection";
 import SelectionFieldList from "../Selection/SelectionFieldList";
@@ -14,6 +20,20 @@ import SearchListView from "../Search/SearchListView";
 import SelectionCard from "../Selection/SelectionCard";
 import {SelectionItem} from "../Selection/types";
 import EmptySelectionCard from "../Selection/EmptySelectionCard";
+import {BinaryRelationshipFormValues} from "../form/types";
+
+export const useFormValues = (): (item?: DocumentsFragment) => BinaryRelationshipFormValues => {
+    const tmpl = useTranslationFormValues();
+    return (item) => ({
+        id: item?.id ?? '',
+        versionId: item?.versionId ?? '',
+        versionDate: item?.versionDate ?? '',
+        names: tmpl(item?.names),
+        descriptions: tmpl(item?.descriptions),
+        relating: item?.relatingDocument.id ?? '',
+        related: item?.relatedThings.map(x => x.id).join(',') ?? ''
+    });
+}
 
 export type CollectsFormSetProps = {
     documents?: DocumentsDetailsFragment
@@ -26,7 +46,7 @@ export default function DocumentsFormSet(props: CollectsFormSetProps) {
         selection: relatingDocument,
         setSelection: setRelatingDocument
     } = useItemSelection<ExternalDocumentFragment>({
-        name: 'relatingDocument',
+        name: 'relating',
         defaultValue: documents?.relatingDocument ?? null
     });
     const {
@@ -34,7 +54,7 @@ export default function DocumentsFormSet(props: CollectsFormSetProps) {
         add: addRelatedThing,
         remove: removeRelatedThing
     } = useItemsSelection<RootFragment>({
-        name: 'relatedThings',
+        name: 'related',
         defaultValues: documents?.relatedThings ?? []
     });
 
@@ -73,6 +93,7 @@ export default function DocumentsFormSet(props: CollectsFormSetProps) {
                     <SearchListView
                         onSelect={(item) => setRelatingDocument(item as SelectionItem<ExternalDocumentFragment>)}
                         filter={{
+                            entityTypeIn: [EntityTypes.XtdExternalDocument],
                             idNotIn: relatingDocument ? [relatingDocument.id] : []
                         }}
                         SearchFieldProps={{
