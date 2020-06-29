@@ -167,15 +167,15 @@ export type EntityUpdateInput = {
 
 export type FacetInput = {
   id?: Maybe<Scalars['ID']>;
-  names: Array<TranslationInput>;
-  descriptions: Array<TranslationInput>;
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
   targets: Array<EntityTypes>;
 };
 
 export type FacetUpdateInput = {
   id: Scalars['ID'];
-  names: Array<TranslationInput>;
-  descriptions: Array<TranslationInput>;
+  names: Array<TextInput>;
+  descriptions: Array<TextInput>;
   targets: Array<EntityTypes>;
 };
 
@@ -270,11 +270,6 @@ export type TextInput = {
   value: Scalars['String'];
 };
 
-
-export type TranslationInput = {
-  languageCode: Scalars['ID'];
-  value: Scalars['String'];
-};
 
 
 
@@ -1581,6 +1576,56 @@ export type ExternalDocumentQuery = { __typename: 'Query', node?: Maybe<{ __type
     & ExternalDocumentDetailsFragment
   ) | { __typename: 'XtdRelDocuments' } | { __typename: 'XtdRelActsUpon' } | { __typename: 'XtdRelAssociates' } | { __typename: 'XtdRelCollects' } | { __typename: 'XtdRelComposes' } | { __typename: 'XtdRelGroups' } | { __typename: 'XtdRelSpecializes' } | { __typename: 'XtdActor' } | { __typename: 'XtdActivity' } | { __typename: 'XtdClassification' } | { __typename: 'XtdMeasureWithUnit' } | { __typename: 'XtdUnit' } | { __typename: 'XtdValue' } | { __typename: 'XtdProperty' } | { __typename: 'XtdSubject' } | { __typename: 'XtdBag' } | { __typename: 'XtdNest' } | { __typename: 'XtdRelAssignsCollections' } | { __typename: 'XtdRelAssignsPropertyWithValues' }> };
 
+export type CreateFacetMutationVariables = Exact<{
+  input: FacetInput;
+}>;
+
+
+export type CreateFacetMutation = { __typename: 'Mutation', createFacet?: Maybe<(
+    { __typename: 'Facet' }
+    & FacetFragment
+  )> };
+
+export type UpdateFacetMutationVariables = Exact<{
+  input: FacetUpdateInput;
+}>;
+
+
+export type UpdateFacetMutation = { __typename: 'Mutation', updateFacet?: Maybe<(
+    { __typename: 'Facet' }
+    & FacetFragment
+  )> };
+
+export type DeleteFacetMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteFacetMutation = { __typename: 'Mutation', deleteFacet?: Maybe<{ __typename: 'Facet', id: string }> };
+
+export type FacetListQueryVariables = Exact<{
+  input?: Maybe<FilterInput>;
+}>;
+
+
+export type FacetListQuery = { __typename: 'Query', facets: { __typename: 'FacetConnection', totalElements: number, nodes: Array<(
+      { __typename: 'Facet' }
+      & FacetFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type FacetQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type FacetQuery = { __typename: 'Query', facet?: Maybe<(
+    { __typename: 'Facet' }
+    & FacetFragment
+  )> };
+
 export type CreateMeasureMutationVariables = Exact<{
   input: MeasureInput;
 }>;
@@ -2384,7 +2429,10 @@ export type ExternalDocumentDetailsFragment = (
   & CatalogItem_XtdExternalDocument_Fragment
 );
 
-export type FacetFragment = { __typename: 'Facet', id: string, label: string, names: Array<(
+export type FacetFragment = { __typename: 'Facet', id: string, label: string, targets: Array<EntityTypes>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
+  )>, descriptions: Array<(
     { __typename: 'Translation' }
     & TranslationFragment
   )> };
@@ -2751,6 +2799,10 @@ export const FacetFragmentDoc = gql`
   names {
     ...Translation
   }
+  descriptions {
+    ...Translation
+  }
+  targets
 }
     ${TranslationFragmentDoc}`;
 export const CatalogItemFragmentDoc = gql`
@@ -4766,6 +4818,175 @@ export function useExternalDocumentLazyQuery(baseOptions?: ApolloReactHooks.Lazy
 export type ExternalDocumentQueryHookResult = ReturnType<typeof useExternalDocumentQuery>;
 export type ExternalDocumentLazyQueryHookResult = ReturnType<typeof useExternalDocumentLazyQuery>;
 export type ExternalDocumentQueryResult = ApolloReactCommon.QueryResult<ExternalDocumentQuery, ExternalDocumentQueryVariables>;
+export const CreateFacetDocument = gql`
+    mutation CreateFacet($input: FacetInput!) {
+  createFacet(input: $input) {
+    ...Facet
+  }
+}
+    ${FacetFragmentDoc}`;
+export type CreateFacetMutationFn = ApolloReactCommon.MutationFunction<CreateFacetMutation, CreateFacetMutationVariables>;
+
+/**
+ * __useCreateFacetMutation__
+ *
+ * To run a mutation, you first call `useCreateFacetMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFacetMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFacetMutation, { data, loading, error }] = useCreateFacetMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateFacetMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateFacetMutation, CreateFacetMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateFacetMutation, CreateFacetMutationVariables>(CreateFacetDocument, baseOptions);
+      }
+export type CreateFacetMutationHookResult = ReturnType<typeof useCreateFacetMutation>;
+export type CreateFacetMutationResult = ApolloReactCommon.MutationResult<CreateFacetMutation>;
+export type CreateFacetMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateFacetMutation, CreateFacetMutationVariables>;
+export const UpdateFacetDocument = gql`
+    mutation UpdateFacet($input: FacetUpdateInput!) {
+  updateFacet(input: $input) {
+    ...Facet
+  }
+}
+    ${FacetFragmentDoc}`;
+export type UpdateFacetMutationFn = ApolloReactCommon.MutationFunction<UpdateFacetMutation, UpdateFacetMutationVariables>;
+
+/**
+ * __useUpdateFacetMutation__
+ *
+ * To run a mutation, you first call `useUpdateFacetMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFacetMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFacetMutation, { data, loading, error }] = useUpdateFacetMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateFacetMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateFacetMutation, UpdateFacetMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateFacetMutation, UpdateFacetMutationVariables>(UpdateFacetDocument, baseOptions);
+      }
+export type UpdateFacetMutationHookResult = ReturnType<typeof useUpdateFacetMutation>;
+export type UpdateFacetMutationResult = ApolloReactCommon.MutationResult<UpdateFacetMutation>;
+export type UpdateFacetMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateFacetMutation, UpdateFacetMutationVariables>;
+export const DeleteFacetDocument = gql`
+    mutation DeleteFacet($id: ID!) {
+  deleteFacet(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteFacetMutationFn = ApolloReactCommon.MutationFunction<DeleteFacetMutation, DeleteFacetMutationVariables>;
+
+/**
+ * __useDeleteFacetMutation__
+ *
+ * To run a mutation, you first call `useDeleteFacetMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteFacetMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteFacetMutation, { data, loading, error }] = useDeleteFacetMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteFacetMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteFacetMutation, DeleteFacetMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteFacetMutation, DeleteFacetMutationVariables>(DeleteFacetDocument, baseOptions);
+      }
+export type DeleteFacetMutationHookResult = ReturnType<typeof useDeleteFacetMutation>;
+export type DeleteFacetMutationResult = ApolloReactCommon.MutationResult<DeleteFacetMutation>;
+export type DeleteFacetMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteFacetMutation, DeleteFacetMutationVariables>;
+export const FacetListDocument = gql`
+    query FacetList($input: FilterInput) {
+  facets(input: $input) {
+    nodes {
+      ...Facet
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
+}
+    ${FacetFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useFacetListQuery__
+ *
+ * To run a query within a React component, call `useFacetListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFacetListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFacetListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useFacetListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<FacetListQuery, FacetListQueryVariables>) {
+        return ApolloReactHooks.useQuery<FacetListQuery, FacetListQueryVariables>(FacetListDocument, baseOptions);
+      }
+export function useFacetListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FacetListQuery, FacetListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<FacetListQuery, FacetListQueryVariables>(FacetListDocument, baseOptions);
+        }
+export type FacetListQueryHookResult = ReturnType<typeof useFacetListQuery>;
+export type FacetListLazyQueryHookResult = ReturnType<typeof useFacetListLazyQuery>;
+export type FacetListQueryResult = ApolloReactCommon.QueryResult<FacetListQuery, FacetListQueryVariables>;
+export const FacetDocument = gql`
+    query Facet($id: ID!) {
+  facet(id: $id) {
+    ...Facet
+  }
+}
+    ${FacetFragmentDoc}`;
+
+/**
+ * __useFacetQuery__
+ *
+ * To run a query within a React component, call `useFacetQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFacetQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFacetQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useFacetQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<FacetQuery, FacetQueryVariables>) {
+        return ApolloReactHooks.useQuery<FacetQuery, FacetQueryVariables>(FacetDocument, baseOptions);
+      }
+export function useFacetLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FacetQuery, FacetQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<FacetQuery, FacetQueryVariables>(FacetDocument, baseOptions);
+        }
+export type FacetQueryHookResult = ReturnType<typeof useFacetQuery>;
+export type FacetLazyQueryHookResult = ReturnType<typeof useFacetLazyQuery>;
+export type FacetQueryResult = ApolloReactCommon.QueryResult<FacetQuery, FacetQueryVariables>;
 export const CreateMeasureDocument = gql`
     mutation CreateMeasure($input: MeasureInput!) {
   createMeasure(input: $input) {

@@ -1,0 +1,17 @@
+mutation CreateFacet($input: FacetInput!) {
+    createFacet(input: $input) {
+        ...Facet
+    }
+}
+
+mutation UpdateFacet($input: FacetUpdateInput!) {
+    updateFacet(input: $input) {
+        ...Facet
+    }
+}
+
+mutation DeleteFacet($id: ID!) {
+    deleteFacet(id: $id) {
+        id
+    }
+}
