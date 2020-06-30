@@ -24,17 +24,20 @@ export default function LoginForm(props: LoginFormProps) {
     const classes = useStyles();
     const { onLogin } = props;
     const [login, { error }] = useLoginFormMutation({
-        errorPolicy: 'all',
-        onCompleted: ({ login: session }) => onLogin(session)
+        onCompleted: result => {
+            if (result) {
+                onLogin(result.login);
+            }
+        }
     });
     const { handleSubmit, register, errors } = useForm<LoginInput>();
     const onSubmit = async (input: LoginInput) => {
-        await login({ variables: { credentials : input } });
+        await login({ variables: { credentials : input } }).catch(e => console.warn(e.message));
     }
 
     return (
         <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-            {error && <Alert severity="error">{error.message}</Alert>}
+            {error && <Alert severity="error">Authentication unsuccessful.</Alert>}
 
             <TextField
                 name="username"
