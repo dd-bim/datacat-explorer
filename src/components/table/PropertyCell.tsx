@@ -23,7 +23,7 @@ export default function PropertyCell(props: PropertyCellProps) {
     const classes = useStyles();
 
     return (
-        <Tooltip title={tooltip} enterDelay={500}>
+        <Tooltip title={tooltip} enterDelay={500} placement="bottom-start">
             <div>
                 <Typography variant="body2" {...PrimaryProps}>{primary}</Typography>
                 <Typography variant="body2" className={classes.secondary} {...SecondaryProps}>{secondary}</Typography>

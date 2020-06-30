@@ -5,10 +5,10 @@ fragment CatalogItem on CatalogItem {
     createdBy
     lastModified
     lastModifiedBy
-    names {
-        ...Translation
-    }
     facets {
         ...Facet
+    }
+    names {
+        ...Translation
     }
 }

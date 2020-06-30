@@ -8,10 +8,11 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import FormCaption from "./FormCaption";
 import TextFieldOptions from "./TextFieldOptions";
-import {CatalogItemFragment} from "../../generated/types";
+import {CatalogItemFragment, FacetFragment} from "../../generated/types";
 
 export type CatalogItemFormValues = {
     id: string,
+    facets: FacetFragment[],
     names: TranslationFormValues[]
 };
 
@@ -20,6 +21,7 @@ export function useFormValues(): (item?: CatalogItemFragment) => CatalogItemForm
     return (item) => {
         return {
             id: item?.id ?? '',
+            facets: item?.facets ?? [],
             names: tmpl(item?.names)
         };
     };

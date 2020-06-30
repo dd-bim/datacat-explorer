@@ -23,24 +23,50 @@ import {ValueIcon} from "../icons/icons";
 import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
 
 export const toInput = (formValues: ValueFormValues): ValueInput => {
+    const {
+        facets,
+        toleranceType,
+        lowerTolerance,
+        upperTolerance, valueRole,
+        valueType,
+        nominalValue
+    } = formValues;
     return {
-        ...formValues,
+        toleranceType,
+        lowerTolerance: lowerTolerance ? lowerTolerance : undefined,
+        upperTolerance: upperTolerance ? upperTolerance : undefined,
+        valueRole,
+        valueType,
+        nominalValue: nominalValue ? nominalValue : undefined,
         ...toRootInput(formValues),
     };
 }
 
 export const toUpdateInput = (formValues: ValueFormValues): ValueUpdateInput => {
+    const {
+        facets,
+        toleranceType,
+        lowerTolerance,
+        upperTolerance, valueRole,
+        valueType,
+        nominalValue
+    } = formValues;
     return {
-        ...formValues,
+        toleranceType,
+        lowerTolerance: lowerTolerance ? lowerTolerance : undefined,
+        upperTolerance: upperTolerance ? upperTolerance : undefined,
+        valueRole,
+        valueType,
+        nominalValue: nominalValue ? nominalValue : undefined,
         ...toRootUpdateInput(formValues),
     };
 }
 
 function ListView() {
-    const { createPath } = useContext(ViewContext);
+    const {createPath} = useContext(ViewContext);
     const {
-        queryOptions: { query, setQuery },
-        result: { loading, error, data },
+        queryOptions: {query, setQuery},
+        result: {loading, error, data},
         pagingOptions
     } = useListView(useValueListQuery);
     const {columns, rows} = useCatalogRootItemRows(data?.values.nodes)
@@ -66,7 +92,7 @@ function ListView() {
 
 function CreateView() {
     const hasWriteAccess = useWriteAccess();
-    const { onCompleted, onCancel } = useContext(ViewContext);
+    const {onCompleted, onCancel} = useContext(ViewContext);
     const tmpl = useFormValues()
     const [createMutation] = useCreateValueMutation({onCompleted});
     const handleSubmit = (formValues: ValueFormValues) => {
@@ -76,13 +102,13 @@ function CreateView() {
 
     return (
         <React.Fragment>
-            <ViewHeader title="Create new value object" />
+            <ViewHeader title="Create new value object"/>
             <CatalogItemForm
                 defaultValues={tmpl()}
                 onSubmit={hasWriteAccess ? handleSubmit : undefined}
                 onCancel={onCancel}
             >
-                <ValueFormSet />
+                <ValueFormSet/>
             </CatalogItemForm>
         </React.Fragment>
     )
@@ -91,7 +117,7 @@ function CreateView() {
 function UpdateView() {
     const {id} = useParams();
     const hasWriteAccess = useWriteAccess();
-    const { onCompleted, onCancel } = useContext(ViewContext);
+    const {onCompleted, onCancel} = useContext(ViewContext);
 
     const {loading, error, data} = useValueQuery({variables: {id}});
     const tmpl = useFormValues();
@@ -106,7 +132,7 @@ function UpdateView() {
 
     const [deleteMutation] = useDeleteValueMutation({onCompleted});
     const handleDelete = async () => {
-        return await deleteMutation({ variables: {id} })
+        return await deleteMutation({variables: {id}})
     }
 
     return (
@@ -122,7 +148,7 @@ function UpdateView() {
                     onDelete={hasWriteAccess ? handleDelete : undefined}
                     onCancel={onCancel}
                 >
-                    <ValueFormSet isUpdate />
+                    <ValueFormSet isUpdate/>
                 </CatalogItemForm>
             </AsyncWrapper>
         </React.Fragment>

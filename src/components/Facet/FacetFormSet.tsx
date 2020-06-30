@@ -3,7 +3,7 @@ import TextInputGridItems, {
     TranslationFormValues,
     useFormValues as useTranslationFormValues
 } from "../form/TextInputGridItems";
-import {CatalogItemFormSetProps, CatalogItemFormValues} from "../form/CatalogItemFormSet";
+import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
@@ -12,7 +12,7 @@ import TextFieldOptions from "../form/TextFieldOptions";
 import {FacetFragment} from "../../generated/types";
 import EntityTypeSelect from "./EntityTypeSelect";
 
-export type FacetFormValues = CatalogItemFormValues & {
+export type FacetFormValues = {
     id: string,
     names: TranslationFormValues[],
     descriptions: TranslationFormValues[],

@@ -21,6 +21,7 @@ const rowFactory = (item: RootFragment) => {
     const {
         __typename,
         id,
+        facets,
         label,
         created,
         createdBy,
@@ -32,7 +33,7 @@ const rowFactory = (item: RootFragment) => {
 
     return {
         label: (
-            <LabelCell id={id} label={label}/>
+            <LabelCell id={id} label={label} facets={facets}/>
         ),
         version: (
             <PropertyCell

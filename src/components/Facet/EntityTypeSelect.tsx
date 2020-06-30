@@ -12,8 +12,6 @@ for (let key in EntityTypes) {
     options.push(key);
 }
 
-console.log(options);
-
 export default function EntityTypeSelect({name}: {name: string}) {
     const {register, unregister, getValues, setValue} = useFormContext<FacetFormValues>();
     const value: string = getValues(name);

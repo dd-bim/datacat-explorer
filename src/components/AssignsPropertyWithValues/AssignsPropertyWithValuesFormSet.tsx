@@ -2,10 +2,8 @@ import React from "react";
 import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
-import TextFieldOptions from "../form/TextFieldOptions";
 import {
     AssignsPropertyWithValuesDetailsFragment,
     AssignsPropertyWithValuesFragment,
@@ -19,6 +17,7 @@ import SearchListView from "../Search/SearchListView";
 import SelectionFieldList from "../Selection/SelectionFieldList";
 import EmptySelectionCard from "../Selection/EmptySelectionCard";
 import {RootFormValues} from "../form/RootFormSet";
+import RootMetaFormSet from "../form/RootMetaFormSet";
 
 export type AssignsPropertyWithValuesFormValues = RootFormValues & {
     relatingObject: string,
@@ -33,6 +32,7 @@ export const useFormValues = (): (item?: AssignsPropertyWithValuesFragment) => A
             id: item?.id ?? '',
             versionId: item?.versionId ?? '',
             versionDate: item?.versionDate ?? '',
+            facets: item?.facets ?? [],
             names: tmpl(item?.names),
             descriptions: tmpl(item?.descriptions),
             relatingObject: item?.relatingObject.id ?? '',
@@ -169,39 +169,7 @@ export default function AssignsPropertyWithValuesFormSet(props: AssignsPropertyW
                 </Grid>
             </Grid>
 
-            <Grid item xs={12}>
-                <FormCaption>Meta information</FormCaption>
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    disabled={isUpdate}
-                    helperText={"Well known unique identifier of the described concept."}
-                    inputRef={register({required: isUpdate})}
-                    label="Universal ID"
-                    name="id"
-                    {...TextFieldOptions}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-                <TextField
-                    inputRef={register({required: true})}
-                    label="Version ID"
-                    name="versionId"
-                    required
-                    {...TextFieldOptions}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-                <TextField
-                    inputRef={register({required: true})}
-                    label={"Version date"}
-                    name="versionDate"
-                    required
-                    {...TextFieldOptions}
-                />
-            </Grid>
+            <RootMetaFormSet isUpdate={isUpdate}/>
         </React.Fragment>
     );
 }

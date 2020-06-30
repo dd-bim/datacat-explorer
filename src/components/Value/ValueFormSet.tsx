@@ -11,6 +11,7 @@ import ValueTypeSelect from "./ValueTypeSelect";
 import ValueRoleSelect from "./ValueRoleSelect";
 import {ValueFragment, XtdToleranceTypeEnum, XtdValueRoleEnum, XtdValueTypeEnum} from "../../generated/types";
 import {RootFormValues} from "../form/RootFormSet";
+import RootMetaFormSet from "../form/RootMetaFormSet";
 
 export type ValueFormValues = RootFormValues & {
     toleranceType: XtdToleranceTypeEnum,
@@ -27,6 +28,7 @@ export const useFormValues = (): (item?: ValueFragment) => ValueFormValues => {
         id: item?.id ?? '',
         versionId: item?.versionId ?? '',
         versionDate: item?.versionDate ?? '',
+        facets: item?.facets ?? [],
         names: tmpl(item?.names),
         descriptions: tmpl(item?.descriptions),
         toleranceType: item?.toleranceType ?? XtdToleranceTypeEnum.Nil,
@@ -132,39 +134,7 @@ export default function ValueFormSet(props: ValueFormSetProps) {
 
             </Grid>
 
-            <Grid item xs={12}>
-                <FormCaption>Meta information</FormCaption>
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    disabled={isUpdate}
-                    helperText={"Well known unique identifier of the described concept."}
-                    inputRef={register({required: isUpdate})}
-                    label="Universal ID"
-                    name="id"
-                    {...TextFieldOptions}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-                <TextField
-                    inputRef={register({required: true})}
-                    label="Version ID"
-                    name="versionId"
-                    required
-                    {...TextFieldOptions}
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-                <TextField
-                    inputRef={register({required: true})}
-                    label={"Version date"}
-                    name="versionDate"
-                    required
-                    {...TextFieldOptions}
-                />
-            </Grid>
+            <RootMetaFormSet/>
         </React.Fragment>
     );
 }

@@ -19,23 +19,25 @@ import ViewHeader from "../View/ViewHeader";
 import AsyncWrapper from "../View/AsyncWrapper";
 import useListView from "../View/useListView";
 import {FacetIcon} from "../icons/icons";
-import {isValidTranslation, toEntityInput, toEntityUpdateInput, toTextInput} from "../form/inputMappers";
+import {isValidId, isValidTranslation, toTextInput} from "../form/inputMappers";
 import FacetFormSet, {FacetFormValues, useFormValues} from "./FacetFormSet";
 import useFacetRows from "./useFacetRows";
 
 export const toInput = (formValues: FacetFormValues): FacetInput => {
-    const {descriptions, targets} = formValues;
+    const {id, names, descriptions, targets} = formValues;
     return {
-        ...toEntityInput(formValues),
+        id: isValidId(id) ? id : undefined,
+        names: names.map(x => toTextInput(x)).filter(x => isValidTranslation(x)),
         descriptions: descriptions.map(x => toTextInput(x)).filter(x => isValidTranslation(x)),
         targets: targets.split(",") as EntityTypes[]
     }
 }
 
 export const toUpdateInput = (formValues: FacetFormValues): FacetUpdateInput => {
-    const {descriptions, targets} = formValues;
+    const {id, names, descriptions, targets} = formValues;
     return {
-        ...toEntityUpdateInput(formValues),
+        id,
+        names: names.map(x => toTextInput(x)).filter(x => isValidTranslation(x)),
         descriptions: descriptions.map(x => toTextInput(x)).filter(x => isValidTranslation(x)),
         targets: targets.split(",") as EntityTypes[]
     }

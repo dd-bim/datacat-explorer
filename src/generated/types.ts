@@ -17,6 +17,7 @@ export type AssignsCollectionsInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   relatingObject: Scalars['ID'];
@@ -27,6 +28,7 @@ export type AssignsCollectionsUpdateInput = {
   id: Scalars['ID'];
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   relatingObject: Scalars['ID'];
@@ -37,6 +39,7 @@ export type AssignsPropertyWithValuesInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   relatingObject: Scalars['ID'];
@@ -48,6 +51,7 @@ export type AssignsPropertyWithValuesUpdateInput = {
   id: Scalars['ID'];
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   relatingObject: Scalars['ID'];
@@ -59,6 +63,7 @@ export type AssociationInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions?: Maybe<Array<TextInput>>;
   relatingThing: Scalars['ID'];
@@ -69,6 +74,7 @@ export type AssociationUpdateInput = {
   id: Scalars['ID'];
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions?: Maybe<Array<TextInput>>;
   relatingThing: Scalars['ID'];
@@ -82,6 +88,7 @@ export type CollectsInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   relatingCollection: Scalars['ID'];
@@ -92,6 +99,7 @@ export type CollectsUpdateInput = {
   id: Scalars['ID'];
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   relatingCollection: Scalars['ID'];
@@ -102,6 +110,7 @@ export type DocumentsInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   relatingDocument: Scalars['ID'];
@@ -112,6 +121,7 @@ export type DocumentsUpdateInput = {
   id: Scalars['ID'];
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   relatingDocument: Scalars['ID'];
@@ -121,6 +131,7 @@ export type DocumentsUpdateInput = {
 
 export type EntityInput = {
   id?: Maybe<Scalars['ID']>;
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
 };
 
@@ -160,10 +171,22 @@ export enum EntityTypes {
 
 export type EntityUpdateInput = {
   id: Scalars['ID'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
 };
 
 
+
+export type FacetFilterInput = {
+  query?: Maybe<Scalars['String']>;
+  queryScope?: Maybe<QueryScopes>;
+  targetIn?: Maybe<Array<EntityTypes>>;
+  targetNotIn?: Maybe<Array<EntityTypes>>;
+  idIn?: Maybe<Array<Scalars['String']>>;
+  idNotIn?: Maybe<Array<Scalars['String']>>;
+  pageNumber?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
+};
 
 export type FacetInput = {
   id?: Maybe<Scalars['ID']>;
@@ -197,6 +220,7 @@ export type MeasureInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   unitComponent?: Maybe<Scalars['ID']>;
@@ -207,6 +231,7 @@ export type MeasureUpdateInput = {
   id: Scalars['ID'];
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   unitComponent?: Maybe<Scalars['ID']>;
@@ -231,6 +256,7 @@ export type RootInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
 };
@@ -239,6 +265,7 @@ export type RootUpdateInput = {
   id: Scalars['ID'];
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
 };
@@ -277,6 +304,7 @@ export type ValueInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   toleranceType: XtdToleranceTypeEnum;
@@ -291,6 +319,7 @@ export type ValueUpdateInput = {
   id: Scalars['ID'];
   versionId: Scalars['String'];
   versionDate: Scalars['String'];
+  facets: Array<Scalars['ID']>;
   names: Array<TextInput>;
   descriptions: Array<TextInput>;
   toleranceType: XtdToleranceTypeEnum;
@@ -2182,164 +2211,164 @@ export type ValueDetailsFragment = (
   & RootDetails_XtdValue_Fragment
 );
 
-type CatalogItem_XtdExternalDocument_Fragment = { __typename: 'XtdExternalDocument', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdExternalDocument_Fragment = { __typename: 'XtdExternalDocument', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelDocuments_Fragment = { __typename: 'XtdRelDocuments', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelDocuments_Fragment = { __typename: 'XtdRelDocuments', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelActsUpon_Fragment = { __typename: 'XtdRelActsUpon', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelActsUpon_Fragment = { __typename: 'XtdRelActsUpon', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelAssociates_Fragment = { __typename: 'XtdRelAssociates', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelAssociates_Fragment = { __typename: 'XtdRelAssociates', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelCollects_Fragment = { __typename: 'XtdRelCollects', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelCollects_Fragment = { __typename: 'XtdRelCollects', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelComposes_Fragment = { __typename: 'XtdRelComposes', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelComposes_Fragment = { __typename: 'XtdRelComposes', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelGroups_Fragment = { __typename: 'XtdRelGroups', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelGroups_Fragment = { __typename: 'XtdRelGroups', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelSpecializes_Fragment = { __typename: 'XtdRelSpecializes', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelSpecializes_Fragment = { __typename: 'XtdRelSpecializes', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdActor_Fragment = { __typename: 'XtdActor', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdActor_Fragment = { __typename: 'XtdActor', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdActivity_Fragment = { __typename: 'XtdActivity', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdActivity_Fragment = { __typename: 'XtdActivity', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdClassification_Fragment = { __typename: 'XtdClassification', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdClassification_Fragment = { __typename: 'XtdClassification', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdMeasureWithUnit_Fragment = { __typename: 'XtdMeasureWithUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdMeasureWithUnit_Fragment = { __typename: 'XtdMeasureWithUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdUnit_Fragment = { __typename: 'XtdUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdUnit_Fragment = { __typename: 'XtdUnit', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdValue_Fragment = { __typename: 'XtdValue', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdValue_Fragment = { __typename: 'XtdValue', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdProperty_Fragment = { __typename: 'XtdProperty', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdProperty_Fragment = { __typename: 'XtdProperty', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdSubject_Fragment = { __typename: 'XtdSubject', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdSubject_Fragment = { __typename: 'XtdSubject', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdBag_Fragment = { __typename: 'XtdBag', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdBag_Fragment = { __typename: 'XtdBag', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdNest_Fragment = { __typename: 'XtdNest', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdNest_Fragment = { __typename: 'XtdNest', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelAssignsCollections_Fragment = { __typename: 'XtdRelAssignsCollections', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelAssignsCollections_Fragment = { __typename: 'XtdRelAssignsCollections', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
-type CatalogItem_XtdRelAssignsPropertyWithValues_Fragment = { __typename: 'XtdRelAssignsPropertyWithValues', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, names: Array<(
-    { __typename: 'Translation' }
-    & TranslationFragment
-  )>, facets: Array<(
+type CatalogItem_XtdRelAssignsPropertyWithValues_Fragment = { __typename: 'XtdRelAssignsPropertyWithValues', id: string, label: string, created: string, createdBy: string, lastModified: string, lastModifiedBy: string, facets: Array<(
     { __typename: 'Facet' }
     & FacetFragment
+  )>, names: Array<(
+    { __typename: 'Translation' }
+    & TranslationFragment
   )> };
 
 export type CatalogItemFragment = CatalogItem_XtdExternalDocument_Fragment | CatalogItem_XtdRelDocuments_Fragment | CatalogItem_XtdRelActsUpon_Fragment | CatalogItem_XtdRelAssociates_Fragment | CatalogItem_XtdRelCollects_Fragment | CatalogItem_XtdRelComposes_Fragment | CatalogItem_XtdRelGroups_Fragment | CatalogItem_XtdRelSpecializes_Fragment | CatalogItem_XtdActor_Fragment | CatalogItem_XtdActivity_Fragment | CatalogItem_XtdClassification_Fragment | CatalogItem_XtdMeasureWithUnit_Fragment | CatalogItem_XtdUnit_Fragment | CatalogItem_XtdValue_Fragment | CatalogItem_XtdProperty_Fragment | CatalogItem_XtdSubject_Fragment | CatalogItem_XtdBag_Fragment | CatalogItem_XtdNest_Fragment | CatalogItem_XtdRelAssignsCollections_Fragment | CatalogItem_XtdRelAssignsPropertyWithValues_Fragment;
@@ -2813,15 +2842,15 @@ export const CatalogItemFragmentDoc = gql`
   createdBy
   lastModified
   lastModifiedBy
-  names {
-    ...Translation
-  }
   facets {
     ...Facet
   }
+  names {
+    ...Translation
+  }
 }
-    ${TranslationFragmentDoc}
-${FacetFragmentDoc}`;
+    ${FacetFragmentDoc}
+${TranslationFragmentDoc}`;
 export const RootFragmentDoc = gql`
     fragment Root on XtdRoot {
   ...CatalogItem
