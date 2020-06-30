@@ -82,7 +82,7 @@ export function AppBar(props: AppBarProps) {
                 />
                     <Typography
                         className={classes.title}
-                        variant="h6"
+                        variant="h5"
                         component="h1"
                     >
                         {process.env.REACT_APP_TITLE}

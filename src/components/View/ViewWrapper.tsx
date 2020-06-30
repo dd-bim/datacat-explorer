@@ -29,7 +29,7 @@ export default function ViewWrapper(props: PaperProps) {
                     datacat {process.env.REACT_APP_VERSION}<br/>
                     datacat-explorer {process.env.REACT_APP_EXPLORER_VERSION}
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="body2" align="right">
                     <Link href={`mailto:${process.env.REACT_APP_MAIL}`}>
                         Admin | Support
                     </Link><br/>
