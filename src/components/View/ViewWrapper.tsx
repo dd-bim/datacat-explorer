@@ -26,12 +26,14 @@ export default function ViewWrapper(props: PaperProps) {
             </Paper>
             <Toolbar className={classes.footer}>
                 <Typography variant="body2">
-                    datacat-explorer {process.env.REACT_APP_VERSION}
+                    datacat {process.env.REACT_APP_VERSION}<br/>
+                    datacat-explorer {process.env.REACT_APP_EXPLORER_VERSION}
                 </Typography>
                 <Typography variant="body2">
                     <Link href={`mailto:${process.env.REACT_APP_MAIL}`}>
-                        Support
-                    </Link>
+                        Admin | Support
+                    </Link><br/>
+                    <Link href="https://www.htw-dresden.de/hochschule/fakultaeten/geoinformation/ueber-uns/personen/professoren/prof-dr-ing-christian-clemen">Contact</Link>
                 </Typography>
             </Toolbar>
         </React.Fragment>
