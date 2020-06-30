@@ -8,6 +8,7 @@ import Router from "./Router";
 import useAuthContext from "../../hooks/useAuthContext";
 import {useRouteMatch} from "react-router-dom";
 import {Toolbar} from "@material-ui/core";
+import ViewWrapper from "../View/ViewWrapper";
 
 const drawerWidth = 250;
 
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Layout() {
     const match = useRouteMatch("/graphiql");
-    const classes = useStyles({ graphiql: !!match });
+    const classes = useStyles({graphiql: !!match});
     const [drawerOpen, setDrawerOpen] = useState(false);
     const {token, login} = useAuthContext();
 
@@ -40,20 +41,24 @@ export default function Layout() {
         <div className={classes.root}>
             <CssBaseline/>
             <AppBar toggleDrawer={() => setDrawerOpen(!drawerOpen)}/>
-            <AppDrawer
-                variant="permanent"
-                className={classes.drawer}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            />
+            {token && (
+                <AppDrawer
+                    variant="permanent"
+                    className={classes.drawer}
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                />
+            )}
             <main className={classes.content}>
                 <Toolbar/>
-                {
-                    !token
-                    ? <BoardingView onLogin={login} onSignup={login}/>
-                    : <Router />
-                }
+                {!token ? (
+                    <ViewWrapper>
+                        <BoardingView onLogin={login} onSignup={login}/>
+                    </ViewWrapper>
+                ) : (
+                    <Router/>
+                )}
             </main>
         </div>
     );
