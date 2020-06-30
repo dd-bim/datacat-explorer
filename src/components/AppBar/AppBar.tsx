@@ -7,7 +7,10 @@ import Avatar from "@material-ui/core/Avatar";
 import MaterialUIAppBar from "@material-ui/core/AppBar";
 import React from "react";
 import {QuickSearchWidget} from "./QuickSearchWidget";
-import useAuthContext from "../../hooks/useAuthContext";
+import useAuthContext, {useWriteAccess} from "../../hooks/useAuthContext";
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import {Tooltip} from "@material-ui/core";
 
 interface AppBarProps {
     toggleDrawer: () => void
@@ -41,7 +44,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 export function AppBar(props: AppBarProps) {
     const classes = useStyles();
     const { toggleDrawer } = props;
-    const { user, logout } = useAuthContext();
+    const { user, logout,  } = useAuthContext();
+    const verifiedUser = useWriteAccess();
     let restrictedContent = [];
 
     if (user) {
@@ -51,6 +55,15 @@ export function AppBar(props: AppBarProps) {
                 className={classes.logoutButton}
                 color="inherit"
                 aria-label="logout"
+                startIcon={verifiedUser ? (
+                    <Tooltip title="Verified user">
+                        <VerifiedUserIcon/>
+                    </Tooltip>
+                ): (
+                    <Tooltip title="Unverified user (read-only)">
+                        <ErrorOutlineIcon/>
+                    </Tooltip>
+                )}
                 endIcon={<ExitToAppIcon/>}
                 onClick={() => logout()}
             >
