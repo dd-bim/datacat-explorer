@@ -1,19 +1,15 @@
 import React, {useEffect} from "react";
 import {useLocalStorage} from "./hooks";
+import {Maybe, UserProfileFragment} from "./generated/types";
 
 export type JwtToken = string;
 
-export type UserProfile = {
+export type Profile = {
     username: string;
     firstName: string;
     lastName: string;
     email: string;
     organization: string;
-};
-
-export type UserSession = {
-    token: JwtToken;
-    user: UserProfile;
 };
 
 export type JwtTokenPayload = {
@@ -25,15 +21,18 @@ export type JwtTokenPayload = {
 }
 
 export type UserAuthentication = {
-    token?: JwtToken;
-    payload?: JwtTokenPayload;
-    user?: UserProfile;
+    token: Maybe<JwtToken>;
+    payload: Maybe<JwtTokenPayload>;
+    profile: Maybe<UserProfileFragment>,
     hasRole(role: string): boolean;
-    login(user: UserSession): void;
+    login(token: string, profile: UserProfileFragment): void;
     logout(): void;
 };
 
 export const AuthContext = React.createContext<UserAuthentication>({
+    token: null,
+    payload: null,
+    profile: null,
     hasRole() { return false; },
     login() { console.warn("Missing auth provider."); },
     logout() { console.warn("Missing auth provider."); }
@@ -54,20 +53,23 @@ const parseJwtToken = (token: JwtToken): JwtTokenPayload => {
 
 export default function AuthProvider(props: AuthProviderProps) {
     const { children } = props;
-    const [session, setSession] = useLocalStorage<UserSession | null>("session", null);
-    const payload = session ? parseJwtToken(session.token) : undefined;
+    const [token, setToken] = useLocalStorage<string | null>("token", null);
+    const [profile, setProfile] = useLocalStorage<UserProfileFragment | null>("profile", null);
+    const payload = token ? parseJwtToken(token) : null;
     const auth: UserAuthentication = {
-        token: session?.token,
+        token,
         payload,
-        user: session?.user,
+        profile,
         hasRole: (role: string) => {
             return payload ? payload.roles.includes('ROLE_' + role) : false;
         },
-        login: (userSession) => {
-            setSession(userSession)
+        login: (token, profile) => {
+            setToken(token);
+            setProfile(profile);
         },
         logout: () => {
-            setSession(null)
+            setToken(null);
+            setProfile(null);
         }
     };
 
@@ -78,7 +80,7 @@ export default function AuthProvider(props: AuthProviderProps) {
             const ms = exp.getTime() - new Date().getTime()
             console.log(`Clearing session after ${ms}ms`)
             const timer = setTimeout(() => {
-                setSession(null);
+                setToken(null);
             }, ms);
             return () => clearTimeout(timer);
         }

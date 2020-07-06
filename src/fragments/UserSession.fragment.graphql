@@ -1,6 +1,0 @@
-fragment UserSession on UserSession {
-    token
-    user {
-        ...UserProfile
-    }
-}

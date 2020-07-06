@@ -4,10 +4,11 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {Alert} from "@material-ui/lab";
 import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import {SignupInput, UserSessionFragment, useSignupFormMutation} from "../../generated/types";
+import {SignupInput, UserProfileFragment, useSignupFormMutation} from "../../generated/types";
+import {JwtToken} from "../../AuthProvider";
 
 interface SignupFormProps {
-    onSignup: (user: UserSessionFragment) => void;
+    onSignup: (token: JwtToken, profile: UserProfileFragment) => void;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -22,14 +23,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignupForm(props: SignupFormProps) {
     const classes = useStyles();
-    const { onSignup } = props;
-    const [signup, { error }] = useSignupFormMutation({
+    const {onSignup} = props;
+    const [signup, {error}] = useSignupFormMutation({
         errorPolicy: 'ignore',
-        onCompleted: ({ signup: session }) => onSignup(session)
+        onCompleted: ({token, profile}) => {
+            onSignup(token, profile);
+        }
     });
-    const { handleSubmit, register, errors } = useForm<SignupInput>();
+    const {handleSubmit, register, errors} = useForm<SignupInput>();
     const onSubmit = async (values: SignupInput) => {
-        await signup({ variables: { profile: values } });
+        await signup({variables: {profile: values}});
     }
 
     return (
@@ -42,7 +45,7 @@ export default function SignupForm(props: SignupFormProps) {
                 required
                 error={!!errors.username}
                 helperText={errors.username ? errors.username.message : ''}
-                inputRef={register({ required: true })}
+                inputRef={register({required: true})}
                 fullWidth
             />
 
@@ -52,7 +55,7 @@ export default function SignupForm(props: SignupFormProps) {
                 label="Password"
                 required
                 helperText={errors.password ? errors.password.message : ''}
-                inputRef={register({ required: true })}
+                inputRef={register({required: true})}
                 fullWidth
             />
 
@@ -62,7 +65,7 @@ export default function SignupForm(props: SignupFormProps) {
                 required
                 error={!!errors.firstName}
                 helperText={errors.firstName ? errors.firstName.message : ''}
-                inputRef={register({ required: true })}
+                inputRef={register({required: true})}
                 fullWidth
             />
 
@@ -72,7 +75,7 @@ export default function SignupForm(props: SignupFormProps) {
                 required
                 error={!!errors.lastName}
                 helperText={errors.lastName ? errors.lastName.message : ''}
-                inputRef={register({ required: true })}
+                inputRef={register({required: true})}
                 fullWidth
             />
 
@@ -83,7 +86,7 @@ export default function SignupForm(props: SignupFormProps) {
                 required
                 error={!!errors.email}
                 helperText={errors.email ? errors.email.message : ''}
-                inputRef={register({ required: true })}
+                inputRef={register({required: true})}
                 fullWidth
             />
 
@@ -93,7 +96,7 @@ export default function SignupForm(props: SignupFormProps) {
                 required
                 error={!!errors.organization}
                 helperText={errors.organization ? errors.organization.message : ''}
-                inputRef={register({ required: true })}
+                inputRef={register({required: true})}
                 fullWidth
             />
 

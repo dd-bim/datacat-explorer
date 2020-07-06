@@ -1,4 +1,4 @@
-fragment UserProfile on UserProfile {
+fragment UserProfile on Profile {
     username
     firstName
     lastName

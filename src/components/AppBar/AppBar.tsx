@@ -43,12 +43,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export function AppBar(props: AppBarProps) {
     const classes = useStyles();
-    const { toggleDrawer } = props;
-    const { user, logout,  } = useAuthContext();
+    const { profile, logout,  } = useAuthContext();
     const verifiedUser = useWriteAccess();
     let restrictedContent = [];
 
-    if (user) {
+    if (profile) {
         restrictedContent.push(
             <QuickSearchWidget key="search-input" className={classes.searchInput} />,
             <Button key="logout-button"
@@ -67,7 +66,7 @@ export function AppBar(props: AppBarProps) {
                 endIcon={<ExitToAppIcon/>}
                 onClick={() => logout()}
             >
-                {user.username}
+                {profile.username}
             </Button>
         );
     }
