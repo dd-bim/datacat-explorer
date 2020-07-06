@@ -13,6 +13,35 @@ export type Scalars = {
   Float: number;
 };
 
+
+
+export type AccountFilterInput = {
+  expired?: Maybe<Scalars['Boolean']>;
+  locked?: Maybe<Scalars['Boolean']>;
+  credentialsExpired?: Maybe<Scalars['Boolean']>;
+  pageNumber?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
+};
+
+export enum AccountStatus {
+  Admin = 'Admin',
+  Verified = 'Verified',
+  Unverified = 'Unverified'
+}
+
+export type AccountStatusUpdateInput = {
+  username: Scalars['ID'];
+  status: AccountStatus;
+};
+
+export type AccountUpdateInput = {
+  username: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email: Scalars['String'];
+  organization: Scalars['String'];
+};
+
 export type AssignsCollectionsInput = {
   id?: Maybe<Scalars['ID']>;
   versionId: Scalars['String'];
@@ -177,17 +206,6 @@ export type EntityUpdateInput = {
 
 
 
-export type FacetFilterInput = {
-  query?: Maybe<Scalars['String']>;
-  queryScope?: Maybe<QueryScopes>;
-  targetIn?: Maybe<Array<EntityTypes>>;
-  targetNotIn?: Maybe<Array<EntityTypes>>;
-  idIn?: Maybe<Array<Scalars['String']>>;
-  idNotIn?: Maybe<Array<Scalars['String']>>;
-  pageNumber?: Maybe<Scalars['Int']>;
-  pageSize?: Maybe<Scalars['Int']>;
-};
-
 export type FacetInput = {
   id?: Maybe<Scalars['ID']>;
   names: Array<TextInput>;
@@ -212,7 +230,7 @@ export type FilterInput = {
 };
 
 export type LoginInput = {
-  username: Scalars['String'];
+  username: Scalars['ID'];
   password: Scalars['String'];
 };
 
@@ -243,6 +261,15 @@ export type MeasureUpdateInput = {
 export type PagingInput = {
   pageNumber?: Maybe<Scalars['Int']>;
   pageSize?: Maybe<Scalars['Int']>;
+};
+
+
+export type ProfileUpdateInput = {
+  username: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email: Scalars['String'];
+  organization: Scalars['String'];
 };
 
 
@@ -283,7 +310,7 @@ export type SearchInput = {
 
 
 export type SignupInput = {
-  username: Scalars['String'];
+  username: Scalars['ID'];
   password: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
@@ -296,8 +323,6 @@ export type TextInput = {
   languageCode: Scalars['ID'];
   value: Scalars['String'];
 };
-
-
 
 
 export type ValueInput = {
@@ -1060,9 +1085,9 @@ export type LoginFormMutationVariables = Exact<{
 }>;
 
 
-export type LoginFormMutation = { __typename: 'Mutation', login: (
-    { __typename: 'UserSession' }
-    & UserSessionFragment
+export type LoginFormMutation = { __typename: 'Mutation', token: string, profile: (
+    { __typename: 'Profile' }
+    & UserProfileFragment
   ) };
 
 export type SignupFormMutationVariables = Exact<{
@@ -1070,10 +1095,10 @@ export type SignupFormMutationVariables = Exact<{
 }>;
 
 
-export type SignupFormMutation = { __typename: 'Mutation', signup: { __typename: 'UserSession', token: string, user: (
-      { __typename: 'UserProfile' }
-      & UserProfileFragment
-    ) } };
+export type SignupFormMutation = { __typename: 'Mutation', token: string, profile: (
+    { __typename: 'Profile' }
+    & UserProfileFragment
+  ) };
 
 export type CatalogItemStatisticsFragment = { __typename: 'CatalogItemStatistics', id: string, count: number };
 
@@ -2802,12 +2827,7 @@ export type RootDetailsFragment = RootDetails_XtdRelDocuments_Fragment | RootDet
 
 export type TranslationFragment = { __typename: 'Translation', id: string, label: string, values: Array<string>, language: { __typename: 'XtdLanguage', id: string, languageNameInEnglish: string, languageNameInSelf: string } };
 
-export type UserProfileFragment = { __typename: 'UserProfile', username: string, firstName: string, lastName: string, email: string, organization: string };
-
-export type UserSessionFragment = { __typename: 'UserSession', token: string, user: (
-    { __typename: 'UserProfile' }
-    & UserProfileFragment
-  ) };
+export type UserProfileFragment = { __typename: 'Profile', username: string, firstName: string, lastName: string, email: string, organization: string };
 
 export const TranslationFragmentDoc = gql`
     fragment Translation on Translation {
@@ -3167,7 +3187,7 @@ export const MeasureDetailsFragmentDoc = gql`
 ${RootDetailsFragmentDoc}
 ${ValueDetailsFragmentDoc}`;
 export const UserProfileFragmentDoc = gql`
-    fragment UserProfile on UserProfile {
+    fragment UserProfile on Profile {
   username
   firstName
   lastName
@@ -3175,14 +3195,6 @@ export const UserProfileFragmentDoc = gql`
   organization
 }
     `;
-export const UserSessionFragmentDoc = gql`
-    fragment UserSession on UserSession {
-  token
-  user {
-    ...UserProfile
-  }
-}
-    ${UserProfileFragmentDoc}`;
 export const CreateActivityDocument = gql`
     mutation CreateActivity($input: RootInput!) {
   createActivity(input: $input) {
@@ -4072,11 +4084,12 @@ export type BagLazyQueryHookResult = ReturnType<typeof useBagLazyQuery>;
 export type BagQueryResult = ApolloReactCommon.QueryResult<BagQuery, BagQueryVariables>;
 export const LoginFormDocument = gql`
     mutation LoginForm($credentials: LoginInput!) {
-  login(input: $credentials) {
-    ...UserSession
+  token: login(input: $credentials)
+  profile {
+    ...UserProfile
   }
 }
-    ${UserSessionFragmentDoc}`;
+    ${UserProfileFragmentDoc}`;
 export type LoginFormMutationFn = ApolloReactCommon.MutationFunction<LoginFormMutation, LoginFormMutationVariables>;
 
 /**
@@ -4104,11 +4117,9 @@ export type LoginFormMutationResult = ApolloReactCommon.MutationResult<LoginForm
 export type LoginFormMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginFormMutation, LoginFormMutationVariables>;
 export const SignupFormDocument = gql`
     mutation SignupForm($profile: SignupInput!) {
-  signup(input: $profile) {
-    token
-    user {
-      ...UserProfile
-    }
+  token: signup(input: $profile)
+  profile {
+    ...UserProfile
   }
 }
     ${UserProfileFragmentDoc}`;
