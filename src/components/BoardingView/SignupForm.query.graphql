@@ -1,6 +1,3 @@
 mutation SignupForm($profile: SignupInput!) {
-    token: signup(input: $profile)
-    profile {
-        ...UserProfile
-    }
+    success: signup(input: $profile)
 }

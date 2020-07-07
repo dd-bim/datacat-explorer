@@ -1,16 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useLocalStorage} from "./hooks";
-import {Maybe, UserProfileFragment} from "./generated/types";
+import {Maybe} from "./generated/types";
 
 export type JwtToken = string;
-
-export type Profile = {
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    organization: string;
-};
 
 export type JwtTokenPayload = {
     sub: string;
@@ -23,16 +15,14 @@ export type JwtTokenPayload = {
 export type UserAuthentication = {
     token: Maybe<JwtToken>;
     payload: Maybe<JwtTokenPayload>;
-    profile: Maybe<UserProfileFragment>,
     hasRole(role: string): boolean;
-    login(token: string, profile: UserProfileFragment): void;
+    login(token: JwtToken): void;
     logout(): void;
 };
 
 export const AuthContext = React.createContext<UserAuthentication>({
     token: null,
     payload: null,
-    profile: null,
     hasRole() { return false; },
     login() { console.warn("Missing auth provider."); },
     logout() { console.warn("Missing auth provider."); }
@@ -54,40 +44,23 @@ const parseJwtToken = (token: JwtToken): JwtTokenPayload => {
 export default function AuthProvider(props: AuthProviderProps) {
     const { children } = props;
     const [token, setToken] = useLocalStorage<string | null>("token", null);
-    const [profile, setProfile] = useLocalStorage<UserProfileFragment | null>("profile", null);
     const payload = token ? parseJwtToken(token) : null;
-    const auth: UserAuthentication = {
-        token,
-        payload,
-        profile,
-        hasRole: (role: string) => {
-            return payload ? payload.roles.includes('ROLE_' + role) : false;
-        },
-        login: (token, profile) => {
-            setToken(token);
-            setProfile(profile);
-        },
-        logout: () => {
-            setToken(null);
-            setProfile(null);
-        }
-    };
+    const exp = payload?.exp;
 
-    useEffect(() => {
-        const exp = payload?.exp;
-        if (exp) {
-            console.log(exp);
-            const ms = exp.getTime() - new Date().getTime()
-            console.log(`Clearing session after ${ms}ms`)
-            const timer = setTimeout(() => {
-                setToken(null);
-            }, ms);
-            return () => clearTimeout(timer);
-        }
-    }, [payload]);
+    if (exp && exp.getTime() < new Date().getTime()) {
+        setToken(null);
+    }
 
     return (
-        <AuthContext.Provider value={auth}>
+        <AuthContext.Provider value={{
+            token,
+            payload,
+            hasRole: (role: string) => {
+                return payload ? payload.roles.includes('ROLE_' + role) : false;
+            },
+            login: (token) => setToken(token),
+            logout: () => setToken(null)
+        }}>
             {children}
         </AuthContext.Provider>
     );

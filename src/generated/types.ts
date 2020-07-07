@@ -1080,25 +1080,26 @@ export type BagDetailsFragment = (
   & RootDetails_XtdBag_Fragment
 );
 
+export type ConfirmEmailMutationVariables = Exact<{
+  token: Scalars['String'];
+}>;
+
+
+export type ConfirmEmailMutation = { __typename: 'Mutation', success?: Maybe<boolean> };
+
 export type LoginFormMutationVariables = Exact<{
   credentials: LoginInput;
 }>;
 
 
-export type LoginFormMutation = { __typename: 'Mutation', token: string, profile: (
-    { __typename: 'Profile' }
-    & UserProfileFragment
-  ) };
+export type LoginFormMutation = { __typename: 'Mutation', token?: Maybe<string> };
 
 export type SignupFormMutationVariables = Exact<{
   profile: SignupInput;
 }>;
 
 
-export type SignupFormMutation = { __typename: 'Mutation', token: string, profile: (
-    { __typename: 'Profile' }
-    & UserProfileFragment
-  ) };
+export type SignupFormMutation = { __typename: 'Mutation', success?: Maybe<boolean> };
 
 export type CatalogItemStatisticsFragment = { __typename: 'CatalogItemStatistics', id: string, count: number };
 
@@ -1679,6 +1680,14 @@ export type FacetQuery = { __typename: 'Query', facet?: Maybe<(
     { __typename: 'Facet' }
     & FacetFragment
   )> };
+
+export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProfileQuery = { __typename: 'Query', profile: (
+    { __typename: 'Profile' }
+    & UserProfileFragment
+  ) };
 
 export type CreateMeasureMutationVariables = Exact<{
   input: MeasureInput;
@@ -4082,14 +4091,41 @@ export function useBagLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpti
 export type BagQueryHookResult = ReturnType<typeof useBagQuery>;
 export type BagLazyQueryHookResult = ReturnType<typeof useBagLazyQuery>;
 export type BagQueryResult = ApolloReactCommon.QueryResult<BagQuery, BagQueryVariables>;
+export const ConfirmEmailDocument = gql`
+    mutation ConfirmEmail($token: String!) {
+  success: confirm(token: $token)
+}
+    `;
+export type ConfirmEmailMutationFn = ApolloReactCommon.MutationFunction<ConfirmEmailMutation, ConfirmEmailMutationVariables>;
+
+/**
+ * __useConfirmEmailMutation__
+ *
+ * To run a mutation, you first call `useConfirmEmailMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useConfirmEmailMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [confirmEmailMutation, { data, loading, error }] = useConfirmEmailMutation({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useConfirmEmailMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ConfirmEmailMutation, ConfirmEmailMutationVariables>) {
+        return ApolloReactHooks.useMutation<ConfirmEmailMutation, ConfirmEmailMutationVariables>(ConfirmEmailDocument, baseOptions);
+      }
+export type ConfirmEmailMutationHookResult = ReturnType<typeof useConfirmEmailMutation>;
+export type ConfirmEmailMutationResult = ApolloReactCommon.MutationResult<ConfirmEmailMutation>;
+export type ConfirmEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<ConfirmEmailMutation, ConfirmEmailMutationVariables>;
 export const LoginFormDocument = gql`
     mutation LoginForm($credentials: LoginInput!) {
   token: login(input: $credentials)
-  profile {
-    ...UserProfile
-  }
 }
-    ${UserProfileFragmentDoc}`;
+    `;
 export type LoginFormMutationFn = ApolloReactCommon.MutationFunction<LoginFormMutation, LoginFormMutationVariables>;
 
 /**
@@ -4117,12 +4153,9 @@ export type LoginFormMutationResult = ApolloReactCommon.MutationResult<LoginForm
 export type LoginFormMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginFormMutation, LoginFormMutationVariables>;
 export const SignupFormDocument = gql`
     mutation SignupForm($profile: SignupInput!) {
-  token: signup(input: $profile)
-  profile {
-    ...UserProfile
-  }
+  success: signup(input: $profile)
 }
-    ${UserProfileFragmentDoc}`;
+    `;
 export type SignupFormMutationFn = ApolloReactCommon.MutationFunction<SignupFormMutation, SignupFormMutationVariables>;
 
 /**
@@ -5027,6 +5060,38 @@ export function useFacetLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOp
 export type FacetQueryHookResult = ReturnType<typeof useFacetQuery>;
 export type FacetLazyQueryHookResult = ReturnType<typeof useFacetLazyQuery>;
 export type FacetQueryResult = ApolloReactCommon.QueryResult<FacetQuery, FacetQueryVariables>;
+export const ProfileDocument = gql`
+    query Profile {
+  profile {
+    ...UserProfile
+  }
+}
+    ${UserProfileFragmentDoc}`;
+
+/**
+ * __useProfileQuery__
+ *
+ * To run a query within a React component, call `useProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProfileQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+        return ApolloReactHooks.useQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, baseOptions);
+      }
+export function useProfileLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, baseOptions);
+        }
+export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
+export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
+export type ProfileQueryResult = ApolloReactCommon.QueryResult<ProfileQuery, ProfileQueryVariables>;
 export const CreateMeasureDocument = gql`
     mutation CreateMeasure($input: MeasureInput!) {
   createMeasure(input: $input) {

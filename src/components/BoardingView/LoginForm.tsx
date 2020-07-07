@@ -4,11 +4,11 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import {Button} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
-import {LoginInput, useLoginFormMutation, UserProfileFragment} from "../../generated/types";
+import {LoginInput, useLoginFormMutation} from "../../generated/types";
 import {JwtToken} from "../../AuthProvider";
 
 interface LoginFormProps {
-    onLogin: (token: JwtToken, profile: UserProfileFragment) => void;
+    onLogin: (token: JwtToken) => void;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -25,8 +25,9 @@ export default function LoginForm(props: LoginFormProps) {
     const classes = useStyles();
     const {onLogin} = props;
     const [login, {error}] = useLoginFormMutation({
-        onCompleted: ({token, profile}) => {
-            onLogin(token, profile);
+        errorPolicy: 'all',
+        onCompleted: (result) => {
+            result.token && onLogin(result.token);
         }
     });
     const {handleSubmit, register, errors} = useForm<LoginInput>();
@@ -35,8 +36,8 @@ export default function LoginForm(props: LoginFormProps) {
     }
 
     return (
-        <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-            {error && <Alert severity="error">Authentication unsuccessful.</Alert>}
+        <form className={classes.root} onSubmit={handleSubmit(onSubmit)} noValidate>
+            {error && <Alert severity="error">{error.message}</Alert>}
 
             <TextField
                 name="username"

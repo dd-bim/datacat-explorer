@@ -1,14 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppDrawer from "../AppDrawer/AppDrawer";
 import BoardingView from "../BoardingView/BoardingView";
 import {AppBar} from "../AppBar/AppBar";
 import Router from "./Router";
+import {Route, Switch, useRouteMatch} from "react-router-dom";
 import useAuthContext from "../../hooks/useAuthContext";
-import {useRouteMatch} from "react-router-dom";
 import {Toolbar} from "@material-ui/core";
 import ViewWrapper from "../View/ViewWrapper";
+import ConfirmationView from "../BoardingView/ConfirmationView";
 
 const drawerWidth = 250;
 
@@ -34,13 +35,12 @@ const useStyles = makeStyles(theme => ({
 export default function Layout() {
     const match = useRouteMatch("/graphiql");
     const classes = useStyles({graphiql: !!match});
-    const [drawerOpen, setDrawerOpen] = useState(false);
     const {token, login} = useAuthContext();
 
     return (
         <div className={classes.root}>
             <CssBaseline/>
-            <AppBar toggleDrawer={() => setDrawerOpen(!drawerOpen)}/>
+            <AppBar/>
             {token && (
                 <AppDrawer
                     variant="permanent"
@@ -54,7 +54,14 @@ export default function Layout() {
                 <Toolbar/>
                 {!token ? (
                     <ViewWrapper>
-                        <BoardingView onLogin={login} onSignup={login}/>
+                        <Switch>
+                            <Route path="/confirm">
+                                <ConfirmationView/>
+                            </Route>
+                            <Route>
+                                <BoardingView onLogin={login}/>
+                            </Route>
+                        </Switch>
                     </ViewWrapper>
                 ) : (
                     <Router/>

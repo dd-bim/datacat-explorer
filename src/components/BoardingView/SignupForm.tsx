@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {Alert} from "@material-ui/lab";
 import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import {SignupInput, UserProfileFragment, useSignupFormMutation} from "../../generated/types";
-import {JwtToken} from "../../AuthProvider";
+import {SignupInput, useSignupFormMutation} from "../../generated/types";
+
+const usernameHelperText = "A username is required. No whitespace. Must start with a letter and have a minimum length of 3."
+const passwordHelperText = "A password is required and must have a minimum lenght of 8."
 
 interface SignupFormProps {
-    onSignup: (token: JwtToken, profile: UserProfileFragment) => void;
+    onSignup: () => void;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -21,22 +23,27 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+type SignupFormFields = SignupInput & { password2: string };
 export default function SignupForm(props: SignupFormProps) {
     const classes = useStyles();
     const {onSignup} = props;
-    const [signup, {error}] = useSignupFormMutation({
-        errorPolicy: 'ignore',
-        onCompleted: ({token, profile}) => {
-            onSignup(token, profile);
-        }
+    const [cooldownReached, setCooldownReached] = useState(false);
+    const [signup, {loading, error}] = useSignupFormMutation({
+        errorPolicy: 'all',
+        onCompleted: (result) => result.success && onSignup()
     });
-    const {handleSubmit, register, errors} = useForm<SignupInput>();
-    const onSubmit = async (values: SignupInput) => {
-        await signup({variables: {profile: values}});
+    const {handleSubmit, register, errors, getValues} = useForm<SignupFormFields>();
+    const onSubmit = async ({password2, ...profile}: SignupFormFields ) => {
+        if (!cooldownReached || loading) return;
+        await signup({variables: {profile}});
     }
 
+    useEffect(() => {
+        setTimeout(() => setCooldownReached(true), 5000);
+    });
+
     return (
-        <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+        <form className={classes.root} onSubmit={handleSubmit(onSubmit)} noValidate>
             {error && <Alert severity="error">{error.message}</Alert>}
 
             <TextField
@@ -44,8 +51,12 @@ export default function SignupForm(props: SignupFormProps) {
                 label="Username"
                 required
                 error={!!errors.username}
-                helperText={errors.username ? errors.username.message : ''}
-                inputRef={register({required: true})}
+                helperText={errors.username ? usernameHelperText : ''}
+                inputRef={register({
+                    required: true,
+                    minLength: 3,
+                    pattern: /^[a-zA-Z][a-zA-Z0-9]+$/
+                })}
                 fullWidth
             />
 
@@ -54,8 +65,29 @@ export default function SignupForm(props: SignupFormProps) {
                 name="password"
                 label="Password"
                 required
-                helperText={errors.password ? errors.password.message : ''}
-                inputRef={register({required: true})}
+                error={!!errors.password}
+                helperText={errors.password ? passwordHelperText : ''}
+                inputRef={register({
+                    required: true,
+                    minLength: 8
+                })}
+                fullWidth
+            />
+
+            <TextField
+                type="password"
+                name="password2"
+                label="Repeat password"
+                required
+                error={!!errors.password2}
+                helperText={errors.password2 ? 'There seems to be a typo in your password.' : ''}
+                inputRef={register({
+                    required: true,
+                    validate: value => {
+                        const password = getValues('password');
+                        return password === value;
+                    }
+                })}
                 fullWidth
             />
 
@@ -93,14 +125,20 @@ export default function SignupForm(props: SignupFormProps) {
             <TextField
                 name="organization"
                 label="Organization"
-                required
                 error={!!errors.organization}
                 helperText={errors.organization ? errors.organization.message : ''}
-                inputRef={register({required: true})}
+                inputRef={register()}
                 fullWidth
             />
 
-            <Button type="submit" color="primary" variant="contained">Signup</Button>
+            <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                disabled={loading}
+            >
+                Signup
+            </Button>
         </form>
     )
 }

@@ -11,10 +11,7 @@ import useAuthContext, {useWriteAccess} from "../../hooks/useAuthContext";
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import {Tooltip} from "@material-ui/core";
-
-interface AppBarProps {
-    toggleDrawer: () => void
-}
+import {useProfile} from "../../ProfileProvider";
 
 const useStyles = makeStyles((theme: Theme) => ({
     appBar: {
@@ -41,9 +38,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export function AppBar(props: AppBarProps) {
+export function AppBar() {
     const classes = useStyles();
-    const { profile, logout,  } = useAuthContext();
+    const profile = useProfile();
+    const { logout } = useAuthContext();
     const verifiedUser = useWriteAccess();
     let restrictedContent = [];
 

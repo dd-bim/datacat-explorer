@@ -8,6 +8,7 @@ import dateUtil from "./dateUtil";
 import Layout from "./components/Layout/Layout";
 import AuthProvider from "./AuthProvider";
 import ApiProvider from "./ApiProvider";
+import ProfileProvider from "./ProfileProvider";
 
 export default function App() {
     return (
@@ -21,7 +22,9 @@ export default function App() {
                             utils={DayjsUtils}
                             libInstance={dateUtil}
                         >
-                            <Layout/>
+                            <ProfileProvider>
+                                <Layout/>
+                            </ProfileProvider>
                         </MuiPickersUtilsProvider>
                     </ThemeProvider>
                 </ApiProvider>
