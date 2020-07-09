@@ -16,6 +16,7 @@ export type Scalars = {
 
 
 export type AccountFilterInput = {
+  query?: Maybe<Scalars['String']>;
   expired?: Maybe<Scalars['Boolean']>;
   locked?: Maybe<Scalars['Boolean']>;
   credentialsExpired?: Maybe<Scalars['Boolean']>;
@@ -426,6 +427,64 @@ export enum XtdValueTypeEnum {
   XtdBoolean = 'XtdBoolean',
   XtdLogical = 'XtdLogical'
 }
+
+export type AccountFragment = { __typename: 'Account', username: string, created: string, lastModified: string, locked: boolean, expired: boolean, credentialsExpired: boolean, emailConfirmed: boolean, enabled: boolean, status: AccountStatus, profile: (
+    { __typename: 'Profile' }
+    & UserProfileFragment
+  ) };
+
+export type AccountListQueryVariables = Exact<{
+  input?: Maybe<AccountFilterInput>;
+}>;
+
+
+export type AccountListQuery = { __typename: 'Query', accounts: { __typename: 'AccountConnection', totalElements: number, nodes: Array<(
+      { __typename: 'Account' }
+      & AccountFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & PageInfoFragment
+    ) } };
+
+export type UpdateAccountStatusMutationVariables = Exact<{
+  input: AccountStatusUpdateInput;
+}>;
+
+
+export type UpdateAccountStatusMutation = { __typename: 'Mutation', updateAccountStatus?: Maybe<(
+    { __typename: 'Account' }
+    & AccountFragment
+  )> };
+
+export type LockAccountMutationVariables = Exact<{
+  username: Scalars['ID'];
+}>;
+
+
+export type LockAccountMutation = { __typename: 'Mutation', lockAccount?: Maybe<(
+    { __typename: 'Account' }
+    & AccountFragment
+  )> };
+
+export type UnlockAccountMutationVariables = Exact<{
+  username: Scalars['ID'];
+}>;
+
+
+export type UnlockAccountMutation = { __typename: 'Mutation', unlockAccount?: Maybe<(
+    { __typename: 'Account' }
+    & AccountFragment
+  )> };
+
+export type RequestEmailConfirmationMutationVariables = Exact<{
+  username: Scalars['ID'];
+}>;
+
+
+export type RequestEmailConfirmationMutation = { __typename: 'Mutation', requestEmailConfirmation?: Maybe<(
+    { __typename: 'Account' }
+    & AccountFragment
+  )> };
 
 export type CreateActivityMutationVariables = Exact<{
   input: RootInput;
@@ -1801,6 +1860,16 @@ export type NestDetailsFragment = (
   & RootDetails_XtdNest_Fragment
 );
 
+export type UpdateProfileMutationVariables = Exact<{
+  input: ProfileUpdateInput;
+}>;
+
+
+export type UpdateProfileMutation = { __typename: 'Mutation', updateProfile: (
+    { __typename: 'Profile' }
+    & UserProfileFragment
+  ) };
+
 export type CreatePropertyMutationVariables = Exact<{
   input: RootInput;
 }>;
@@ -2838,6 +2907,31 @@ export type TranslationFragment = { __typename: 'Translation', id: string, label
 
 export type UserProfileFragment = { __typename: 'Profile', username: string, firstName: string, lastName: string, email: string, organization: string };
 
+export const UserProfileFragmentDoc = gql`
+    fragment UserProfile on Profile {
+  username
+  firstName
+  lastName
+  email
+  organization
+}
+    `;
+export const AccountFragmentDoc = gql`
+    fragment Account on Account {
+  username
+  created
+  lastModified
+  locked
+  expired
+  credentialsExpired
+  emailConfirmed
+  enabled
+  status
+  profile {
+    ...UserProfile
+  }
+}
+    ${UserProfileFragmentDoc}`;
 export const TranslationFragmentDoc = gql`
     fragment Translation on Translation {
   id
@@ -3195,15 +3289,174 @@ export const MeasureDetailsFragmentDoc = gql`
     ${CatalogItemFragmentDoc}
 ${RootDetailsFragmentDoc}
 ${ValueDetailsFragmentDoc}`;
-export const UserProfileFragmentDoc = gql`
-    fragment UserProfile on Profile {
-  username
-  firstName
-  lastName
-  email
-  organization
+export const AccountListDocument = gql`
+    query AccountList($input: AccountFilterInput) {
+  accounts(input: $input) {
+    nodes {
+      ...Account
+    }
+    pageInfo {
+      ...PageInfo
+    }
+    totalElements
+  }
 }
-    `;
+    ${AccountFragmentDoc}
+${PageInfoFragmentDoc}`;
+
+/**
+ * __useAccountListQuery__
+ *
+ * To run a query within a React component, call `useAccountListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountListQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAccountListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AccountListQuery, AccountListQueryVariables>) {
+        return ApolloReactHooks.useQuery<AccountListQuery, AccountListQueryVariables>(AccountListDocument, baseOptions);
+      }
+export function useAccountListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AccountListQuery, AccountListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AccountListQuery, AccountListQueryVariables>(AccountListDocument, baseOptions);
+        }
+export type AccountListQueryHookResult = ReturnType<typeof useAccountListQuery>;
+export type AccountListLazyQueryHookResult = ReturnType<typeof useAccountListLazyQuery>;
+export type AccountListQueryResult = ApolloReactCommon.QueryResult<AccountListQuery, AccountListQueryVariables>;
+export const UpdateAccountStatusDocument = gql`
+    mutation UpdateAccountStatus($input: AccountStatusUpdateInput!) {
+  updateAccountStatus(input: $input) {
+    ...Account
+  }
+}
+    ${AccountFragmentDoc}`;
+export type UpdateAccountStatusMutationFn = ApolloReactCommon.MutationFunction<UpdateAccountStatusMutation, UpdateAccountStatusMutationVariables>;
+
+/**
+ * __useUpdateAccountStatusMutation__
+ *
+ * To run a mutation, you first call `useUpdateAccountStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAccountStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAccountStatusMutation, { data, loading, error }] = useUpdateAccountStatusMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAccountStatusMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAccountStatusMutation, UpdateAccountStatusMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateAccountStatusMutation, UpdateAccountStatusMutationVariables>(UpdateAccountStatusDocument, baseOptions);
+      }
+export type UpdateAccountStatusMutationHookResult = ReturnType<typeof useUpdateAccountStatusMutation>;
+export type UpdateAccountStatusMutationResult = ApolloReactCommon.MutationResult<UpdateAccountStatusMutation>;
+export type UpdateAccountStatusMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAccountStatusMutation, UpdateAccountStatusMutationVariables>;
+export const LockAccountDocument = gql`
+    mutation LockAccount($username: ID!) {
+  lockAccount(username: $username) {
+    ...Account
+  }
+}
+    ${AccountFragmentDoc}`;
+export type LockAccountMutationFn = ApolloReactCommon.MutationFunction<LockAccountMutation, LockAccountMutationVariables>;
+
+/**
+ * __useLockAccountMutation__
+ *
+ * To run a mutation, you first call `useLockAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLockAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [lockAccountMutation, { data, loading, error }] = useLockAccountMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useLockAccountMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<LockAccountMutation, LockAccountMutationVariables>) {
+        return ApolloReactHooks.useMutation<LockAccountMutation, LockAccountMutationVariables>(LockAccountDocument, baseOptions);
+      }
+export type LockAccountMutationHookResult = ReturnType<typeof useLockAccountMutation>;
+export type LockAccountMutationResult = ApolloReactCommon.MutationResult<LockAccountMutation>;
+export type LockAccountMutationOptions = ApolloReactCommon.BaseMutationOptions<LockAccountMutation, LockAccountMutationVariables>;
+export const UnlockAccountDocument = gql`
+    mutation UnlockAccount($username: ID!) {
+  unlockAccount(username: $username) {
+    ...Account
+  }
+}
+    ${AccountFragmentDoc}`;
+export type UnlockAccountMutationFn = ApolloReactCommon.MutationFunction<UnlockAccountMutation, UnlockAccountMutationVariables>;
+
+/**
+ * __useUnlockAccountMutation__
+ *
+ * To run a mutation, you first call `useUnlockAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnlockAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unlockAccountMutation, { data, loading, error }] = useUnlockAccountMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useUnlockAccountMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UnlockAccountMutation, UnlockAccountMutationVariables>) {
+        return ApolloReactHooks.useMutation<UnlockAccountMutation, UnlockAccountMutationVariables>(UnlockAccountDocument, baseOptions);
+      }
+export type UnlockAccountMutationHookResult = ReturnType<typeof useUnlockAccountMutation>;
+export type UnlockAccountMutationResult = ApolloReactCommon.MutationResult<UnlockAccountMutation>;
+export type UnlockAccountMutationOptions = ApolloReactCommon.BaseMutationOptions<UnlockAccountMutation, UnlockAccountMutationVariables>;
+export const RequestEmailConfirmationDocument = gql`
+    mutation RequestEmailConfirmation($username: ID!) {
+  requestEmailConfirmation(username: $username) {
+    ...Account
+  }
+}
+    ${AccountFragmentDoc}`;
+export type RequestEmailConfirmationMutationFn = ApolloReactCommon.MutationFunction<RequestEmailConfirmationMutation, RequestEmailConfirmationMutationVariables>;
+
+/**
+ * __useRequestEmailConfirmationMutation__
+ *
+ * To run a mutation, you first call `useRequestEmailConfirmationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRequestEmailConfirmationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [requestEmailConfirmationMutation, { data, loading, error }] = useRequestEmailConfirmationMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useRequestEmailConfirmationMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RequestEmailConfirmationMutation, RequestEmailConfirmationMutationVariables>) {
+        return ApolloReactHooks.useMutation<RequestEmailConfirmationMutation, RequestEmailConfirmationMutationVariables>(RequestEmailConfirmationDocument, baseOptions);
+      }
+export type RequestEmailConfirmationMutationHookResult = ReturnType<typeof useRequestEmailConfirmationMutation>;
+export type RequestEmailConfirmationMutationResult = ApolloReactCommon.MutationResult<RequestEmailConfirmationMutation>;
+export type RequestEmailConfirmationMutationOptions = ApolloReactCommon.BaseMutationOptions<RequestEmailConfirmationMutation, RequestEmailConfirmationMutationVariables>;
 export const CreateActivityDocument = gql`
     mutation CreateActivity($input: RootInput!) {
   createActivity(input: $input) {
@@ -5430,6 +5683,38 @@ export function useNestLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type NestQueryHookResult = ReturnType<typeof useNestQuery>;
 export type NestLazyQueryHookResult = ReturnType<typeof useNestLazyQuery>;
 export type NestQueryResult = ApolloReactCommon.QueryResult<NestQuery, NestQueryVariables>;
+export const UpdateProfileDocument = gql`
+    mutation UpdateProfile($input: ProfileUpdateInput!) {
+  updateProfile(input: $input) {
+    ...UserProfile
+  }
+}
+    ${UserProfileFragmentDoc}`;
+export type UpdateProfileMutationFn = ApolloReactCommon.MutationFunction<UpdateProfileMutation, UpdateProfileMutationVariables>;
+
+/**
+ * __useUpdateProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateProfileMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateProfileMutation, UpdateProfileMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(UpdateProfileDocument, baseOptions);
+      }
+export type UpdateProfileMutationHookResult = ReturnType<typeof useUpdateProfileMutation>;
+export type UpdateProfileMutationResult = ApolloReactCommon.MutationResult<UpdateProfileMutation>;
+export type UpdateProfileMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateProfileMutation, UpdateProfileMutationVariables>;
 export const CreatePropertyDocument = gql`
     mutation CreateProperty($input: RootInput!) {
   createProperty(input: $input) {

@@ -1,0 +1,35 @@
+query AccountList($input: AccountFilterInput) {
+    accounts(input: $input) {
+        nodes {
+            ...Account
+        }
+        pageInfo {
+            ...PageInfo
+        }
+        totalElements
+    }
+}
+
+mutation UpdateAccountStatus($input: AccountStatusUpdateInput!) {
+    updateAccountStatus(input: $input) {
+        ...Account
+    }
+}
+
+mutation LockAccount($username: ID!) {
+    lockAccount(username: $username) {
+        ...Account
+    }
+}
+
+mutation UnlockAccount($username: ID!) {
+    unlockAccount(username: $username) {
+        ...Account
+    }
+}
+
+mutation RequestEmailConfirmation($username: ID!) {
+    requestEmailConfirmation(username: $username) {
+        ...Account
+    }
+}

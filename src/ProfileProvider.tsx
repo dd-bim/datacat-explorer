@@ -1,8 +1,15 @@
 import React, {useContext} from "react";
 import {useProfileQuery, UserProfileFragment} from "./generated/types";
 import useAuthContext from "./hooks/useAuthContext";
+import {ApolloError} from "@apollo/client";
 
-export const ProfileContext = React.createContext<UserProfileFragment | null>(null);
+type ProfileContextState = {
+    loading: boolean,
+    error?: ApolloError,
+    profile?: UserProfileFragment
+}
+
+export const ProfileContext = React.createContext<ProfileContextState>({loading: false});
 
 export function useProfile() {
     return useContext(ProfileContext);
@@ -10,12 +17,12 @@ export function useProfile() {
 
 export default function ProfileProvider({children}: { children: React.ReactNode }) {
     const {token} = useAuthContext();
-    const {data} = useProfileQuery({
+    const {loading, error, data} = useProfileQuery({
         skip: !token
     });
 
     return (
-        <ProfileContext.Provider value={data?.profile ?? null}>
+        <ProfileContext.Provider value={{loading, error, profile: data?.profile}}>
             {children}
         </ProfileContext.Provider>
     );

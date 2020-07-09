@@ -1,0 +1,14 @@
+fragment Account on Account {
+    username
+    created
+    lastModified
+    locked
+    expired
+    credentialsExpired
+    emailConfirmed
+    enabled
+    status
+    profile {
+        ...UserProfile
+    }
+}

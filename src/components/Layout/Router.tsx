@@ -24,6 +24,8 @@ import ClassificationViews from "../Classification/ClassificationViews";
 import DocumentsViews from "../Documents/DocumentsViews";
 import AssignsPropertyWithValuesViews from "../AssignsPropertyWithValues/AssignsPropertyWithValuesViews";
 import FacetViews from "../Facet/FacetViews";
+import ProfileView from "../Profile/ProfileView";
+import AccountListView from "../Account/AccountListView";
 
 const useStyles = makeStyles(theme => ({
     graphiql: {
@@ -39,6 +41,12 @@ export default function Router() {
         <Switch>
             <Route path="/" exact>
                 <StatisticsView/>
+            </Route>
+            <Route path="/me" exact>
+                <ProfileView/>
+            </Route>
+            <Route path="/account">
+                <AccountListView/>
             </Route>
             <Route path="/search" exact>
                 <SearchView/>

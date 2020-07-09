@@ -30,7 +30,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         'margin-left': theme.spacing(1)
     },
     logoutButton: {
-        'margin-left': theme.spacing(1)
+        'margin-left': theme.spacing(1),
+        'text-transform': 'inherit'
+    },
+    logoutButtonTitle: {
+        display: "inline-block"
     },
     logo: {
         'max-width': '150px',
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export function AppBar() {
     const classes = useStyles();
-    const profile = useProfile();
+    const {profile} = useProfile();
     const { logout } = useAuthContext();
     const verifiedUser = useWriteAccess();
     let restrictedContent = [];
@@ -64,7 +68,10 @@ export function AppBar() {
                 endIcon={<ExitToAppIcon/>}
                 onClick={() => logout()}
             >
-                {profile.username}
+                <Tooltip title={profile.username}>
+                    <Typography variant="caption">{profile.firstName} {profile.lastName}</Typography>
+                </Tooltip>
+
             </Button>
         );
     }

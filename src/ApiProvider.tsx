@@ -16,6 +16,14 @@ export default function ApiProvider(props: ApiProviderProps) {
     const apolloClient = new ApolloClient({
         connectToDevTools: true,
         cache: new InMemoryCache({
+            typePolicies: {
+                'Account': {
+                    keyFields: ['username']
+                },
+                'Profile': {
+                    keyFields: ['username']
+                }
+            },
             possibleTypes
         }),
         link: new HttpLink({

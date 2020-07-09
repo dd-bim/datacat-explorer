@@ -8,6 +8,7 @@ import {SignupInput, useSignupFormMutation} from "../../generated/types";
 
 const usernameHelperText = "A username is required. No whitespace. Must start with a letter and have a minimum length of 3."
 const passwordHelperText = "A password is required and must have a minimum lenght of 8."
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 interface SignupFormProps {
     onSignup: () => void;
@@ -51,7 +52,7 @@ export default function SignupForm(props: SignupFormProps) {
                 label="Username"
                 required
                 error={!!errors.username}
-                helperText={errors.username ? usernameHelperText : ''}
+                helperText={errors.username ? usernameHelperText : 'Can not be changed later.'}
                 inputRef={register({
                     required: true,
                     minLength: 3,
@@ -117,8 +118,11 @@ export default function SignupForm(props: SignupFormProps) {
                 label="Email"
                 required
                 error={!!errors.email}
-                helperText={errors.email ? errors.email.message : ''}
-                inputRef={register({required: true})}
+                helperText={errors.email ? 'Please provide a valid email address.' : ''}
+                inputRef={register({
+                    required: true,
+                    pattern: emailRegex
+                })}
                 fullWidth
             />
 

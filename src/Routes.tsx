@@ -2,6 +2,8 @@ import React from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import StorageIcon from '@material-ui/icons/Storage';
 import HomeIcon from '@material-ui/icons/Home';
+import UserIcon from '@material-ui/icons/AccountCircle';
+import PeopleIcon from '@material-ui/icons/People';
 import {
     ActivityIcon,
     ActorIcon,
@@ -51,6 +53,8 @@ export type EntityTypesKeys = keyof typeof EntityTypes;
 export type EntityTypesMap = { [key in EntityTypesKeys]: RouteProperties };
 export interface RoutesMap extends EntityTypesMap {
     home: RouteProperties,
+    me: RouteProperties,
+    account: RouteProperties,
     search: RouteProperties,
     graphiql: RouteProperties,
     Facet: RouteProperties,
@@ -62,6 +66,19 @@ const Routes: RoutesMap = {
         category: RouteCategory.General,
         title: 'Home',
         path: ''
+    },
+    'me': {
+        icon: <UserIcon/>,
+        category: RouteCategory.General,
+        title: 'Profile',
+        path: 'me'
+    },
+    'account': {
+        icon: <PeopleIcon/>,
+        category: RouteCategory.General,
+        title: 'Accounts',
+        description: 'Manage user accounts',
+        path: 'account'
     },
     'search': {
         icon: <SearchIcon/>,
