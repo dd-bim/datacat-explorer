@@ -18,7 +18,7 @@ export default function useTableRows<T>(options: UseTableRowsOptions<T>) {
             return [];
         }
         return items.map(rowFactory);
-    }, [items]);
+    }, [items, rowFactory]);
 
     return { columns, rows }
 }

@@ -15,7 +15,7 @@ export function useLocalStorage<S>(key: string, initialState: S): [S, Dispatch<S
       return item ? JSON.parse(item) : initialState;
     } catch (error) {
       // If error also return initialState
-      console.log(error);
+      console.warn(error);
       return initialState;
     }
   });
@@ -32,7 +32,7 @@ export function useLocalStorage<S>(key: string, initialState: S): [S, Dispatch<S
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
       // A more advanced implementation would handle the error case
-      console.log(error);
+      console.warn(error);
     }
   };
   return [storedValue, setValue];

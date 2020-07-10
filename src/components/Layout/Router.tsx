@@ -45,7 +45,7 @@ export default function Router() {
             <Route path="/me" exact>
                 <ProfileView/>
             </Route>
-            <Route path="/account">
+            <Route path="/admin/account">
                 <AccountListView/>
             </Route>
             <Route path="/search" exact>
@@ -56,7 +56,7 @@ export default function Router() {
                     <GraphiQL fetcher={graphiqlFetcher}/>
                 </ViewWrapper>
             </Route>
-            <Route path="/facets">
+            <Route path="/admin/facets">
                 <FacetViews/>
             </Route>
             <Route path="/externalDocuments">

@@ -2,7 +2,6 @@ import React from "react";
 import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
-import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import {AssignsCollectionsFragment, CollectionFragment, EntityTypes, RootFragment} from "../../generated/types";
 import useItemSelection from "../Selection/useItemSelection";
@@ -34,7 +33,6 @@ export type AssignsCollectionsFormSetProps = {
 
 export default function AssignsCollectionsFormSet(props: AssignsCollectionsFormSetProps) {
     const {item, isUpdate} = props;
-    const {register} = useFormContext();
     const {
         selection: relatingObject,
         setSelection: setRelatingObject

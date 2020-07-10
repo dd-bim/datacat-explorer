@@ -2,7 +2,6 @@ import React from "react";
 import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
-import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import {
     AssignsPropertyWithValuesDetailsFragment,
@@ -48,7 +47,7 @@ export type AssignsPropertyWithValuesFormSetProps = {
 
 export default function AssignsPropertyWithValuesFormSet(props: AssignsPropertyWithValuesFormSetProps) {
     const {assignsPropertyWithValues, isUpdate} = props;
-    const {register} = useFormContext();
+
     const {
         selection: relatingObject,
         setSelection: setRelatingObject

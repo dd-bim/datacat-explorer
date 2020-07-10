@@ -7,10 +7,11 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
 
 type ConfirmButtonProps = {
     children: React.ReactNode,
-    title: React.ReactNode,
+    title: string,
     content: React.ReactNode,
     onConfirm(): void
 }
@@ -28,9 +29,11 @@ export default function ConfirmButton(props: ConfirmButtonProps & IconButtonProp
 
     return (
         <React.Fragment>
-            <IconButton onClick={handleOnOpen} {...otherProps}>
-                {children}
-            </IconButton>
+            <Tooltip title={title}>
+                <IconButton onClick={handleOnOpen} size="small" {...otherProps}>
+                    {children}
+                </IconButton>
+            </Tooltip>
             <Dialog
                 open={dialogOpen}
                 onBackdropClick={handleOnClose}

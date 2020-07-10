@@ -2,7 +2,6 @@ import React from "react";
 import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
-import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import {
     DocumentsDetailsFragment,
@@ -41,7 +40,6 @@ export type CollectsFormSetProps = {
 
 export default function DocumentsFormSet(props: CollectsFormSetProps) {
     const {documents, isUpdate} = props;
-    const {register} = useFormContext();
     const {
         selection: relatingDocument,
         setSelection: setRelatingDocument

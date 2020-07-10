@@ -17,6 +17,7 @@ export default function AppDrawer(props: DrawerProps) {
     const classes = useStyles();
     const compareFn = ([, a]: RouteEntry, [, b]: RouteEntry) => a.title.localeCompare(b.title);
     const general = getRoutes({ categories: [RouteCategory.General]});
+    const admin = getRoutes({ categories: [RouteCategory.Admin]});
     const objects = getRoutes({ categories: [RouteCategory.Object] }).sort(compareFn);
     const collections = getRoutes({ categories: [RouteCategory.Collection]}).sort(compareFn);
     const relationships = getRoutes({ categories: [RouteCategory.Relationship]}).sort(compareFn);
@@ -43,6 +44,9 @@ export default function AppDrawer(props: DrawerProps) {
                 <List dense>
                     <ListSubheader disableSticky>General</ListSubheader>
                     {general.map(([, props]) => appDrawerItem(props))}
+
+                    <ListSubheader disableSticky>Admin</ListSubheader>
+                    {admin.map(([, props]) => appDrawerItem(props))}
 
                     <ListSubheader disableSticky>Objects</ListSubheader>
                     {objects.map(([, props]) => appDrawerItem(props))}

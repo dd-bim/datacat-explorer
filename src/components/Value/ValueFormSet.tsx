@@ -43,7 +43,7 @@ export const useFormValues = (): (item?: ValueFragment) => ValueFormValues => {
 export type ValueFormSetProps = CatalogItemFormSetProps;
 
 export default function ValueFormSet(props: ValueFormSetProps) {
-    const { isUpdate } = props;
+    const {isUpdate} = props
     const { register, watch } = useFormContext();
     const valueType = watch('valueType');
 
@@ -134,7 +134,7 @@ export default function ValueFormSet(props: ValueFormSetProps) {
 
             </Grid>
 
-            <RootMetaFormSet/>
+            <RootMetaFormSet isUpdate={isUpdate}/>
         </React.Fragment>
     );
 }

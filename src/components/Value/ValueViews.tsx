@@ -24,7 +24,6 @@ import {toRootInput, toRootUpdateInput} from "../form/inputMappers";
 
 export const toInput = (formValues: ValueFormValues): ValueInput => {
     const {
-        facets,
         toleranceType,
         lowerTolerance,
         upperTolerance, valueRole,
@@ -44,7 +43,6 @@ export const toInput = (formValues: ValueFormValues): ValueInput => {
 
 export const toUpdateInput = (formValues: ValueFormValues): ValueUpdateInput => {
     const {
-        facets,
         toleranceType,
         lowerTolerance,
         upperTolerance, valueRole,

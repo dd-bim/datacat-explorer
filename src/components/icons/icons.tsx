@@ -19,7 +19,6 @@ import GroupWork from '@material-ui/icons/EmojiObjects';
 import Star from "@material-ui/icons/Star";
 import Comment from '@material-ui/icons/Comment';
 import AccountTree from '@material-ui/icons/AccountTree';
-import React from "react";
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 export {

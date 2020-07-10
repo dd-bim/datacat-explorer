@@ -73,9 +73,8 @@ const rowFactory = (item: AccountFragment) => {
         status: <StatusIcon value={status} fontSize="small"/>,
         actions: (
             <React.Fragment>
-                {locked ? <UnlockButton username={username} size="small"/> :
-                    <LockButton username={username} size="small"/>}
-                <EmailRequestButton username={username} size="small"/>
+                {locked ? <UnlockButton username={username}/> : <LockButton username={username}/>}
+                <EmailRequestButton username={username}/>
                 <ChangeStatusButton username={username} initialStatus={status}/>
             </React.Fragment>
 

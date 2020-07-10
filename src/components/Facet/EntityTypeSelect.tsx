@@ -23,7 +23,7 @@ export default function EntityTypeSelect({name}: {name: string}) {
     React.useEffect(() => {
         register(name, {required: true});
         return () => unregister(name);
-    }, [register, name]);
+    }, [register, unregister, name]);
 
     return (
         <Autocomplete

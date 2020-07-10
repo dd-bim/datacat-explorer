@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {DeleteForever} from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
@@ -49,7 +48,3 @@ export default function DeleteIconButton(props) {
         </React.Fragment>
     )
 }
-
-DeleteIconButton.propTypes = {
-    onDelete: PropTypes.func.isRequired
-};

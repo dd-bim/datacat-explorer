@@ -4,14 +4,14 @@ import {useFormContext, ValidationOptions} from "react-hook-form";
 import {SelectionItem, SelectionState} from "./types";
 
 export default <T extends CatalogItemFragment>({name, defaultValues, validationOptions}: { name: string, defaultValues: T[], validationOptions?: ValidationOptions }) => {
-    const {register, unregister, getValues, setValue} = useFormContext();
+    const {register, unregister, setValue} = useFormContext();
     const initialState: SelectionItem<T>[] = (defaultValues || []).map(value => ({state: SelectionState.PERSISTENT, ...value}));
     const [selection, setSelection] = useState(initialState);
 
     React.useEffect(() => {
         register(name, validationOptions);
         return () => unregister(name);
-    }, [register, name, validationOptions]);
+    }, [register, unregister, name, validationOptions]);
 
     const setFormValue = (selection: SelectionItem<T>[]) => {
         const value = selection.filter(x => x.state !== SelectionState.REMOVED).map(x => x.id).join(",");
@@ -40,8 +40,6 @@ export default <T extends CatalogItemFragment>({name, defaultValues, validationO
         setSelection(newState);
         setFormValue(newState);
     }
-
-    console.log(getValues());
 
     return {selection, add: handleOnAdd, remove: handleOnRemove}
 }

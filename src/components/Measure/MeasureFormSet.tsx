@@ -2,7 +2,6 @@ import React from "react";
 import TextInputGridItems, {useFormValues as useTranslationFormValues} from "../form/TextInputGridItems";
 import {CatalogItemFormSetProps} from "../form/CatalogItemFormSet";
 import Grid from "@material-ui/core/Grid";
-import {useFormContext} from "react-hook-form";
 import FormCaption from "../form/FormCaption";
 import {EntityTypes, MeasureFragment, RootFragment} from "../../generated/types";
 import useItemSelection from "../Selection/useItemSelection";
@@ -39,7 +38,6 @@ export type MeasureFormSetProps = {
 
 export default function MeasureFormSet(props: MeasureFormSetProps) {
     const {measure, isUpdate} = props;
-    const {register} = useFormContext();
     const {
         selection: unitComponent,
         setSelection: setRelatingObject

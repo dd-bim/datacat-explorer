@@ -30,12 +30,10 @@ export default function FacetSelect({name}: { name: string }) {
         setValue(name, value);
     }
 
-    console.log(defaultValue);
-
     useEffect(() => {
         register(name, {required: true});
         return () => unregister(name);
-    }, [register, name]);
+    }, [register, unregister, name]);
 
 
     return (

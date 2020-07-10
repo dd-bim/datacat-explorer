@@ -30,7 +30,7 @@ export default function StatisticsView() {
                         <Grid key={idx} item xs={4}>
                             <List>
                                 {getRoutes({categories: arr}).map(([id, route]) => {
-                                    const { icon, title, path, disabled } = route;
+                                    const { icon, title, disabled } = route;
                                     const statistics = data?.statistics.items.find(item => item.id === id);
                                     const label = `${id}: ${statistics?.count || 0}`;
 

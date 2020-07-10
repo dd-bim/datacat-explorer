@@ -33,6 +33,7 @@ import {EntityTypes} from "./generated/types";
 export enum RouteCategory {
     NOOP,
     General,
+    Admin,
     Object,
     Collection,
     Relationship,
@@ -75,10 +76,17 @@ const Routes: RoutesMap = {
     },
     'account': {
         icon: <PeopleIcon/>,
-        category: RouteCategory.General,
+        category: RouteCategory.Admin,
         title: 'Accounts',
         description: 'Manage user accounts',
         path: 'account'
+    },
+    'Facet': {
+        icon: <FacetIcon/>,
+        category: RouteCategory.Admin,
+        title: 'Facet',
+        description: 'Allow to tag catalog items',
+        path: 'facets'
     },
     'search': {
         icon: <SearchIcon/>,
@@ -93,13 +101,6 @@ const Routes: RoutesMap = {
         title: 'GraphiQL',
         description: 'Interact with the datacat API via an in-browser IDE',
         path: 'graphiql'
-    },
-    'Facet': {
-        icon: <FacetIcon/>,
-        category: RouteCategory.General,
-        title: 'Facet',
-        description: 'Allow to tag catalog items',
-        path: 'facets'
     },
     'XtdExternalDocument': {
         icon: <ExternalDocumentIcon/>,
@@ -316,6 +317,7 @@ export function getAbsPath(x: keyof RoutesMap | RouteProperties): string {
     switch (route.category) {
         case RouteCategory.NOOP: return '';
         case RouteCategory.General: return `/${route.path}`;
+        case RouteCategory.Admin: return `/admin/${route.path}`;
         case RouteCategory.Object: return `/objects/${route.path}`;
         case RouteCategory.Collection: return `/collections/${route.path}`;
         case RouteCategory.Relationship:

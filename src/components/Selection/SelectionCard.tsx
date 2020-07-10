@@ -11,7 +11,7 @@ import RedoIcon from "@material-ui/icons/Redo";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     new: {
         fontWeight: "bold",
         fontStyle: "italic"

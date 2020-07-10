@@ -11,6 +11,7 @@ import {AccountStatus, useUpdateAccountStatusMutation} from "../../generated/typ
 import TextField from "@material-ui/core/TextField";
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import MenuItem from "@material-ui/core/MenuItem";
+import Tooltip from "@material-ui/core/Tooltip";
 
 type ChangeStatusButtonProps = {
     username: string,
@@ -31,9 +32,11 @@ export default function ChangeStatusButton(props: ChangeStatusButtonProps & Icon
 
     return (
         <React.Fragment>
-            <IconButton onClick={handleOnOpen} {...otherProps}>
-                <VerifiedUserIcon/>
-            </IconButton>
+            <Tooltip title="Change account status">
+                <IconButton onClick={handleOnOpen} size="small" {...otherProps}>
+                    <VerifiedUserIcon fontSize="small"/>
+                </IconButton>
+            </Tooltip>
             <Dialog
                 open={dialogOpen}
                 onBackdropClick={handleOnClose}

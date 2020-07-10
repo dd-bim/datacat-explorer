@@ -33,7 +33,7 @@ type AuthProviderProps = {
 }
 
 const parseJwtToken = (token: JwtToken): JwtTokenPayload => {
-    const [header, payload, signature] = token.split(".");
+    const [, payload] = token.split(".");
     const decoded = atob(payload);
     const json = JSON.parse(decoded);
     json.exp = new Date(json.exp * 1000);

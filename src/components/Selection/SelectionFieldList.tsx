@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import SelectionCard from "./SelectionCard";
 import EmptySelectionCard from "./EmptySelectionCard";
 
-const useStyles = makeStyles(theme => ({
+makeStyles(() => ({
     new: {
         fontWeight: "bold",
         fontStyle: "italic"
