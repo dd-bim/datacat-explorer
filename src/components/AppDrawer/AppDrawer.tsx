@@ -6,6 +6,7 @@ import AppDrawerItem from "./AppDrawerItem";
 import {getAbsPath, getRoutes, RouteCategory, RouteEntry, RouteProperties} from "../../Routes";
 import {Toolbar} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const useStyles = makeStyles(() => ({
     drawerContainer: {
@@ -15,6 +16,8 @@ const useStyles = makeStyles(() => ({
 
 export default function AppDrawer(props: DrawerProps) {
     const classes = useStyles();
+    const {hasRole} = useAuthContext();
+    const isAdmin = hasRole('ADMIN');
     const compareFn = ([, a]: RouteEntry, [, b]: RouteEntry) => a.title.localeCompare(b.title);
     const general = getRoutes({ categories: [RouteCategory.General]});
     const admin = getRoutes({ categories: [RouteCategory.Admin]});
@@ -45,8 +48,12 @@ export default function AppDrawer(props: DrawerProps) {
                     <ListSubheader disableSticky>General</ListSubheader>
                     {general.map(([, props]) => appDrawerItem(props))}
 
-                    <ListSubheader disableSticky>Admin</ListSubheader>
-                    {admin.map(([, props]) => appDrawerItem(props))}
+                    {isAdmin && (
+                        <React.Fragment>
+                            <ListSubheader disableSticky>Admin</ListSubheader>
+                            {admin.map(([, props]) => appDrawerItem(props))}
+                        </React.Fragment>
+                    )}
 
                     <ListSubheader disableSticky>Objects</ListSubheader>
                     {objects.map(([, props]) => appDrawerItem(props))}
