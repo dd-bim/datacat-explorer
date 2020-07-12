@@ -34,14 +34,14 @@ export default function SignupForm(props: SignupFormProps) {
         onCompleted: (result) => result.success && onSignup()
     });
     const {handleSubmit, register, errors, getValues} = useForm<SignupFormFields>();
-    const onSubmit = async ({password2, ...profile}: SignupFormFields ) => {
+    const onSubmit = async ({password2, ...profile}: SignupFormFields) => {
         if (!cooldownReached || loading) return;
         await signup({variables: {profile}});
     }
 
     useEffect(() => {
-        const timeout = setTimeout(() => setCooldownReached(true), 5000);
-        return () => clearTimeout(timeout);
+        const timer = setTimeout(() => setCooldownReached(true), 5000);
+        return () => clearTimeout(timer);
     });
 
     return (
