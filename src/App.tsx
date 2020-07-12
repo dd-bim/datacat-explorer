@@ -9,6 +9,7 @@ import Layout from "./components/Layout/Layout";
 import AuthProvider from "./AuthProvider";
 import ApiProvider from "./ApiProvider";
 import ProfileProvider from "./ProfileProvider";
+import {SnackbarProvider} from "notistack";
 
 export default function App() {
     return (
@@ -18,14 +19,24 @@ export default function App() {
                     <ThemeProvider
                         theme={theme}
                     >
-                        <MuiPickersUtilsProvider
-                            utils={DayjsUtils}
-                            libInstance={dateUtil}
+                        <SnackbarProvider
+                            maxSnack={3}
+                            variant="success"
+                            autoHideDuration={5000}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
                         >
-                            <ProfileProvider>
-                                <Layout/>
-                            </ProfileProvider>
-                        </MuiPickersUtilsProvider>
+                            <MuiPickersUtilsProvider
+                                utils={DayjsUtils}
+                                libInstance={dateUtil}
+                            >
+                                <ProfileProvider>
+                                    <Layout/>
+                                </ProfileProvider>
+                            </MuiPickersUtilsProvider>
+                        </SnackbarProvider>
                     </ThemeProvider>
                 </ApiProvider>
             </AuthProvider>

@@ -7,14 +7,21 @@ import {Button} from "@material-ui/core";
 import useLocationQueryParam from "../../hooks/useLocationQueryParam";
 import {Alert} from "@material-ui/lab";
 import {Redirect} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
 export default function ConfirmationView() {
     const token = useLocationQueryParam('token', '');
     const {register, errors, handleSubmit} = useForm<ConfirmEmailMutationVariables>();
     const [success, setSuccess] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
     const [confirm, {error}] = useConfirmEmailMutation({
         errorPolicy: "all",
-        onCompleted: (result) => result.success && setSuccess(true)
+        onCompleted: (result) => {
+            if (result.success) {
+                enqueueSnackbar('Your email has been confirmed. Please use your credentials to log in!');
+                setSuccess(true);
+            }
+        }
     });
     const onSubmit = async (value: ConfirmEmailMutationVariables) => {
         await confirm({variables: value});

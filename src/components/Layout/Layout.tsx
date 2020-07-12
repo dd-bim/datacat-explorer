@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 export default function Layout() {
     const match = useRouteMatch("/graphiql");
     const classes = useStyles({graphiql: !!match});
-    const {token, login} = useAuthContext();
+    const {token} = useAuthContext();
 
     return (
         <div className={classes.root}>
@@ -59,7 +59,7 @@ export default function Layout() {
                                 <ConfirmationView/>
                             </Route>
                             <Route>
-                                <BoardingView onLogin={login}/>
+                                <BoardingView/>
                             </Route>
                         </Switch>
                     </ViewWrapper>

@@ -4,11 +4,8 @@ import LoginForm from "./LoginForm";
 import Typography from "@material-ui/core/Typography";
 import SignupForm from "./SignupForm";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {JwtToken} from "../../AuthProvider";
-
-interface BoardingViewProps {
-    onLogin: (token: JwtToken) => void
-}
+import useAuthContext from "../../hooks/useAuthContext";
+import {useSnackbar} from "notistack";
 
 const useStyles = makeStyles(theme => ({
     login: {
@@ -16,12 +13,21 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function BoardingView(props: BoardingViewProps) {
+export default function BoardingView() {
     const classes = useStyles();
-    const {onLogin} = props;
+    const {enqueueSnackbar} = useSnackbar();
+    const {login} = useAuthContext();
     const [signupSent, setSignupSent] = useState(false);
 
-    const handleSignup = () => setSignupSent(true);
+    const handleLogin = (token: string) => {
+        enqueueSnackbar('Welcome back!');
+        login(token);
+    }
+
+    const handleSignup = () => {
+        setSignupSent(true);
+        enqueueSnackbar('Signup successful! You will need to check your inbox and confirm your email address before logging in.');
+    }
 
     return (
         <Grid container spacing={4}>
@@ -32,7 +38,7 @@ export default function BoardingView(props: BoardingViewProps) {
                     Be aware that this is a preview installation.
                     The database will be reset with each new version until the API is deemed stable.
                 </Typography>
-                <LoginForm onLogin={onLogin}/>
+                <LoginForm onLogin={handleLogin}/>
             </Grid>
             {signupSent ? (
                 <Grid item xs={6}>
@@ -43,13 +49,13 @@ export default function BoardingView(props: BoardingViewProps) {
                 </Grid>
             ) : (
                 <Grid item xs={6}>
-                <Typography variant="h2">Signup</Typography>
-                <Typography variant="body1">
-                    Welcome to datacat! Feel free to sign up for read-access.
-                    The admin will provide you with write-access on request.
-                </Typography>
-                <SignupForm onSignup={handleSignup}/>
-            </Grid>
+                    <Typography variant="h2">Signup</Typography>
+                    <Typography variant="body1">
+                        Welcome to datacat! Feel free to sign up for read-access.
+                        The admin will provide you with write-access on request.
+                    </Typography>
+                    <SignupForm onSignup={handleSignup}/>
+                </Grid>
             )}
         </Grid>
     )
