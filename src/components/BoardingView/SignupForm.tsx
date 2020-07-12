@@ -40,7 +40,8 @@ export default function SignupForm(props: SignupFormProps) {
     }
 
     useEffect(() => {
-        setTimeout(() => setCooldownReached(true), 5000);
+        const timeout = setTimeout(() => setCooldownReached(true), 5000);
+        return () => clearTimeout(timeout);
     });
 
     return (
