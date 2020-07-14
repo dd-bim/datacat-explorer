@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import {Link} from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar";
 
+const mail = process.env.REACT_APP_MAIL;
+
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(3)
@@ -26,14 +28,24 @@ export default function ViewWrapper(props: PaperProps) {
             </Paper>
             <Toolbar className={classes.footer}>
                 <Typography variant="body2">
-                    datacat {process.env.REACT_APP_VERSION}<br/>
                     datacat-explorer {process.env.REACT_APP_EXPLORER_VERSION}
                 </Typography>
                 <Typography variant="body2" align="right">
-                    <Link href={`mailto:${process.env.REACT_APP_MAIL}`}>
-                        Admin | Support
-                    </Link><br/>
-                    <Link href="https://www.htw-dresden.de/hochschule/fakultaeten/geoinformation/ueber-uns/personen/professoren/prof-dr-ing-christian-clemen">Contact</Link>
+                    {mail && (
+                        <React.Fragment>
+                            <Link href={`mailto:${mail}`}>
+                                Admin | Support
+                            </Link>
+                            <br/>
+                        </React.Fragment>
+                    )}
+                    <Link
+                        target="_blank"
+                        rel="noopener"
+                        href="https://www.htw-dresden.de/hochschule/fakultaeten/geoinformation/ueber-uns/personen/professoren/prof-dr-ing-christian-clemen"
+                    >
+                        Contact
+                    </Link>
                 </Typography>
             </Toolbar>
         </React.Fragment>

@@ -1,6 +1,6 @@
 {
-  "name": "datacat-app",
-  "version": "0.4.3",
+  "name": "datacat-explorer",
+  "version": "0.4.3-dev",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.0.0-rc.12",
