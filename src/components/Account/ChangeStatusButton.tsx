@@ -53,7 +53,7 @@ export default function ChangeStatusButton(props: ChangeStatusButtonProps & Icon
                         id="account-status-select"
                         select
                         label="Select new status"
-                        value={initialStatus}
+                        value={status}
                         onChange={(e) => setStatus(e.target.value as AccountStatus)}
                         helperText="Please select your currency"
                     >
