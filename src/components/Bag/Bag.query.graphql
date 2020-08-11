@@ -1,7 +1,7 @@
 query BagList($input: FilterInput) {
     bags(input: $input) {
         nodes {
-            ...Root
+            ...Bag
         }
         pageInfo {
             ...PageInfo

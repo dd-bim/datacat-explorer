@@ -1,15 +1,3 @@
 fragment ExternalDocumentDetails on XtdExternalDocument {
     ...CatalogItem
-    documents {
-        nodes {
-            ...Root
-            relatedThings {
-                ...Root
-            }
-        }
-        pageInfo {
-            ...PageInfo
-        }
-        totalElements
-    }
 }

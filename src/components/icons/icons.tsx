@@ -19,7 +19,6 @@ import GroupWork from '@material-ui/icons/EmojiObjects';
 import Star from "@material-ui/icons/Star";
 import Comment from '@material-ui/icons/Comment';
 import AccountTree from '@material-ui/icons/AccountTree';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 export {
     Rowing as ActivityIcon,
@@ -42,6 +41,5 @@ export {
     AcUnit as UnitIcon,
     MoneyIcon as ValueIcon,
     CallMerge as AssignsIcon,
-    AccountTree as ClassifiesIcon,
-    LocalOfferIcon as FacetIcon,
+    AccountTree as ClassifiesIcon
 }

@@ -22,7 +22,6 @@
         "XtdValue"
     ],
     "Entity": [
-        "Facet",
         "Translation",
         "XtdActivity",
         "XtdActor",

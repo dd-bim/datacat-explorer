@@ -26,11 +26,10 @@ export const useFormValues = (): (item?: CollectsFragment) => BinaryRelationship
         id: item?.id ?? '',
         versionId: item?.versionId ?? '',
         versionDate: item?.versionDate ?? '',
-        facets: item?.facets ?? [],
         names: tmpl(item?.names),
         descriptions: tmpl(item?.descriptions),
         relating: item?.relatingCollection.id ?? '',
-        related: item?.relatedThings.map(x => x.id).join(',') ?? ''
+        related: item?.relatedThings.nodes.map(x => x.id).join(',') ?? ''
     });
 }
 
@@ -40,6 +39,9 @@ export type CollectsFormSetProps = {
 
 export default function CollectsFormSet(props: CollectsFormSetProps) {
     const {collects, isUpdate} = props;
+
+    console.log(collects);
+
     const {
         selection: relatingCollection,
         setSelection: setRelatingCollection
@@ -49,7 +51,7 @@ export default function CollectsFormSet(props: CollectsFormSetProps) {
     });
     const {selection: relatedThings, add, remove} = useItemsSelection({
         name: 'related',
-        defaultValues: collects?.relatedThings ?? []
+        defaultValues: collects?.relatedThings.nodes ?? []
     });
     const handleSetRelatingCollection = (item: CatalogItemFragment) => {
         setRelatingCollection(item as SelectionItem<CollectionFragment>);

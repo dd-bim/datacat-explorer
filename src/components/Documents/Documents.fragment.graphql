@@ -4,6 +4,9 @@ fragment Documents on XtdRelDocuments {
         ...ExternalDocument
     }
     relatedThings {
-        ...Root
+        nodes {
+            ...Root
+        }
+        totalElements
     }
 }

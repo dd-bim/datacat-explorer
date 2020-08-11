@@ -5,15 +5,4 @@ fragment Root on XtdRoot {
     descriptions {
         ...Translation
     }
-    actedUponBy { totalElements }
-    actsUpon { totalElements }
-    associatedBy { totalElements }
-    associates { totalElements }
-    collectedBy { totalElements }
-    composedBy { totalElements }
-    composes { totalElements }
-    groupedBy { totalElements }
-    groups { totalElements }
-    specializedBy { totalElements }
-    specializes { totalElements }
 }

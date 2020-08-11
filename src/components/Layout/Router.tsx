@@ -23,7 +23,6 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import ClassificationViews from "../Classification/ClassificationViews";
 import DocumentsViews from "../Documents/DocumentsViews";
 import AssignsPropertyWithValuesViews from "../AssignsPropertyWithValues/AssignsPropertyWithValuesViews";
-import FacetViews from "../Facet/FacetViews";
 import ProfileView from "../Profile/ProfileView";
 import AccountListView from "../Account/AccountListView";
 
@@ -55,9 +54,6 @@ export default function Router() {
                 <ViewWrapper className={classes.graphiql}>
                     <GraphiQL fetcher={graphiqlFetcher}/>
                 </ViewWrapper>
-            </Route>
-            <Route path="/admin/facets">
-                <FacetViews/>
             </Route>
             <Route path="/externalDocuments">
                 <ExternalDocumentViews/>

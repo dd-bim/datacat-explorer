@@ -31,7 +31,6 @@ export const useFormValues = (): (item?: AssignsPropertyWithValuesFragment) => A
             id: item?.id ?? '',
             versionId: item?.versionId ?? '',
             versionDate: item?.versionDate ?? '',
-            facets: item?.facets ?? [],
             names: tmpl(item?.names),
             descriptions: tmpl(item?.descriptions),
             relatingObject: item?.relatingObject.id ?? '',

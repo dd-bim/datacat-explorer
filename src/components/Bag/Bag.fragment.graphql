@@ -1,4 +1,12 @@
 fragment Bag on XtdBag {
-    ...CatalogItem
     ...Root
+    collects {
+        nodes {
+            id
+            relatedThings {
+                totalElements
+            }
+        }
+        totalElements
+    }
 }

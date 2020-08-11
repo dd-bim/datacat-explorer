@@ -17,7 +17,6 @@ import {
     ComposesIcon,
     DocumentsIcon,
     ExternalDocumentIcon,
-    FacetIcon,
     GroupsIcon,
     MeasureWithUnitIcon,
     NestIcon,
@@ -52,13 +51,13 @@ export interface RouteProperties {
 
 export type EntityTypesKeys = keyof typeof EntityTypes;
 export type EntityTypesMap = { [key in EntityTypesKeys]: RouteProperties };
+
 export interface RoutesMap extends EntityTypesMap {
     home: RouteProperties,
     me: RouteProperties,
     account: RouteProperties,
     search: RouteProperties,
-    graphiql: RouteProperties,
-    Facet: RouteProperties,
+    graphiql: RouteProperties
 }
 
 const Routes: RoutesMap = {
@@ -80,13 +79,6 @@ const Routes: RoutesMap = {
         title: 'Accounts',
         description: 'Manage user accounts',
         path: 'account'
-    },
-    'Facet': {
-        icon: <FacetIcon/>,
-        category: RouteCategory.Admin,
-        title: 'Facet',
-        description: 'Allow to tag catalog items',
-        path: 'facets'
     },
     'search': {
         icon: <SearchIcon/>,
@@ -303,7 +295,7 @@ export type RouteEntry = [string, RouteProperties];
 
 export type RouteEntryPredicate = (value: RouteEntry, index: number, array: RouteEntry[]) => unknown;
 
-export function getRoutes({ categories, predicate }: { categories?: RouteCategory[], predicate?: RouteEntryPredicate }): RouteEntry[] {
+export function getRoutes({categories, predicate}: { categories?: RouteCategory[], predicate?: RouteEntryPredicate }): RouteEntry[] {
     let entries: RouteEntry[] = Object.entries(Routes);
     if (categories) {
         entries = entries.filter(([, {category}]) => categories?.includes(category))
@@ -315,11 +307,16 @@ export function getAbsPath(x: keyof RoutesMap | RouteProperties): string {
     const route = (typeof x === 'string') ? Routes[x] : x;
 
     switch (route.category) {
-        case RouteCategory.NOOP: return '';
-        case RouteCategory.General: return `/${route.path}`;
-        case RouteCategory.Admin: return `/admin/${route.path}`;
-        case RouteCategory.Object: return `/objects/${route.path}`;
-        case RouteCategory.Collection: return `/collections/${route.path}`;
+        case RouteCategory.NOOP:
+            return '';
+        case RouteCategory.General:
+            return `/${route.path}`;
+        case RouteCategory.Admin:
+            return `/admin/${route.path}`;
+        case RouteCategory.Object:
+            return `/objects/${route.path}`;
+        case RouteCategory.Collection:
+            return `/collections/${route.path}`;
         case RouteCategory.Relationship:
         case RouteCategory.Assignment:
         case RouteCategory.Association: {

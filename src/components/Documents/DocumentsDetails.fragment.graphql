@@ -1,9 +1,12 @@
 fragment DocumentsDetails on XtdRelDocuments {
     ...RootDetails
     relatingDocument {
-        ...ExternalDocumentDetails
+        ...ExternalDocument
     }
     relatedThings {
-        ...Root
+        nodes {
+            ...Root
+        }
+        totalElements
     }
 }

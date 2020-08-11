@@ -26,11 +26,10 @@ export const useFormValues = (): (item?: DocumentsFragment) => BinaryRelationshi
         id: item?.id ?? '',
         versionId: item?.versionId ?? '',
         versionDate: item?.versionDate ?? '',
-        facets: item?.facets ?? [],
         names: tmpl(item?.names),
         descriptions: tmpl(item?.descriptions),
         relating: item?.relatingDocument.id ?? '',
-        related: item?.relatedThings.map(x => x.id).join(',') ?? ''
+        related: item?.relatedThings.nodes.map(x => x.id).join(',') ?? ''
     });
 }
 
@@ -53,7 +52,7 @@ export default function DocumentsFormSet(props: CollectsFormSetProps) {
         remove: removeRelatedThing
     } = useItemsSelection<RootFragment>({
         name: 'related',
-        defaultValues: documents?.relatedThings ?? []
+        defaultValues: documents?.relatedThings.nodes ?? []
     });
 
     return (

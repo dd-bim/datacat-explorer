@@ -22,19 +22,17 @@ export const toTextInput = (formValues: TranslationFormValues): TextInput => {
 };
 
 export const toEntityInput = (formValues: CatalogItemFormValues): EntityInput => {
-    const {id, facets, names} = formValues;
+    const {id, names} = formValues;
     return {
         id: isValidId(id) ? id : undefined,
-        facets: facets.map(x => x.id),
         names: names.map(x => toTextInput(x)).filter(x => isValidTranslation(x)),
     };
 };
 
 export const toEntityUpdateInput = (formValues: CatalogItemFormValues): EntityUpdateInput => {
-    const {id, facets, names} = formValues;
+    const {id, names} = formValues;
     return {
         id,
-        facets: facets.map(x => x.id),
         names: names.map(x => toTextInput(x)).filter(x => isValidTranslation(x)),
     };
 }

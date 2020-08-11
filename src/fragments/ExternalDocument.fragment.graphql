@@ -1,6 +1,3 @@
 fragment ExternalDocument on XtdExternalDocument {
     ...CatalogItem
-    documents {
-        totalElements
-    }
 }

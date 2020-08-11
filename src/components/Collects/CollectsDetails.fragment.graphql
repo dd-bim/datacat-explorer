@@ -4,6 +4,9 @@ fragment CollectsDetails on XtdRelCollects {
         ...Root
     }
     relatedThings {
-        ...Root
+        nodes {
+            ...Root
+        }
+        totalElements
     }
 }

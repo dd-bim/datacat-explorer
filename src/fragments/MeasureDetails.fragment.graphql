@@ -1,5 +1,4 @@
 fragment MeasureDetails on XtdMeasureWithUnit {
-    ...CatalogItem
     ...RootDetails
     unitComponent {
         ...RootDetails

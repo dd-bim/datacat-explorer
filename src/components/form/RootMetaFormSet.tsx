@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import FormCaption from "./FormCaption";
 import TextField from "@material-ui/core/TextField";
 import TextFieldOptions from "./TextFieldOptions";
-import FacetSelect from "./FacetSelect";
 import {useFormContext} from "react-hook-form";
 
 export default function({isUpdate}: {isUpdate?: boolean}) {
@@ -23,10 +22,6 @@ export default function({isUpdate}: {isUpdate?: boolean}) {
                     name="id"
                     {...TextFieldOptions}
                 />
-            </Grid>
-
-            <Grid item xs={12}>
-                <FacetSelect name="facets"/>
             </Grid>
 
             <Grid item xs={12}>
