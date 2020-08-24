@@ -28,7 +28,7 @@ export default function ViewWrapper(props: PaperProps) {
             </Paper>
             <Toolbar className={classes.footer}>
                 <Typography variant="body2">
-                    datacat-explorer {process.env.REACT_APP_EXPLORER_VERSION}
+                    datacat-explorer {process.env.REACT_APP_VERSION}
                 </Typography>
                 <Typography variant="body2" align="right">
                     {mail && (
