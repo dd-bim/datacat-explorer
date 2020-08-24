@@ -4,14 +4,6 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
-ARG TITLE="datacat Explorer"
-ARG API=/graphql
-ARG MAIL
-
-ENV REACT_APP_TITLE=${TITLE}
-ENV REACT_APP_API=${API}
-ENV REACT_APP_MAIL=${MAIL}
-
 COPY tsconfig.json ./
 COPY src ./src
 COPY public ./public
