@@ -1,4 +1,4 @@
-FROM node AS build
+FROM node:lts-alpine
 WORKDIR /app
 
 COPY package.json package-lock.json ./
@@ -7,9 +7,13 @@ RUN npm install
 COPY tsconfig.json ./
 COPY src ./src
 COPY public ./public
-RUN npm run-script build
 
-FROM nginx:stable-alpine
+ENV REACT_APP_VERSION=""
+ENV REACT_APP_TITLE="datacat Explorer"
+ENV REACT_APP_API=/graphql
+ENV REACT_APP_MAIL=""
 
-COPY --from=build /app/build/ /var/www
-COPY nginx.conf /etc/nginx/templates/default.conf.template
+EXPOSE 3000
+CMD ["npm", "start"]
+
+
